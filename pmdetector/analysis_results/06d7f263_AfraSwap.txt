@@ -171,34 +171,34 @@ Path #1:
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
 
 Path #2:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #3:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
-  Path Operations:
-    1. transfer
-
-Path #4:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #5:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #6:
   Source: external_input_params in AfraSwap_Token.mint
   Sink: tainted_erc20_transfer in AfraSwap_Token._mint
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+
+Path #3:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #4:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #5:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #6:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom

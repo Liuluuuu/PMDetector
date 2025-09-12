@@ -1,7 +1,3 @@
-"""
-Sanity checker module for verifying vulnerabilities identified by LLMs.
-This module reduces FPs by checking for common defenses and mitigations that would block the identified attack paths.
-"""
 from typing import Dict, List, Optional, Set
 import re
 import os
@@ -77,7 +73,6 @@ class SanityChecker:
             version_str = extract_solidity_version(source_code_path)
             print(f"Extracted Solidity version: {version_str}")
             
-            # Ensure the correct Solidity compiler is installed and used
             solc_path = ensure_solc_version(version_str)
             match = re.search(r'solc-v(\d+\.\d+\.\d+)', solc_path)
             actual_version = version_str
@@ -91,7 +86,6 @@ class SanityChecker:
                 temp_file = os.path.join(source_dir, "temp_" + os.path.basename(source_code_path))
                 shutil.copy2(source_code_path, temp_file)
                 
-                # Adapt the pragma statements in the temporary file
                 adapt_pragma_to_version(temp_file, actual_version)
 
                 source_code_path = temp_file
@@ -142,15 +136,12 @@ class SanityChecker:
             else:
                 contract_name = contract_id
                 
-            # print(f"Looking for contract: {contract_name}")
-                
             contract = self._find_contract_by_name(contract_name)
             if not contract:
                 print(f"Could not find contract for {contract_id}")
                 refined_results[contract_id] = contract_data
                 continue
                 
-            # print(f"===========Testing: Successfully retreive Contract {contract_name}================")
 
             filtered_data = self._apply_filters(contract, contract_data)
             refined_results[contract_id] = filtered_data
@@ -158,27 +149,19 @@ class SanityChecker:
         return refined_results
 
     def _build_contract_maps(self):
-        """
-        Build maps of contracts to their functions, modifiers, and state variables.
-        """
         for contract in self.slither.contracts:
             self.contract_functions_map[contract.name] = {func.name: func for func in contract.functions}
             self.contract_modifiers_map[contract.name] = {mod.name: mod for mod in contract.modifiers}
             self.contract_variables_map[contract.name] = {var.name: var for var in contract.state_variables}
 
     def _find_contract_by_name(self, contract_name: str) -> Optional[Contract]:
-        """
-        Find a contract by name with improved matching logic.
-        """
         if not contract_name:
             return None
 
-        # Try exact match first
         for contract in self.slither.contracts:
             if contract.name == contract_name:
                 return contract
 
-        # Try case-insensitive match
         for contract in self.slither.contracts:
             try:
                 contract_name_str = str(contract.name)
@@ -187,7 +170,6 @@ class SanityChecker:
             except Exception:
                 continue
 
-        # Try partial match (contract name contains the search term)
         for contract in self.slither.contracts:
             try:
                 contract_name_str = str(contract.name)
@@ -196,7 +178,6 @@ class SanityChecker:
             except Exception:
                 continue
                 
-        # Try partial match (search term contains the contract name)
         for contract in self.slither.contracts:
             try:
                 contract_name_str = str(contract.name)
@@ -205,7 +186,6 @@ class SanityChecker:
             except Exception:
                 continue
                 
-        # Try to find the main contract (often the one with the most functions or state variables)
         if self.slither.contracts:
             main_contract = max(self.slither.contracts, 
                                key=lambda c: len(list(c.functions)) + len(list(c.state_variables)))
@@ -217,7 +197,6 @@ class SanityChecker:
     def _apply_filters(self, contract: Contract, contract_data: Dict) -> Dict:
         vulnerable_functions = contract_data.get("vulnerable_functions", [])
         
-        # Check for High-Confidence TP pattern
         if self._is_known_tp_pattern(contract, vulnerable_functions):
             filter_status = "Verified True Positive"
             filter_reason = "Known Vulnerability Pattern Confirmed"
@@ -242,10 +221,6 @@ class SanityChecker:
         return result
 
     def _check_mitigations_present(self, contract: Contract, vulnerable_functions: List[str]) -> bool:
-        """
-        Checks if ALL DEX-interacting paths identified by the LLM have mitigations.
-        If no DEX paths are found, this filter does not apply.
-        """
         found_dex_interaction = False
         for func_name in vulnerable_functions:
             function = self._find_function_in_contract(contract, func_name)
@@ -261,10 +236,6 @@ class SanityChecker:
         return found_dex_interaction
 
     def _check_external_dependency(self, contract: Contract, vulnerable_functions: List[str]) -> bool:
-        """
-        Check if the vulnerability is PURELY hypothetical. 
-        This is only true if ALL flagged functions are standard token ops AND are ALL self-contained.
-        """
         if not vulnerable_functions:
             return False
         
@@ -280,7 +251,9 @@ class SanityChecker:
         return True
 
     def _is_dex_interaction_ir(self, ir) -> bool:
-        """Checks if a SlithIR operation is a DEX interaction."""
+        """
+        Checks if a SlithIR operation is a DEX interaction.
+        """
         if hasattr(ir, 'function_name') and any(dex_func in ir.function_name.lower() for dex_func in self.DEX_INTERACTION_FUNCTIONS):
             return True
         if hasattr(ir, 'function') and ir.function and any(dex_func in ir.function.name.lower() for dex_func in self.DEX_INTERACTION_FUNCTIONS):
@@ -288,10 +261,6 @@ class SanityChecker:
         return False
     
     def _find_function_in_contract(self, contract: Contract, func_name: str) -> Optional[Function]:
-        """
-        Find a function in a contract by name.
-        """
-        # Handle function names with contract prefix (e.g., "Contract.function")
         if "." in func_name:
             parts = func_name.split(".")
             func_name = parts[-1]
@@ -308,7 +277,6 @@ class SanityChecker:
             except Exception:
                 continue
         
-        # Try to find in inherited functions
         for base_contract in contract.inheritance:
             for function in base_contract.functions:
                 try:
@@ -326,7 +294,6 @@ class SanityChecker:
         """
         Check if a function has access control modifiers or checks.
         """
-        # Check for access control modifiers
         for modifier in function.modifiers:
             if modifier.name in self.ACCESS_CONTROL_MODIFIERS:
                 return True
@@ -338,7 +305,6 @@ class SanityChecker:
             except Exception:
                 pass
         
-        # Check for require statements with msg.sender checks
         for node in function.nodes:
             if node.contains_require_or_assert():
                 for ir in node.irs:
@@ -363,7 +329,6 @@ class SanityChecker:
         for node in function.nodes:
             for ir in node.irs:
                 if isinstance(ir, (HighLevelCall, LowLevelCall)):
-                    # Check if the function name is a DEX interaction function
                     if hasattr(ir, 'function_name'):
                         try:
                             func_name_str = str(ir.function_name)
@@ -371,7 +336,6 @@ class SanityChecker:
                                 return True
                         except Exception:
                             pass
-                    # Check if the function is a DEX interaction function
                     if hasattr(ir, 'function') and ir.function:
                         try:
                             func_name_str = str(ir.function.name)
@@ -386,7 +350,6 @@ class SanityChecker:
         """
         Check if a function has reentrancy guards.
         """
-        # Check for reentrancy guards
         for modifier in function.modifiers:
             if modifier.name in self.REENTRANCY_GUARD_MODIFIERS:
                 return True
@@ -398,7 +361,6 @@ class SanityChecker:
             except Exception:
                 pass
         
-        # Check for manual locks
         for node in function.nodes:
             for ir in node.irs:
                 if hasattr(ir, 'lvalue') and hasattr(ir, 'rvalue'):
@@ -456,19 +418,14 @@ class SanityChecker:
         return False
 
     def _calls_price_sensitive_system(self, function: Function) -> bool:
-        """
-        TODO: Check if a function calls price-sensitive systems.
-        """
         for node in function.nodes:
             for ir in node.irs:
                 if isinstance(ir, (HighLevelCall, LowLevelCall)):
-                    # Check if the call is to a price-sensitive system
                     if hasattr(ir, 'destination'):
                         dest_str = str(ir.destination).lower()
                         if any(system in dest_str for system in self.PRICE_SENSITIVE_SYSTEMS):
                             return True
                     
-                    # Check function name for price-sensitive keywords
                     if hasattr(ir, 'function_name'):
                         try:
                             func_name_str = str(ir.function_name)
@@ -477,8 +434,7 @@ class SanityChecker:
                                 return True
                         except Exception:
                             pass
-                    
-                    # Check if the function is a price-sensitive function
+
                     if hasattr(ir, 'function') and ir.function:
                         try:
                             func_name_str = str(ir.function.name)
@@ -504,12 +460,6 @@ class SanityChecker:
         if self._interacts_with_dex(function) and self._has_access_control(function):
             print(f"Mitigation Found in {function.name}: DEX interaction is access-controlled.")
             return True
-
-        # Check for TWAP usage (a strong indicator of mitigation)
-        # state_vars_read = {var.name for var in function.state_variables_read}
-        # if 'priceCumulativeLast' in state_vars_read or 'lastObservation' in state_vars_read:
-        #     print(f"Mitigation Found in {function.name}: Uses TWAP-related variables.")
-        #     return True
         
         if self._has_cooldown_check(function):
             print(f"Mitigation Found in {function.name}: Cooldown/delay mechanism.")
@@ -519,7 +469,6 @@ class SanityChecker:
             print(f"Mitigation Found in {function.name}: Swap is triggered from within a transfer (likely fee-on-transfer), not a direct exploit.")
             return True
 
-        # Recurse 
         for node in function.nodes:
             for ir in node.irs:
                 if isinstance(ir, InternalCall) and ir.function:
@@ -529,30 +478,21 @@ class SanityChecker:
         return False
 
     def _is_self_contained(self, function: Function) -> bool:
-        """
-        Check if a function is self-contained, meaning it makes no external calls and only modifies its own state.
-        """
         for node in function.nodes:
             for ir in node.irs:
-                # If there is ANY high-level or low-level external call, it's not self-contained.
                 if isinstance(ir, (HighLevelCall, LowLevelCall)):
                     return False
-        
-        # Check that all written state variables belong to this contract's inheritance tree, this handles complex inheritance scenarios.
+
         contract_and_ancestors = {c.name for c in function.contract.inheritance}
         contract_and_ancestors.add(function.contract.name)
         
         for var in function.state_variables_written:
             if var.contract.name not in contract_and_ancestors:
-                return False # Modifies state of an external, unrelated contract
+                return False
 
         return True
 
     def _is_known_tp_pattern(self, contract: Contract, vulnerable_functions: List[str]) -> bool:
-        """
-        Refined check for high-confidence TP patterns.
-        TP Pattern: Reading contract's own balance AND using it in a DEX call in the same function
-        """
         for func_name in vulnerable_functions:
             function = self._find_function_in_contract(contract, func_name)
             if not function: continue
@@ -560,11 +500,9 @@ class SanityChecker:
             reads_own_balance = False
             calls_dex_with_spot_price = False
             for node in function.nodes:
-                # Check for `balanceOf(address(this))`
                 if "balanceOf(address(this))" in str(node.expression):
                     reads_own_balance = True
 
-                # Check for unsafe DEX call
                 for ir in node.irs:
                     if isinstance(ir, HighLevelCall) and ir.function_name in self.DEX_INTERACTION_FUNCTIONS:
                         calls_dex_with_spot_price = True

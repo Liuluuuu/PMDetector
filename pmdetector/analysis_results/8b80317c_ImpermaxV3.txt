@@ -1137,7 +1137,18 @@ Sink #139: tainted_state_changing_external_call
 === Tainted Paths ===
 Path #1:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.exchangeRate
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrow
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_907 = CONVERT underlying to IERC20
+    4. TMP_909(uint256) = HIGH_LEVEL_CALL, dest:TMP_907(IERC20), function:balanceOf, arguments:['TMP_908']  
+    5. balance(uint256) := TMP_909(uint256)
+    6. TMP_910(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['balance', 'borrowAmount'] 
+
+Path #2:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BInterestRateModel.redeem
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
@@ -1145,9 +1156,27 @@ Path #1:
     4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
     5. totalBalance(uint256) := TMP_665(uint256)
     6. _totalBalance(uint256) := totalBalance(uint256)
-    7. TMP_670(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+    7. TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+    8. TMP_331(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_330', '_totalSupply'] 
+    9. TMP_350(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
 
-Path #2:
+Path #3:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BInterestRateModel._calculateBorrowRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+
+Path #4:
+  Source: external_input_params in ImpermaxV3Borrowable.liquidate
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.liquidate
+  Path Operations:
+    1. liquidate
+
+Path #5:
   Source: external_input_params in ImpermaxV3Borrowable.borrowBalance
   Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._updateBorrow
   Path Operations:
@@ -1161,13 +1190,514 @@ Path #2:
     8. TMP_876(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.borrowBalance(uint256)(tokenId)
     9. accountBorrowsPrior(uint256) := TMP_876(uint256)
 
-Path #3:
-  Source: external_input_params in ImpermaxV3Borrowable.borrow
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrow
+Path #6:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BInterestRateModel.redeem
   Path Operations:
-    1. borrow
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+    7. TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+    8. TMP_331(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_330', '_totalSupply'] 
+    9. TMP_350(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
+    10. TMP_351(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['redeemTokens', 'TMP_350'] 
 
-Path #4:
+Path #7:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BInterestRateModel.exchangeRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+    7. TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+
+Path #8:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BSetter.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_509 = CONVERT underlying to IERC20
+    4. TMP_511(uint256) = HIGH_LEVEL_CALL, dest:TMP_509(IERC20), function:balanceOf, arguments:['TMP_510']  
+    5. balance(uint256) := TMP_511(uint256)
+
+Path #9:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BSetter.exchangeRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+    7. TMP_507(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+
+Path #10:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.redeem
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. TMP_859(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', 'totalBorrows'] 
+    7. _actualBalance(uint256) := TMP_859(uint256)
+    8. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_actualBalance', '1000000000000000000'] 
+    9. TMP_864(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_863', '_totalSupply'] 
+    10. _exchangeRate(uint256) := TMP_864(uint256)
+    11. TMP_865(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable._mintReserves(uint256,uint256)(_exchangeRate,_totalSupply)
+    12. TMP_690(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.exchangeRate()()
+    13. TMP_691(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['redeemTokens', 'TMP_690'] 
+
+Path #11:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in PoolToken._burn
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
+    10. mintTokens(uint256) := TMP_678(uint256)
+    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
+    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
+    13. totalSupply(uint256) := TMP_728(uint256)
+
+Path #12:
+  Source: external_input_params in BSetter._setAdjustSpeed
+  Sink: tainted_state_changing_external_call in BInterestRateModel.accrueInterest
+  Path Operations:
+    1. _setAdjustSpeed
+    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
+    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
+    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
+    5. TMP_777(uint256) = TMP_776 * timeElapsed
+    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
+    7. tmp_scope_0(uint256) := TMP_778(uint256)
+    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
+    9. adjustFactor(uint256) := TMP_779(uint256)
+    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
+    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
+    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
+    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
+    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
+    15. _borrowRate(uint256) := TMP_789(uint256)
+    16. TMP_799 = CONVERT _borrowRate to uint48
+    17. borrowRate(uint48) := TMP_799(uint48)
+    18. TMP_469 = CONVERT borrowRate to uint256
+    19. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_469', 'timeElapsed'] 
+    20. interestFactor(uint256) := TMP_470(uint256)
+    21. TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_borrowIndex'] 
+
+Path #13:
+  Source: external_input_params in BSetter._setAdjustSpeed
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
+  Path Operations:
+    1. _setAdjustSpeed
+    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
+    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
+    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
+    5. TMP_777(uint256) = TMP_776 * timeElapsed
+    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
+    7. tmp_scope_0(uint256) := TMP_778(uint256)
+    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
+    9. adjustFactor(uint256) := TMP_779(uint256)
+    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
+    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
+    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
+    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
+    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
+    15. _borrowRate(uint256) := TMP_789(uint256)
+    16. TMP_799 = CONVERT _borrowRate to uint48
+    17. borrowRate(uint48) := TMP_799(uint48)
+    18. TMP_809 = CONVERT borrowRate to uint256
+    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
+    20. interestFactor(uint256) := TMP_810(uint256)
+    21. TMP_811(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_totalBorrows'] 
+    22. TMP_812(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_811', '1000000000000000000'] 
+    23. interestAccumulated(uint256) := TMP_812(uint256)
+    24. TMP_813(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalBorrows', 'interestAccumulated'] 
+    25. _totalBorrows(uint256) := TMP_813(uint256)
+
+Path #14:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._mintReserves
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
+    10. mintTokens(uint256) := TMP_678(uint256)
+    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
+    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
+    13. totalSupply(uint256) := TMP_728(uint256)
+    14. _totalSupply(uint256) := totalSupply(uint256)
+    15. TMP_865(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable._mintReserves(uint256,uint256)(_exchangeRate,_totalSupply)
+    16. TMP_852(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalSupply', '_exchangeRate'] 
+
+Path #15:
+  Source: external_input_params in BSetter._setAdjustSpeed
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
+  Path Operations:
+    1. _setAdjustSpeed
+    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
+    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
+    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
+    5. TMP_777(uint256) = TMP_776 * timeElapsed
+    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
+    7. tmp_scope_0(uint256) := TMP_778(uint256)
+    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
+    9. adjustFactor(uint256) := TMP_779(uint256)
+    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
+    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
+    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
+    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
+    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
+    15. _borrowRate(uint256) := TMP_789(uint256)
+    16. TMP_799 = CONVERT _borrowRate to uint48
+    17. borrowRate(uint48) := TMP_799(uint48)
+    18. TMP_809 = CONVERT borrowRate to uint256
+    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
+    20. interestFactor(uint256) := TMP_810(uint256)
+    21. TMP_814(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_borrowIndex'] 
+    22. TMP_815(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_814', '1000000000000000000'] 
+    23. TMP_816(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_borrowIndex', 'TMP_815'] 
+    24. _borrowIndex(uint256) := TMP_816(uint256)
+
+Path #16:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BInterestRateModel.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_332 = CONVERT underlying to IERC20
+    4. TMP_334(uint256) = HIGH_LEVEL_CALL, dest:TMP_332(IERC20), function:balanceOf, arguments:['TMP_333']  
+    5. balance(uint256) := TMP_334(uint256)
+    6. TMP_335(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_335(uint256)
+    8. TMP_336(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_338(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_336', 'TMP_337'] 
+    10. mintTokens(uint256) := TMP_338(uint256)
+
+Path #17:
+  Source: external_input_params in BSetter._setAdjustSpeed
+  Sink: tainted_state_changing_external_call in BInterestRateModel.accrueInterest
+  Path Operations:
+    1. _setAdjustSpeed
+    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
+    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
+    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
+    5. TMP_777(uint256) = TMP_776 * timeElapsed
+    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
+    7. tmp_scope_0(uint256) := TMP_778(uint256)
+    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
+    9. adjustFactor(uint256) := TMP_779(uint256)
+    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
+    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
+    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
+    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
+    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
+    15. _borrowRate(uint256) := TMP_789(uint256)
+    16. TMP_799 = CONVERT _borrowRate to uint48
+    17. borrowRate(uint48) := TMP_799(uint48)
+    18. TMP_469 = CONVERT borrowRate to uint256
+    19. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_469', 'timeElapsed'] 
+    20. interestFactor(uint256) := TMP_470(uint256)
+
+Path #18:
+  Source: external_input_params in BSetter._setAdjustSpeed
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
+  Path Operations:
+    1. _setAdjustSpeed
+    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
+    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
+    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
+    5. TMP_777(uint256) = TMP_776 * timeElapsed
+    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
+    7. tmp_scope_0(uint256) := TMP_778(uint256)
+    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
+    9. adjustFactor(uint256) := TMP_779(uint256)
+    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
+    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
+    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
+    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
+    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
+    15. _borrowRate(uint256) := TMP_789(uint256)
+    16. TMP_799 = CONVERT _borrowRate to uint48
+    17. borrowRate(uint48) := TMP_799(uint48)
+    18. TMP_809 = CONVERT borrowRate to uint256
+    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
+    20. interestFactor(uint256) := TMP_810(uint256)
+
+Path #19:
+  Source: external_input_params in ImpermaxV3Borrowable.restructureDebt
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.restructureDebt
+  Path Operations:
+    1. restructureDebt
+    2. TMP_939(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.borrowBalance(uint256)(tokenId)
+    3. _borrowBalance(uint256) := TMP_939(uint256)
+    4. TMP_941(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_borrowBalance', 'reduceToRatio'] 
+
+Path #20:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BSetter.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_509 = CONVERT underlying to IERC20
+    4. TMP_511(uint256) = HIGH_LEVEL_CALL, dest:TMP_509(IERC20), function:balanceOf, arguments:['TMP_510']  
+    5. balance(uint256) := TMP_511(uint256)
+    6. TMP_512(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_512(uint256)
+
+Path #21:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxERC20._mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
+    10. mintTokens(uint256) := TMP_678(uint256)
+    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
+    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
+    13. totalSupply(uint256) := TMP_728(uint256)
+
+Path #22:
+  Source: external_input_params in ImpermaxV3Borrowable.restructureDebt
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.restructureDebt
+  Path Operations:
+    1. restructureDebt
+    2. TMP_939(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.borrowBalance(uint256)(tokenId)
+    3. _borrowBalance(uint256) := TMP_939(uint256)
+
+Path #23:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BSetter.redeem
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+    7. TMP_507(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+    8. TMP_508(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_507', '_totalSupply'] 
+    9. TMP_527(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
+
+Path #24:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxERC20._burn
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
+    10. mintTokens(uint256) := TMP_678(uint256)
+    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
+    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
+    13. totalSupply(uint256) := TMP_728(uint256)
+
+Path #25:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.exchangeRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+
+Path #26:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BSetter.exchangeRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+
+Path #27:
+  Source: external_input_params in BSetter._setAdjustSpeed
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
+  Path Operations:
+    1. _setAdjustSpeed
+    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
+    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
+    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
+    5. TMP_777(uint256) = TMP_776 * timeElapsed
+    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
+    7. tmp_scope_0(uint256) := TMP_778(uint256)
+    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
+    9. adjustFactor(uint256) := TMP_779(uint256)
+    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
+    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
+    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
+    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
+    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
+    15. _borrowRate(uint256) := TMP_789(uint256)
+    16. TMP_799 = CONVERT _borrowRate to uint48
+    17. borrowRate(uint48) := TMP_799(uint48)
+    18. TMP_809 = CONVERT borrowRate to uint256
+    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
+    20. interestFactor(uint256) := TMP_810(uint256)
+    21. TMP_814(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_borrowIndex'] 
+
+Path #28:
+  Source: external_input_params in PoolToken.mint
+  Sink: tainted_state_changing_external_call in PoolToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
+    3. REF_30(uint256) -> balanceOf[to]
+
+Path #29:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BAllowance.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_205 = CONVERT underlying to IERC20
+    4. TMP_207(uint256) = HIGH_LEVEL_CALL, dest:TMP_205(IERC20), function:balanceOf, arguments:['TMP_206']  
+    5. balance(uint256) := TMP_207(uint256)
+    6. TMP_208(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_208(uint256)
+    8. TMP_209(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+
+Path #30:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BInterestRateModel.exchangeRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+
+Path #31:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BAllowance.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_205 = CONVERT underlying to IERC20
+    4. TMP_207(uint256) = HIGH_LEVEL_CALL, dest:TMP_205(IERC20), function:balanceOf, arguments:['TMP_206']  
+    5. balance(uint256) := TMP_207(uint256)
+
+Path #32:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BSetter._mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
+    10. mintTokens(uint256) := TMP_678(uint256)
+    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
+    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
+    13. totalSupply(uint256) := TMP_728(uint256)
+
+Path #33:
+  Source: external_input_params in BSetter._setAdjustSpeed
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
+  Path Operations:
+    1. _setAdjustSpeed
+    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
+    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
+    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
+    5. TMP_777(uint256) = TMP_776 * timeElapsed
+    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
+    7. tmp_scope_0(uint256) := TMP_778(uint256)
+    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
+    9. adjustFactor(uint256) := TMP_779(uint256)
+    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
+    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
+    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
+    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
+    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
+    15. _borrowRate(uint256) := TMP_789(uint256)
+    16. TMP_799 = CONVERT _borrowRate to uint48
+    17. borrowRate(uint48) := TMP_799(uint48)
+    18. TMP_809 = CONVERT borrowRate to uint256
+    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
+    20. interestFactor(uint256) := TMP_810(uint256)
+    21. TMP_811(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_totalBorrows'] 
+
+Path #34:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in PoolToken._mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
+    10. mintTokens(uint256) := TMP_678(uint256)
+    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
+    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
+    13. totalSupply(uint256) := TMP_728(uint256)
+
+Path #35:
+  Source: external_input_params in PoolToken.redeem
+  Sink: tainted_state_changing_external_call in PoolToken._safeTransfer
+  Path Operations:
+    1. redeem
+    2. INTERNAL_CALL, PoolToken._safeTransfer(address,uint256)(redeemer,redeemAmount)
+    3. TMP_166(bytes) = SOLIDITY_CALL abi.encodeWithSelector()(SELECTOR,to,amount)
+
+Path #36:
+  Source: external_input_params in ImpermaxERC20.transfer
+  Sink: tainted_erc20_transfer in ImpermaxERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #37:
+  Source: external_input_params in ImpermaxERC20.transferFrom
+  Sink: tainted_erc20_transfer in ImpermaxERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #38:
   Source: external_input_params in BSetter._setAdjustSpeed
   Sink: tainted_state_changing_external_call in BInterestRateModel.accrueInterest
   Path Operations:
@@ -1200,24 +1730,15 @@ Path #4:
     27. totalBorrows(uint112) := TMP_818(uint112)
     28. _totalBorrows(uint256) := totalBorrows(uint112)
 
-Path #5:
-  Source: external_input_params in PoolToken.skim
-  Sink: tainted_erc20_transfer in PoolToken.skim
+Path #39:
+  Source: external_input_params in PoolToken.redeem
+  Sink: tainted_erc20_transfer in PoolToken.redeem
   Path Operations:
-    1. skim
+    1. redeem
 
-Path #6:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BInterestRateModel.skim
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_363 = CONVERT underlying to IERC20
-    4. TMP_365(uint256) = HIGH_LEVEL_CALL, dest:TMP_363(IERC20), function:balanceOf, arguments:['TMP_364']  
-
-Path #7:
+Path #40:
   Source: external_input_params in ImpermaxV3Borrowable.borrowBalance
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._updateBorrow
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrowBalance
   Path Operations:
     1. borrowBalance
     2. REF_287(BStorage.BorrowSnapshot) -> borrowBalances[tokenId]
@@ -1225,167 +1746,8 @@ Path #7:
     4. REF_289(uint112) -> borrowSnapshot.principal
     5. TMP_871 = CONVERT REF_289 to uint256
     6. TMP_872(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_871', 'borrowIndex'] 
-    7. TMP_873(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_872', 'REF_292'] 
-    8. TMP_876(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.borrowBalance(uint256)(tokenId)
-    9. accountBorrowsPrior(uint256) := TMP_876(uint256)
 
-Path #8:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BSetter.skim
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_540 = CONVERT underlying to IERC20
-    4. TMP_542(uint256) = HIGH_LEVEL_CALL, dest:TMP_540(IERC20), function:balanceOf, arguments:['TMP_541']  
-
-Path #9:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BAllowance.skim
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_236 = CONVERT underlying to IERC20
-    4. TMP_238(uint256) = HIGH_LEVEL_CALL, dest:TMP_236(IERC20), function:balanceOf, arguments:['TMP_237']  
-
-Path #10:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BAllowance.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_205 = CONVERT underlying to IERC20
-    4. TMP_207(uint256) = HIGH_LEVEL_CALL, dest:TMP_205(IERC20), function:balanceOf, arguments:['TMP_206']  
-    5. balance(uint256) := TMP_207(uint256)
-    6. TMP_208(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_208(uint256)
-
-Path #11:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.exchangeRate
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-
-Path #12:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.redeem
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. TMP_859(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', 'totalBorrows'] 
-    7. _actualBalance(uint256) := TMP_859(uint256)
-    8. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_actualBalance', '1000000000000000000'] 
-    9. TMP_864(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_863', '_totalSupply'] 
-    10. _exchangeRate(uint256) := TMP_864(uint256)
-    11. TMP_865(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable._mintReserves(uint256,uint256)(_exchangeRate,_totalSupply)
-    12. TMP_690(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.exchangeRate()()
-
-Path #13:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BAllowance.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_205 = CONVERT underlying to IERC20
-    4. TMP_207(uint256) = HIGH_LEVEL_CALL, dest:TMP_205(IERC20), function:balanceOf, arguments:['TMP_206']  
-    5. balance(uint256) := TMP_207(uint256)
-    6. TMP_208(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_208(uint256)
-    8. TMP_209(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-
-Path #14:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BSetter.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_509 = CONVERT underlying to IERC20
-    4. TMP_511(uint256) = HIGH_LEVEL_CALL, dest:TMP_509(IERC20), function:balanceOf, arguments:['TMP_510']  
-    5. balance(uint256) := TMP_511(uint256)
-    6. TMP_512(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_512(uint256)
-    8. TMP_513(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_515(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_513', 'TMP_514'] 
-    10. mintTokens(uint256) := TMP_515(uint256)
-
-Path #15:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BAllowance._burn
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
-    10. mintTokens(uint256) := TMP_678(uint256)
-    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
-    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
-    13. totalSupply(uint256) := TMP_728(uint256)
-
-Path #16:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxERC20._burn
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
-    10. mintTokens(uint256) := TMP_678(uint256)
-    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
-    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
-    13. totalSupply(uint256) := TMP_728(uint256)
-
-Path #17:
-  Source: external_input_params in ImpermaxERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ImpermaxERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_21(mapping(address => uint256)) -> allowance[from]
-    3. REF_22(uint256) -> REF_21[msg.sender]
-
-Path #18:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.exchangeRate
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
-
-Path #19:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._mintReserves
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. TMP_859(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', 'totalBorrows'] 
-    7. _actualBalance(uint256) := TMP_859(uint256)
-    8. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_actualBalance', '1000000000000000000'] 
-    9. TMP_864(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_863', '_totalSupply'] 
-    10. _exchangeRate(uint256) := TMP_864(uint256)
-    11. TMP_865(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable._mintReserves(uint256,uint256)(_exchangeRate,_totalSupply)
-
-Path #20:
+Path #41:
   Source: external_input_params in BSetter._initialize
   Sink: tainted_state_changing_external_call in BInterestRateModel._burn
   Path Operations:
@@ -1403,227 +1765,26 @@ Path #20:
     12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
     13. totalSupply(uint256) := TMP_728(uint256)
 
-Path #21:
+Path #42:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._mintReserves
+  Sink: tainted_state_changing_external_call in BInterestRateModel.mint
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. TMP_859(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', 'totalBorrows'] 
-    7. _actualBalance(uint256) := TMP_859(uint256)
-    8. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_actualBalance', '1000000000000000000'] 
-    9. TMP_864(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_863', '_totalSupply'] 
-    10. _exchangeRate(uint256) := TMP_864(uint256)
-    11. TMP_865(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable._mintReserves(uint256,uint256)(_exchangeRate,_totalSupply)
+    3. TMP_332 = CONVERT underlying to IERC20
+    4. TMP_334(uint256) = HIGH_LEVEL_CALL, dest:TMP_332(IERC20), function:balanceOf, arguments:['TMP_333']  
+    5. balance(uint256) := TMP_334(uint256)
+    6. TMP_335(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_335(uint256)
+    8. TMP_336(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
 
-Path #22:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BInterestRateModel._mint
+Path #43:
+  Source: external_input_params in ImpermaxV3Borrowable.liquidate
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.liquidate
   Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
-    10. mintTokens(uint256) := TMP_678(uint256)
-    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
-    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
-    13. totalSupply(uint256) := TMP_728(uint256)
+    1. liquidate
 
-Path #23:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BAllowance.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_205 = CONVERT underlying to IERC20
-    4. TMP_207(uint256) = HIGH_LEVEL_CALL, dest:TMP_205(IERC20), function:balanceOf, arguments:['TMP_206']  
-    5. balance(uint256) := TMP_207(uint256)
-
-Path #24:
-  Source: external_input_params in PoolToken.redeem
-  Sink: tainted_state_changing_external_call in PoolToken._safeTransfer
-  Path Operations:
-    1. redeem
-    2. INTERNAL_CALL, PoolToken._safeTransfer(address,uint256)(redeemer,redeemAmount)
-    3. TMP_166(bytes) = SOLIDITY_CALL abi.encodeWithSelector()(SELECTOR,to,amount)
-
-Path #25:
-  Source: external_input_params in BSetter._setAdjustSpeed
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
-  Path Operations:
-    1. _setAdjustSpeed
-    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
-    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
-    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
-    5. TMP_777(uint256) = TMP_776 * timeElapsed
-    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
-    7. tmp_scope_0(uint256) := TMP_778(uint256)
-    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
-    9. adjustFactor(uint256) := TMP_779(uint256)
-    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
-    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
-    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
-    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
-    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
-    15. _borrowRate(uint256) := TMP_789(uint256)
-    16. TMP_799 = CONVERT _borrowRate to uint48
-    17. borrowRate(uint48) := TMP_799(uint48)
-    18. TMP_809 = CONVERT borrowRate to uint256
-
-Path #26:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._burn
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
-    10. mintTokens(uint256) := TMP_678(uint256)
-    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
-    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
-    13. totalSupply(uint256) := TMP_728(uint256)
-
-Path #27:
-  Source: external_input_params in BSetter._setAdjustSpeed
-  Sink: tainted_state_changing_external_call in BInterestRateModel.accrueInterest
-  Path Operations:
-    1. _setAdjustSpeed
-    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
-    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
-    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
-    5. TMP_777(uint256) = TMP_776 * timeElapsed
-    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
-    7. tmp_scope_0(uint256) := TMP_778(uint256)
-    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
-    9. adjustFactor(uint256) := TMP_779(uint256)
-    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
-    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
-    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
-    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
-    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
-    15. _borrowRate(uint256) := TMP_789(uint256)
-    16. TMP_799 = CONVERT _borrowRate to uint48
-    17. borrowRate(uint48) := TMP_799(uint48)
-    18. TMP_469 = CONVERT borrowRate to uint256
-    19. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_469', 'timeElapsed'] 
-    20. interestFactor(uint256) := TMP_470(uint256)
-    21. TMP_471(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_totalBorrows'] 
-
-Path #28:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-
-Path #29:
-  Source: external_input_params in ImpermaxV3Borrowable.restructureDebt
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.restructureDebt
-  Path Operations:
-    1. restructureDebt
-    2. TMP_939(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.borrowBalance(uint256)(tokenId)
-    3. _borrowBalance(uint256) := TMP_939(uint256)
-
-Path #30:
-  Source: external_input_params in ImpermaxV3Borrowable.borrow
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrow
-  Path Operations:
-    1. borrow
-
-Path #31:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BSetter.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_509 = CONVERT underlying to IERC20
-    4. TMP_511(uint256) = HIGH_LEVEL_CALL, dest:TMP_509(IERC20), function:balanceOf, arguments:['TMP_510']  
-    5. balance(uint256) := TMP_511(uint256)
-    6. TMP_512(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_512(uint256)
-    8. TMP_513(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-
-Path #32:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BAllowance.exchangeRate
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
-    7. TMP_203(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
-
-Path #33:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-
-Path #34:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BInterestRateModel.redeem
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
-    7. TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
-    8. TMP_331(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_330', '_totalSupply'] 
-    9. TMP_350(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
-
-Path #35:
-  Source: external_input_params in BSetter._setAdjustSpeed
-  Sink: tainted_state_changing_external_call in BInterestRateModel.accrueInterest
-  Path Operations:
-    1. _setAdjustSpeed
-    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
-    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
-    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
-    5. TMP_777(uint256) = TMP_776 * timeElapsed
-    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
-    7. tmp_scope_0(uint256) := TMP_778(uint256)
-    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
-    9. adjustFactor(uint256) := TMP_779(uint256)
-    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
-    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
-    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
-    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
-    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
-    15. _borrowRate(uint256) := TMP_789(uint256)
-    16. TMP_799 = CONVERT _borrowRate to uint48
-    17. borrowRate(uint48) := TMP_799(uint48)
-    18. TMP_469 = CONVERT borrowRate to uint256
-
-Path #36:
+Path #44:
   Source: external_input_params in BSetter._initialize
   Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._mint
   Path Operations:
@@ -1641,83 +1802,7 @@ Path #36:
     12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
     13. totalSupply(uint256) := TMP_728(uint256)
 
-Path #37:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BInterestRateModel.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_332 = CONVERT underlying to IERC20
-    4. TMP_334(uint256) = HIGH_LEVEL_CALL, dest:TMP_332(IERC20), function:balanceOf, arguments:['TMP_333']  
-    5. balance(uint256) := TMP_334(uint256)
-
-Path #38:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._calculateBorrowRate
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-
-Path #39:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in PoolToken.skim
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_155 = CONVERT underlying to IERC20
-    4. TMP_157(uint256) = HIGH_LEVEL_CALL, dest:TMP_155(IERC20), function:balanceOf, arguments:['TMP_156']  
-
-Path #40:
-  Source: external_input_params in ImpermaxV3Borrowable.borrowBalance
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrowBalance
-  Path Operations:
-    1. borrowBalance
-    2. REF_287(BStorage.BorrowSnapshot) -> borrowBalances[tokenId]
-    3. borrowSnapshot(BStorage.BorrowSnapshot) := REF_287(BStorage.BorrowSnapshot)
-    4. REF_289(uint112) -> borrowSnapshot.principal
-    5. TMP_871 = CONVERT REF_289 to uint256
-    6. TMP_872(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_871', 'borrowIndex'] 
-
-Path #41:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in PoolToken.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_124 = CONVERT underlying to IERC20
-    4. TMP_126(uint256) = HIGH_LEVEL_CALL, dest:TMP_124(IERC20), function:balanceOf, arguments:['TMP_125']  
-    5. balance(uint256) := TMP_126(uint256)
-    6. TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_127(uint256)
-    8. TMP_128(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_130(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_128', 'TMP_129'] 
-    10. mintTokens(uint256) := TMP_130(uint256)
-
-Path #42:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._mintReserves
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
-    10. mintTokens(uint256) := TMP_678(uint256)
-    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
-    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
-    13. totalSupply(uint256) := TMP_728(uint256)
-    14. _totalSupply(uint256) := totalSupply(uint256)
-    15. TMP_865(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable._mintReserves(uint256,uint256)(_exchangeRate,_totalSupply)
-    16. TMP_852(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalSupply', '_exchangeRate'] 
-
-Path #43:
+Path #45:
   Source: external_input_params in BSetter._initialize
   Sink: tainted_state_changing_external_call in BInterestRateModel.mint
   Path Operations:
@@ -1728,58 +1813,8 @@ Path #43:
     5. balance(uint256) := TMP_334(uint256)
     6. TMP_335(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
     7. mintAmount(uint256) := TMP_335(uint256)
-    8. TMP_336(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-
-Path #44:
-  Source: external_input_params in ImpermaxV3Borrowable.borrow
-  Sink: tainted_erc20_transfer in ImpermaxV3Borrowable.borrow
-  Path Operations:
-    1. borrow
-
-Path #45:
-  Source: external_input_params in ImpermaxV3Borrowable.borrow
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrow
-  Path Operations:
-    1. borrow
 
 Path #46:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BInterestRateModel.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_332 = CONVERT underlying to IERC20
-    4. TMP_334(uint256) = HIGH_LEVEL_CALL, dest:TMP_332(IERC20), function:balanceOf, arguments:['TMP_333']  
-    5. balance(uint256) := TMP_334(uint256)
-    6. TMP_335(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_335(uint256)
-
-Path #47:
-  Source: external_input_params in BSetter._setAdjustSpeed
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
-  Path Operations:
-    1. _setAdjustSpeed
-    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
-    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
-    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
-    5. TMP_777(uint256) = TMP_776 * timeElapsed
-    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
-    7. tmp_scope_0(uint256) := TMP_778(uint256)
-    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
-    9. adjustFactor(uint256) := TMP_779(uint256)
-    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
-    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
-    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
-    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
-    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
-    15. _borrowRate(uint256) := TMP_789(uint256)
-    16. TMP_799 = CONVERT _borrowRate to uint48
-    17. borrowRate(uint48) := TMP_799(uint48)
-    18. TMP_809 = CONVERT borrowRate to uint256
-    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
-    20. interestFactor(uint256) := TMP_810(uint256)
-
-Path #48:
   Source: external_input_params in BSetter._setAdjustSpeed
   Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._updateBorrow
   Path Operations:
@@ -1812,9 +1847,30 @@ Path #48:
     27. totalBorrows(uint112) := TMP_818(uint112)
     28. TMP_882 = CONVERT totalBorrows to uint256
 
+Path #47:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in PoolToken.skim
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_155 = CONVERT underlying to IERC20
+    4. TMP_157(uint256) = HIGH_LEVEL_CALL, dest:TMP_155(IERC20), function:balanceOf, arguments:['TMP_156']  
+
+Path #48:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in PoolToken.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_124 = CONVERT underlying to IERC20
+    4. TMP_126(uint256) = HIGH_LEVEL_CALL, dest:TMP_124(IERC20), function:balanceOf, arguments:['TMP_125']  
+    5. balance(uint256) := TMP_126(uint256)
+    6. TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_127(uint256)
+
 Path #49:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in PoolToken.exchangeRate
+  Sink: tainted_state_changing_external_call in PoolToken.redeem
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
@@ -1823,16 +1879,165 @@ Path #49:
     5. totalBalance(uint256) := TMP_665(uint256)
     6. _totalBalance(uint256) := totalBalance(uint256)
     7. TMP_122(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+    8. TMP_123(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_122', '_totalSupply'] 
+    9. TMP_142(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
 
 Path #50:
-  Source: external_input_params in PoolToken.mint
-  Sink: tainted_state_changing_external_call in PoolToken._mint
+  Source: external_input_params in BSetter._setAdjustSpeed
+  Sink: tainted_state_changing_external_call in BInterestRateModel.accrueInterest
   Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
-    3. REF_30(uint256) -> balanceOf[to]
+    1. _setAdjustSpeed
+    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
+    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
+    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
+    5. TMP_777(uint256) = TMP_776 * timeElapsed
+    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
+    7. tmp_scope_0(uint256) := TMP_778(uint256)
+    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
+    9. adjustFactor(uint256) := TMP_779(uint256)
+    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
+    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
+    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
+    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
+    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
+    15. _borrowRate(uint256) := TMP_789(uint256)
+    16. TMP_799 = CONVERT _borrowRate to uint48
+    17. borrowRate(uint48) := TMP_799(uint48)
+    18. TMP_469 = CONVERT borrowRate to uint256
 
 Path #51:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BSetter.skim
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_540 = CONVERT underlying to IERC20
+    4. TMP_542(uint256) = HIGH_LEVEL_CALL, dest:TMP_540(IERC20), function:balanceOf, arguments:['TMP_541']  
+
+Path #52:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.exchangeRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+    7. TMP_670(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+
+Path #53:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+
+Path #54:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
+    10. mintTokens(uint256) := TMP_678(uint256)
+
+Path #55:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BAllowance.exchangeRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+    7. TMP_203(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+
+Path #56:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BAllowance._burn
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
+    10. mintTokens(uint256) := TMP_678(uint256)
+    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
+    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
+    13. totalSupply(uint256) := TMP_728(uint256)
+
+Path #57:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BInterestRateModel.skim
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_363 = CONVERT underlying to IERC20
+    4. TMP_365(uint256) = HIGH_LEVEL_CALL, dest:TMP_363(IERC20), function:balanceOf, arguments:['TMP_364']  
+
+Path #58:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._mintReserves
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
+    10. mintTokens(uint256) := TMP_678(uint256)
+    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
+    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
+    13. totalSupply(uint256) := TMP_728(uint256)
+    14. _totalSupply(uint256) := totalSupply(uint256)
+    15. TMP_865(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable._mintReserves(uint256,uint256)(_exchangeRate,_totalSupply)
+
+Path #59:
+  Source: external_input_params in BSetter._setAdjustSpeed
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
+  Path Operations:
+    1. _setAdjustSpeed
+    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
+    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
+    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
+    5. TMP_777(uint256) = TMP_776 * timeElapsed
+    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
+    7. tmp_scope_0(uint256) := TMP_778(uint256)
+    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
+    9. adjustFactor(uint256) := TMP_779(uint256)
+    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
+    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
+    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
+    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
+    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
+    15. _borrowRate(uint256) := TMP_789(uint256)
+    16. TMP_799 = CONVERT _borrowRate to uint48
+    17. borrowRate(uint48) := TMP_799(uint48)
+    18. TMP_809 = CONVERT borrowRate to uint256
+    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
+    20. interestFactor(uint256) := TMP_810(uint256)
+
+Path #60:
   Source: external_input_params in BSetter._setAdjustSpeed
   Sink: tainted_state_changing_external_call in BInterestRateModel.accrueInterest
   Path Operations:
@@ -1864,178 +2069,18 @@ Path #51:
     26. borrowIndex(uint112) := TMP_817(uint112)
     27. _borrowIndex(uint256) := borrowIndex(uint112)
 
-Path #52:
-  Source: external_input_params in BSetter._setAdjustSpeed
-  Sink: tainted_state_changing_external_call in BInterestRateModel.accrueInterest
-  Path Operations:
-    1. _setAdjustSpeed
-    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
-    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
-    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
-    5. TMP_777(uint256) = TMP_776 * timeElapsed
-    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
-    7. tmp_scope_0(uint256) := TMP_778(uint256)
-    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
-    9. adjustFactor(uint256) := TMP_779(uint256)
-    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
-    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
-    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
-    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
-    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
-    15. _borrowRate(uint256) := TMP_789(uint256)
-    16. TMP_799 = CONVERT _borrowRate to uint48
-    17. borrowRate(uint48) := TMP_799(uint48)
-    18. TMP_469 = CONVERT borrowRate to uint256
-    19. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_469', 'timeElapsed'] 
-    20. interestFactor(uint256) := TMP_470(uint256)
-
-Path #53:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BInterestRateModel.redeem
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
-    7. TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
-    8. TMP_331(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_330', '_totalSupply'] 
-    9. TMP_350(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
-    10. TMP_351(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['redeemTokens', 'TMP_350'] 
-
-Path #54:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BInterestRateModel.exchangeRate
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
-    7. TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
-
-Path #55:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.skim
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_703 = CONVERT underlying to IERC20
-    4. TMP_705(uint256) = HIGH_LEVEL_CALL, dest:TMP_703(IERC20), function:balanceOf, arguments:['TMP_704']  
-
-Path #56:
-  Source: external_input_params in BSetter._setAdjustSpeed
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
-  Path Operations:
-    1. _setAdjustSpeed
-    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
-    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
-    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
-    5. TMP_777(uint256) = TMP_776 * timeElapsed
-    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
-    7. tmp_scope_0(uint256) := TMP_778(uint256)
-    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
-    9. adjustFactor(uint256) := TMP_779(uint256)
-    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
-    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
-    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
-    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
-    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
-    15. _borrowRate(uint256) := TMP_789(uint256)
-    16. TMP_799 = CONVERT _borrowRate to uint48
-    17. borrowRate(uint48) := TMP_799(uint48)
-    18. TMP_809 = CONVERT borrowRate to uint256
-    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
-    20. interestFactor(uint256) := TMP_810(uint256)
-    21. TMP_814(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_borrowIndex'] 
-    22. TMP_815(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_814', '1000000000000000000'] 
-    23. TMP_816(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_borrowIndex', 'TMP_815'] 
-    24. _borrowIndex(uint256) := TMP_816(uint256)
-
-Path #57:
-  Source: external_input_params in BSetter._setAdjustSpeed
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
-  Path Operations:
-    1. _setAdjustSpeed
-    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
-    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
-    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
-    5. TMP_777(uint256) = TMP_776 * timeElapsed
-    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
-    7. tmp_scope_0(uint256) := TMP_778(uint256)
-    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
-    9. adjustFactor(uint256) := TMP_779(uint256)
-    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
-    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
-    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
-    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
-    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
-    15. _borrowRate(uint256) := TMP_789(uint256)
-    16. TMP_799 = CONVERT _borrowRate to uint48
-    17. borrowRate(uint48) := TMP_799(uint48)
-    18. TMP_809 = CONVERT borrowRate to uint256
-    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
-    20. interestFactor(uint256) := TMP_810(uint256)
-    21. TMP_811(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_totalBorrows'] 
-
-Path #58:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.liquidate
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_925 = CONVERT underlying to IERC20
-    4. TMP_927(uint256) = HIGH_LEVEL_CALL, dest:TMP_925(IERC20), function:balanceOf, arguments:['TMP_926']  
-    5. balance(uint256) := TMP_927(uint256)
-
-Path #59:
-  Source: external_input_params in BSetter._setAdjustSpeed
-  Sink: tainted_state_changing_external_call in BInterestRateModel.accrueInterest
-  Path Operations:
-    1. _setAdjustSpeed
-    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
-    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
-    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
-    5. TMP_777(uint256) = TMP_776 * timeElapsed
-    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
-    7. tmp_scope_0(uint256) := TMP_778(uint256)
-    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
-    9. adjustFactor(uint256) := TMP_779(uint256)
-    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
-    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
-    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
-    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
-    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
-    15. _borrowRate(uint256) := TMP_789(uint256)
-    16. TMP_799 = CONVERT _borrowRate to uint48
-    17. borrowRate(uint48) := TMP_799(uint48)
-    18. TMP_469 = CONVERT borrowRate to uint256
-    19. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_469', 'timeElapsed'] 
-    20. interestFactor(uint256) := TMP_470(uint256)
-    21. TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_borrowIndex'] 
-
-Path #60:
-  Source: external_input_params in ImpermaxERC20.transferFrom
-  Sink: tainted_erc20_transfer in ImpermaxERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-
 Path #61:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BInterestRateModel.mint
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.mint
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
-    3. TMP_332 = CONVERT underlying to IERC20
-    4. TMP_334(uint256) = HIGH_LEVEL_CALL, dest:TMP_332(IERC20), function:balanceOf, arguments:['TMP_333']  
-    5. balance(uint256) := TMP_334(uint256)
-    6. TMP_335(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_335(uint256)
-    8. TMP_336(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_338(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_336', 'TMP_337'] 
-    10. mintTokens(uint256) := TMP_338(uint256)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
 
 Path #62:
   Source: external_input_params in BSetter._initialize
@@ -2054,32 +2099,47 @@ Path #62:
 
 Path #63:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BSetter._burn
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._mintReserves
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
-    10. mintTokens(uint256) := TMP_678(uint256)
-    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
-    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
-    13. totalSupply(uint256) := TMP_728(uint256)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. TMP_859(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', 'totalBorrows'] 
+    7. _actualBalance(uint256) := TMP_859(uint256)
+    8. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_actualBalance', '1000000000000000000'] 
+    9. TMP_864(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_863', '_totalSupply'] 
+    10. _exchangeRate(uint256) := TMP_864(uint256)
+    11. TMP_865(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable._mintReserves(uint256,uint256)(_exchangeRate,_totalSupply)
 
 Path #64:
-  Source: external_input_params in ImpermaxV3Borrowable.restructureDebt
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.restructureDebt
+  Source: external_input_params in PoolToken.skim
+  Sink: tainted_erc20_transfer in PoolToken.skim
   Path Operations:
-    1. restructureDebt
-    2. TMP_939(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.borrowBalance(uint256)(tokenId)
-    3. _borrowBalance(uint256) := TMP_939(uint256)
-    4. TMP_941(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_borrowBalance', 'reduceToRatio'] 
+    1. skim
 
 Path #65:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.exchangeRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+
+Path #66:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._calculateBorrowRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+
+Path #67:
   Source: external_input_params in BSetter._initialize
   Sink: tainted_state_changing_external_call in PoolToken.mint
   Path Operations:
@@ -2090,8 +2150,24 @@ Path #65:
     5. balance(uint256) := TMP_126(uint256)
     6. TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
     7. mintAmount(uint256) := TMP_127(uint256)
+    8. TMP_128(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_130(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_128', 'TMP_129'] 
+    10. mintTokens(uint256) := TMP_130(uint256)
 
-Path #66:
+Path #68:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in PoolToken.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_124 = CONVERT underlying to IERC20
+    4. TMP_126(uint256) = HIGH_LEVEL_CALL, dest:TMP_124(IERC20), function:balanceOf, arguments:['TMP_125']  
+    5. balance(uint256) := TMP_126(uint256)
+    6. TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_127(uint256)
+    8. TMP_128(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+
+Path #69:
   Source: external_input_params in BSetter._initialize
   Sink: tainted_state_changing_external_call in BAllowance.mint
   Path Operations:
@@ -2102,43 +2178,10 @@ Path #66:
     5. balance(uint256) := TMP_207(uint256)
     6. TMP_208(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
     7. mintAmount(uint256) := TMP_208(uint256)
-    8. TMP_209(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_211(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_209', 'TMP_210'] 
-    10. mintTokens(uint256) := TMP_211(uint256)
 
-Path #67:
-  Source: external_input_params in BSetter._setAdjustSpeed
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
-  Path Operations:
-    1. _setAdjustSpeed
-    2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
-    3. _adjustSpeed(uint256) := adjustSpeed(uint256)
-    4. TMP_776(uint256) = TMP_775 * _adjustSpeed
-    5. TMP_777(uint256) = TMP_776 * timeElapsed
-    6. TMP_778(uint256) = TMP_777 / 1000000000000000000
-    7. tmp_scope_0(uint256) := TMP_778(uint256)
-    8. TMP_779(uint256) = tmp_scope_0 + 1000000000000000000
-    9. adjustFactor(uint256) := TMP_779(uint256)
-    10. TMP_780(uint256) = _kinkBorrowRate * adjustFactor
-    11. TMP_781(uint256) = TMP_780 / 1000000000000000000
-    12. _kinkBorrowRate(uint256) := TMP_781(uint256)
-    13. TMP_788(uint256) = _kinkBorrowRate * _utilizationRate
-    14. TMP_789(uint256) = TMP_788 / _kinkUtilizationRate
-    15. _borrowRate(uint256) := TMP_789(uint256)
-    16. TMP_799 = CONVERT _borrowRate to uint48
-    17. borrowRate(uint48) := TMP_799(uint48)
-    18. TMP_809 = CONVERT borrowRate to uint256
-    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
-    20. interestFactor(uint256) := TMP_810(uint256)
-    21. TMP_811(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_totalBorrows'] 
-    22. TMP_812(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_811', '1000000000000000000'] 
-    23. interestAccumulated(uint256) := TMP_812(uint256)
-    24. TMP_813(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalBorrows', 'interestAccumulated'] 
-    25. _totalBorrows(uint256) := TMP_813(uint256)
-
-Path #68:
+Path #70:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BAllowance.redeem
+  Sink: tainted_state_changing_external_call in PoolToken.exchangeRate
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
@@ -2146,53 +2189,29 @@ Path #68:
     4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
     5. totalBalance(uint256) := TMP_665(uint256)
     6. _totalBalance(uint256) := totalBalance(uint256)
-    7. TMP_203(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
-    8. TMP_204(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_203', '_totalSupply'] 
-    9. TMP_223(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
-    10. TMP_224(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['redeemTokens', 'TMP_223'] 
-
-Path #69:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in PoolToken.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_124 = CONVERT underlying to IERC20
-    4. TMP_126(uint256) = HIGH_LEVEL_CALL, dest:TMP_124(IERC20), function:balanceOf, arguments:['TMP_125']  
-    5. balance(uint256) := TMP_126(uint256)
-
-Path #70:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrow
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_907 = CONVERT underlying to IERC20
-    4. TMP_909(uint256) = HIGH_LEVEL_CALL, dest:TMP_907(IERC20), function:balanceOf, arguments:['TMP_908']  
-    5. balance(uint256) := TMP_909(uint256)
+    7. TMP_122(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
 
 Path #71:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BInterestRateModel._calculateBorrowRate
+  Sink: tainted_state_changing_external_call in BAllowance.skim
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
+    3. TMP_236 = CONVERT underlying to IERC20
+    4. TMP_238(uint256) = HIGH_LEVEL_CALL, dest:TMP_236(IERC20), function:balanceOf, arguments:['TMP_237']  
 
 Path #72:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.exchangeRate
+  Sink: tainted_state_changing_external_call in BSetter.mint
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. TMP_859(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', 'totalBorrows'] 
-    7. _actualBalance(uint256) := TMP_859(uint256)
-    8. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_actualBalance', '1000000000000000000'] 
+    3. TMP_509 = CONVERT underlying to IERC20
+    4. TMP_511(uint256) = HIGH_LEVEL_CALL, dest:TMP_509(IERC20), function:balanceOf, arguments:['TMP_510']  
+    5. balance(uint256) := TMP_511(uint256)
+    6. TMP_512(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_512(uint256)
+    8. TMP_513(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
 
 Path #73:
   Source: external_input_params in BSetter._initialize
@@ -2213,8 +2232,109 @@ Path #73:
     13. totalSupply(uint256) := TMP_728(uint256)
 
 Path #74:
+  Source: external_input_params in ImpermaxV3Borrowable.borrow
+  Sink: tainted_erc20_transfer in ImpermaxV3Borrowable.borrow
+  Path Operations:
+    1. borrow
+
+Path #75:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.redeem
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. TMP_859(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', 'totalBorrows'] 
+    7. _actualBalance(uint256) := TMP_859(uint256)
+    8. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_actualBalance', '1000000000000000000'] 
+    9. TMP_864(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_863', '_totalSupply'] 
+    10. _exchangeRate(uint256) := TMP_864(uint256)
+    11. TMP_865(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable._mintReserves(uint256,uint256)(_exchangeRate,_totalSupply)
+    12. TMP_690(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.exchangeRate()()
+
+Path #76:
+  Source: external_input_params in ImpermaxV3Borrowable.borrow
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrow
+  Path Operations:
+    1. borrow
+
+Path #77:
+  Source: external_input_params in ImpermaxERC20.transfer
+  Sink: tainted_state_changing_external_call in ImpermaxERC20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ImpermaxERC20._transfer(address,address,uint256)(msg.sender,to,value)
+    3. REF_15(uint256) -> balanceOf[to]
+
+Path #78:
+  Source: external_input_params in ImpermaxV3Borrowable.borrow
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrow
+  Path Operations:
+    1. borrow
+
+Path #79:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BAllowance.redeem
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+    7. TMP_203(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+    8. TMP_204(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_203', '_totalSupply'] 
+    9. TMP_223(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
+    10. TMP_224(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['redeemTokens', 'TMP_223'] 
+
+Path #80:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in PoolToken.redeem
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+    7. TMP_122(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+    8. TMP_123(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_122', '_totalSupply'] 
+    9. TMP_142(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
+    10. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['redeemTokens', 'TMP_142'] 
+
+Path #81:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in PoolToken.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_124 = CONVERT underlying to IERC20
+    4. TMP_126(uint256) = HIGH_LEVEL_CALL, dest:TMP_124(IERC20), function:balanceOf, arguments:['TMP_125']  
+    5. balance(uint256) := TMP_126(uint256)
+
+Path #82:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._burn
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
+    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_675(uint256)
+    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
+    10. mintTokens(uint256) := TMP_678(uint256)
+    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
+    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
+    13. totalSupply(uint256) := TMP_728(uint256)
+
+Path #83:
   Source: external_input_params in BSetter._setAdjustSpeed
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
+  Sink: tainted_state_changing_external_call in BInterestRateModel.accrueInterest
   Path Operations:
     1. _setAdjustSpeed
     2. adjustSpeed(uint256) := newAdjustSpeed(uint256)
@@ -2233,13 +2353,36 @@ Path #74:
     15. _borrowRate(uint256) := TMP_789(uint256)
     16. TMP_799 = CONVERT _borrowRate to uint48
     17. borrowRate(uint48) := TMP_799(uint48)
-    18. TMP_809 = CONVERT borrowRate to uint256
-    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
-    20. interestFactor(uint256) := TMP_810(uint256)
+    18. TMP_469 = CONVERT borrowRate to uint256
+    19. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_469', 'timeElapsed'] 
+    20. interestFactor(uint256) := TMP_470(uint256)
+    21. TMP_471(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_totalBorrows'] 
 
-Path #75:
+Path #84:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BSetter.redeem
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.liquidate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_925 = CONVERT underlying to IERC20
+    4. TMP_927(uint256) = HIGH_LEVEL_CALL, dest:TMP_925(IERC20), function:balanceOf, arguments:['TMP_926']  
+    5. balance(uint256) := TMP_927(uint256)
+
+Path #85:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.exchangeRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. TMP_859(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', 'totalBorrows'] 
+    7. _actualBalance(uint256) := TMP_859(uint256)
+
+Path #86:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BAllowance.exchangeRate
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
@@ -2247,17 +2390,80 @@ Path #75:
     4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
     5. totalBalance(uint256) := TMP_665(uint256)
     6. _totalBalance(uint256) := totalBalance(uint256)
-    7. TMP_507(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
-    8. TMP_508(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_507', '_totalSupply'] 
-    9. TMP_527(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
 
-Path #76:
-  Source: external_input_params in ImpermaxV3Borrowable.liquidate
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.liquidate
+Path #87:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.mint
   Path Operations:
-    1. liquidate
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_672 = CONVERT underlying to IERC20
+    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
+    5. balance(uint256) := TMP_674(uint256)
 
-Path #77:
+Path #88:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.skim
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_703 = CONVERT underlying to IERC20
+    4. TMP_705(uint256) = HIGH_LEVEL_CALL, dest:TMP_703(IERC20), function:balanceOf, arguments:['TMP_704']  
+
+Path #89:
+  Source: external_input_params in ImpermaxERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ImpermaxERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ImpermaxERC20._transfer(address,address,uint256)(from,to,value)
+    3. REF_12(uint256) -> balanceOf[from]
+
+Path #90:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BAllowance.redeem
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+    7. TMP_203(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
+    8. TMP_204(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_203', '_totalSupply'] 
+    9. TMP_223(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
+
+Path #91:
+  Source: external_input_params in ImpermaxV3Borrowable.borrowBalance
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrowBalance
+  Path Operations:
+    1. borrowBalance
+    2. REF_287(BStorage.BorrowSnapshot) -> borrowBalances[tokenId]
+    3. borrowSnapshot(BStorage.BorrowSnapshot) := REF_287(BStorage.BorrowSnapshot)
+    4. REF_289(uint112) -> borrowSnapshot.principal
+    5. TMP_871 = CONVERT REF_289 to uint256
+
+Path #92:
+  Source: external_input_params in ImpermaxV3Borrowable.borrow
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrow
+  Path Operations:
+    1. borrow
+
+Path #93:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BSetter.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_509 = CONVERT underlying to IERC20
+    4. TMP_511(uint256) = HIGH_LEVEL_CALL, dest:TMP_509(IERC20), function:balanceOf, arguments:['TMP_510']  
+    5. balance(uint256) := TMP_511(uint256)
+    6. TMP_512(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_512(uint256)
+    8. TMP_513(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_515(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_513', 'TMP_514'] 
+    10. mintTokens(uint256) := TMP_515(uint256)
+
+Path #94:
   Source: external_input_params in BSetter._setAdjustSpeed
   Sink: tainted_state_changing_external_call in BInterestRateModel.accrueInterest
   Path Operations:
@@ -2282,157 +2488,7 @@ Path #77:
     19. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_469', 'timeElapsed'] 
     20. interestFactor(uint256) := TMP_470(uint256)
 
-Path #78:
-  Source: external_input_params in PoolToken.redeem
-  Sink: tainted_erc20_transfer in PoolToken.redeem
-  Path Operations:
-    1. redeem
-
-Path #79:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._mintReserves
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
-    10. mintTokens(uint256) := TMP_678(uint256)
-    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
-    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
-    13. totalSupply(uint256) := TMP_728(uint256)
-    14. _totalSupply(uint256) := totalSupply(uint256)
-    15. TMP_865(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable._mintReserves(uint256,uint256)(_exchangeRate,_totalSupply)
-
-Path #80:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BAllowance.redeem
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
-    7. TMP_203(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
-    8. TMP_204(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_203', '_totalSupply'] 
-    9. TMP_223(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
-
-Path #81:
-  Source: external_input_params in ImpermaxERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ImpermaxERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ImpermaxERC20._transfer(address,address,uint256)(from,to,value)
-    3. REF_12(uint256) -> balanceOf[from]
-
-Path #82:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BAllowance.exchangeRate
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
-
-Path #83:
-  Source: external_input_params in ImpermaxERC20.transfer
-  Sink: tainted_erc20_transfer in ImpermaxERC20.transfer
-  Path Operations:
-    1. transfer
-
-Path #84:
-  Source: external_input_params in ImpermaxV3Borrowable.restructureDebt
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.restructureDebt
-  Path Operations:
-    1. restructureDebt
-    2. TMP_939(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.borrowBalance(uint256)(tokenId)
-    3. _borrowBalance(uint256) := TMP_939(uint256)
-
-Path #85:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BSetter.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_509 = CONVERT underlying to IERC20
-    4. TMP_511(uint256) = HIGH_LEVEL_CALL, dest:TMP_509(IERC20), function:balanceOf, arguments:['TMP_510']  
-    5. balance(uint256) := TMP_511(uint256)
-
-Path #86:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in PoolToken.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_124 = CONVERT underlying to IERC20
-    4. TMP_126(uint256) = HIGH_LEVEL_CALL, dest:TMP_124(IERC20), function:balanceOf, arguments:['TMP_125']  
-    5. balance(uint256) := TMP_126(uint256)
-    6. TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_127(uint256)
-    8. TMP_128(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-
-Path #87:
-  Source: external_input_params in ImpermaxV3Borrowable.borrowBalance
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrowBalance
-  Path Operations:
-    1. borrowBalance
-    2. REF_287(BStorage.BorrowSnapshot) -> borrowBalances[tokenId]
-    3. borrowSnapshot(BStorage.BorrowSnapshot) := REF_287(BStorage.BorrowSnapshot)
-    4. REF_289(uint112) -> borrowSnapshot.principal
-    5. TMP_871 = CONVERT REF_289 to uint256
-
-Path #88:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in PoolToken._burn
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
-    10. mintTokens(uint256) := TMP_678(uint256)
-    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
-    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
-    13. totalSupply(uint256) := TMP_728(uint256)
-
-Path #89:
-  Source: external_input_params in ImpermaxERC20.transfer
-  Sink: tainted_state_changing_external_call in ImpermaxERC20._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ImpermaxERC20._transfer(address,address,uint256)(msg.sender,to,value)
-    3. REF_15(uint256) -> balanceOf[to]
-
-Path #90:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in PoolToken._mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
-    10. mintTokens(uint256) := TMP_678(uint256)
-    11. INTERNAL_CALL, ImpermaxERC20._mint(address,uint256)(minter,mintTokens)
-    12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
-    13. totalSupply(uint256) := TMP_728(uint256)
-
-Path #91:
+Path #95:
   Source: external_input_params in BSetter._setAdjustSpeed
   Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.accrueInterest
   Path Operations:
@@ -2454,26 +2510,21 @@ Path #91:
     16. TMP_799 = CONVERT _borrowRate to uint48
     17. borrowRate(uint48) := TMP_799(uint48)
     18. TMP_809 = CONVERT borrowRate to uint256
-    19. TMP_810(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_809', 'timeElapsed'] 
-    20. interestFactor(uint256) := TMP_810(uint256)
-    21. TMP_814(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['interestFactor', '_borrowIndex'] 
 
-Path #92:
+Path #96:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in PoolToken.redeem
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.exchangeRate
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
     3. TMP_663 = CONVERT underlying to IERC20
     4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
     5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
-    7. TMP_122(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
-    8. TMP_123(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_122', '_totalSupply'] 
-    9. TMP_142(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
-    10. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['redeemTokens', 'TMP_142'] 
+    6. TMP_859(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', 'totalBorrows'] 
+    7. _actualBalance(uint256) := TMP_859(uint256)
+    8. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_actualBalance', '1000000000000000000'] 
 
-Path #93:
+Path #97:
   Source: external_input_params in BSetter._initialize
   Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.borrow
   Path Operations:
@@ -2482,11 +2533,10 @@ Path #93:
     3. TMP_907 = CONVERT underlying to IERC20
     4. TMP_909(uint256) = HIGH_LEVEL_CALL, dest:TMP_907(IERC20), function:balanceOf, arguments:['TMP_908']  
     5. balance(uint256) := TMP_909(uint256)
-    6. TMP_910(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['balance', 'borrowAmount'] 
 
-Path #94:
+Path #98:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.redeem
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._mintReserves
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
@@ -2499,82 +2549,68 @@ Path #94:
     9. TMP_864(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_863', '_totalSupply'] 
     10. _exchangeRate(uint256) := TMP_864(uint256)
     11. TMP_865(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable._mintReserves(uint256,uint256)(_exchangeRate,_totalSupply)
-    12. TMP_690(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.exchangeRate()()
-    13. TMP_691(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['redeemTokens', 'TMP_690'] 
-
-Path #95:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BInterestRateModel.exchangeRate
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
-
-Path #96:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BSetter.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_509 = CONVERT underlying to IERC20
-    4. TMP_511(uint256) = HIGH_LEVEL_CALL, dest:TMP_509(IERC20), function:balanceOf, arguments:['TMP_510']  
-    5. balance(uint256) := TMP_511(uint256)
-    6. TMP_512(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_512(uint256)
-
-Path #97:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in PoolToken.redeem
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
-    7. TMP_122(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
-    8. TMP_123(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_122', '_totalSupply'] 
-    9. TMP_142(uint256) = INTERNAL_CALL, PoolToken.exchangeRate()()
-
-Path #98:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BSetter.exchangeRate
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
 
 Path #99:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.exchangeRate
+  Source: external_input_params in ImpermaxV3Borrowable.restructureDebt
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.restructureDebt
   Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. TMP_859(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', 'totalBorrows'] 
-    7. _actualBalance(uint256) := TMP_859(uint256)
+    1. restructureDebt
+    2. TMP_939(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.borrowBalance(uint256)(tokenId)
+    3. _borrowBalance(uint256) := TMP_939(uint256)
 
 Path #100:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.mint
+  Source: external_input_params in ImpermaxV3Borrowable.borrowBalance
+  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable._updateBorrow
   Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
+    1. borrowBalance
+    2. REF_287(BStorage.BorrowSnapshot) -> borrowBalances[tokenId]
+    3. borrowSnapshot(BStorage.BorrowSnapshot) := REF_287(BStorage.BorrowSnapshot)
+    4. REF_289(uint112) -> borrowSnapshot.principal
+    5. TMP_871 = CONVERT REF_289 to uint256
+    6. TMP_872(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_871', 'borrowIndex'] 
+    7. TMP_873(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_872', 'REF_292'] 
+    8. TMP_876(uint256) = INTERNAL_CALL, ImpermaxV3Borrowable.borrowBalance(uint256)(tokenId)
+    9. accountBorrowsPrior(uint256) := TMP_876(uint256)
 
 Path #101:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxERC20._mint
+  Sink: tainted_state_changing_external_call in BAllowance.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_205 = CONVERT underlying to IERC20
+    4. TMP_207(uint256) = HIGH_LEVEL_CALL, dest:TMP_205(IERC20), function:balanceOf, arguments:['TMP_206']  
+    5. balance(uint256) := TMP_207(uint256)
+    6. TMP_208(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
+    7. mintAmount(uint256) := TMP_208(uint256)
+    8. TMP_209(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
+    9. TMP_211(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_209', 'TMP_210'] 
+    10. mintTokens(uint256) := TMP_211(uint256)
+
+Path #102:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in PoolToken.exchangeRate
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_663 = CONVERT underlying to IERC20
+    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
+    5. totalBalance(uint256) := TMP_665(uint256)
+    6. _totalBalance(uint256) := totalBalance(uint256)
+
+Path #103:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BInterestRateModel.mint
+  Path Operations:
+    1. _initialize
+    2. underlying(address) := _underlying(address)
+    3. TMP_332 = CONVERT underlying to IERC20
+    4. TMP_334(uint256) = HIGH_LEVEL_CALL, dest:TMP_332(IERC20), function:balanceOf, arguments:['TMP_333']  
+    5. balance(uint256) := TMP_334(uint256)
+
+Path #104:
+  Source: external_input_params in BSetter._initialize
+  Sink: tainted_state_changing_external_call in BSetter._burn
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
@@ -2590,42 +2626,9 @@ Path #101:
     12. TMP_728(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'value'] 
     13. totalSupply(uint256) := TMP_728(uint256)
 
-Path #102:
-  Source: external_input_params in ImpermaxV3Borrowable.liquidate
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.liquidate
-  Path Operations:
-    1. liquidate
-
-Path #103:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BSetter.exchangeRate
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
-    7. TMP_507(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_totalBalance', '1000000000000000000'] 
-
-Path #104:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in ImpermaxV3Borrowable.mint
-  Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_672 = CONVERT underlying to IERC20
-    4. TMP_674(uint256) = HIGH_LEVEL_CALL, dest:TMP_672(IERC20), function:balanceOf, arguments:['TMP_673']  
-    5. balance(uint256) := TMP_674(uint256)
-    6. TMP_675(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['balance', 'totalBalance'] 
-    7. mintAmount(uint256) := TMP_675(uint256)
-    8. TMP_676(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mintAmount', '1000000000000000000'] 
-    9. TMP_678(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_676', 'TMP_677'] 
-    10. mintTokens(uint256) := TMP_678(uint256)
-
 Path #105:
   Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in BSetter._mint
+  Sink: tainted_state_changing_external_call in BInterestRateModel._mint
   Path Operations:
     1. _initialize
     2. underlying(address) := _underlying(address)
@@ -2642,12 +2645,9 @@ Path #105:
     13. totalSupply(uint256) := TMP_728(uint256)
 
 Path #106:
-  Source: external_input_params in BSetter._initialize
-  Sink: tainted_state_changing_external_call in PoolToken.exchangeRate
+  Source: external_input_params in ImpermaxERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ImpermaxERC20.transferFrom
   Path Operations:
-    1. _initialize
-    2. underlying(address) := _underlying(address)
-    3. TMP_663 = CONVERT underlying to IERC20
-    4. TMP_665(uint256) = HIGH_LEVEL_CALL, dest:TMP_663(IERC20), function:balanceOf, arguments:['TMP_664']  
-    5. totalBalance(uint256) := TMP_665(uint256)
-    6. _totalBalance(uint256) := totalBalance(uint256)
+    1. transferFrom
+    2. REF_21(mapping(address => uint256)) -> allowance[from]
+    3. REF_22(uint256) -> REF_21[msg.sender]

@@ -3,66 +3,6 @@ Found 11 tainted paths.
 
 ## Path #1
 Source: external_input_params in ERC20Burnable.burnFrom
-Sink: tainted_erc20_transfer in ERC20Burnable._burn
-
-### Operations with Source Code Mapping:
-    IR:  burnFrom
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [452, 453, 454, 455, 456, 457]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [456]
-    LNE: _burn(account,amount)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_state_changing_external_call in ERC20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [261, 262, 263, 264, 265]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [262]
-    LNE: _transfer(sender,recipient,amount)
-
-    IR:  REF_13(uint256) -> _balances[sender]
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [323]
-    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in ERC20.decreaseAllowance
-Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  decreaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [298, 299, 300, 301]
-    LNE: (No direct expression available)
-
-    IR:  REF_10(uint256) -> REF_9[spender]
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [299]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
-
-----------------------------------------
-
-## Path #4
-Source: external_input_params in ERC20.transfer
-Sink: tainted_erc20_transfer in ERC20.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [225, 226, 227, 228]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #5
-Source: external_input_params in ERC20Burnable.burnFrom
 Sink: tainted_state_changing_external_call in ERC20Burnable._burn
 
 ### Operations with Source Code Mapping:
@@ -80,7 +20,7 @@ Sink: tainted_state_changing_external_call in ERC20Burnable._burn
 
 ----------------------------------------
 
-## Path #6
+## Path #2
 Source: external_input_params in ERC20.transfer
 Sink: tainted_state_changing_external_call in ERC20._transfer
 
@@ -99,7 +39,86 @@ Sink: tainted_state_changing_external_call in ERC20._transfer
 
 ----------------------------------------
 
+## Path #3
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [261, 262, 263, 264, 265]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [262]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_13(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [323]
+    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [261, 262, 263, 264, 265]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [262]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in ERC20.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [279, 280, 281, 282]
+    LNE: (No direct expression available)
+
+    IR:  REF_7(uint256) -> REF_6[spender]
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [280]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_state_changing_external_call in ERC20Burnable.burnFrom
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [452, 453, 454, 455, 456, 457]
+    LNE: (No direct expression available)
+
+    IR:  TMP_107(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account,TMP_106)
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [453]
+    LNE: decreasedAllowance = allowance(account,_msgSender()).sub(amount,ERC20: burn amount exceeds allowance)
+
+----------------------------------------
+
 ## Path #7
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_erc20_transfer in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [452, 453, 454, 455, 456, 457]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [456]
+    LNE: _burn(account,amount)
+
+----------------------------------------
+
+## Path #8
 Source: external_input_params in ERC20.transferFrom
 Sink: tainted_state_changing_external_call in ERC20.transferFrom
 
@@ -118,52 +137,18 @@ Sink: tainted_state_changing_external_call in ERC20.transferFrom
 
 ----------------------------------------
 
-## Path #8
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [261, 262, 263, 264, 265]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [262]
-    LNE: _transfer(sender,recipient,amount)
-
-----------------------------------------
-
 ## Path #9
-Source: external_input_params in ERC20Burnable.burnFrom
-Sink: tainted_state_changing_external_call in ERC20Burnable.burnFrom
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
 
 ### Operations with Source Code Mapping:
-    IR:  burnFrom
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [452, 453, 454, 455, 456, 457]
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [225, 226, 227, 228]
     LNE: (No direct expression available)
-
-    IR:  TMP_107(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account,TMP_106)
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [453]
-    LNE: decreasedAllowance = allowance(account,_msgSender()).sub(amount,ERC20: burn amount exceeds allowance)
 
 ----------------------------------------
 
 ## Path #10
-Source: external_input_params in ERC20.increaseAllowance
-Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  increaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [279, 280, 281, 282]
-    LNE: (No direct expression available)
-
-    IR:  REF_7(uint256) -> REF_6[spender]
-    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [280]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
-
-----------------------------------------
-
-## Path #11
 Source: external_input_params in ERC20.transferFrom
 Sink: tainted_erc20_transfer in ERC20.transferFrom
 
@@ -171,5 +156,20 @@ Sink: tainted_erc20_transfer in ERC20.transferFrom
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [261, 262, 263, 264, 265]
     LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in ERC20.decreaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [298, 299, 300, 301]
+    LNE: (No direct expression available)
+
+    IR:  REF_10(uint256) -> REF_9[spender]
+    SRC: File 'pmdetector/flattened_contracts/a5c60c8d_SideShift/flattened.sol', Lines [299]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
 
 ----------------------------------------

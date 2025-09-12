@@ -206,6 +206,12 @@ Sink #4: tainted_erc20_transfer
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in Comfi.transfer
+  Sink: tainted_erc20_transfer in Comfi.transfer
+  Path Operations:
+    1. transfer
+
+Path #2:
   Source: external_input_params in Comfi.transferFrom
   Sink: tainted_erc20_transfer in Comfi._transferTokens
   Path Operations:
@@ -213,7 +219,13 @@ Path #1:
     2. INTERNAL_CALL, Comfi._transferTokens(address,address,uint96)(src,dst,amount)
     3. REF_49(address) -> delegates[src]
 
-Path #2:
+Path #3:
+  Source: external_input_params in Comfi.transferFrom
+  Sink: tainted_erc20_transfer in Comfi.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #4:
   Source: external_input_params in Comfi.delegateBySig
   Sink: tainted_erc20_transfer in Comfi._delegate
   Path Operations:
@@ -229,15 +241,3 @@ Path #2:
     10. INTERNAL_CALL, Comfi._delegate(address,address)(signatory,delegatee)
     11. REF_42(address) -> delegates[delegator]
     12. currentDelegate(address) := REF_42(address)
-
-Path #3:
-  Source: external_input_params in Comfi.transfer
-  Sink: tainted_erc20_transfer in Comfi.transfer
-  Path Operations:
-    1. transfer
-
-Path #4:
-  Source: external_input_params in Comfi.transferFrom
-  Sink: tainted_erc20_transfer in Comfi.transferFrom
-  Path Operations:
-    1. transferFrom

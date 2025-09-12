@@ -2,184 +2,6 @@
 Found 19 tainted paths.
 
 ## Path #1
-Source: external_input_params in StandardToken.transferFrom
-Sink: tainted_state_changing_external_call in StandardToken.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in StandardToken.increaseApproval
-Sink: tainted_state_changing_external_call in StandardToken.increaseApproval
-
-### Operations with Source Code Mapping:
-    IR:  increaseApproval
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [280, 281, 282, 283, 284, 285]
-    LNE: (No direct expression available)
-
-    IR:  REF_80(uint256) -> REF_79[_spender]
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [281, 282]
-    LNE: allowed[msg.sender][_spender] = (allowed[msg.sender][_spender].add(_addedValue))
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in StandardToken.transferFrom
-Sink: tainted_state_changing_external_call in StandardToken.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #4
-Source: external_input_params in BasicToken.transfer
-Sink: tainted_state_changing_external_call in BasicToken.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #5
-Source: external_input_params in StandardToken.transferFrom
-Sink: tainted_state_changing_external_call in StandardToken.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #6
-Source: external_input_params in IBNEST.balancesGetNext
-Sink: tainted_state_changing_external_call in IBNEST.balancesGetNext
-
-### Operations with Source Code Mapping:
-    IR:  balancesGetNext
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [335, 336, 337]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #7
-Source: external_input_params in BasicToken.transfer
-Sink: tainted_state_changing_external_call in BasicToken.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #8
-Source: external_input_params in BasicToken.transfer
-Sink: tainted_state_changing_external_call in BasicToken.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in StandardToken.decreaseApproval
-Sink: tainted_state_changing_external_call in StandardToken.decreaseApproval
-
-### Operations with Source Code Mapping:
-    IR:  decreaseApproval
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [302, 303, 304, 305, 306, 307, 308, 309, 310, 311]
-    LNE: (No direct expression available)
-
-    IR:  REF_85(uint256) -> REF_84[_spender]
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [303]
-    LNE: oldValue = allowed[msg.sender][_spender]
-
-    IR:  oldValue(uint256) := REF_85(uint256)
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [303]
-    LNE: oldValue = allowed[msg.sender][_spender]
-
-----------------------------------------
-
-## Path #10
-Source: external_input_params in StandardToken.transferFrom
-Sink: tainted_state_changing_external_call in StandardToken.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
-    LNE: (No direct expression available)
-
-    IR:  TMP_72(uint256) = LIBRARY_CALL, dest:IterableMapping, function:IterableMapping.iterate_getValue(IterableMapping.itmap,address), arguments:['balances', '_from'] 
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [225]
-    LNE: IterableMapping.insert(balances,_from,IterableMapping.iterate_getValue(balances,_from).sub(_value))
-
-----------------------------------------
-
-## Path #11
-Source: external_input_params in StandardToken.transferFrom
-Sink: tainted_state_changing_external_call in StandardToken.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #12
-Source: external_input_params in BasicToken.balanceOf
-Sink: tainted_state_changing_external_call in BasicToken.balanceOf
-
-### Operations with Source Code Mapping:
-    IR:  balanceOf
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [166, 167, 168]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #13
-Source: external_input_params in BasicToken.transfer
-Sink: tainted_state_changing_external_call in BasicToken.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
-    LNE: (No direct expression available)
-
-    IR:  TMP_45(uint256) = LIBRARY_CALL, dest:IterableMapping, function:IterableMapping.iterate_getValue(IterableMapping.itmap,address), arguments:['balances', '_to'] 
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [156]
-    LNE: IterableMapping.insert(balances,_to,IterableMapping.iterate_getValue(balances,_to).add(_value))
-
-----------------------------------------
-
-## Path #14
-Source: external_input_params in StandardToken.transferFrom
-Sink: tainted_state_changing_external_call in StandardToken.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
-    LNE: (No direct expression available)
-
-    IR:  TMP_75(uint256) = LIBRARY_CALL, dest:IterableMapping, function:IterableMapping.iterate_getValue(IterableMapping.itmap,address), arguments:['balances', '_to'] 
-    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [226]
-    LNE: IterableMapping.insert(balances,_to,IterableMapping.iterate_getValue(balances,_to).add(_value))
-
-----------------------------------------
-
-## Path #15
 Source: external_input_params in BasicToken.transfer
 Sink: tainted_state_changing_external_call in BasicToken.transfer
 
@@ -194,7 +16,7 @@ Sink: tainted_state_changing_external_call in BasicToken.transfer
 
 ----------------------------------------
 
-## Path #16
+## Path #2
 Source: external_input_params in StandardToken.transferFrom
 Sink: tainted_state_changing_external_call in StandardToken.transferFrom
 
@@ -205,7 +27,7 @@ Sink: tainted_state_changing_external_call in StandardToken.transferFrom
 
 ----------------------------------------
 
-## Path #17
+## Path #3
 Source: external_input_params in StandardToken.transferFrom
 Sink: tainted_state_changing_external_call in StandardToken.transferFrom
 
@@ -224,7 +46,18 @@ Sink: tainted_state_changing_external_call in StandardToken.transferFrom
 
 ----------------------------------------
 
-## Path #18
+## Path #4
+Source: external_input_params in StandardToken.transferFrom
+Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #5
 Source: external_input_params in IBNEST.balancesGetBool
 Sink: tainted_state_changing_external_call in IBNEST.balancesGetBool
 
@@ -235,7 +68,118 @@ Sink: tainted_state_changing_external_call in IBNEST.balancesGetBool
 
 ----------------------------------------
 
-## Path #19
+## Path #6
+Source: external_input_params in StandardToken.increaseApproval
+Sink: tainted_state_changing_external_call in StandardToken.increaseApproval
+
+### Operations with Source Code Mapping:
+    IR:  increaseApproval
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [280, 281, 282, 283, 284, 285]
+    LNE: (No direct expression available)
+
+    IR:  REF_80(uint256) -> REF_79[_spender]
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [281, 282]
+    LNE: allowed[msg.sender][_spender] = (allowed[msg.sender][_spender].add(_addedValue))
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in IBNEST.balancesGetNext
+Sink: tainted_state_changing_external_call in IBNEST.balancesGetNext
+
+### Operations with Source Code Mapping:
+    IR:  balancesGetNext
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [335, 336, 337]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in BasicToken.transfer
+Sink: tainted_state_changing_external_call in BasicToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in StandardToken.transferFrom
+Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in StandardToken.transferFrom
+Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
+    LNE: (No direct expression available)
+
+    IR:  TMP_75(uint256) = LIBRARY_CALL, dest:IterableMapping, function:IterableMapping.iterate_getValue(IterableMapping.itmap,address), arguments:['balances', '_to'] 
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [226]
+    LNE: IterableMapping.insert(balances,_to,IterableMapping.iterate_getValue(balances,_to).add(_value))
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in BasicToken.transfer
+Sink: tainted_state_changing_external_call in BasicToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
+    LNE: (No direct expression available)
+
+    IR:  TMP_45(uint256) = LIBRARY_CALL, dest:IterableMapping, function:IterableMapping.iterate_getValue(IterableMapping.itmap,address), arguments:['balances', '_to'] 
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [156]
+    LNE: IterableMapping.insert(balances,_to,IterableMapping.iterate_getValue(balances,_to).add(_value))
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in BasicToken.transfer
+Sink: tainted_state_changing_external_call in BasicToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in StandardToken.transferFrom
+Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in BasicToken.balanceOf
+Sink: tainted_state_changing_external_call in BasicToken.balanceOf
+
+### Operations with Source Code Mapping:
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [166, 167, 168]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #15
 Source: external_input_params in IBNEST.balancesGetValue
 Sink: tainted_state_changing_external_call in IBNEST.balancesGetValue
 
@@ -243,5 +187,61 @@ Sink: tainted_state_changing_external_call in IBNEST.balancesGetValue
     IR:  balancesGetValue
     SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [339, 340, 341, 342, 343, 344]
     LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in BasicToken.transfer
+Sink: tainted_state_changing_external_call in BasicToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in StandardToken.transferFrom
+Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in StandardToken.transferFrom
+Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
+    LNE: (No direct expression available)
+
+    IR:  TMP_72(uint256) = LIBRARY_CALL, dest:IterableMapping, function:IterableMapping.iterate_getValue(IterableMapping.itmap,address), arguments:['balances', '_from'] 
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [225]
+    LNE: IterableMapping.insert(balances,_from,IterableMapping.iterate_getValue(balances,_from).sub(_value))
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in StandardToken.decreaseApproval
+Sink: tainted_state_changing_external_call in StandardToken.decreaseApproval
+
+### Operations with Source Code Mapping:
+    IR:  decreaseApproval
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [302, 303, 304, 305, 306, 307, 308, 309, 310, 311]
+    LNE: (No direct expression available)
+
+    IR:  REF_85(uint256) -> REF_84[_spender]
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [303]
+    LNE: oldValue = allowed[msg.sender][_spender]
+
+    IR:  oldValue(uint256) := REF_85(uint256)
+    SRC: File 'pmdetector/flattened_contracts/5a4f7edf_Nest Protocol Staking/flattened.sol', Lines [303]
+    LNE: oldValue = allowed[msg.sender][_spender]
 
 ----------------------------------------

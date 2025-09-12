@@ -398,43 +398,45 @@ Sink #35: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ERC20.transferFrom
+  Source: external_input_params in ERC20Permit.nonces
+  Sink: tainted_state_changing_external_call in ERC20Permit.nonces
   Path Operations:
-    1. transferFrom
-    2. REF_76(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_77(uint256) -> REF_76[msg.sender]
+    1. nonces
+    2. REF_141(Counters.Counter) -> _nonces[owner]
 
 Path #2:
   Source: external_input_params in ManifestERC20Token.mint
-  Sink: tainted_erc20_transfer in ManifestERC20Token._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
-
-Path #3:
-  Source: external_input_params in ManifestERC20Token.mint
-  Sink: tainted_state_changing_external_call in ERC20Permit._burn
+  Sink: tainted_state_changing_external_call in ManifestERC20Token._mint
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
     3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
     4. _totalSupply(uint256) := TMP_337(uint256)
 
+Path #3:
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_80(uint256) -> REF_79[spender]
+
 Path #4:
   Source: external_input_params in ManifestERC20Token.burnFrom
-  Sink: tainted_erc20_transfer in ManifestERC20Token._burn
+  Sink: tainted_state_changing_external_call in ManifestERC20Token._burn
   Path Operations:
     1. burnFrom
     2. INTERNAL_CALL, ManifestERC20Token._burnFrom(address,uint256)(account_,amount_)
     3. INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
+    4. REF_175(uint256) -> _balances[account]
 
 Path #5:
-  Source: external_input_params in ERC20Permit.permit
-  Sink: tainted_state_changing_external_call in ERC20Permit.permit
+  Source: external_input_params in ManifestERC20Token.mint
+  Sink: tainted_state_changing_external_call in ERC20Permit._mint
   Path Operations:
-    1. permit
-    2. REF_139(Counters.Counter) -> _nonces[owner]
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_337(uint256)
 
 Path #6:
   Source: external_input_params in ManifestERC20Token.mint
@@ -446,37 +448,14 @@ Path #6:
     4. _totalSupply(uint256) := TMP_337(uint256)
 
 Path #7:
-  Source: external_input_params in ERC20Permit.nonces
-  Sink: tainted_state_changing_external_call in ERC20Permit.nonces
-  Path Operations:
-    1. nonces
-    2. REF_141(Counters.Counter) -> _nonces[owner]
-
-Path #8:
   Source: external_input_params in ManifestERC20Token.burnFrom
-  Sink: tainted_state_changing_external_call in ManifestERC20Token._burn
+  Sink: tainted_erc20_transfer in ManifestERC20Token._burn
   Path Operations:
     1. burnFrom
     2. INTERNAL_CALL, ManifestERC20Token._burnFrom(address,uint256)(account_,amount_)
     3. INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
-    4. REF_175(uint256) -> _balances[account]
 
-Path #9:
-  Source: external_input_params in ManifestERC20Token.mint
-  Sink: tainted_state_changing_external_call in ERC20._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
-    3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
-    4. _totalSupply(uint256) := TMP_337(uint256)
-
-Path #10:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
-  Path Operations:
-    1. transfer
-
-Path #11:
+Path #8:
   Source: external_input_params in ManifestERC20Token.mint
   Sink: tainted_state_changing_external_call in ERC20._burn
   Path Operations:
@@ -485,68 +464,37 @@ Path #11:
     3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
     4. _totalSupply(uint256) := TMP_337(uint256)
 
-Path #12:
-  Source: external_input_params in ManifestERC20Token.burnFrom
-  Sink: tainted_state_changing_external_call in ManifestERC20Token._burnFrom
-  Path Operations:
-    1. burnFrom
-    2. INTERNAL_CALL, ManifestERC20Token._burnFrom(address,uint256)(account_,amount_)
-    3. TMP_362(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account_,msg.sender)
-
-Path #13:
+Path #9:
   Source: external_input_params in ERC20.decreaseAllowance
   Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
   Path Operations:
     1. decreaseAllowance
     2. REF_83(uint256) -> REF_82[spender]
 
-Path #14:
-  Source: external_input_params in ERC20.increaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_80(uint256) -> REF_79[spender]
-
-Path #15:
-  Source: external_input_params in ManifestERC20Token.mint
-  Sink: tainted_state_changing_external_call in ManifestERC20Token._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
-    3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
-    4. _totalSupply(uint256) := TMP_337(uint256)
-
-Path #16:
-  Source: external_input_params in ManifestERC20Token.mint
-  Sink: tainted_state_changing_external_call in ManifestERC20Token._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
-    3. REF_172(uint256) -> _balances[account_]
-
-Path #17:
-  Source: external_input_params in ERC20Permit.permit
-  Sink: tainted_state_changing_external_call in ERC20Permit.permit
-  Path Operations:
-    1. permit
-    2. REF_136(Counters.Counter) -> _nonces[owner]
-
-Path #18:
+Path #10:
   Source: external_input_params in ERC20.transferFrom
   Sink: tainted_erc20_transfer in ERC20._transfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
 
-Path #19:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ERC20._transfer
+Path #11:
+  Source: external_input_params in ERC20Permit.permit
+  Sink: tainted_state_changing_external_call in ERC20Permit.permit
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_86(uint256) -> _balances[sender]
+    1. permit
+    2. REF_136(Counters.Counter) -> _nonces[owner]
 
-Path #20:
+Path #12:
+  Source: external_input_params in ManifestERC20Token.mint
+  Sink: tainted_state_changing_external_call in ERC20Permit._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_337(uint256)
+
+Path #13:
   Source: external_input_params in ERC20.transfer
   Sink: tainted_state_changing_external_call in ERC20._transfer
   Path Operations:
@@ -554,17 +502,69 @@ Path #20:
     2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,recipient,amount)
     3. REF_89(uint256) -> _balances[recipient]
 
-Path #21:
+Path #14:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #15:
   Source: external_input_params in ManifestERC20Token.mint
-  Sink: tainted_state_changing_external_call in ERC20Permit._mint
+  Sink: tainted_state_changing_external_call in ERC20._mint
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
     3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
     4. _totalSupply(uint256) := TMP_337(uint256)
 
-Path #22:
+Path #16:
+  Source: external_input_params in ERC20Permit.permit
+  Sink: tainted_state_changing_external_call in ERC20Permit.permit
+  Path Operations:
+    1. permit
+    2. REF_139(Counters.Counter) -> _nonces[owner]
+
+Path #17:
   Source: external_input_params in ERC20.transferFrom
   Sink: tainted_erc20_transfer in ERC20.transferFrom
   Path Operations:
     1. transferFrom
+
+Path #18:
+  Source: external_input_params in ManifestERC20Token.burnFrom
+  Sink: tainted_state_changing_external_call in ManifestERC20Token._burnFrom
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ManifestERC20Token._burnFrom(address,uint256)(account_,amount_)
+    3. TMP_362(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account_,msg.sender)
+
+Path #19:
+  Source: external_input_params in ManifestERC20Token.mint
+  Sink: tainted_erc20_transfer in ManifestERC20Token._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+
+Path #20:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_76(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_77(uint256) -> REF_76[msg.sender]
+
+Path #21:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_86(uint256) -> _balances[sender]
+
+Path #22:
+  Source: external_input_params in ManifestERC20Token.mint
+  Sink: tainted_state_changing_external_call in ManifestERC20Token._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. REF_172(uint256) -> _balances[account_]

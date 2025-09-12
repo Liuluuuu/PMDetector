@@ -3,17 +3,6 @@ Found 3 tainted paths.
 
 ## Path #1
 Source: external_input_params in LoanToken.constructor
-Sink: tainted_erc20_transfer in LoanToken.constructor
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/33defd02_bZxProtocol/flattened.sol', Lines [619, 620, 621, 622]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in LoanToken.constructor
 Sink: tainted_state_changing_external_call in LoanToken._setTarget
 
 ### Operations with Source Code Mapping:
@@ -27,13 +16,24 @@ Sink: tainted_state_changing_external_call in LoanToken._setTarget
 
 ----------------------------------------
 
-## Path #3
+## Path #2
 Source: external_input_params in Ownable.transferOwnership
 Sink: tainted_erc20_transfer in Ownable.transferOwnership
 
 ### Operations with Source Code Mapping:
     IR:  transferOwnership
     SRC: File 'pmdetector/flattened_contracts/33defd02_bZxProtocol/flattened.sol', Lines [480, 481, 482]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in LoanToken.constructor
+Sink: tainted_erc20_transfer in LoanToken.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/33defd02_bZxProtocol/flattened.sol', Lines [619, 620, 621, 622]
     LNE: (No direct expression available)
 
 ----------------------------------------

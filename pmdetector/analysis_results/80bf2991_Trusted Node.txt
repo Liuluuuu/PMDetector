@@ -547,38 +547,6 @@ Sink #19: tainted_erc20_transfer
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in AnyswapV5ERC20.depositWithTransferPermit
-  Sink: tainted_erc20_transfer in AnyswapV5ERC20.depositWithTransferPermit
-  Path Operations:
-    1. depositWithTransferPermit
-
-Path #2:
-  Source: external_input_params in AnyswapV5ERC20.constructor
-  Sink: tainted_erc20_transfer in AnyswapV5ERC20.depositWithPermit
-  Path Operations:
-    1. constructor
-    2. underlying(address) := _underlying(address)
-    3. TMP_93 = CONVERT underlying to IERC20
-
-Path #3:
-  Source: external_input_params in AnyswapV5ERC20.deposit
-  Sink: tainted_erc20_transfer in AnyswapV5ERC20.deposit
-  Path Operations:
-    1. deposit
-
-Path #4:
-  Source: external_input_params in AnyswapV5ERC20.depositWithPermit
-  Sink: tainted_state_changing_external_call in AnyswapV5ERC20.depositWithPermit
-  Path Operations:
-    1. depositWithPermit
-
-Path #5:
-  Source: external_input_params in AnyswapV5ERC20.withdraw
-  Sink: tainted_erc20_transfer in AnyswapV5ERC20.withdraw
-  Path Operations:
-    1. withdraw
-
-Path #6:
   Source: external_input_params in AnyswapV5ERC20.constructor
   Sink: tainted_erc20_transfer in AnyswapV5ERC20.deposit
   Path Operations:
@@ -586,17 +554,51 @@ Path #6:
     2. underlying(address) := _underlying(address)
     3. TMP_111 = CONVERT underlying to IERC20
 
-Path #7:
+Path #2:
+  Source: external_input_params in AnyswapV5ERC20.approveAndCall
+  Sink: tainted_state_changing_external_call in AnyswapV5ERC20.approveAndCall
+  Path Operations:
+    1. approveAndCall
+
+Path #3:
   Source: external_input_params in AnyswapV5ERC20.depositWithTransferPermit
   Sink: tainted_erc20_transfer in AnyswapV5ERC20.depositWithTransferPermit
   Path Operations:
     1. depositWithTransferPermit
 
-Path #8:
-  Source: external_input_params in AnyswapV5ERC20.depositVault
-  Sink: tainted_erc20_transfer in AnyswapV5ERC20.depositVault
+Path #4:
+  Source: external_input_params in AnyswapV5ERC20.withdraw
+  Sink: tainted_erc20_transfer in AnyswapV5ERC20.withdraw
   Path Operations:
-    1. depositVault
+    1. withdraw
+
+Path #5:
+  Source: external_input_params in AnyswapV5ERC20.constructor
+  Sink: tainted_erc20_transfer in AnyswapV5ERC20.deposit
+  Path Operations:
+    1. constructor
+    2. underlying(address) := _underlying(address)
+    3. TMP_103 = CONVERT underlying to IERC20
+
+Path #6:
+  Source: external_input_params in AnyswapV5ERC20.depositWithTransferPermit
+  Sink: tainted_erc20_transfer in AnyswapV5ERC20.depositWithTransferPermit
+  Path Operations:
+    1. depositWithTransferPermit
+
+Path #7:
+  Source: external_input_params in AnyswapV5ERC20.constructor
+  Sink: tainted_erc20_transfer in AnyswapV5ERC20.deposit
+  Path Operations:
+    1. constructor
+    2. underlying(address) := _underlying(address)
+    3. TMP_107 = CONVERT underlying to IERC20
+
+Path #8:
+  Source: external_input_params in AnyswapV5ERC20.withdrawVault
+  Sink: tainted_erc20_transfer in AnyswapV5ERC20.withdrawVault
+  Path Operations:
+    1. withdrawVault
 
 Path #9:
   Source: external_input_params in AnyswapV5ERC20.withdraw
@@ -605,10 +607,10 @@ Path #9:
     1. withdraw
 
 Path #10:
-  Source: external_input_params in AnyswapV5ERC20.approveAndCall
-  Sink: tainted_state_changing_external_call in AnyswapV5ERC20.approveAndCall
+  Source: external_input_params in AnyswapV5ERC20.depositVault
+  Sink: tainted_erc20_transfer in AnyswapV5ERC20.depositVault
   Path Operations:
-    1. approveAndCall
+    1. depositVault
 
 Path #11:
   Source: external_input_params in AnyswapV5ERC20.deposit
@@ -617,12 +619,6 @@ Path #11:
     1. deposit
 
 Path #12:
-  Source: external_input_params in AnyswapV5ERC20.transferAndCall
-  Sink: tainted_erc20_transfer in AnyswapV5ERC20.transferAndCall
-  Path Operations:
-    1. transferAndCall
-
-Path #13:
   Source: external_input_params in AnyswapV5ERC20.constructor
   Sink: tainted_erc20_transfer in AnyswapV5ERC20.deposit
   Path Operations:
@@ -632,27 +628,7 @@ Path #13:
     4. TMP_102(uint256) = HIGH_LEVEL_CALL, dest:TMP_101(IERC20), function:balanceOf, arguments:['msg.sender']  
     5. _amount(uint256) := TMP_102(uint256)
 
-Path #14:
-  Source: external_input_params in AnyswapV5ERC20.depositWithPermit
-  Sink: tainted_erc20_transfer in AnyswapV5ERC20.depositWithPermit
-  Path Operations:
-    1. depositWithPermit
-
-Path #15:
-  Source: external_input_params in AnyswapV5ERC20.withdrawVault
-  Sink: tainted_erc20_transfer in AnyswapV5ERC20.withdrawVault
-  Path Operations:
-    1. withdrawVault
-
-Path #16:
-  Source: external_input_params in AnyswapV5ERC20.constructor
-  Sink: tainted_erc20_transfer in AnyswapV5ERC20.deposit
-  Path Operations:
-    1. constructor
-    2. underlying(address) := _underlying(address)
-    3. TMP_107 = CONVERT underlying to IERC20
-
-Path #17:
+Path #13:
   Source: external_input_params in AnyswapV5ERC20.constructor
   Sink: tainted_erc20_transfer in AnyswapV5ERC20._withdraw
   Path Operations:
@@ -660,10 +636,34 @@ Path #17:
     2. underlying(address) := _underlying(address)
     3. TMP_130 = CONVERT underlying to IERC20
 
-Path #18:
+Path #14:
   Source: external_input_params in AnyswapV5ERC20.constructor
-  Sink: tainted_erc20_transfer in AnyswapV5ERC20.deposit
+  Sink: tainted_erc20_transfer in AnyswapV5ERC20.depositWithPermit
   Path Operations:
     1. constructor
     2. underlying(address) := _underlying(address)
-    3. TMP_103 = CONVERT underlying to IERC20
+    3. TMP_93 = CONVERT underlying to IERC20
+
+Path #15:
+  Source: external_input_params in AnyswapV5ERC20.transferAndCall
+  Sink: tainted_erc20_transfer in AnyswapV5ERC20.transferAndCall
+  Path Operations:
+    1. transferAndCall
+
+Path #16:
+  Source: external_input_params in AnyswapV5ERC20.depositWithPermit
+  Sink: tainted_state_changing_external_call in AnyswapV5ERC20.depositWithPermit
+  Path Operations:
+    1. depositWithPermit
+
+Path #17:
+  Source: external_input_params in AnyswapV5ERC20.depositWithPermit
+  Sink: tainted_erc20_transfer in AnyswapV5ERC20.depositWithPermit
+  Path Operations:
+    1. depositWithPermit
+
+Path #18:
+  Source: external_input_params in AnyswapV5ERC20.deposit
+  Sink: tainted_erc20_transfer in AnyswapV5ERC20.deposit
+  Path Operations:
+    1. deposit

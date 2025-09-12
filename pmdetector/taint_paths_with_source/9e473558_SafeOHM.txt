@@ -2,478 +2,6 @@
 Found 30 tainted paths.
 
 ## Path #1
-Source: external_input_params in SOHMERC20Token.transferFrom
-Sink: tainted_state_changing_external_call in SOHMERC20Token.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
-    LNE: (No direct expression available)
-
-    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'num'] 
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [910]
-    LNE: tAmount = amount.mul(num).div(100)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in SOHMERC20Token.burnFrom
-Sink: tainted_erc20_transfer in SOHMERC20Token._burn
-
-### Operations with Source Code Mapping:
-    IR:  burnFrom
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [928, 929, 930]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, SOHMERC20Token._burnFrom(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [929]
-    LNE: _burnFrom(account_,amount_)
-
-    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [940]
-    LNE: _burn(account_,amount_)
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in SOHMERC20Token.setBoundReward
-Sink: tainted_state_changing_external_call in SOHMERC20Token._transfer
-
-### Operations with Source Code Mapping:
-    IR:  setBoundReward
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [886, 887, 888, 889]
-    LNE: (No direct expression available)
-
-    IR:  boundReward(address) := _boundReward(address)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [887]
-    LNE: boundReward = _boundReward
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,boundReward,tAmount)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [900]
-    LNE: _transfer(msg.sender,boundReward,tAmount)
-
-    IR:  REF_159(uint256) -> _balances[recipient]
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [679]
-    LNE: _balances[recipient] = _balances[recipient].add(amount)
-
-----------------------------------------
-
-## Path #4
-Source: external_input_params in SOHMERC20Token.transferFrom
-Sink: tainted_state_changing_external_call in SOHMERC20Token._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,boundReward,tAmount)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [911]
-    LNE: _transfer(sender,boundReward,tAmount)
-
-    IR:  REF_156(uint256) -> _balances[sender]
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [678]
-    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
-
-----------------------------------------
-
-## Path #5
-Source: external_input_params in ERC20Permit.nonces
-Sink: tainted_state_changing_external_call in ERC20Permit.nonces
-
-### Operations with Source Code Mapping:
-    IR:  nonces
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [797, 798, 799]
-    LNE: (No direct expression available)
-
-    IR:  REF_135(Counters.Counter) -> _nonces[owner]
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [798]
-    LNE: _nonces[owner].current()
-
-----------------------------------------
-
-## Path #6
-Source: external_input_params in SOHMERC20Token.mint
-Sink: tainted_state_changing_external_call in ERC20._burn
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
-    LNE: _mint(account_,amount_)
-
-    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
-    LNE: _totalSupply = _totalSupply.add(amount_)
-
-    IR:  _totalSupply(uint256) := TMP_325(uint256)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
-    LNE: _totalSupply = _totalSupply.add(amount_)
-
-----------------------------------------
-
-## Path #7
-Source: external_input_params in SOHMERC20Token.transfer
-Sink: tainted_erc20_transfer in SOHMERC20Token.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #8
-Source: external_input_params in ERC20.increaseAllowance
-Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  increaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [662, 663, 664, 665]
-    LNE: (No direct expression available)
-
-    IR:  REF_77(uint256) -> REF_76[spender]
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [663]
-    LNE: _approve(msg.sender,spender,_allowances[msg.sender][spender].add(addedValue))
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in SOHMERC20Token.mint
-Sink: tainted_state_changing_external_call in SOHMERC20Token._burn
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
-    LNE: _mint(account_,amount_)
-
-    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
-    LNE: _totalSupply = _totalSupply.add(amount_)
-
-    IR:  _totalSupply(uint256) := TMP_325(uint256)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
-    LNE: _totalSupply = _totalSupply.add(amount_)
-
-----------------------------------------
-
-## Path #10
-Source: external_input_params in ERC20.decreaseAllowance
-Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  decreaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [667, 668, 669, 670]
-    LNE: (No direct expression available)
-
-    IR:  REF_80(uint256) -> REF_79[spender]
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [668]
-    LNE: _approve(msg.sender,spender,_allowances[msg.sender][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
-
-----------------------------------------
-
-## Path #11
-Source: external_input_params in ERC20Permit.permit
-Sink: tainted_state_changing_external_call in ERC20Permit.permit
-
-### Operations with Source Code Mapping:
-    IR:  permit
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [782, 783, 784, 785, 786, 787, 788, 789, 790, 791, 792, 793, 794, 795]
-    LNE: (No direct expression available)
-
-    IR:  REF_130(Counters.Counter) -> _nonces[owner]
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [785, 786]
-    LNE: hashStruct = keccak256(bytes)(abi.encode(PERMIT_TYPEHASH,owner,spender,amount,_nonces[owner].current(),deadline))
-
-----------------------------------------
-
-## Path #12
-Source: external_input_params in SOHMERC20Token.transfer
-Sink: tainted_state_changing_external_call in SOHMERC20Token.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #13
-Source: external_input_params in SOHMERC20Token.mint
-Sink: tainted_state_changing_external_call in SOHMERC20Token._mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
-    LNE: _mint(account_,amount_)
-
-    IR:  REF_163(uint256) -> _balances[account_]
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [687]
-    LNE: _balances[account_] = _balances[account_].add(amount_)
-
-----------------------------------------
-
-## Path #14
-Source: external_input_params in SOHMERC20Token.transferFrom
-Sink: tainted_state_changing_external_call in SOHMERC20Token.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #15
-Source: external_input_params in ERC20Permit.permit
-Sink: tainted_state_changing_external_call in ERC20Permit.permit
-
-### Operations with Source Code Mapping:
-    IR:  permit
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [782, 783, 784, 785, 786, 787, 788, 789, 790, 791, 792, 793, 794, 795]
-    LNE: (No direct expression available)
-
-    IR:  REF_133(Counters.Counter) -> _nonces[owner]
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [793]
-    LNE: _nonces[owner].increment()
-
-----------------------------------------
-
-## Path #16
-Source: external_input_params in SOHMERC20Token.transfer
-Sink: tainted_state_changing_external_call in SOHMERC20Token.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905]
-    LNE: (No direct expression available)
-
-    IR:  TMP_352(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'num'] 
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [899]
-    LNE: tAmount = amount.mul(num).div(100)
-
-----------------------------------------
-
-## Path #17
-Source: external_input_params in SOHMERC20Token.mint
-Sink: tainted_state_changing_external_call in ERC20._mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
-    LNE: _mint(account_,amount_)
-
-    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
-    LNE: _totalSupply = _totalSupply.add(amount_)
-
-    IR:  _totalSupply(uint256) := TMP_325(uint256)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
-    LNE: _totalSupply = _totalSupply.add(amount_)
-
-----------------------------------------
-
-## Path #18
-Source: external_input_params in SOHMERC20Token.mint
-Sink: tainted_state_changing_external_call in ERC20Permit._mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
-    LNE: _mint(account_,amount_)
-
-    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
-    LNE: _totalSupply = _totalSupply.add(amount_)
-
-    IR:  _totalSupply(uint256) := TMP_325(uint256)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
-    LNE: _totalSupply = _totalSupply.add(amount_)
-
-----------------------------------------
-
-## Path #19
-Source: external_input_params in SOHMERC20Token.burnFrom
-Sink: tainted_state_changing_external_call in SOHMERC20Token._burn
-
-### Operations with Source Code Mapping:
-    IR:  burnFrom
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [928, 929, 930]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, SOHMERC20Token._burnFrom(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [929]
-    LNE: _burnFrom(account_,amount_)
-
-    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [940]
-    LNE: _burn(account_,amount_)
-
-    IR:  REF_166(uint256) -> _balances[account]
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [696]
-    LNE: _balances[account] = _balances[account].sub(amount,ERC20: burn amount exceeds balance)
-
-----------------------------------------
-
-## Path #20
-Source: external_input_params in SOHMERC20Token.transferFrom
-Sink: tainted_erc20_transfer in SOHMERC20Token._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,boundReward,tAmount)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [911]
-    LNE: _transfer(sender,boundReward,tAmount)
-
-----------------------------------------
-
-## Path #21
-Source: external_input_params in SOHMERC20Token.transferFrom
-Sink: tainted_erc20_transfer in SOHMERC20Token.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #22
-Source: external_input_params in SOHMERC20Token.setBoundReward
-Sink: tainted_erc20_transfer in SOHMERC20Token.transfer
-
-### Operations with Source Code Mapping:
-    IR:  setBoundReward
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [886, 887, 888, 889]
-    LNE: (No direct expression available)
-
-    IR:  boundReward(address) := _boundReward(address)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [887]
-    LNE: boundReward = _boundReward
-
-----------------------------------------
-
-## Path #23
-Source: external_input_params in SOHMERC20Token.transferFrom
-Sink: tainted_erc20_transfer in SOHMERC20Token.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #24
-Source: external_input_params in SOHMERC20Token.mint
-Sink: tainted_state_changing_external_call in SOHMERC20Token._mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
-    LNE: _mint(account_,amount_)
-
-    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
-    LNE: _totalSupply = _totalSupply.add(amount_)
-
-    IR:  _totalSupply(uint256) := TMP_325(uint256)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
-    LNE: _totalSupply = _totalSupply.add(amount_)
-
-----------------------------------------
-
-## Path #25
-Source: external_input_params in SOHMERC20Token.transferFrom
-Sink: tainted_state_changing_external_call in SOHMERC20Token.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
-    LNE: (No direct expression available)
-
-    IR:  REF_183(mapping(address => uint256)) -> _allowances[sender]
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [915]
-    LNE: _approve(sender,msg.sender,_allowances[sender][msg.sender].sub(amount,ERC20: transfer amount exceeds allowance))
-
-    IR:  REF_184(uint256) -> REF_183[msg.sender]
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [915]
-    LNE: _approve(sender,msg.sender,_allowances[sender][msg.sender].sub(amount,ERC20: transfer amount exceeds allowance))
-
-----------------------------------------
-
-## Path #26
-Source: external_input_params in SOHMERC20Token.burnFrom
-Sink: tainted_state_changing_external_call in SOHMERC20Token._burnFrom
-
-### Operations with Source Code Mapping:
-    IR:  burnFrom
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [928, 929, 930]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, SOHMERC20Token._burnFrom(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [929]
-    LNE: _burnFrom(account_,amount_)
-
-    IR:  TMP_371(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account_,msg.sender)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [933, 934, 935, 936, 937]
-    LNE: decreasedAllowance_ = allowance(account_,msg.sender).sub(amount_,ERC20: burn amount exceeds allowance)
-
-----------------------------------------
-
-## Path #27
-Source: external_input_params in SOHMERC20Token.mint
-Sink: tainted_erc20_transfer in SOHMERC20Token._mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
-    LNE: _mint(account_,amount_)
-
-----------------------------------------
-
-## Path #28
-Source: external_input_params in SOHMERC20Token.transfer
-Sink: tainted_state_changing_external_call in SOHMERC20Token.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #29
 Source: external_input_params in SOHMERC20Token.mint
 Sink: tainted_state_changing_external_call in ERC20Permit._burn
 
@@ -496,7 +24,44 @@ Sink: tainted_state_changing_external_call in ERC20Permit._burn
 
 ----------------------------------------
 
-## Path #30
+## Path #2
+Source: external_input_params in SOHMERC20Token.transfer
+Sink: tainted_state_changing_external_call in SOHMERC20Token.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in SOHMERC20Token.mint
+Sink: tainted_erc20_transfer in SOHMERC20Token._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
+    LNE: _mint(account_,amount_)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in SOHMERC20Token.transferFrom
+Sink: tainted_erc20_transfer in SOHMERC20Token.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #5
 Source: external_input_params in SOHMERC20Token.transferFrom
 Sink: tainted_state_changing_external_call in SOHMERC20Token.transferFrom
 
@@ -504,5 +69,440 @@ Sink: tainted_state_changing_external_call in SOHMERC20Token.transferFrom
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
     LNE: (No direct expression available)
+
+    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'num'] 
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [910]
+    LNE: tAmount = amount.mul(num).div(100)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in SOHMERC20Token.transferFrom
+Sink: tainted_erc20_transfer in SOHMERC20Token.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in SOHMERC20Token.setBoundReward
+Sink: tainted_state_changing_external_call in SOHMERC20Token._transfer
+
+### Operations with Source Code Mapping:
+    IR:  setBoundReward
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [886, 887, 888, 889]
+    LNE: (No direct expression available)
+
+    IR:  boundReward(address) := _boundReward(address)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [887]
+    LNE: boundReward = _boundReward
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,boundReward,tAmount)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [900]
+    LNE: _transfer(msg.sender,boundReward,tAmount)
+
+    IR:  REF_159(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [679]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in SOHMERC20Token.transferFrom
+Sink: tainted_erc20_transfer in SOHMERC20Token._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,boundReward,tAmount)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [911]
+    LNE: _transfer(sender,boundReward,tAmount)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in SOHMERC20Token.mint
+Sink: tainted_state_changing_external_call in ERC20._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_325(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in SOHMERC20Token.burnFrom
+Sink: tainted_state_changing_external_call in SOHMERC20Token._burnFrom
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [928, 929, 930]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, SOHMERC20Token._burnFrom(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [929]
+    LNE: _burnFrom(account_,amount_)
+
+    IR:  TMP_371(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account_,msg.sender)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [933, 934, 935, 936, 937]
+    LNE: decreasedAllowance_ = allowance(account_,msg.sender).sub(amount_,ERC20: burn amount exceeds allowance)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in SOHMERC20Token.transferFrom
+Sink: tainted_state_changing_external_call in SOHMERC20Token.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in ERC20.decreaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [667, 668, 669, 670]
+    LNE: (No direct expression available)
+
+    IR:  REF_80(uint256) -> REF_79[spender]
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [668]
+    LNE: _approve(msg.sender,spender,_allowances[msg.sender][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in SOHMERC20Token.transferFrom
+Sink: tainted_state_changing_external_call in SOHMERC20Token.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
+    LNE: (No direct expression available)
+
+    IR:  REF_183(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [915]
+    LNE: _approve(sender,msg.sender,_allowances[sender][msg.sender].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_184(uint256) -> REF_183[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [915]
+    LNE: _approve(sender,msg.sender,_allowances[sender][msg.sender].sub(amount,ERC20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in SOHMERC20Token.mint
+Sink: tainted_state_changing_external_call in ERC20._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_325(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in ERC20Permit.permit
+Sink: tainted_state_changing_external_call in ERC20Permit.permit
+
+### Operations with Source Code Mapping:
+    IR:  permit
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [782, 783, 784, 785, 786, 787, 788, 789, 790, 791, 792, 793, 794, 795]
+    LNE: (No direct expression available)
+
+    IR:  REF_133(Counters.Counter) -> _nonces[owner]
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [793]
+    LNE: _nonces[owner].increment()
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in SOHMERC20Token.transferFrom
+Sink: tainted_state_changing_external_call in SOHMERC20Token.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in SOHMERC20Token.burnFrom
+Sink: tainted_state_changing_external_call in SOHMERC20Token._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [928, 929, 930]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, SOHMERC20Token._burnFrom(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [929]
+    LNE: _burnFrom(account_,amount_)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [940]
+    LNE: _burn(account_,amount_)
+
+    IR:  REF_166(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [696]
+    LNE: _balances[account] = _balances[account].sub(amount,ERC20: burn amount exceeds balance)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in SOHMERC20Token.setBoundReward
+Sink: tainted_erc20_transfer in SOHMERC20Token.transfer
+
+### Operations with Source Code Mapping:
+    IR:  setBoundReward
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [886, 887, 888, 889]
+    LNE: (No direct expression available)
+
+    IR:  boundReward(address) := _boundReward(address)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [887]
+    LNE: boundReward = _boundReward
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in SOHMERC20Token.mint
+Sink: tainted_state_changing_external_call in SOHMERC20Token._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
+    LNE: _mint(account_,amount_)
+
+    IR:  REF_163(uint256) -> _balances[account_]
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [687]
+    LNE: _balances[account_] = _balances[account_].add(amount_)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in SOHMERC20Token.transfer
+Sink: tainted_state_changing_external_call in SOHMERC20Token.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in ERC20.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [662, 663, 664, 665]
+    LNE: (No direct expression available)
+
+    IR:  REF_77(uint256) -> REF_76[spender]
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [663]
+    LNE: _approve(msg.sender,spender,_allowances[msg.sender][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in SOHMERC20Token.mint
+Sink: tainted_state_changing_external_call in SOHMERC20Token._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_325(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in SOHMERC20Token.mint
+Sink: tainted_state_changing_external_call in SOHMERC20Token._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_325(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in SOHMERC20Token.transfer
+Sink: tainted_state_changing_external_call in SOHMERC20Token.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905]
+    LNE: (No direct expression available)
+
+    IR:  TMP_352(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'num'] 
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [899]
+    LNE: tAmount = amount.mul(num).div(100)
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in SOHMERC20Token.mint
+Sink: tainted_state_changing_external_call in ERC20Permit._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [920, 921, 922]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [921]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_325(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [686]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in ERC20Permit.nonces
+Sink: tainted_state_changing_external_call in ERC20Permit.nonces
+
+### Operations with Source Code Mapping:
+    IR:  nonces
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [797, 798, 799]
+    LNE: (No direct expression available)
+
+    IR:  REF_135(Counters.Counter) -> _nonces[owner]
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [798]
+    LNE: _nonces[owner].current()
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in SOHMERC20Token.transferFrom
+Sink: tainted_state_changing_external_call in SOHMERC20Token._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,boundReward,tAmount)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [911]
+    LNE: _transfer(sender,boundReward,tAmount)
+
+    IR:  REF_156(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [678]
+    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in SOHMERC20Token.transfer
+Sink: tainted_erc20_transfer in SOHMERC20Token.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in SOHMERC20Token.burnFrom
+Sink: tainted_erc20_transfer in SOHMERC20Token._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [928, 929, 930]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, SOHMERC20Token._burnFrom(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [929]
+    LNE: _burnFrom(account_,amount_)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [940]
+    LNE: _burn(account_,amount_)
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in ERC20Permit.permit
+Sink: tainted_state_changing_external_call in ERC20Permit.permit
+
+### Operations with Source Code Mapping:
+    IR:  permit
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [782, 783, 784, 785, 786, 787, 788, 789, 790, 791, 792, 793, 794, 795]
+    LNE: (No direct expression available)
+
+    IR:  REF_130(Counters.Counter) -> _nonces[owner]
+    SRC: File 'pmdetector/flattened_contracts/9e473558_SafeOHM/flattened.sol', Lines [785, 786]
+    LNE: hashStruct = keccak256(bytes)(abi.encode(PERMIT_TYPEHASH,owner,spender,amount,_nonces[owner].current(),deadline))
 
 ----------------------------------------

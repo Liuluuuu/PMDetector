@@ -2,250 +2,6 @@
 Found 23 tainted paths.
 
 ## Path #1
-Source: external_input_params in BOG.setLiquify
-Sink: tainted_erc20_transfer in BOG.autoLiquify
-
-### Operations with Source Code Mapping:
-    IR:  setLiquify
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [397, 398, 399, 400, 401]
-    LNE: (No direct expression available)
-
-    IR:  liquifyAmount(uint256) := amount(uint256)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [400]
-    LNE: liquifyAmount = amount
-
-    IR:  TMP_146(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [357]
-    LNE: amountToSwap = liquifyAmount.div(2)
-
-    IR:  amountToSwap(uint256) := TMP_146(uint256)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [357]
-    LNE: amountToSwap = liquifyAmount.div(2)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in BOG.transfer
-Sink: tainted_state_changing_external_call in BOG.takeFee
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
-    LNE: (No direct expression available)
-
-    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
-    LNE: _transferFrom(msg.sender,recipient,amount)
-
-    IR:  TMP_116(uint256) = INTERNAL_CALL, BOG.takeFee(address,uint256)(sender,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [319]
-    LNE: amountReceived = takeFee(sender,amount)
-
-    IR:  TMP_122(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'TMP_121'] 
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [332]
-    LNE: liquidityFeeAmount = amount.mul(getLiquidityFee()).div(feeDenominator)
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in BOG.transfer
-Sink: tainted_state_changing_external_call in BOG._transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
-    LNE: (No direct expression available)
-
-    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
-    LNE: _transferFrom(msg.sender,recipient,amount)
-
-    IR:  REF_43(uint256) -> _balances[recipient]
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [321]
-    LNE: _balances[recipient] = _balances[recipient].add(amountReceived)
-
-----------------------------------------
-
-## Path #4
-Source: external_input_params in BOG.transfer
-Sink: tainted_state_changing_external_call in BOG.takeFee
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
-    LNE: (No direct expression available)
-
-    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
-    LNE: _transferFrom(msg.sender,recipient,amount)
-
-    IR:  TMP_116(uint256) = INTERNAL_CALL, BOG.takeFee(address,uint256)(sender,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [319]
-    LNE: amountReceived = takeFee(sender,amount)
-
-----------------------------------------
-
-## Path #5
-Source: external_input_params in BOG.transferFrom
-Sink: tainted_state_changing_external_call in BOG._transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [301, 302, 303]
-    LNE: (No direct expression available)
-
-    IR:  TMP_94(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [302]
-    LNE: _transferFrom(sender,recipient,amount)
-
-    IR:  REF_34(mapping(address => uint256)) -> _allowances[sender]
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [309]
-    LNE: _allowances[sender][msg.sender] = _allowances[sender][msg.sender].sub(amount,Insufficient Allowance)
-
-    IR:  REF_35(uint256) -> REF_34[msg.sender]
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [309]
-    LNE: _allowances[sender][msg.sender] = _allowances[sender][msg.sender].sub(amount,Insufficient Allowance)
-
-----------------------------------------
-
-## Path #6
-Source: external_input_params in BOG.setFees
-Sink: tainted_state_changing_external_call in BOG.getLiquidityFee
-
-### Operations with Source Code Mapping:
-    IR:  setFees
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [426, 427, 428, 429, 430, 431, 432, 433]
-    LNE: (No direct expression available)
-
-    IR:  feeDenominator(uint256) := _feeDenominator(uint256)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [430]
-    LNE: feeDenominator = _feeDenominator
-
-----------------------------------------
-
-## Path #7
-Source: external_input_params in BOG.transfer
-Sink: tainted_state_changing_external_call in BOG.takeFee
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
-    LNE: (No direct expression available)
-
-    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
-    LNE: _transferFrom(msg.sender,recipient,amount)
-
-    IR:  TMP_116(uint256) = INTERNAL_CALL, BOG.takeFee(address,uint256)(sender,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [319]
-    LNE: amountReceived = takeFee(sender,amount)
-
-    IR:  TMP_124(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'stakingFee'] 
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [333]
-    LNE: stakingFeeAmount = amount.mul(stakingFee).div(feeDenominator)
-
-    IR:  TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_124', 'feeDenominator'] 
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [333]
-    LNE: stakingFeeAmount = amount.mul(stakingFee).div(feeDenominator)
-
-    IR:  stakingFeeAmount(uint256) := TMP_125(uint256)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [333]
-    LNE: stakingFeeAmount = amount.mul(stakingFee).div(feeDenominator)
-
-----------------------------------------
-
-## Path #8
-Source: external_input_params in BOG.transfer
-Sink: tainted_state_changing_external_call in BOG.takeFee
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
-    LNE: (No direct expression available)
-
-    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
-    LNE: _transferFrom(msg.sender,recipient,amount)
-
-    IR:  TMP_116(uint256) = INTERNAL_CALL, BOG.takeFee(address,uint256)(sender,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [319]
-    LNE: amountReceived = takeFee(sender,amount)
-
-    IR:  TMP_133(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'liquidityFeeAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [341]
-    LNE: amount.sub(liquidityFeeAmount).sub(stakingFeeAmount)
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in BOG.setLiquify
-Sink: tainted_state_changing_external_call in BOG.autoLiquify
-
-### Operations with Source Code Mapping:
-    IR:  setLiquify
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [397, 398, 399, 400, 401]
-    LNE: (No direct expression available)
-
-    IR:  liquifyAmount(uint256) := amount(uint256)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [400]
-    LNE: liquifyAmount = amount
-
-----------------------------------------
-
-## Path #10
-Source: external_input_params in BOG.transfer
-Sink: tainted_state_changing_external_call in BOG.takeFee
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
-    LNE: (No direct expression available)
-
-    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
-    LNE: _transferFrom(msg.sender,recipient,amount)
-
-    IR:  TMP_116(uint256) = INTERNAL_CALL, BOG.takeFee(address,uint256)(sender,amount)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [319]
-    LNE: amountReceived = takeFee(sender,amount)
-
-----------------------------------------
-
-## Path #11
-Source: external_input_params in BOG.setFeeReceivers
-Sink: tainted_state_changing_external_call in BOG.takeFee
-
-### Operations with Source Code Mapping:
-    IR:  setFeeReceivers
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [435, 436, 437, 438]
-    LNE: (No direct expression available)
-
-    IR:  stakingFeeReceiver(address) := _stakingFeeReceiver(address)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [437]
-    LNE: stakingFeeReceiver = _stakingFeeReceiver
-
-    IR:  REF_55(uint256) -> _balances[stakingFeeReceiver]
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [336]
-    LNE: _balances[stakingFeeReceiver] = _balances[stakingFeeReceiver].add(stakingFeeAmount)
-
-----------------------------------------
-
-## Path #12
-Source: external_input_params in BOG.setFees
-Sink: tainted_state_changing_external_call in BOG.setFees
-
-### Operations with Source Code Mapping:
-    IR:  setFees
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [426, 427, 428, 429, 430, 431, 432, 433]
-    LNE: (No direct expression available)
-
-    IR:  autoLiquidityFee(uint256) := _liquidityFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [427]
-    LNE: autoLiquidityFee = _liquidityFee
-
-----------------------------------------
-
-## Path #13
 Source: external_input_params in BOG.constructor
 Sink: tainted_state_changing_external_call in BOG.constructor
 
@@ -272,7 +28,22 @@ Sink: tainted_state_changing_external_call in BOG.constructor
 
 ----------------------------------------
 
-## Path #14
+## Path #2
+Source: external_input_params in BOG.setFees
+Sink: tainted_state_changing_external_call in BOG.setFees
+
+### Operations with Source Code Mapping:
+    IR:  setFees
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [426, 427, 428, 429, 430, 431, 432, 433]
+    LNE: (No direct expression available)
+
+    IR:  autoLiquidityFee(uint256) := _liquidityFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [427]
+    LNE: autoLiquidityFee = _liquidityFee
+
+----------------------------------------
+
+## Path #3
 Source: external_input_params in BOG.transferFrom
 Sink: tainted_state_changing_external_call in BOG._transferFrom
 
@@ -285,55 +56,36 @@ Sink: tainted_state_changing_external_call in BOG._transferFrom
     SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [302]
     LNE: _transferFrom(sender,recipient,amount)
 
-    IR:  REF_40(uint256) -> _balances[sender]
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [317]
-    LNE: _balances[sender] = _balances[sender].sub(amount,Insufficient Balance)
+    IR:  REF_34(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [309]
+    LNE: _allowances[sender][msg.sender] = _allowances[sender][msg.sender].sub(amount,Insufficient Allowance)
+
+    IR:  REF_35(uint256) -> REF_34[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [309]
+    LNE: _allowances[sender][msg.sender] = _allowances[sender][msg.sender].sub(amount,Insufficient Allowance)
 
 ----------------------------------------
 
-## Path #15
-Source: external_input_params in BOG.setFees
-Sink: tainted_state_changing_external_call in BOG.setFees
+## Path #4
+Source: external_input_params in BOG.setFeeReceivers
+Sink: tainted_state_changing_external_call in BOG.takeFee
 
 ### Operations with Source Code Mapping:
-    IR:  setFees
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [426, 427, 428, 429, 430, 431, 432, 433]
+    IR:  setFeeReceivers
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [435, 436, 437, 438]
     LNE: (No direct expression available)
 
-    IR:  autoLiquidityFee(uint256) := _liquidityFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [427]
-    LNE: autoLiquidityFee = _liquidityFee
+    IR:  stakingFeeReceiver(address) := _stakingFeeReceiver(address)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [437]
+    LNE: stakingFeeReceiver = _stakingFeeReceiver
 
-    IR:  TMP_186(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['autoLiquidityFee', 'stakingFee'] 
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [432]
-    LNE: require(bool,string)(autoLiquidityFee.add(stakingFee).mul(100).div(feeDenominator) <= 10,Fee Limit Exceeded)
-
-    IR:  TMP_187(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_186', '100'] 
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [432]
-    LNE: require(bool,string)(autoLiquidityFee.add(stakingFee).mul(100).div(feeDenominator) <= 10,Fee Limit Exceeded)
+    IR:  REF_55(uint256) -> _balances[stakingFeeReceiver]
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [336]
+    LNE: _balances[stakingFeeReceiver] = _balances[stakingFeeReceiver].add(stakingFeeAmount)
 
 ----------------------------------------
 
-## Path #16
-Source: external_input_params in BOG.setFees
-Sink: tainted_state_changing_external_call in BOG.setFees
-
-### Operations with Source Code Mapping:
-    IR:  setFees
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [426, 427, 428, 429, 430, 431, 432, 433]
-    LNE: (No direct expression available)
-
-    IR:  autoLiquidityFee(uint256) := _liquidityFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [427]
-    LNE: autoLiquidityFee = _liquidityFee
-
-    IR:  TMP_186(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['autoLiquidityFee', 'stakingFee'] 
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [432]
-    LNE: require(bool,string)(autoLiquidityFee.add(stakingFee).mul(100).div(feeDenominator) <= 10,Fee Limit Exceeded)
-
-----------------------------------------
-
-## Path #17
+## Path #5
 Source: external_input_params in BOG.transfer
 Sink: tainted_state_changing_external_call in BOG.takeFee
 
@@ -356,18 +108,239 @@ Sink: tainted_state_changing_external_call in BOG.takeFee
 
 ----------------------------------------
 
-## Path #18
+## Path #6
 Source: external_input_params in BOG.transfer
-Sink: tainted_erc20_transfer in BOG.transfer
+Sink: tainted_state_changing_external_call in BOG.takeFee
 
 ### Operations with Source Code Mapping:
     IR:  transfer
     SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
     LNE: (No direct expression available)
 
+    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
+    LNE: _transferFrom(msg.sender,recipient,amount)
+
+    IR:  TMP_116(uint256) = INTERNAL_CALL, BOG.takeFee(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [319]
+    LNE: amountReceived = takeFee(sender,amount)
+
 ----------------------------------------
 
-## Path #19
+## Path #7
+Source: external_input_params in BOG.transfer
+Sink: tainted_state_changing_external_call in BOG.takeFee
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
+    LNE: (No direct expression available)
+
+    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
+    LNE: _transferFrom(msg.sender,recipient,amount)
+
+    IR:  TMP_116(uint256) = INTERNAL_CALL, BOG.takeFee(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [319]
+    LNE: amountReceived = takeFee(sender,amount)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in BOG.setFees
+Sink: tainted_state_changing_external_call in BOG.getLiquidityFee
+
+### Operations with Source Code Mapping:
+    IR:  setFees
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [426, 427, 428, 429, 430, 431, 432, 433]
+    LNE: (No direct expression available)
+
+    IR:  feeDenominator(uint256) := _feeDenominator(uint256)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [430]
+    LNE: feeDenominator = _feeDenominator
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in BOG.transfer
+Sink: tainted_state_changing_external_call in BOG.takeFee
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
+    LNE: (No direct expression available)
+
+    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
+    LNE: _transferFrom(msg.sender,recipient,amount)
+
+    IR:  TMP_116(uint256) = INTERNAL_CALL, BOG.takeFee(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [319]
+    LNE: amountReceived = takeFee(sender,amount)
+
+    IR:  TMP_122(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'TMP_121'] 
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [332]
+    LNE: liquidityFeeAmount = amount.mul(getLiquidityFee()).div(feeDenominator)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in BOG.transfer
+Sink: tainted_state_changing_external_call in BOG.takeFee
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
+    LNE: (No direct expression available)
+
+    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
+    LNE: _transferFrom(msg.sender,recipient,amount)
+
+    IR:  TMP_116(uint256) = INTERNAL_CALL, BOG.takeFee(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [319]
+    LNE: amountReceived = takeFee(sender,amount)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in BOG.setFees
+Sink: tainted_state_changing_external_call in BOG.setFees
+
+### Operations with Source Code Mapping:
+    IR:  setFees
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [426, 427, 428, 429, 430, 431, 432, 433]
+    LNE: (No direct expression available)
+
+    IR:  autoLiquidityFee(uint256) := _liquidityFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [427]
+    LNE: autoLiquidityFee = _liquidityFee
+
+    IR:  TMP_186(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['autoLiquidityFee', 'stakingFee'] 
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [432]
+    LNE: require(bool,string)(autoLiquidityFee.add(stakingFee).mul(100).div(feeDenominator) <= 10,Fee Limit Exceeded)
+
+    IR:  TMP_187(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_186', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [432]
+    LNE: require(bool,string)(autoLiquidityFee.add(stakingFee).mul(100).div(feeDenominator) <= 10,Fee Limit Exceeded)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in BOG.setFees
+Sink: tainted_state_changing_external_call in BOG.getLiquidityFee
+
+### Operations with Source Code Mapping:
+    IR:  setFees
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [426, 427, 428, 429, 430, 431, 432, 433]
+    LNE: (No direct expression available)
+
+    IR:  feeDenominator(uint256) := _feeDenominator(uint256)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [430]
+    LNE: feeDenominator = _feeDenominator
+
+    IR:  TMP_137(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['feeDenominator', 'stakingFee'] 
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [345]
+    LNE: feeDenominator.sub(stakingFee).sub(1)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in BOG.setLiquify
+Sink: tainted_state_changing_external_call in BOG.autoLiquify
+
+### Operations with Source Code Mapping:
+    IR:  setLiquify
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [397, 398, 399, 400, 401]
+    LNE: (No direct expression available)
+
+    IR:  liquifyAmount(uint256) := amount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [400]
+    LNE: liquifyAmount = amount
+
+    IR:  TMP_146(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [357]
+    LNE: amountToSwap = liquifyAmount.div(2)
+
+    IR:  amountToSwap(uint256) := TMP_146(uint256)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [357]
+    LNE: amountToSwap = liquifyAmount.div(2)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in BOG.setLiquify
+Sink: tainted_erc20_transfer in BOG.autoLiquify
+
+### Operations with Source Code Mapping:
+    IR:  setLiquify
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [397, 398, 399, 400, 401]
+    LNE: (No direct expression available)
+
+    IR:  liquifyAmount(uint256) := amount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [400]
+    LNE: liquifyAmount = amount
+
+    IR:  TMP_146(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [357]
+    LNE: amountToSwap = liquifyAmount.div(2)
+
+    IR:  amountToSwap(uint256) := TMP_146(uint256)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [357]
+    LNE: amountToSwap = liquifyAmount.div(2)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in BOG.transferFrom
+Sink: tainted_erc20_transfer in BOG.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [301, 302, 303]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in BOG.setLiquify
+Sink: tainted_state_changing_external_call in BOG.autoLiquify
+
+### Operations with Source Code Mapping:
+    IR:  setLiquify
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [397, 398, 399, 400, 401]
+    LNE: (No direct expression available)
+
+    IR:  liquifyAmount(uint256) := amount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [400]
+    LNE: liquifyAmount = amount
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in BOG.transfer
+Sink: tainted_state_changing_external_call in BOG.takeFee
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
+    LNE: (No direct expression available)
+
+    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
+    LNE: _transferFrom(msg.sender,recipient,amount)
+
+    IR:  TMP_116(uint256) = INTERNAL_CALL, BOG.takeFee(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [319]
+    LNE: amountReceived = takeFee(sender,amount)
+
+    IR:  TMP_133(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'liquidityFeeAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [341]
+    LNE: amount.sub(liquidityFeeAmount).sub(stakingFeeAmount)
+
+----------------------------------------
+
+## Path #18
 Source: external_input_params in BOG.transfer
 Sink: tainted_state_changing_external_call in BOG.takeFee
 
@@ -398,60 +371,26 @@ Sink: tainted_state_changing_external_call in BOG.takeFee
 
 ----------------------------------------
 
-## Path #20
-Source: external_input_params in BOG.setLiquify
-Sink: tainted_state_changing_external_call in BOG.autoLiquify
-
-### Operations with Source Code Mapping:
-    IR:  setLiquify
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [397, 398, 399, 400, 401]
-    LNE: (No direct expression available)
-
-    IR:  liquifyAmount(uint256) := amount(uint256)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [400]
-    LNE: liquifyAmount = amount
-
-    IR:  TMP_146(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [357]
-    LNE: amountToSwap = liquifyAmount.div(2)
-
-    IR:  amountToSwap(uint256) := TMP_146(uint256)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [357]
-    LNE: amountToSwap = liquifyAmount.div(2)
-
-----------------------------------------
-
-## Path #21
-Source: external_input_params in BOG.setFees
-Sink: tainted_state_changing_external_call in BOG.getLiquidityFee
-
-### Operations with Source Code Mapping:
-    IR:  setFees
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [426, 427, 428, 429, 430, 431, 432, 433]
-    LNE: (No direct expression available)
-
-    IR:  feeDenominator(uint256) := _feeDenominator(uint256)
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [430]
-    LNE: feeDenominator = _feeDenominator
-
-    IR:  TMP_137(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['feeDenominator', 'stakingFee'] 
-    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [345]
-    LNE: feeDenominator.sub(stakingFee).sub(1)
-
-----------------------------------------
-
-## Path #22
+## Path #19
 Source: external_input_params in BOG.transferFrom
-Sink: tainted_erc20_transfer in BOG.transferFrom
+Sink: tainted_state_changing_external_call in BOG._transferFrom
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [301, 302, 303]
     LNE: (No direct expression available)
 
+    IR:  TMP_94(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [302]
+    LNE: _transferFrom(sender,recipient,amount)
+
+    IR:  REF_40(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [317]
+    LNE: _balances[sender] = _balances[sender].sub(amount,Insufficient Balance)
+
 ----------------------------------------
 
-## Path #23
+## Path #20
 Source: external_input_params in BOG.transfer
 Sink: tainted_state_changing_external_call in BOG.takeFee
 
@@ -467,5 +406,66 @@ Sink: tainted_state_changing_external_call in BOG.takeFee
     IR:  TMP_116(uint256) = INTERNAL_CALL, BOG.takeFee(address,uint256)(sender,amount)
     SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [319]
     LNE: amountReceived = takeFee(sender,amount)
+
+    IR:  TMP_124(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'stakingFee'] 
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [333]
+    LNE: stakingFeeAmount = amount.mul(stakingFee).div(feeDenominator)
+
+    IR:  TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_124', 'feeDenominator'] 
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [333]
+    LNE: stakingFeeAmount = amount.mul(stakingFee).div(feeDenominator)
+
+    IR:  stakingFeeAmount(uint256) := TMP_125(uint256)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [333]
+    LNE: stakingFeeAmount = amount.mul(stakingFee).div(feeDenominator)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in BOG.setFees
+Sink: tainted_state_changing_external_call in BOG.setFees
+
+### Operations with Source Code Mapping:
+    IR:  setFees
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [426, 427, 428, 429, 430, 431, 432, 433]
+    LNE: (No direct expression available)
+
+    IR:  autoLiquidityFee(uint256) := _liquidityFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [427]
+    LNE: autoLiquidityFee = _liquidityFee
+
+    IR:  TMP_186(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['autoLiquidityFee', 'stakingFee'] 
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [432]
+    LNE: require(bool,string)(autoLiquidityFee.add(stakingFee).mul(100).div(feeDenominator) <= 10,Fee Limit Exceeded)
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in BOG.transfer
+Sink: tainted_state_changing_external_call in BOG._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
+    LNE: (No direct expression available)
+
+    IR:  TMP_93(bool) = INTERNAL_CALL, BOG._transferFrom(address,address,uint256)(msg.sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [298]
+    LNE: _transferFrom(msg.sender,recipient,amount)
+
+    IR:  REF_43(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [321]
+    LNE: _balances[recipient] = _balances[recipient].add(amountReceived)
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in BOG.transfer
+Sink: tainted_erc20_transfer in BOG.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/da06e6f7_Bogged Finance/flattened.sol', Lines [297, 298, 299]
+    LNE: (No direct expression available)
 
 ----------------------------------------

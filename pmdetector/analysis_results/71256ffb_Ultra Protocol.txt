@@ -488,6 +488,127 @@ Sink #52: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_state_changing_external_call in UltraSafe._transferStandard
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, UltraSafe._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. REF_123(uint256) -> _rOwned[sender]
+
+Path #2:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe._getRValues
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
+    4. tLiquidity(uint256)= UNPACK TUPLE_6 index: 2 
+    5. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_149)
+
+Path #3:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe._getCurrentSupply
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    4. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
+    5. _rTotal(uint256) := TMP_105(uint256)
+
+Path #4:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe.deliver
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+
+Path #5:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_state_changing_external_call in UltraSafe._transferFromExcluded
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, UltraSafe._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_138(uint256) -> _tOwned[sender]
+
+Path #6:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_state_changing_external_call in UltraSafe._transferBothExcluded
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, UltraSafe._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_55(uint256) -> _rOwned[sender]
+
+Path #7:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe._getRValues
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_149)
+
+Path #8:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_erc20_transfer in UltraSafe._tokenTransfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+
+Path #9:
+  Source: external_input_params in UltraSafe.setMaxTxPercent
+  Sink: tainted_state_changing_external_call in UltraSafe.setMaxTxPercent
+  Path Operations:
+    1. setMaxTxPercent
+    2. TMP_141(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_tTotal', 'maxTxPercent'] 
+
+Path #10:
+  Source: external_input_params in UltraSafe.balanceOf
+  Sink: tainted_state_changing_external_call in UltraSafe.tokenFromReflection
+  Path Operations:
+    1. balanceOf
+    2. REF_11(uint256) -> _rOwned[account]
+    3. TMP_83(uint256) = INTERNAL_CALL, UltraSafe.tokenFromReflection(uint256)(REF_11)
+
+Path #11:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_state_changing_external_call in UltraSafe._transferToExcluded
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, UltraSafe._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_129(uint256) -> _rOwned[sender]
+
+Path #12:
+  Source: external_input_params in UltraSafe.transfer
+  Sink: tainted_state_changing_external_call in UltraSafe._transferBothExcluded
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, UltraSafe._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_58(uint256) -> _tOwned[recipient]
+
+Path #13:
+  Source: external_input_params in UltraSafe.transfer
+  Sink: tainted_state_changing_external_call in UltraSafe._takeLiquidity
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, UltraSafe._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. TUPLE_10(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    6. tLiquidity(uint256)= UNPACK TUPLE_10 index: 5 
+    7. INTERNAL_CALL, UltraSafe._takeLiquidity(uint256)(tLiquidity)
+
+Path #14:
   Source: external_input_params in UltraSafe.deliver
   Sink: tainted_state_changing_external_call in UltraSafe.deliver
   Path Operations:
@@ -497,108 +618,7 @@ Path #1:
     4. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
     5. _rTotal(uint256) := TMP_105(uint256)
 
-Path #2:
-  Source: external_input_params in UltraSafe.transfer
-  Sink: tainted_erc20_transfer in UltraSafe.transfer
-  Path Operations:
-    1. transfer
-
-Path #3:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe._getTValues
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
-    4. TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tAmount', 'tFee'] 
-
-Path #4:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_erc20_transfer in UltraSafe._tokenTransfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-
-Path #5:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe._getCurrentSupply
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
-    4. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
-    5. _rTotal(uint256) := TMP_105(uint256)
-    6. rSupply(uint256) := _rTotal(uint256)
-
-Path #6:
-  Source: external_input_params in UltraSafe.balanceOf
-  Sink: tainted_state_changing_external_call in UltraSafe.swapAndLiquify
-  Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_83(uint256) = INTERNAL_CALL, UltraSafe.tokenFromReflection(uint256)(REF_11)
-    4. TMP_210(uint256) = INTERNAL_CALL, UltraSafe.balanceOf(address)(TMP_209)
-    5. contractTokenBalance(uint256) := TMP_210(uint256)
-    6. INTERNAL_CALL, UltraSafe.swapAndLiquify(uint256)(contractTokenBalance)
-
-Path #7:
-  Source: external_input_params in UltraSafe.increaseAllowance
-  Sink: tainted_state_changing_external_call in UltraSafe.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_18(uint256) -> REF_17[spender]
-
-Path #8:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe._reflectFee
-  Path Operations:
-    1. deliver
-    2. TMP_106(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
-    3. _tFeeTotal(uint256) := TMP_106(uint256)
-
-Path #9:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe._getRValues
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_149)
-    4. TMP_154(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
-    5. rAmount(uint256) := TMP_154(uint256)
-    6. TMP_157(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rAmount', 'rFee'] 
-
-Path #10:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_erc20_transfer in UltraSafe._tokenTransfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-
-Path #11:
-  Source: external_input_params in UltraSafe.balanceOf
-  Sink: tainted_erc20_transfer in UltraSafe.swapTokensForEth
-  Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_83(uint256) = INTERNAL_CALL, UltraSafe.tokenFromReflection(uint256)(REF_11)
-    4. TMP_210(uint256) = INTERNAL_CALL, UltraSafe.balanceOf(address)(TMP_209)
-    5. contractTokenBalance(uint256) := TMP_210(uint256)
-    6. INTERNAL_CALL, UltraSafe.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_221(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '2'] 
-    8. half(uint256) := TMP_221(uint256)
-    9. INTERNAL_CALL, UltraSafe.swapTokensForEth(uint256)(half)
-
-Path #12:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_state_changing_external_call in UltraSafe.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_14(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_15(uint256) -> REF_14[TMP_90]
-
-Path #13:
+Path #15:
   Source: external_input_params in UltraSafe.balanceOf
   Sink: tainted_state_changing_external_call in UltraSafe.addLiquidity
   Path Operations:
@@ -612,51 +632,66 @@ Path #13:
     8. otherHalf(uint256) := TMP_222(uint256)
     9. INTERNAL_CALL, UltraSafe.addLiquidity(uint256,uint256)(otherHalf,newBalance)
 
-Path #14:
+Path #16:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_state_changing_external_call in UltraSafe._transferBothExcluded
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, UltraSafe._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_52(uint256) -> _tOwned[sender]
+
+Path #17:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_erc20_transfer in UltraSafe._tokenTransfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+
+Path #18:
   Source: external_input_params in UltraSafe.deliver
   Sink: tainted_state_changing_external_call in UltraSafe._getRValues
   Path Operations:
     1. deliver
     2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
     3. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_149)
-
-Path #15:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_erc20_transfer in UltraSafe._tokenTransfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-
-Path #16:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_erc20_transfer in UltraSafe._tokenTransfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-
-Path #17:
-  Source: external_input_params in UltraSafe.transfer
-  Sink: tainted_state_changing_external_call in UltraSafe._transferToExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_132(uint256) -> _tOwned[recipient]
-
-Path #18:
-  Source: external_input_params in UltraSafe.transfer
-  Sink: tainted_state_changing_external_call in UltraSafe._transferBothExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_58(uint256) -> _tOwned[recipient]
+    4. TMP_154(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
+    5. rAmount(uint256) := TMP_154(uint256)
+    6. TMP_157(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rAmount', 'rFee'] 
 
 Path #19:
+  Source: external_input_params in UltraSafe.transfer
+  Sink: tainted_state_changing_external_call in UltraSafe._transferStandard
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, UltraSafe._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. REF_126(uint256) -> _rOwned[recipient]
+
+Path #20:
+  Source: external_input_params in UltraSafe.increaseAllowance
+  Sink: tainted_state_changing_external_call in UltraSafe.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_18(uint256) -> REF_17[spender]
+
+Path #21:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_erc20_transfer in UltraSafe.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #22:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_erc20_transfer in UltraSafe._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #23:
   Source: external_input_params in UltraSafe.transfer
   Sink: tainted_state_changing_external_call in UltraSafe._takeLiquidity
   Path Operations:
@@ -670,229 +705,33 @@ Path #19:
     8. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tLiquidity', 'currentRate'] 
     9. rLiquidity(uint256) := TMP_170(uint256)
 
-Path #20:
-  Source: external_input_params in UltraSafe.decreaseAllowance
-  Sink: tainted_state_changing_external_call in UltraSafe.decreaseAllowance
+Path #24:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe.calculateLiquidityFee
   Path Operations:
-    1. decreaseAllowance
-    2. REF_21(uint256) -> REF_20[spender]
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
+    4. TMP_151(uint256) = INTERNAL_CALL, UltraSafe.calculateLiquidityFee(uint256)(tAmount)
 
-Path #21:
+Path #25:
   Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_erc20_transfer in UltraSafe.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #22:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_state_changing_external_call in UltraSafe._transferFromExcluded
+  Sink: tainted_erc20_transfer in UltraSafe._tokenTransfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
     3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_141(uint256) -> _rOwned[sender]
-
-Path #23:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe.calculateTaxFee
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
-    4. TMP_150(uint256) = INTERNAL_CALL, UltraSafe.calculateTaxFee(uint256)(tAmount)
-    5. TMP_178(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_taxFee'] 
-
-Path #24:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe.calculateTaxFee
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
-    4. TMP_150(uint256) = INTERNAL_CALL, UltraSafe.calculateTaxFee(uint256)(tAmount)
-
-Path #25:
-  Source: external_input_params in UltraSafe.transfer
-  Sink: tainted_state_changing_external_call in UltraSafe._takeLiquidity
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. TUPLE_10(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    6. tLiquidity(uint256)= UNPACK TUPLE_10 index: 5 
-    7. INTERNAL_CALL, UltraSafe._takeLiquidity(uint256)(tLiquidity)
 
 Path #26:
   Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe._getRValues
+  Sink: tainted_state_changing_external_call in UltraSafe.calculateTaxFee
   Path Operations:
     1. deliver
     2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
     3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
-    4. tFee(uint256)= UNPACK TUPLE_6 index: 1 
-    5. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_149)
+    4. TMP_150(uint256) = INTERNAL_CALL, UltraSafe.calculateTaxFee(uint256)(tAmount)
 
 Path #27:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe.calculateLiquidityFee
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
-    4. TMP_151(uint256) = INTERNAL_CALL, UltraSafe.calculateLiquidityFee(uint256)(tAmount)
-    5. TMP_181(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_liquidityFee'] 
-
-Path #28:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_state_changing_external_call in UltraSafe._transferStandard
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. REF_123(uint256) -> _rOwned[sender]
-
-Path #29:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe._getRValues
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_149)
-    4. TMP_154(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
-    5. rAmount(uint256) := TMP_154(uint256)
-
-Path #30:
-  Source: external_input_params in UltraSafe.transfer
-  Sink: tainted_state_changing_external_call in UltraSafe._transferStandard
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. REF_126(uint256) -> _rOwned[recipient]
-
-Path #31:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_state_changing_external_call in UltraSafe._transferToExcluded
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_129(uint256) -> _rOwned[sender]
-
-Path #32:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe.calculateLiquidityFee
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
-    4. TMP_151(uint256) = INTERNAL_CALL, UltraSafe.calculateLiquidityFee(uint256)(tAmount)
-
-Path #33:
-  Source: external_input_params in UltraSafe.transfer
-  Sink: tainted_state_changing_external_call in UltraSafe._transferToExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_135(uint256) -> _rOwned[recipient]
-
-Path #34:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe._getRValues
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
-    4. tLiquidity(uint256)= UNPACK TUPLE_6 index: 2 
-    5. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_149)
-
-Path #35:
-  Source: external_input_params in UltraSafe.setMaxTxPercent
-  Sink: tainted_state_changing_external_call in UltraSafe.setMaxTxPercent
-  Path Operations:
-    1. setMaxTxPercent
-
-Path #36:
-  Source: external_input_params in UltraSafe.transfer
-  Sink: tainted_state_changing_external_call in UltraSafe._transferFromExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_144(uint256) -> _rOwned[recipient]
-
-Path #37:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_state_changing_external_call in UltraSafe._transferBothExcluded
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_52(uint256) -> _tOwned[sender]
-
-Path #38:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe._getTValues
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
-
-Path #39:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe.deliver
-  Path Operations:
-    1. deliver
-    2. TMP_106(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
-    3. _tFeeTotal(uint256) := TMP_106(uint256)
-
-Path #40:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe._getRate
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
-    4. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
-    5. _rTotal(uint256) := TMP_105(uint256)
-    6. TUPLE_8(uint256,uint256) = INTERNAL_CALL, UltraSafe._getCurrentSupply()()
-    7. rSupply(uint256)= UNPACK TUPLE_8 index: 0 
-
-Path #41:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe.deliver
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
-
-Path #42:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_state_changing_external_call in UltraSafe._transferBothExcluded
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_55(uint256) -> _rOwned[sender]
-
-Path #43:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_erc20_transfer in UltraSafe._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #44:
   Source: external_input_params in UltraSafe.balanceOf
   Sink: tainted_state_changing_external_call in UltraSafe.swapAndLiquify
   Path Operations:
@@ -903,23 +742,15 @@ Path #44:
     5. contractTokenBalance(uint256) := TMP_210(uint256)
     6. INTERNAL_CALL, UltraSafe.swapAndLiquify(uint256)(contractTokenBalance)
 
-Path #45:
-  Source: external_input_params in UltraSafe.transferFrom
-  Sink: tainted_erc20_transfer in UltraSafe._tokenTransfer
+Path #28:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe.deliver
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    1. deliver
+    2. TMP_106(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
+    3. _tFeeTotal(uint256) := TMP_106(uint256)
 
-Path #46:
-  Source: external_input_params in UltraSafe.balanceOf
-  Sink: tainted_state_changing_external_call in UltraSafe.tokenFromReflection
-  Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_83(uint256) = INTERNAL_CALL, UltraSafe.tokenFromReflection(uint256)(REF_11)
-
-Path #47:
+Path #29:
   Source: external_input_params in UltraSafe.transferFrom
   Sink: tainted_state_changing_external_call in UltraSafe._transferFromExcluded
   Path Operations:
@@ -927,7 +758,178 @@ Path #47:
     2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
     3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
     4. INTERNAL_CALL, UltraSafe._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_138(uint256) -> _tOwned[sender]
+    5. REF_141(uint256) -> _rOwned[sender]
+
+Path #30:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe._getRValues
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
+    4. tFee(uint256)= UNPACK TUPLE_6 index: 1 
+    5. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_149)
+
+Path #31:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_state_changing_external_call in UltraSafe.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_14(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_15(uint256) -> REF_14[TMP_90]
+
+Path #32:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe.calculateTaxFee
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
+    4. TMP_150(uint256) = INTERNAL_CALL, UltraSafe.calculateTaxFee(uint256)(tAmount)
+    5. TMP_178(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_taxFee'] 
+
+Path #33:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe._reflectFee
+  Path Operations:
+    1. deliver
+    2. TMP_106(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
+    3. _tFeeTotal(uint256) := TMP_106(uint256)
+
+Path #34:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe._reflectFee
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    4. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
+    5. _rTotal(uint256) := TMP_105(uint256)
+
+Path #35:
+  Source: external_input_params in UltraSafe.transfer
+  Sink: tainted_state_changing_external_call in UltraSafe._transferToExcluded
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, UltraSafe._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_132(uint256) -> _tOwned[recipient]
+
+Path #36:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe._getCurrentSupply
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    4. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
+    5. _rTotal(uint256) := TMP_105(uint256)
+    6. rSupply(uint256) := _rTotal(uint256)
+
+Path #37:
+  Source: external_input_params in UltraSafe.transfer
+  Sink: tainted_state_changing_external_call in UltraSafe._transferToExcluded
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, UltraSafe._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_135(uint256) -> _rOwned[recipient]
+
+Path #38:
+  Source: external_input_params in UltraSafe.transfer
+  Sink: tainted_erc20_transfer in UltraSafe.transfer
+  Path Operations:
+    1. transfer
+
+Path #39:
+  Source: external_input_params in UltraSafe.decreaseAllowance
+  Sink: tainted_state_changing_external_call in UltraSafe.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_21(uint256) -> REF_20[spender]
+
+Path #40:
+  Source: external_input_params in UltraSafe.balanceOf
+  Sink: tainted_state_changing_external_call in UltraSafe.swapAndLiquify
+  Path Operations:
+    1. balanceOf
+    2. REF_11(uint256) -> _rOwned[account]
+    3. TMP_83(uint256) = INTERNAL_CALL, UltraSafe.tokenFromReflection(uint256)(REF_11)
+    4. TMP_210(uint256) = INTERNAL_CALL, UltraSafe.balanceOf(address)(TMP_209)
+    5. contractTokenBalance(uint256) := TMP_210(uint256)
+    6. INTERNAL_CALL, UltraSafe.swapAndLiquify(uint256)(contractTokenBalance)
+
+Path #41:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_erc20_transfer in UltraSafe._tokenTransfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+
+Path #42:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe._getRate
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    4. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
+    5. _rTotal(uint256) := TMP_105(uint256)
+    6. rSupply(uint256) := _rTotal(uint256)
+    7. TUPLE_8(uint256,uint256) = INTERNAL_CALL, UltraSafe._getCurrentSupply()()
+    8. rSupply(uint256)= UNPACK TUPLE_8 index: 0 
+
+Path #43:
+  Source: external_input_params in UltraSafe.setMaxTxPercent
+  Sink: tainted_state_changing_external_call in UltraSafe.setMaxTxPercent
+  Path Operations:
+    1. setMaxTxPercent
+
+Path #44:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe._getTValues
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
+    4. TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tAmount', 'tFee'] 
+
+Path #45:
+  Source: external_input_params in UltraSafe.balanceOf
+  Sink: tainted_erc20_transfer in UltraSafe.swapTokensForEth
+  Path Operations:
+    1. balanceOf
+    2. REF_11(uint256) -> _rOwned[account]
+    3. TMP_83(uint256) = INTERNAL_CALL, UltraSafe.tokenFromReflection(uint256)(REF_11)
+    4. TMP_210(uint256) = INTERNAL_CALL, UltraSafe.balanceOf(address)(TMP_209)
+    5. contractTokenBalance(uint256) := TMP_210(uint256)
+    6. INTERNAL_CALL, UltraSafe.swapAndLiquify(uint256)(contractTokenBalance)
+    7. TMP_221(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '2'] 
+    8. half(uint256) := TMP_221(uint256)
+    9. INTERNAL_CALL, UltraSafe.swapTokensForEth(uint256)(half)
+
+Path #46:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe._getTValues
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
+
+Path #47:
+  Source: external_input_params in UltraSafe.transfer
+  Sink: tainted_state_changing_external_call in UltraSafe._takeLiquidity
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, UltraSafe._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. TUPLE_10(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    6. tLiquidity(uint256)= UNPACK TUPLE_10 index: 5 
+    7. INTERNAL_CALL, UltraSafe._takeLiquidity(uint256)(tLiquidity)
 
 Path #48:
   Source: external_input_params in UltraSafe.transfer
@@ -940,40 +942,39 @@ Path #48:
     5. REF_61(uint256) -> _rOwned[recipient]
 
 Path #49:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe._getCurrentSupply
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
-    4. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
-    5. _rTotal(uint256) := TMP_105(uint256)
-
-Path #50:
-  Source: external_input_params in UltraSafe.setMaxTxPercent
-  Sink: tainted_state_changing_external_call in UltraSafe.setMaxTxPercent
-  Path Operations:
-    1. setMaxTxPercent
-    2. TMP_141(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_tTotal', 'maxTxPercent'] 
-
-Path #51:
-  Source: external_input_params in UltraSafe.deliver
-  Sink: tainted_state_changing_external_call in UltraSafe._reflectFee
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
-    4. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
-    5. _rTotal(uint256) := TMP_105(uint256)
-
-Path #52:
   Source: external_input_params in UltraSafe.transfer
-  Sink: tainted_state_changing_external_call in UltraSafe._takeLiquidity
+  Sink: tainted_state_changing_external_call in UltraSafe._transferFromExcluded
   Path Operations:
     1. transfer
     2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(TMP_84,recipient,amount)
     3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, UltraSafe._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. TUPLE_10(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
-    6. tLiquidity(uint256)= UNPACK TUPLE_10 index: 5 
-    7. INTERNAL_CALL, UltraSafe._takeLiquidity(uint256)(tLiquidity)
+    4. INTERNAL_CALL, UltraSafe._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_144(uint256) -> _rOwned[recipient]
+
+Path #50:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe.calculateLiquidityFee
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getTValues(uint256)(tAmount)
+    4. TMP_151(uint256) = INTERNAL_CALL, UltraSafe.calculateLiquidityFee(uint256)(tAmount)
+    5. TMP_181(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_liquidityFee'] 
+
+Path #51:
+  Source: external_input_params in UltraSafe.deliver
+  Sink: tainted_state_changing_external_call in UltraSafe._getRValues
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getValues(uint256)(tAmount)
+    3. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, UltraSafe._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_149)
+    4. TMP_154(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
+    5. rAmount(uint256) := TMP_154(uint256)
+
+Path #52:
+  Source: external_input_params in UltraSafe.transferFrom
+  Sink: tainted_erc20_transfer in UltraSafe._tokenTransfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, UltraSafe._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, UltraSafe._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)

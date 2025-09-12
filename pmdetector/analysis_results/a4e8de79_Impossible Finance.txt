@@ -559,38 +559,6 @@ Sink #20: tainted_erc20_transfer
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in ImpossibleFinance.depositWithTransferPermit
-  Sink: tainted_erc20_transfer in ImpossibleFinance.depositWithTransferPermit
-  Path Operations:
-    1. depositWithTransferPermit
-
-Path #2:
-  Source: external_input_params in ImpossibleFinance.constructor
-  Sink: tainted_erc20_transfer in ImpossibleFinance.depositWithPermit
-  Path Operations:
-    1. constructor
-    2. underlying(address) := _underlying(address)
-    3. TMP_93 = CONVERT underlying to IERC20
-
-Path #3:
-  Source: external_input_params in ImpossibleFinance.withdrawVault
-  Sink: tainted_erc20_transfer in ImpossibleFinance.withdrawVault
-  Path Operations:
-    1. withdrawVault
-
-Path #4:
-  Source: external_input_params in ImpossibleFinance.depositWithTransferPermit
-  Sink: tainted_erc20_transfer in ImpossibleFinance.depositWithTransferPermit
-  Path Operations:
-    1. depositWithTransferPermit
-
-Path #5:
-  Source: external_input_params in ImpossibleFinance.depositWithPermit
-  Sink: tainted_state_changing_external_call in ImpossibleFinance.depositWithPermit
-  Path Operations:
-    1. depositWithPermit
-
-Path #6:
   Source: external_input_params in ImpossibleFinance.constructor
   Sink: tainted_erc20_transfer in ImpossibleFinance.deposit
   Path Operations:
@@ -598,17 +566,51 @@ Path #6:
     2. underlying(address) := _underlying(address)
     3. TMP_111 = CONVERT underlying to IERC20
 
-Path #7:
+Path #2:
+  Source: external_input_params in ImpossibleFinance.depositWithTransferPermit
+  Sink: tainted_erc20_transfer in ImpossibleFinance.depositWithTransferPermit
+  Path Operations:
+    1. depositWithTransferPermit
+
+Path #3:
+  Source: external_input_params in ImpossibleFinance.approveAndCall
+  Sink: tainted_state_changing_external_call in ImpossibleFinance.approveAndCall
+  Path Operations:
+    1. approveAndCall
+
+Path #4:
+  Source: external_input_params in ImpossibleFinance.staxMigrate
+  Sink: tainted_erc20_transfer in ImpossibleFinance.staxMigrate
+  Path Operations:
+    1. staxMigrate
+
+Path #5:
   Source: external_input_params in ImpossibleFinance.depositWithPermit
   Sink: tainted_erc20_transfer in ImpossibleFinance.depositWithPermit
   Path Operations:
     1. depositWithPermit
 
-Path #8:
-  Source: external_input_params in ImpossibleFinance.staxMigrate
-  Sink: tainted_erc20_transfer in ImpossibleFinance.staxMigrate
+Path #6:
+  Source: external_input_params in ImpossibleFinance.depositWithTransferPermit
+  Sink: tainted_erc20_transfer in ImpossibleFinance.depositWithTransferPermit
   Path Operations:
-    1. staxMigrate
+    1. depositWithTransferPermit
+
+Path #7:
+  Source: external_input_params in ImpossibleFinance.constructor
+  Sink: tainted_erc20_transfer in ImpossibleFinance.deposit
+  Path Operations:
+    1. constructor
+    2. underlying(address) := _underlying(address)
+    3. TMP_103 = CONVERT underlying to IERC20
+
+Path #8:
+  Source: external_input_params in ImpossibleFinance.constructor
+  Sink: tainted_erc20_transfer in ImpossibleFinance.deposit
+  Path Operations:
+    1. constructor
+    2. underlying(address) := _underlying(address)
+    3. TMP_107 = CONVERT underlying to IERC20
 
 Path #9:
   Source: external_input_params in ImpossibleFinance.withdraw
@@ -617,42 +619,40 @@ Path #9:
     1. withdraw
 
 Path #10:
-  Source: external_input_params in ImpossibleFinance.approveAndCall
-  Sink: tainted_state_changing_external_call in ImpossibleFinance.approveAndCall
+  Source: external_input_params in ImpossibleFinance.deposit
+  Sink: tainted_erc20_transfer in ImpossibleFinance.deposit
   Path Operations:
-    1. approveAndCall
+    1. deposit
 
 Path #11:
+  Source: external_input_params in ImpossibleFinance.constructor
+  Sink: tainted_erc20_transfer in ImpossibleFinance._withdraw
+  Path Operations:
+    1. constructor
+    2. underlying(address) := _underlying(address)
+    3. TMP_130 = CONVERT underlying to IERC20
+
+Path #12:
+  Source: external_input_params in ImpossibleFinance.withdrawVault
+  Sink: tainted_erc20_transfer in ImpossibleFinance.withdrawVault
+  Path Operations:
+    1. withdrawVault
+
+Path #13:
+  Source: external_input_params in ImpossibleFinance.constructor
+  Sink: tainted_erc20_transfer in ImpossibleFinance.depositWithPermit
+  Path Operations:
+    1. constructor
+    2. underlying(address) := _underlying(address)
+    3. TMP_93 = CONVERT underlying to IERC20
+
+Path #14:
   Source: external_input_params in ImpossibleFinance.withdraw
   Sink: tainted_erc20_transfer in ImpossibleFinance.withdraw
   Path Operations:
     1. withdraw
 
-Path #12:
-  Source: external_input_params in ImpossibleFinance.deposit
-  Sink: tainted_erc20_transfer in ImpossibleFinance.deposit
-  Path Operations:
-    1. deposit
-
-Path #13:
-  Source: external_input_params in ImpossibleFinance.transferAndCall
-  Sink: tainted_erc20_transfer in ImpossibleFinance.transferAndCall
-  Path Operations:
-    1. transferAndCall
-
-Path #14:
-  Source: external_input_params in ImpossibleFinance.depositVault
-  Sink: tainted_erc20_transfer in ImpossibleFinance.depositVault
-  Path Operations:
-    1. depositVault
-
 Path #15:
-  Source: external_input_params in ImpossibleFinance.deposit
-  Sink: tainted_erc20_transfer in ImpossibleFinance.deposit
-  Path Operations:
-    1. deposit
-
-Path #16:
   Source: external_input_params in ImpossibleFinance.constructor
   Sink: tainted_erc20_transfer in ImpossibleFinance.deposit
   Path Operations:
@@ -662,26 +662,26 @@ Path #16:
     4. TMP_102(uint256) = HIGH_LEVEL_CALL, dest:TMP_101(IERC20), function:balanceOf, arguments:['msg.sender']  
     5. _amount(uint256) := TMP_102(uint256)
 
-Path #17:
-  Source: external_input_params in ImpossibleFinance.constructor
-  Sink: tainted_erc20_transfer in ImpossibleFinance.deposit
+Path #16:
+  Source: external_input_params in ImpossibleFinance.transferAndCall
+  Sink: tainted_erc20_transfer in ImpossibleFinance.transferAndCall
   Path Operations:
-    1. constructor
-    2. underlying(address) := _underlying(address)
-    3. TMP_107 = CONVERT underlying to IERC20
+    1. transferAndCall
+
+Path #17:
+  Source: external_input_params in ImpossibleFinance.depositWithPermit
+  Sink: tainted_state_changing_external_call in ImpossibleFinance.depositWithPermit
+  Path Operations:
+    1. depositWithPermit
 
 Path #18:
-  Source: external_input_params in ImpossibleFinance.constructor
-  Sink: tainted_erc20_transfer in ImpossibleFinance._withdraw
-  Path Operations:
-    1. constructor
-    2. underlying(address) := _underlying(address)
-    3. TMP_130 = CONVERT underlying to IERC20
-
-Path #19:
-  Source: external_input_params in ImpossibleFinance.constructor
+  Source: external_input_params in ImpossibleFinance.deposit
   Sink: tainted_erc20_transfer in ImpossibleFinance.deposit
   Path Operations:
-    1. constructor
-    2. underlying(address) := _underlying(address)
-    3. TMP_103 = CONVERT underlying to IERC20
+    1. deposit
+
+Path #19:
+  Source: external_input_params in ImpossibleFinance.depositVault
+  Sink: tainted_erc20_transfer in ImpossibleFinance.depositVault
+  Path Operations:
+    1. depositVault

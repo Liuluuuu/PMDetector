@@ -15,10 +15,6 @@ from solcx.install import get_solcx_install_folder, select_pragma_version
 import shutil
 
 def extract_solidity_version(file_path) -> str:
-    """
-    Extract the best Solidity compiler version from a .sol file.
-    It uses solcx's 'select_pragma_version' on the first pragma found for robustness.
-    """
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
@@ -30,31 +26,24 @@ def extract_solidity_version(file_path) -> str:
 
         primary_pragma = pragma_specs[0].strip()
         
-        # Check for exact version requirement (=X.Y.Z)
         exact_match = re.match(r'=\s*(\d+\.\d+\.\d+)', primary_pragma)
         if exact_match:
             exact_version = exact_match.group(1)
             print(f"Found exact version requirement: {exact_version}")
             return exact_version
             
-        # First, try to find a compatible version among already installed ones.
         installed_versions = solcx.get_installed_solc_versions()
         compatible_version = select_pragma_version(primary_pragma, installed_versions)
         
         if compatible_version:
             return str(compatible_version)
         
-        # If no installed version is compatible, we must pick one to install.
-        # This is a heuristic since we can't know the "best" version from a range.
-        # We'll pick the first concrete version number from the pragma string.
-        print(f"No installed solc version matches pragma '{primary_pragma}'. Attempting to install a new one.")
+        # print(f"No installed solc version matches pragma '{primary_pragma}'. Attempting to install a new one.")
         
-        # Heuristic: find a version like '0.8.4' from '^0.8.4' or '>=0.8.4'
         match = re.search(r'(\d+\.\d+\.\d+)', primary_pragma)
         if match:
             return match.group(1)
 
-        # Final fallback for pragmas without a full version number (e.g., '>0.8')
         print(f"Warning: Could not determine a specific version from pragma '{primary_pragma}', defaulting to 0.8.21")
         return "0.8.21"
 
@@ -63,22 +52,15 @@ def extract_solidity_version(file_path) -> str:
         return "0.8.21"
 
 def ensure_solc_version(version_string: str) -> str:
-    """
-    Ensure that the specified Solidity compiler version is installed and
-    returns the path to its executable.
-    """
     try:
         version = version_string
         
-        # For older Solidity versions (0.5.x and below), try to find a compatible version first
         if version.startswith("0.5.") or version.startswith("0.4.") or version.startswith("0.3."):
             installed_versions = solcx.get_installed_solc_versions()
-            major_minor = ".".join(version.split(".")[:2])  # Get "0.5" from "0.5.16"
+            major_minor = ".".join(version.split(".")[:2]) 
             
-            # Try to find an already installed compatible version
             compatible_versions = [v for v in installed_versions if str(v).startswith(major_minor)]
             if compatible_versions:
-                # Use the highest compatible version
                 compatible_version = max(compatible_versions)
                 print(f"Using compatible installed version {compatible_version} for {version}")
                 version = str(compatible_version)
@@ -89,19 +71,15 @@ def ensure_solc_version(version_string: str) -> str:
                 install_solc(version, show_progress=False)
             except Exception as e:
                 print(f"Failed to install solc version {version}: {e}")
-                # Try to find a similar version that's available
                 try:
-                    major_minor = ".".join(version.split(".")[:2])  # Get "0.5" from "0.5.16"
+                    major_minor = ".".join(version.split(".")[:2])
                     print(f"Trying to find alternative version for {major_minor}.x")
                     
-                    # For 0.5.x, try 0.5.17 which is commonly available
                     if major_minor == "0.5":
                         alt_version = "0.5.17"
-                    # For 0.4.x, try 0.4.26
                     elif major_minor == "0.4":
                         alt_version = "0.4.26"
                     else:
-                        # For other versions, use 0.8.21 as fallback
                         alt_version = "0.8.21"
                         
                     print(f"Attempting to install alternative version {alt_version}")
@@ -109,7 +87,6 @@ def ensure_solc_version(version_string: str) -> str:
                     version = alt_version
                 except Exception as e2:
                     print(f"Failed to install alternative version: {e2}")
-                    # Final fallback
                     version = "0.8.21"
                     if version not in solcx.get_installed_solc_versions():
                         install_solc(version, show_progress=False)
@@ -134,43 +111,27 @@ def ensure_solc_version(version_string: str) -> str:
         return str(solc_path)
 
 def adapt_pragma_to_version(file_path, target_version):
-    """
-    Modify the pragma solidity statement in a file to match the target version.
-    This is useful when we need to use a different compiler version than what's specified.
-    
-    Args:
-        file_path: Path to the Solidity file
-        target_version: The version to adapt the pragma to (e.g., "0.5.17")
-    
-    Returns:
-        bool: True if the file was modified, False otherwise
-    """
     try:
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
             content = f.read()
         
-        # Find all pragma solidity statements
         pragma_matches = list(re.finditer(r'pragma\s+solidity\s+([^;]+);', content))
         if not pragma_matches:
             return False
         
-        # Create a backup of the original file
         backup_path = str(file_path) + '.bak'
         shutil.copy2(file_path, backup_path)
         
-        # Replace exact version requirements with the target version
         modified_content = content
-        for match in reversed(pragma_matches):  # Process in reverse to maintain correct positions
+        for match in reversed(pragma_matches): 
             full_pragma = match.group(0)
             version_req = match.group(1)
             
-            # Check if it's an exact version requirement
             if '=' in version_req:
                 new_pragma = f"pragma solidity ^{target_version};"
                 modified_content = modified_content[:match.start()] + new_pragma + modified_content[match.end():]
                 print(f"Modified pragma from '{full_pragma}' to '{new_pragma}'")
-        
-        # Only write if changes were made
+
         if modified_content != content:
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(modified_content)
@@ -213,16 +174,6 @@ def main(convert_to_source=False):
         source_dir = flattened_dir / f"{contract_hash}_{protocol}"
         slithir_result_file = results_dir / f"{contract_hash}_{protocol}.txt"
         source_mapped_result_file = source_code_paths_dir / f"{contract_hash}_{protocol}.txt"
-
-        # # If the goal is the source-mapped file, and it already exists, we are done.
-        # if convert_to_source and source_mapped_result_file.exists():
-        #     print(f"Source-mapped results already exist for {protocol}. Skipping.")
-        #     continue
-        
-        # # If the goal is just the SlithIR file, and it exists, we are done.
-        # if not convert_to_source and slithir_result_file.exists():
-        #     print(f"SlithIR results already exist for {protocol}. Skipping.")
-        #     continue
             
         print(f"Processing {protocol}...")
 
@@ -244,14 +195,11 @@ def main(convert_to_source=False):
                         with open(file_path, "w", encoding="utf-8") as f:
                             f.write(content)
                     
-                    # Create a flattened version of the multi-file contract
                     print(f"Multi-file project saved to {source_dir}")
                     print(f"Creating flattened.sol for multi-file project...")
                     
-                    # Find all Solidity files
                     sol_files = list(source_dir.glob("**/*.sol"))
                     if sol_files:
-                        # Combine all Solidity files into one
                         combined_content = "// SPDX-License-Identifier: MIT\n// Flattened contract combining multiple files\n\n"
                         
                         for sol_file in sol_files:
@@ -259,7 +207,6 @@ def main(convert_to_source=False):
                                 with open(sol_file, 'r', encoding='utf-8', errors='ignore') as f:
                                     file_content = f.read()
                                     
-                                # Add file separator and content
                                 relative_path = sol_file.relative_to(source_dir)
                                 combined_content += f"\n// File: {relative_path}\n"
                                 combined_content += file_content
@@ -267,7 +214,6 @@ def main(convert_to_source=False):
                             except Exception as e:
                                 print(f"Error reading {sol_file}: {e}")
                         
-                        # Save the combined content as flattened.sol
                         flattened_path = source_dir / "flattened.sol"
                         with open(flattened_path, "w", encoding="utf-8") as f:
                             f.write(combined_content)
@@ -288,7 +234,7 @@ def main(convert_to_source=False):
             print(f"Using existing source code from {source_dir}")
         
         try:
-            sol_files = list(source_dir.glob("**/*.sol"))   # Ensure we are working with Solidity contracts
+            sol_files = list(source_dir.glob("**/*.sol"))  
             if not sol_files:
                 if list(source_dir.glob("**/*.vy")):
                      print(f"Detected Vyper contract for {protocol}, skipping.")
@@ -314,7 +260,6 @@ def main(convert_to_source=False):
             oz_dir = node_modules_dir / '@openzeppelin'
             solmate_dir = node_modules_dir / 'solmate'
             
-            # Check if any file imports OpenZeppelin or solmate
             needs_oz = False
             needs_solmate = False
             for sol_file in sol_files:
@@ -327,23 +272,19 @@ def main(convert_to_source=False):
                     if needs_oz and needs_solmate:
                         break
             
-            # Create basic node_modules structure if needed
             if needs_oz and not oz_dir.exists():
                 print(f"OpenZeppelin imports detected. Creating basic structure for {protocol}...")
                 node_modules_dir.mkdir(exist_ok=True)
                 oz_dir.mkdir(exist_ok=True, parents=True)
                 
-                # Create directory structure for common OpenZeppelin imports
                 contracts_dir = oz_dir / 'contracts'
                 contracts_dir.mkdir(exist_ok=True, parents=True)
                 
-                # Utils directory and files
                 utils_dir = contracts_dir / 'utils'
                 utils_dir.mkdir(exist_ok=True, parents=True)
                 math_dir = utils_dir / 'math'
                 math_dir.mkdir(exist_ok=True, parents=True)
                 
-                # Token directory and files
                 token_dir = contracts_dir / 'token'
                 token_dir.mkdir(exist_ok=True, parents=True)
                 erc20_dir = token_dir / 'ERC20'
@@ -353,19 +294,15 @@ def main(convert_to_source=False):
                 utils_token_dir = erc20_dir / 'utils'
                 utils_token_dir.mkdir(exist_ok=True, parents=True)
                 
-                # Access directory
                 access_dir = contracts_dir / 'access'
                 access_dir.mkdir(exist_ok=True, parents=True)
                 
-                # Security directory
                 security_dir = contracts_dir / 'security'
                 security_dir.mkdir(exist_ok=True, parents=True)
                 
-                # Interfaces directory
                 interfaces_dir = contracts_dir / 'interfaces'
                 interfaces_dir.mkdir(exist_ok=True, parents=True)
                 
-                # Create minimal Context.sol
                 context_file = utils_dir / 'Context.sol'
                 if not context_file.exists():
                     with open(context_file, 'w', encoding='utf-8') as f:
@@ -686,15 +623,12 @@ interface IERC20Metadata is IERC20 {
                 print(f"Solmate imports detected. Creating basic structure for {protocol}...")
                 solmate_dir.mkdir(exist_ok=True, parents=True)
                 
-                # Create tokens directory
                 tokens_dir = solmate_dir / 'tokens'
                 tokens_dir.mkdir(exist_ok=True, parents=True)
                 
-                # Create auth directory
                 auth_dir = solmate_dir / 'auth'
                 auth_dir.mkdir(exist_ok=True, parents=True)
                 
-                # Create minimal ERC20.sol for solmate
                 solmate_erc20_file = tokens_dir / 'ERC20.sol'
                 if not solmate_erc20_file.exists():
                     with open(solmate_erc20_file, 'w', encoding='utf-8') as f:

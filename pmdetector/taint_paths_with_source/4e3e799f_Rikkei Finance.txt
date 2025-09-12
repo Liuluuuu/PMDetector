@@ -2,17 +2,6 @@
 Found 4 tainted paths.
 
 ## Path #1
-Source: external_input_params in Rifi.transfer
-Sink: tainted_erc20_transfer in Rifi.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/4e3e799f_Rikkei Finance/flattened.sol', Lines [115, 116, 117, 118, 119]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #2
 Source: external_input_params in Rifi.transferFrom
 Sink: tainted_erc20_transfer in Rifi._transferTokens
 
@@ -28,6 +17,17 @@ Sink: tainted_erc20_transfer in Rifi._transferTokens
     IR:  REF_43(address) -> delegates[src]
     SRC: File 'pmdetector/flattened_contracts/4e3e799f_Rikkei Finance/flattened.sol', Lines [241]
     LNE: _moveDelegates(delegates[src],delegates[dst],amount)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in Rifi.transferFrom
+Sink: tainted_erc20_transfer in Rifi.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/4e3e799f_Rikkei Finance/flattened.sol', Lines [128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142]
+    LNE: (No direct expression available)
 
 ----------------------------------------
 
@@ -87,12 +87,12 @@ Sink: tainted_erc20_transfer in Rifi._delegate
 ----------------------------------------
 
 ## Path #4
-Source: external_input_params in Rifi.transferFrom
-Sink: tainted_erc20_transfer in Rifi.transferFrom
+Source: external_input_params in Rifi.transfer
+Sink: tainted_erc20_transfer in Rifi.transfer
 
 ### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/4e3e799f_Rikkei Finance/flattened.sol', Lines [128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142]
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/4e3e799f_Rikkei Finance/flattened.sol', Lines [115, 116, 117, 118, 119]
     LNE: (No direct expression available)
 
 ----------------------------------------

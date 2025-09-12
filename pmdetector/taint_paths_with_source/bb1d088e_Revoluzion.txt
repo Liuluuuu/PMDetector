@@ -3,6 +3,455 @@ Found 84 tainted paths.
 
 ## Path #1
 Source: external_input_params in DividendDistributor.setShare
+Sink: tainted_state_changing_external_call in DividendDistributor.distributeDividend
+
+### Operations with Source Code Mapping:
+    IR:  setShare
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, DividendDistributor.distributeDividend(address)(shareholder)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [727]
+    LNE: distributeDividend(shareholder)
+
+    IR:  TMP_127(uint256) = INTERNAL_CALL, DividendDistributor.getUnpaidEarnings(address)(shareholder)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [797]
+    LNE: amount = getUnpaidEarnings(shareholder)
+
+    IR:  amount(uint256) := TMP_127(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [797]
+    LNE: amount = getUnpaidEarnings(shareholder)
+
+    IR:  TMP_129(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDistributed', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [799]
+    LNE: totalDistributed = totalDistributed.add(amount)
+
+    IR:  totalDistributed(uint256) := TMP_129(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [799]
+    LNE: totalDistributed = totalDistributed.add(amount)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
+Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+
+### Operations with Source Code Mapping:
+    IR:  setBuybackMultiplierSettings
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1586, 1587, 1588, 1589, 1590, 1591]
+    LNE: (No direct expression available)
+
+    IR:  buybackMultiplierLength(uint256) := length(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1590]
+    LNE: buybackMultiplierLength = length
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_221(uint256) -> feeSettings_[2]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  reflectionFee(uint256) := _reflectionFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1383]
+    LNE: reflectionFee = _reflectionFee
+
+    IR:  TMP_449(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'reflectionFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1553]
+    LNE: amountBNBReflection = amountBNB.mul(reflectionFee).div(totalBNBFee)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in DividendDistributor.setShare
+Sink: tainted_state_changing_external_call in DividendDistributor.setShare
+
+### Operations with Source Code Mapping:
+    IR:  setShare
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
+    LNE: (No direct expression available)
+
+    IR:  REF_18(DividendDistributor.Share) -> shares[shareholder]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
+    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
+
+    IR:  REF_19(uint256) -> REF_18.amount
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
+    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
+
+    IR:  TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalShares', 'REF_19'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
+    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
+
+    IR:  TMP_86(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_85', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
+    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
+
+    IR:  totalShares(uint256) := TMP_86(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
+    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in Revoluzion.isOverLiquified
+Sink: tainted_state_changing_external_call in Revoluzion.getLiquidityBacking
+
+### Operations with Source Code Mapping:
+    IR:  isOverLiquified
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  TMP_354(uint256) = INTERNAL_CALL, Revoluzion.getLiquidityBacking(uint256)(accuracy)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1350]
+    LNE: getLiquidityBacking(accuracy) > target
+
+    IR:  TMP_424(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accuracy', 'TMP_423'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1521]
+    LNE: accuracy.mul(balanceOf(pair).mul(2)).div(getCirculatingSupply())
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
+
+    IR:  _totalSupply(uint256) := TMP_248(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
+
+    IR:  TMP_259(uint256) = _totalSupply (c)/ 20000
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
+    LNE: swapThreshold = _totalSupply / 20000
+
+    IR:  swapThreshold(uint256) := TMP_259(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
+    LNE: swapThreshold = _totalSupply / 20000
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in Revoluzion.transferFrom
+Sink: tainted_state_changing_external_call in Revoluzion.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1273, 1274, 1275, 1276, 1277, 1278, 1279]
+    LNE: (No direct expression available)
+
+    IR:  REF_186(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1275]
+    LNE: _allowances[sender][_msgSender()] = _allowances[sender][_msgSender()].sub(amount,Insufficient Allowance)
+
+    IR:  REF_187(uint256) -> REF_186[TMP_299]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1275]
+    LNE: _allowances[sender][_msgSender()] = _allowances[sender][_msgSender()].sub(amount,Insufficient Allowance)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in Revoluzion.transfer
+Sink: tainted_erc20_transfer in Revoluzion.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  TMP_249 = CONVERT router_ to IUniswapV2Router02
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1180]
+    LNE: router = IUniswapV2Router02(router_)
+
+    IR:  router(IUniswapV2Router02) := TMP_249(IUniswapV2Router02)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1180]
+    LNE: router = IUniswapV2Router02(router_)
+
+    IR:  TMP_253(address) = HIGH_LEVEL_CALL, dest:router(IUniswapV2Router02), function:WETH, arguments:[]  
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1181]
+    LNE: pair = IUniswapV2Factory(router.factory()).createPair(address(this),router.WETH())
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion._setFees
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_219(uint256) -> feeSettings_[0]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in Revoluzion.transfer
+Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: (No direct expression available)
+
+    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
+    LNE: _transferFrom(_msgSender(),recipient,amount)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion._setFees
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_219(uint256) -> feeSettings_[0]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion._setFees
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_219(uint256) -> feeSettings_[0]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in DividendDistributor.setShare
+Sink: tainted_erc20_transfer in DividendDistributor.setShare
+
+### Operations with Source Code Mapping:
+    IR:  setShare
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in Revoluzion.transferFrom
+Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1273, 1274, 1275, 1276, 1277, 1278, 1279]
+    LNE: (No direct expression available)
+
+    IR:  TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1278]
+    LNE: _transferFrom(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_223(uint256) -> feeSettings_[4]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  diamondFee(uint256) := _diamondFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1385]
+    LNE: diamondFee = _diamondFee
+
+    IR:  TMP_453(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'diamondFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1555]
+    LNE: amountBNBDiamond = amountBNB.mul(diamondFee).div(totalBNBFee)
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in Revoluzion.transfer
+Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: (No direct expression available)
+
+    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
+    LNE: _transferFrom(_msgSender(),recipient,amount)
+
+    IR:  REF_193(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1297]
+    LNE: _balances[recipient] = _balances[recipient].add(amountReceived)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in Revoluzion.distributorInitialization
+Sink: tainted_state_changing_external_call in Revoluzion.distributorInitialization
+
+### Operations with Source Code Mapping:
+    IR:  distributorInitialization
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1470, 1471, 1472]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_219(uint256) -> feeSettings_[0]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  totalFee(uint256) := TMP_362(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalFee', 'buybackMultiplierNumerator'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1416]
+    LNE: feeIncrease = totalFee.mul(buybackMultiplierNumerator).div(buybackMultiplierDenominator).sub(totalFee)
+
+    IR:  TMP_375(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_374', 'buybackMultiplierDenominator'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1416]
+    LNE: feeIncrease = totalFee.mul(buybackMultiplierNumerator).div(buybackMultiplierDenominator).sub(totalFee)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in DividendDistributor.setShare
 Sink: tainted_state_changing_external_call in DividendDistributor.getCumulativeDividends
 
 ### Operations with Source Code Mapping:
@@ -28,9 +477,127 @@ Sink: tainted_state_changing_external_call in DividendDistributor.getCumulativeD
 
 ----------------------------------------
 
-## Path #2
+## Path #21
+Source: external_input_params in Revoluzion.transfer
+Sink: tainted_state_changing_external_call in Revoluzion.takeFee
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: (No direct expression available)
+
+    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
+    LNE: _transferFrom(_msgSender(),recipient,amount)
+
+    IR:  TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1295]
+    LNE: amountReceived = takeFee(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
+Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+
+### Operations with Source Code Mapping:
+    IR:  setBuybackMultiplierSettings
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1586, 1587, 1588, 1589, 1590, 1591]
+    LNE: (No direct expression available)
+
+    IR:  buybackMultiplierLength(uint256) := length(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1590]
+    LNE: buybackMultiplierLength = length
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in Revoluzion.setDistributorSettings
+Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  setDistributorSettings
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1228, 1229, 1230, 1231]
+    LNE: (No direct expression available)
+
+    IR:  distributorGas(uint256) := gas(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1230]
+    LNE: distributorGas = gas
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
+Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+
+### Operations with Source Code Mapping:
+    IR:  setBuybackMultiplierSettings
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1586, 1587, 1588, 1589, 1590, 1591]
+    LNE: (No direct expression available)
+
+    IR:  buybackMultiplierLength(uint256) := length(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1590]
+    LNE: buybackMultiplierLength = length
+
+    IR:  TMP_372(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buybackMultiplierTriggeredAt', 'buybackMultiplierLength'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1415]
+    LNE: remainingTime = buybackMultiplierTriggeredAt.add(buybackMultiplierLength).sub(block.timestamp)
+
+----------------------------------------
+
+## Path #25
 Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.getCirculatingSupply
+Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_219(uint256) -> feeSettings_[0]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  liquidityFee(uint256) := _liquidityFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1381]
+    LNE: liquidityFee = _liquidityFee
+
+    IR:  dynamicLiquidityFee(uint256) := liquidityFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1537]
+    LNE: dynamicLiquidityFee = liquidityFee
+
+    IR:  TMP_446(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'dynamicLiquidityFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1552]
+    LNE: amountBNBLiquidity = amountBNB.mul(dynamicLiquidityFee).div(totalBNBFee).div(2)
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in Revoluzion.transfer
+Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: (No direct expression available)
+
+    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
+    LNE: _transferFrom(_msgSender(),recipient,amount)
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
 ### Operations with Source Code Mapping:
     IR:  constructor
@@ -45,93 +612,17 @@ Sink: tainted_state_changing_external_call in Revoluzion.getCirculatingSupply
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
     LNE: _totalSupply = totalSupply_ * 10 ** _decimals
 
-----------------------------------------
+    IR:  TMP_259(uint256) = _totalSupply (c)/ 20000
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
+    LNE: swapThreshold = _totalSupply / 20000
 
-## Path #3
-Source: external_input_params in DividendDistributor.setShare
-Sink: tainted_erc20_transfer in DividendDistributor.distributeDividend
-
-### Operations with Source Code Mapping:
-    IR:  setShare
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, DividendDistributor.distributeDividend(address)(shareholder)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [727]
-    LNE: distributeDividend(shareholder)
+    IR:  swapThreshold(uint256) := TMP_259(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
+    LNE: swapThreshold = _totalSupply / 20000
 
 ----------------------------------------
 
-## Path #4
-Source: external_input_params in Revoluzion.isOverLiquified
-Sink: tainted_state_changing_external_call in Revoluzion.getLiquidityBacking
-
-### Operations with Source Code Mapping:
-    IR:  isOverLiquified
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1349, 1350, 1351]
-    LNE: (No direct expression available)
-
-    IR:  TMP_354(uint256) = INTERNAL_CALL, Revoluzion.getLiquidityBacking(uint256)(accuracy)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1350]
-    LNE: getLiquidityBacking(accuracy) > target
-
-----------------------------------------
-
-## Path #5
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion._setFees
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_224(uint256) -> feeSettings_[5]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  feeDenominator(uint256) := _feeDenominator(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1387]
-    LNE: feeDenominator = _feeDenominator
-
-    IR:  TMP_363(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['feeDenominator', '100'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1388]
-    LNE: require(bool,string)(totalFee < feeDenominator.div(100).mul(15),Total fee should not be greater than 15%.)
-
-----------------------------------------
-
-## Path #6
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.constructor
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  TMP_249 = CONVERT router_ to IUniswapV2Router02
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1180]
-    LNE: router = IUniswapV2Router02(router_)
-
-    IR:  router(IUniswapV2Router02) := TMP_249(IUniswapV2Router02)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1180]
-    LNE: router = IUniswapV2Router02(router_)
-
-    IR:  TMP_253(address) = HIGH_LEVEL_CALL, dest:router(IUniswapV2Router02), function:WETH, arguments:[]  
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1181]
-    LNE: pair = IUniswapV2Factory(router.factory()).createPair(address(this),router.WETH())
-
-----------------------------------------
-
-## Path #7
+## Path #28
 Source: external_input_params in DiamondDistributor.setEligibility
 Sink: tainted_state_changing_external_call in DiamondDistributor.distributeDiamond
 
@@ -144,17 +635,48 @@ Sink: tainted_state_changing_external_call in DiamondDistributor.distributeDiamo
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [953]
     LNE: distributeDiamond(holder)
 
-    IR:  REF_123(DiamondDistributor.Diamond) -> diamonds[holder]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1029]
-    LNE: diamonds[holder].totalRealised = diamonds[holder].totalRealised.add(amount)
+    IR:  TMP_216(uint256) = INTERNAL_CALL, DiamondDistributor.getUnpaidEarnings(address)(holder)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1023]
+    LNE: amount = getUnpaidEarnings(holder)
 
-    IR:  REF_124(uint256) -> REF_123.totalRealised
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1029]
-    LNE: diamonds[holder].totalRealised = diamonds[holder].totalRealised.add(amount)
+    IR:  amount(uint256) := TMP_216(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1023]
+    LNE: amount = getUnpaidEarnings(holder)
+
+    IR:  TMP_218(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDistributed', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1026]
+    LNE: totalDistributed = totalDistributed.add(amount)
+
+    IR:  totalDistributed(uint256) := TMP_218(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1026]
+    LNE: totalDistributed = totalDistributed.add(amount)
 
 ----------------------------------------
 
-## Path #8
+## Path #29
+Source: external_input_params in DividendDistributor.setShare
+Sink: tainted_state_changing_external_call in DividendDistributor.getCumulativeDividends
+
+### Operations with Source Code Mapping:
+    IR:  setShare
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
+    LNE: (No direct expression available)
+
+    IR:  REF_25(DividendDistributor.Share) -> shares[shareholder]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [738]
+    LNE: shares[shareholder].totalExcluded = getCumulativeDividends(shares[shareholder].amount)
+
+    IR:  REF_26(uint256) -> REF_25.amount
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [738]
+    LNE: shares[shareholder].totalExcluded = getCumulativeDividends(shares[shareholder].amount)
+
+    IR:  TMP_87(uint256) = INTERNAL_CALL, DividendDistributor.getCumulativeDividends(uint256)(REF_26)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [738]
+    LNE: shares[shareholder].totalExcluded = getCumulativeDividends(shares[shareholder].amount)
+
+----------------------------------------
+
+## Path #30
 Source: external_input_params in Revoluzion.constructor
 Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
 
@@ -213,7 +735,18 @@ Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
 
 ----------------------------------------
 
-## Path #9
+## Path #31
+Source: external_input_params in Revoluzion.setIsDiamondExempt
+Sink: tainted_state_changing_external_call in Revoluzion.setIsDiamondExempt
+
+### Operations with Source Code Mapping:
+    IR:  setIsDiamondExempt
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1450, 1451, 1452, 1453, 1454, 1455, 1456, 1457, 1458]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #32
 Source: external_input_params in Revoluzion.constructor
 Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
@@ -222,50 +755,50 @@ Sink: tainted_state_changing_external_call in Revoluzion.swapBack
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
+    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
 
-    IR:  REF_223(uint256) -> feeSettings_[4]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+    IR:  _totalSupply(uint256) := TMP_248(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
 
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+    IR:  TMP_259(uint256) = _totalSupply (c)/ 20000
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
+    LNE: swapThreshold = _totalSupply / 20000
 
-    IR:  diamondFee(uint256) := _diamondFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1385]
-    LNE: diamondFee = _diamondFee
+    IR:  swapThreshold(uint256) := TMP_259(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
+    LNE: swapThreshold = _totalSupply / 20000
+
+    IR:  TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['swapThreshold', 'dynamicLiquidityFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
+    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
+
+    IR:  TMP_430(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_429', 'totalFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
+    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
 
 ----------------------------------------
 
-## Path #10
-Source: external_input_params in Revoluzion.transfer
-Sink: tainted_state_changing_external_call in Revoluzion.takeFee
+## Path #33
+Source: external_input_params in DividendDistributor.setShare
+Sink: tainted_erc20_transfer in DividendDistributor.distributeDividend
 
 ### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
+    IR:  setShare
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
     LNE: (No direct expression available)
 
-    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
-    LNE: _transferFrom(_msgSender(),recipient,amount)
-
-    IR:  TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1295]
-    LNE: amountReceived = takeFee(sender,recipient,amount)
-
-    IR:  TMP_382(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'TMP_381'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1423]
-    LNE: feeAmount = amount.mul(getTotalFee(receiver == pair)).div(feeDenominator)
+    IR:  INTERNAL_CALL, DividendDistributor.distributeDividend(address)(shareholder)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [727]
+    LNE: distributeDividend(shareholder)
 
 ----------------------------------------
 
-## Path #11
+## Path #34
 Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+Sink: tainted_state_changing_external_call in Revoluzion._setFees
 
 ### Operations with Source Code Mapping:
     IR:  constructor
@@ -276,7 +809,7 @@ Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
     LNE: _initializeFees(feeSettings_)
 
-    IR:  REF_219(uint256) -> feeSettings_[0]
+    IR:  REF_224(uint256) -> feeSettings_[5]
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
     LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
 
@@ -284,67 +817,152 @@ Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
     LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
 
-    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+    IR:  feeDenominator(uint256) := _feeDenominator(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1387]
+    LNE: feeDenominator = _feeDenominator
 
-    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  totalFee(uint256) := TMP_362(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalFee', 'buybackMultiplierNumerator'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1416]
-    LNE: feeIncrease = totalFee.mul(buybackMultiplierNumerator).div(buybackMultiplierDenominator).sub(totalFee)
+    IR:  TMP_363(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['feeDenominator', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1388]
+    LNE: require(bool,string)(totalFee < feeDenominator.div(100).mul(15),Total fee should not be greater than 15%.)
 
 ----------------------------------------
 
-## Path #12
-Source: external_input_params in Revoluzion.transferFrom
-Sink: tainted_erc20_transfer in Revoluzion.transferFrom
+## Path #35
+Source: external_input_params in Revoluzion.setIsDiamondExempt
+Sink: tainted_state_changing_external_call in Revoluzion.setIsDiamondExempt
 
 ### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1273, 1274, 1275, 1276, 1277, 1278, 1279]
+    IR:  setIsDiamondExempt
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1450, 1451, 1452, 1453, 1454, 1455, 1456, 1457, 1458]
     LNE: (No direct expression available)
 
 ----------------------------------------
 
-## Path #13
-Source: external_input_params in DividendDistributor.setShare
-Sink: tainted_state_changing_external_call in DividendDistributor.setShare
+## Path #36
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
 ### Operations with Source Code Mapping:
-    IR:  setShare
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
     LNE: (No direct expression available)
 
-    IR:  REF_18(DividendDistributor.Share) -> shares[shareholder]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
-    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
+    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
 
-    IR:  REF_19(uint256) -> REF_18.amount
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
-    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
+    IR:  _totalSupply(uint256) := TMP_248(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
 
-    IR:  TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalShares', 'REF_19'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
-    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
+    IR:  TMP_259(uint256) = _totalSupply (c)/ 20000
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
+    LNE: swapThreshold = _totalSupply / 20000
+
+    IR:  swapThreshold(uint256) := TMP_259(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
+    LNE: swapThreshold = _totalSupply / 20000
+
+    IR:  TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['swapThreshold', 'dynamicLiquidityFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
+    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
 
 ----------------------------------------
 
-## Path #14
+## Path #37
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_erc20_transfer in Revoluzion.swapBack
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
+
+    IR:  _totalSupply(uint256) := TMP_248(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
+
+    IR:  TMP_259(uint256) = _totalSupply (c)/ 20000
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
+    LNE: swapThreshold = _totalSupply / 20000
+
+    IR:  swapThreshold(uint256) := TMP_259(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
+    LNE: swapThreshold = _totalSupply / 20000
+
+    IR:  TMP_432(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['swapThreshold', 'amountToLiquify'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1539]
+    LNE: amountToSwap = swapThreshold.sub(amountToLiquify)
+
+    IR:  amountToSwap(uint256) := TMP_432(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1539]
+    LNE: amountToSwap = swapThreshold.sub(amountToLiquify)
+
+----------------------------------------
+
+## Path #38
+Source: external_input_params in DividendDistributor.constructor
+Sink: tainted_state_changing_external_call in DividendDistributor.deposit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [696, 697, 698, 699, 700, 701, 702, 703, 704]
+    LNE: (No direct expression available)
+
+    IR:  TMP_65 = CONVERT rewardToken_ to IERC20Extended
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
+    LNE: rewardToken = IERC20Extended(rewardToken_)
+
+    IR:  rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
+    LNE: rewardToken = IERC20Extended(rewardToken_)
+
+    IR:  TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
+    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
+
+    IR:  TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
+    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
+
+    IR:  amount(uint256) := TMP_100(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
+    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
+
+    IR:  TMP_102(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dividendsPerShareAccuracyFactor', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [755]
+    LNE: dividendsPerShare = dividendsPerShare.add(dividendsPerShareAccuracyFactor.mul(amount).div(totalShares))
+
+----------------------------------------
+
+## Path #39
+Source: external_input_params in DiamondDistributor.setEligibility
+Sink: tainted_state_changing_external_call in DiamondDistributor.distributeDiamond
+
+### Operations with Source Code Mapping:
+    IR:  setEligibility
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, 963]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, DiamondDistributor.distributeDiamond(address)(holder)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [953]
+    LNE: distributeDiamond(holder)
+
+    IR:  REF_123(DiamondDistributor.Diamond) -> diamonds[holder]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1029]
+    LNE: diamonds[holder].totalRealised = diamonds[holder].totalRealised.add(amount)
+
+    IR:  REF_124(uint256) -> REF_123.totalRealised
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1029]
+    LNE: diamonds[holder].totalRealised = diamonds[holder].totalRealised.add(amount)
+
+----------------------------------------
+
+## Path #40
 Source: external_input_params in Revoluzion.constructor
 Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
@@ -399,52 +1017,7 @@ Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
 ----------------------------------------
 
-## Path #15
-Source: external_input_params in DividendDistributor.setShare
-Sink: tainted_erc20_transfer in DividendDistributor.setShare
-
-### Operations with Source Code Mapping:
-    IR:  setShare
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #16
-Source: external_input_params in Revoluzion.setIsDividendExempt
-Sink: tainted_state_changing_external_call in Revoluzion.setIsDividendExempt
-
-### Operations with Source Code Mapping:
-    IR:  setIsDividendExempt
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1490, 1491, 1492, 1493, 1494, 1495, 1496, 1497, 1498, 1499]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #17
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.getCirculatingSupply
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
-
-    IR:  _totalSupply(uint256) := TMP_248(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
-
-    IR:  TMP_284(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'TMP_283'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1225]
-    LNE: _totalSupply.sub(balanceOf(DEAD)).sub(balanceOf(ZERO))
-
-----------------------------------------
-
-## Path #18
+## Path #41
 Source: external_input_params in Revoluzion.transfer
 Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
 
@@ -457,13 +1030,55 @@ Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
     LNE: _transferFrom(_msgSender(),recipient,amount)
 
-    IR:  REF_193(uint256) -> _balances[recipient]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1297]
-    LNE: _balances[recipient] = _balances[recipient].add(amountReceived)
+----------------------------------------
+
+## Path #42
+Source: external_input_params in Revoluzion.transferFrom
+Sink: tainted_erc20_transfer in Revoluzion._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1273, 1274, 1275, 1276, 1277, 1278, 1279]
+    LNE: (No direct expression available)
+
+    IR:  TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1278]
+    LNE: _transferFrom(sender,recipient,amount)
 
 ----------------------------------------
 
-## Path #19
+## Path #43
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_219(uint256) -> feeSettings_[0]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  liquidityFee(uint256) := _liquidityFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1381]
+    LNE: liquidityFee = _liquidityFee
+
+    IR:  dynamicLiquidityFee(uint256) := liquidityFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1537]
+    LNE: dynamicLiquidityFee = liquidityFee
+
+----------------------------------------
+
+## Path #44
 Source: external_input_params in Revoluzion.constructor
 Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
@@ -492,155 +1107,34 @@ Sink: tainted_state_changing_external_call in Revoluzion.swapBack
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
     LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
 
-----------------------------------------
+    IR:  TMP_430(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_429', 'totalFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
+    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
 
-## Path #20
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+    IR:  TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_430', '2'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
+    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
 
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_219(uint256) -> feeSettings_[0]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  liquidityFee(uint256) := _liquidityFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1381]
-    LNE: liquidityFee = _liquidityFee
-
-    IR:  dynamicLiquidityFee(uint256) := liquidityFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1537]
-    LNE: dynamicLiquidityFee = liquidityFee
-
-    IR:  TMP_446(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'dynamicLiquidityFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1552]
-    LNE: amountBNBLiquidity = amountBNB.mul(dynamicLiquidityFee).div(totalBNBFee).div(2)
+    IR:  amountToLiquify(uint256) := TMP_431(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
+    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
 
 ----------------------------------------
 
-## Path #21
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_219(uint256) -> feeSettings_[0]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  totalFee(uint256) := TMP_362(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalFee', 'buybackMultiplierNumerator'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1416]
-    LNE: feeIncrease = totalFee.mul(buybackMultiplierNumerator).div(buybackMultiplierDenominator).sub(totalFee)
-
-    IR:  TMP_375(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_374', 'buybackMultiplierDenominator'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1416]
-    LNE: feeIncrease = totalFee.mul(buybackMultiplierNumerator).div(buybackMultiplierDenominator).sub(totalFee)
-
-----------------------------------------
-
-## Path #22
+## Path #45
 Source: external_input_params in Revoluzion.transferFrom
-Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+Sink: tainted_erc20_transfer in Revoluzion.transferFrom
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1273, 1274, 1275, 1276, 1277, 1278, 1279]
     LNE: (No direct expression available)
 
-    IR:  TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1278]
-    LNE: _transferFrom(sender,recipient,amount)
-
 ----------------------------------------
 
-## Path #23
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_219(uint256) -> feeSettings_[0]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  totalFee(uint256) := TMP_362(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-----------------------------------------
-
-## Path #24
+## Path #46
 Source: external_input_params in Revoluzion.transfer
-Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+Sink: tainted_state_changing_external_call in Revoluzion.takeFee
 
 ### Operations with Source Code Mapping:
     IR:  transfer
@@ -651,9 +1145,17 @@ Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
     LNE: _transferFrom(_msgSender(),recipient,amount)
 
+    IR:  TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1295]
+    LNE: amountReceived = takeFee(sender,recipient,amount)
+
+    IR:  TMP_382(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'TMP_381'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1423]
+    LNE: feeAmount = amount.mul(getTotalFee(receiver == pair)).div(feeDenominator)
+
 ----------------------------------------
 
-## Path #25
+## Path #47
 Source: external_input_params in DiamondDistributor.setEligibility
 Sink: tainted_erc20_transfer in DiamondDistributor.distributeDiamond
 
@@ -668,220 +1170,26 @@ Sink: tainted_erc20_transfer in DiamondDistributor.distributeDiamond
 
 ----------------------------------------
 
-## Path #26
-Source: external_input_params in DividendDistributor.setShare
-Sink: tainted_state_changing_external_call in DividendDistributor.distributeDividend
+## Path #48
+Source: external_input_params in Revoluzion.transfer
+Sink: tainted_state_changing_external_call in Revoluzion.takeFee
 
 ### Operations with Source Code Mapping:
-    IR:  setShare
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, DividendDistributor.distributeDividend(address)(shareholder)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [727]
-    LNE: distributeDividend(shareholder)
+    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
+    LNE: _transferFrom(_msgSender(),recipient,amount)
 
-    IR:  TMP_127(uint256) = INTERNAL_CALL, DividendDistributor.getUnpaidEarnings(address)(shareholder)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [797]
-    LNE: amount = getUnpaidEarnings(shareholder)
-
-    IR:  amount(uint256) := TMP_127(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [797]
-    LNE: amount = getUnpaidEarnings(shareholder)
-
-    IR:  TMP_129(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDistributed', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [799]
-    LNE: totalDistributed = totalDistributed.add(amount)
-
-    IR:  totalDistributed(uint256) := TMP_129(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [799]
-    LNE: totalDistributed = totalDistributed.add(amount)
+    IR:  TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1295]
+    LNE: amountReceived = takeFee(sender,recipient,amount)
 
 ----------------------------------------
 
-## Path #27
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_221(uint256) -> feeSettings_[2]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  reflectionFee(uint256) := _reflectionFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1383]
-    LNE: reflectionFee = _reflectionFee
-
-    IR:  TMP_449(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'reflectionFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1553]
-    LNE: amountBNBReflection = amountBNB.mul(reflectionFee).div(totalBNBFee)
-
-----------------------------------------
-
-## Path #28
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_219(uint256) -> feeSettings_[0]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  liquidityFee(uint256) := _liquidityFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1381]
-    LNE: liquidityFee = _liquidityFee
-
-    IR:  dynamicLiquidityFee(uint256) := liquidityFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1537]
-    LNE: dynamicLiquidityFee = liquidityFee
-
-----------------------------------------
-
-## Path #29
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_219(uint256) -> feeSettings_[0]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  totalFee(uint256) := TMP_362(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_445(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalFee', 'TMP_444'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1550]
-    LNE: totalBNBFee = totalFee.sub(dynamicLiquidityFee.div(2))
-
-    IR:  totalBNBFee(uint256) := TMP_445(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1550]
-    LNE: totalBNBFee = totalFee.sub(dynamicLiquidityFee.div(2))
-
-----------------------------------------
-
-## Path #30
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
-
-    IR:  _totalSupply(uint256) := TMP_248(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
-
-    IR:  TMP_259(uint256) = _totalSupply (c)/ 20000
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
-    LNE: swapThreshold = _totalSupply / 20000
-
-    IR:  swapThreshold(uint256) := TMP_259(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
-    LNE: swapThreshold = _totalSupply / 20000
-
-----------------------------------------
-
-## Path #31
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
-
-    IR:  _totalSupply(uint256) := TMP_248(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
-
-    IR:  TMP_259(uint256) = _totalSupply (c)/ 20000
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
-    LNE: swapThreshold = _totalSupply / 20000
-
-    IR:  swapThreshold(uint256) := TMP_259(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
-    LNE: swapThreshold = _totalSupply / 20000
-
-----------------------------------------
-
-## Path #32
-Source: external_input_params in Revoluzion.setDistributorSettings
-Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  setDistributorSettings
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1228, 1229, 1230, 1231]
-    LNE: (No direct expression available)
-
-    IR:  distributorGas(uint256) := gas(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1230]
-    LNE: distributorGas = gas
-
-----------------------------------------
-
-## Path #33
+## Path #49
 Source: external_input_params in DividendDistributor.constructor
 Sink: tainted_state_changing_external_call in DividendDistributor.deposit
 
@@ -910,129 +1218,25 @@ Sink: tainted_state_changing_external_call in DividendDistributor.deposit
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
     LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
 
-    IR:  TMP_101(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDividends', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [754]
-    LNE: totalDividends = totalDividends.add(amount)
+    IR:  TMP_102(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dividendsPerShareAccuracyFactor', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [755]
+    LNE: dividendsPerShare = dividendsPerShare.add(dividendsPerShareAccuracyFactor.mul(amount).div(totalShares))
 
-    IR:  totalDividends(uint256) := TMP_101(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [754]
-    LNE: totalDividends = totalDividends.add(amount)
+    IR:  TMP_103(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_102', 'totalShares'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [755]
+    LNE: dividendsPerShare = dividendsPerShare.add(dividendsPerShareAccuracyFactor.mul(amount).div(totalShares))
 
-----------------------------------------
+    IR:  TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['dividendsPerShare', 'TMP_103'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [755]
+    LNE: dividendsPerShare = dividendsPerShare.add(dividendsPerShareAccuracyFactor.mul(amount).div(totalShares))
 
-## Path #34
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion._setFees
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_224(uint256) -> feeSettings_[5]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  feeDenominator(uint256) := _feeDenominator(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1387]
-    LNE: feeDenominator = _feeDenominator
+    IR:  dividendsPerShare(uint256) := TMP_104(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [755]
+    LNE: dividendsPerShare = dividendsPerShare.add(dividendsPerShareAccuracyFactor.mul(amount).div(totalShares))
 
 ----------------------------------------
 
-## Path #35
-Source: external_input_params in DividendDistributor.constructor
-Sink: tainted_state_changing_external_call in DividendDistributor.deposit
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [696, 697, 698, 699, 700, 701, 702, 703, 704]
-    LNE: (No direct expression available)
-
-    IR:  TMP_65 = CONVERT rewardToken_ to IERC20Extended
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
-    LNE: rewardToken = IERC20Extended(rewardToken_)
-
-    IR:  rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
-    LNE: rewardToken = IERC20Extended(rewardToken_)
-
-    IR:  TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
-    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
-
-    IR:  TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
-    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
-
-    IR:  amount(uint256) := TMP_100(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
-    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
-
-----------------------------------------
-
-## Path #36
-Source: external_input_params in DividendDistributor.constructor
-Sink: tainted_state_changing_external_call in DividendDistributor.deposit
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [696, 697, 698, 699, 700, 701, 702, 703, 704]
-    LNE: (No direct expression available)
-
-    IR:  TMP_65 = CONVERT rewardToken_ to IERC20Extended
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
-    LNE: rewardToken = IERC20Extended(rewardToken_)
-
-    IR:  rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
-    LNE: rewardToken = IERC20Extended(rewardToken_)
-
-    IR:  TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
-    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
-
-----------------------------------------
-
-## Path #37
-Source: external_input_params in DividendDistributor.setShare
-Sink: tainted_state_changing_external_call in DividendDistributor.setShare
-
-### Operations with Source Code Mapping:
-    IR:  setShare
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
-    LNE: (No direct expression available)
-
-    IR:  REF_18(DividendDistributor.Share) -> shares[shareholder]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
-    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
-
-    IR:  REF_19(uint256) -> REF_18.amount
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
-    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
-
-    IR:  TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalShares', 'REF_19'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
-    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
-
-    IR:  TMP_86(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_85', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
-    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
-
-    IR:  totalShares(uint256) := TMP_86(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
-    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
-
-----------------------------------------
-
-## Path #38
+## Path #50
 Source: external_input_params in Revoluzion.constructor
 Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
 
@@ -1095,107 +1299,7 @@ Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
 
 ----------------------------------------
 
-## Path #39
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion._setFees
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_219(uint256) -> feeSettings_[0]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-----------------------------------------
-
-## Path #40
-Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
-Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
-
-### Operations with Source Code Mapping:
-    IR:  setBuybackMultiplierSettings
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1586, 1587, 1588, 1589, 1590, 1591]
-    LNE: (No direct expression available)
-
-    IR:  buybackMultiplierLength(uint256) := length(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1590]
-    LNE: buybackMultiplierLength = length
-
-----------------------------------------
-
-## Path #41
-Source: external_input_params in Revoluzion.transferFrom
-Sink: tainted_erc20_transfer in Revoluzion._transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1273, 1274, 1275, 1276, 1277, 1278, 1279]
-    LNE: (No direct expression available)
-
-    IR:  TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1278]
-    LNE: _transferFrom(sender,recipient,amount)
-
-----------------------------------------
-
-## Path #42
-Source: external_input_params in DividendDistributor.constructor
-Sink: tainted_state_changing_external_call in DividendDistributor.deposit
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [696, 697, 698, 699, 700, 701, 702, 703, 704]
-    LNE: (No direct expression available)
-
-    IR:  TMP_65 = CONVERT rewardToken_ to IERC20Extended
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
-    LNE: rewardToken = IERC20Extended(rewardToken_)
-
-    IR:  rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
-    LNE: rewardToken = IERC20Extended(rewardToken_)
-
-    IR:  TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
-    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
-
-    IR:  TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
-    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
-
-    IR:  amount(uint256) := TMP_100(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
-    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
-
-    IR:  TMP_102(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dividendsPerShareAccuracyFactor', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [755]
-    LNE: dividendsPerShare = dividendsPerShare.add(dividendsPerShareAccuracyFactor.mul(amount).div(totalShares))
-
-----------------------------------------
-
-## Path #43
+## Path #51
 Source: external_input_params in Revoluzion.transferFrom
 Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
 
@@ -1208,44 +1312,43 @@ Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1278]
     LNE: _transferFrom(sender,recipient,amount)
 
-    IR:  REF_190(uint256) -> _balances[sender]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1293]
-    LNE: _balances[sender] = _balances[sender].sub(amount,Insufficient Balance)
-
 ----------------------------------------
 
-## Path #44
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+## Path #52
+Source: external_input_params in Revoluzion.diamondInitialization
+Sink: tainted_state_changing_external_call in Revoluzion.diamondInitialization
 
 ### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    IR:  diamondInitialization
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1437, 1438, 1439]
     LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_223(uint256) -> feeSettings_[4]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  diamondFee(uint256) := _diamondFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1385]
-    LNE: diamondFee = _diamondFee
-
-    IR:  TMP_453(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'diamondFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1555]
-    LNE: amountBNBDiamond = amountBNB.mul(diamondFee).div(totalBNBFee)
 
 ----------------------------------------
 
-## Path #45
+## Path #53
+Source: external_input_params in DividendDistributor.setShare
+Sink: tainted_state_changing_external_call in DividendDistributor.setShare
+
+### Operations with Source Code Mapping:
+    IR:  setShare
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
+    LNE: (No direct expression available)
+
+    IR:  REF_18(DividendDistributor.Share) -> shares[shareholder]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
+    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
+
+    IR:  REF_19(uint256) -> REF_18.amount
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
+    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
+
+    IR:  TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalShares', 'REF_19'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [736]
+    LNE: totalShares = totalShares.sub(shares[shareholder].amount).add(amount)
+
+----------------------------------------
+
+## Path #54
 Source: external_input_params in Revoluzion.constructor
 Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
 
@@ -1288,7 +1391,22 @@ Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
 
 ----------------------------------------
 
-## Path #46
+## Path #55
+Source: external_input_params in Revoluzion.isOverLiquified
+Sink: tainted_state_changing_external_call in Revoluzion.getLiquidityBacking
+
+### Operations with Source Code Mapping:
+    IR:  isOverLiquified
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  TMP_354(uint256) = INTERNAL_CALL, Revoluzion.getLiquidityBacking(uint256)(accuracy)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1350]
+    LNE: getLiquidityBacking(accuracy) > target
+
+----------------------------------------
+
+## Path #56
 Source: external_input_params in Revoluzion.constructor
 Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
@@ -1297,107 +1415,106 @@ Sink: tainted_state_changing_external_call in Revoluzion.swapBack
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
     LNE: (No direct expression available)
 
-    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
 
-    IR:  _totalSupply(uint256) := TMP_248(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
+    IR:  REF_223(uint256) -> feeSettings_[4]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
 
-    IR:  TMP_259(uint256) = _totalSupply (c)/ 20000
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
-    LNE: swapThreshold = _totalSupply / 20000
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
 
-    IR:  swapThreshold(uint256) := TMP_259(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
-    LNE: swapThreshold = _totalSupply / 20000
-
-    IR:  TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['swapThreshold', 'dynamicLiquidityFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
-    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
-
-    IR:  TMP_430(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_429', 'totalFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
-    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
-
-    IR:  TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_430', '2'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
-    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
-
-    IR:  amountToLiquify(uint256) := TMP_431(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
-    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
+    IR:  diamondFee(uint256) := _diamondFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1385]
+    LNE: diamondFee = _diamondFee
 
 ----------------------------------------
 
-## Path #47
-Source: external_input_params in DividendDistributor.constructor
-Sink: tainted_state_changing_external_call in DividendDistributor.deposit
+## Path #57
+Source: external_input_params in Revoluzion.transfer
+Sink: tainted_state_changing_external_call in Revoluzion._basicTransfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: (No direct expression available)
+
+    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
+    LNE: _transferFrom(_msgSender(),recipient,amount)
+
+    IR:  TMP_302(bool) = INTERNAL_CALL, Revoluzion._basicTransfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1283]
+    LNE: _basicTransfer(sender,recipient,amount)
+
+    IR:  REF_215(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1330]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #58
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
 ### Operations with Source Code Mapping:
     IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [696, 697, 698, 699, 700, 701, 702, 703, 704]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
     LNE: (No direct expression available)
 
-    IR:  TMP_65 = CONVERT rewardToken_ to IERC20Extended
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
-    LNE: rewardToken = IERC20Extended(rewardToken_)
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
 
-    IR:  rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
-    LNE: rewardToken = IERC20Extended(rewardToken_)
+    IR:  REF_221(uint256) -> feeSettings_[2]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
 
-    IR:  TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
-    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
 
-    IR:  TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
-    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
-
-    IR:  amount(uint256) := TMP_100(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
-    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
-
-    IR:  TMP_102(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dividendsPerShareAccuracyFactor', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [755]
-    LNE: dividendsPerShare = dividendsPerShare.add(dividendsPerShareAccuracyFactor.mul(amount).div(totalShares))
-
-    IR:  TMP_103(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_102', 'totalShares'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [755]
-    LNE: dividendsPerShare = dividendsPerShare.add(dividendsPerShareAccuracyFactor.mul(amount).div(totalShares))
-
-    IR:  TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['dividendsPerShare', 'TMP_103'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [755]
-    LNE: dividendsPerShare = dividendsPerShare.add(dividendsPerShareAccuracyFactor.mul(amount).div(totalShares))
-
-    IR:  dividendsPerShare(uint256) := TMP_104(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [755]
-    LNE: dividendsPerShare = dividendsPerShare.add(dividendsPerShareAccuracyFactor.mul(amount).div(totalShares))
+    IR:  reflectionFee(uint256) := _reflectionFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1383]
+    LNE: reflectionFee = _reflectionFee
 
 ----------------------------------------
 
-## Path #48
-Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
-Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+## Path #59
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
 ### Operations with Source Code Mapping:
-    IR:  setBuybackMultiplierSettings
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1586, 1587, 1588, 1589, 1590, 1591]
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
     LNE: (No direct expression available)
 
-    IR:  buybackMultiplierLength(uint256) := length(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1590]
-    LNE: buybackMultiplierLength = length
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
 
-    IR:  TMP_372(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buybackMultiplierTriggeredAt', 'buybackMultiplierLength'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1415]
-    LNE: remainingTime = buybackMultiplierTriggeredAt.add(buybackMultiplierLength).sub(block.timestamp)
+    IR:  REF_222(uint256) -> feeSettings_[3]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  marketingFee(uint256) := _marketingFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1384]
+    LNE: marketingFee = _marketingFee
+
+    IR:  TMP_451(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'marketingFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1554]
+    LNE: amountBNBMarketing = amountBNB.mul(marketingFee).div(totalBNBFee)
 
 ----------------------------------------
 
-## Path #49
+## Path #60
 Source: external_input_params in Revoluzion.constructor
 Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
@@ -1424,163 +1541,7 @@ Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
 ----------------------------------------
 
-## Path #50
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion._setFees
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_219(uint256) -> feeSettings_[0]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-----------------------------------------
-
-## Path #51
-Source: external_input_params in Revoluzion.setAutoBuybackSettings
-Sink: tainted_state_changing_external_call in Revoluzion.triggerAutoBuyback
-
-### Operations with Source Code Mapping:
-    IR:  setAutoBuybackSettings
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1577, 1578, 1579, 1580, 1581, 1582, 1583, 1584]
-    LNE: (No direct expression available)
-
-    IR:  autoBuybackAmount(uint256) := _amount(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1581]
-    LNE: autoBuybackAmount = _amount
-
-    IR:  TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['autoBuybackAccumulator', 'autoBuybackAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1604]
-    LNE: autoBuybackAccumulator = autoBuybackAccumulator.add(autoBuybackAmount)
-
-    IR:  autoBuybackAccumulator(uint256) := TMP_474(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1604]
-    LNE: autoBuybackAccumulator = autoBuybackAccumulator.add(autoBuybackAmount)
-
-----------------------------------------
-
-## Path #52
-Source: external_input_params in Revoluzion.setIsDiamondExempt
-Sink: tainted_state_changing_external_call in Revoluzion.setIsDiamondExempt
-
-### Operations with Source Code Mapping:
-    IR:  setIsDiamondExempt
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1450, 1451, 1452, 1453, 1454, 1455, 1456, 1457, 1458]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #53
-Source: external_input_params in DividendDistributor.setShare
-Sink: tainted_state_changing_external_call in DividendDistributor.getCumulativeDividends
-
-### Operations with Source Code Mapping:
-    IR:  setShare
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
-    LNE: (No direct expression available)
-
-    IR:  REF_25(DividendDistributor.Share) -> shares[shareholder]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [738]
-    LNE: shares[shareholder].totalExcluded = getCumulativeDividends(shares[shareholder].amount)
-
-    IR:  REF_26(uint256) -> REF_25.amount
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [738]
-    LNE: shares[shareholder].totalExcluded = getCumulativeDividends(shares[shareholder].amount)
-
-    IR:  TMP_87(uint256) = INTERNAL_CALL, DividendDistributor.getCumulativeDividends(uint256)(REF_26)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [738]
-    LNE: shares[shareholder].totalExcluded = getCumulativeDividends(shares[shareholder].amount)
-
-----------------------------------------
-
-## Path #54
-Source: external_input_params in Revoluzion.transfer
-Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
-    LNE: (No direct expression available)
-
-    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
-    LNE: _transferFrom(_msgSender(),recipient,amount)
-
-----------------------------------------
-
-## Path #55
-Source: external_input_params in Revoluzion.setIsDividendExempt
-Sink: tainted_state_changing_external_call in Revoluzion.setIsDividendExempt
-
-### Operations with Source Code Mapping:
-    IR:  setIsDividendExempt
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1490, 1491, 1492, 1493, 1494, 1495, 1496, 1497, 1498, 1499]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #56
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
-
-    IR:  _totalSupply(uint256) := TMP_248(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
-
-    IR:  TMP_259(uint256) = _totalSupply (c)/ 20000
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
-    LNE: swapThreshold = _totalSupply / 20000
-
-    IR:  swapThreshold(uint256) := TMP_259(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
-    LNE: swapThreshold = _totalSupply / 20000
-
-    IR:  TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['swapThreshold', 'dynamicLiquidityFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
-    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
-
-    IR:  TMP_430(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_429', 'totalFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1538]
-    LNE: amountToLiquify = swapThreshold.mul(dynamicLiquidityFee).div(totalFee).div(2)
-
-----------------------------------------
-
-## Path #57
-Source: external_input_params in Revoluzion.setDistributorSettings
-Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  setDistributorSettings
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1228, 1229, 1230, 1231]
-    LNE: (No direct expression available)
-
-    IR:  distributorGas(uint256) := gas(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1230]
-    LNE: distributorGas = gas
-
-----------------------------------------
-
-## Path #58
+## Path #61
 Source: external_input_params in DividendDistributor.setShare
 Sink: tainted_state_changing_external_call in DividendDistributor.getUnpaidEarnings
 
@@ -1615,44 +1576,9 @@ Sink: tainted_state_changing_external_call in DividendDistributor.getUnpaidEarni
 
 ----------------------------------------
 
-## Path #59
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_erc20_transfer in Revoluzion.swapBack
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
-
-    IR:  _totalSupply(uint256) := TMP_248(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
-    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
-
-    IR:  TMP_259(uint256) = _totalSupply (c)/ 20000
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
-    LNE: swapThreshold = _totalSupply / 20000
-
-    IR:  swapThreshold(uint256) := TMP_259(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1190]
-    LNE: swapThreshold = _totalSupply / 20000
-
-    IR:  TMP_432(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['swapThreshold', 'amountToLiquify'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1539]
-    LNE: amountToSwap = swapThreshold.sub(amountToLiquify)
-
-    IR:  amountToSwap(uint256) := TMP_432(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1539]
-    LNE: amountToSwap = swapThreshold.sub(amountToLiquify)
-
-----------------------------------------
-
-## Path #60
+## Path #62
 Source: external_input_params in Revoluzion.transferFrom
-Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+Sink: tainted_state_changing_external_call in Revoluzion._basicTransfer
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
@@ -1663,70 +1589,51 @@ Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1278]
     LNE: _transferFrom(sender,recipient,amount)
 
-----------------------------------------
+    IR:  TMP_302(bool) = INTERNAL_CALL, Revoluzion._basicTransfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1283]
+    LNE: _basicTransfer(sender,recipient,amount)
 
-## Path #61
-Source: external_input_params in Revoluzion.diamondInitialization
-Sink: tainted_state_changing_external_call in Revoluzion.diamondInitialization
-
-### Operations with Source Code Mapping:
-    IR:  diamondInitialization
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1437, 1438, 1439]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #62
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_222(uint256) -> feeSettings_[3]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  marketingFee(uint256) := _marketingFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1384]
-    LNE: marketingFee = _marketingFee
-
-    IR:  TMP_451(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'marketingFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1554]
-    LNE: amountBNBMarketing = amountBNB.mul(marketingFee).div(totalBNBFee)
+    IR:  REF_212(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1329]
+    LNE: _balances[sender] = _balances[sender].sub(amount,Insufficient Balance)
 
 ----------------------------------------
 
 ## Path #63
-Source: external_input_params in Revoluzion.transfer
-Sink: tainted_state_changing_external_call in Revoluzion.takeFee
+Source: external_input_params in Revoluzion.setIsDividendExempt
+Sink: tainted_state_changing_external_call in Revoluzion.setIsDividendExempt
 
 ### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
+    IR:  setIsDividendExempt
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1490, 1491, 1492, 1493, 1494, 1495, 1496, 1497, 1498, 1499]
     LNE: (No direct expression available)
-
-    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
-    LNE: _transferFrom(_msgSender(),recipient,amount)
-
-    IR:  TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1295]
-    LNE: amountReceived = takeFee(sender,recipient,amount)
 
 ----------------------------------------
 
 ## Path #64
+Source: external_input_params in Revoluzion.setAutoBuybackSettings
+Sink: tainted_state_changing_external_call in Revoluzion.triggerAutoBuyback
+
+### Operations with Source Code Mapping:
+    IR:  setAutoBuybackSettings
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1577, 1578, 1579, 1580, 1581, 1582, 1583, 1584]
+    LNE: (No direct expression available)
+
+    IR:  autoBuybackAmount(uint256) := _amount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1581]
+    LNE: autoBuybackAmount = _amount
+
+    IR:  TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['autoBuybackAccumulator', 'autoBuybackAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1604]
+    LNE: autoBuybackAccumulator = autoBuybackAccumulator.add(autoBuybackAmount)
+
+    IR:  autoBuybackAccumulator(uint256) := TMP_474(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1604]
+    LNE: autoBuybackAccumulator = autoBuybackAccumulator.add(autoBuybackAmount)
+
+----------------------------------------
+
+## Path #65
 Source: external_input_params in Revoluzion.constructor
 Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
@@ -1769,26 +1676,30 @@ Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
 ----------------------------------------
 
-## Path #65
-Source: external_input_params in Revoluzion.isOverLiquified
-Sink: tainted_state_changing_external_call in Revoluzion.getLiquidityBacking
+## Path #66
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.getCirculatingSupply
 
 ### Operations with Source Code Mapping:
-    IR:  isOverLiquified
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1349, 1350, 1351]
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
     LNE: (No direct expression available)
 
-    IR:  TMP_354(uint256) = INTERNAL_CALL, Revoluzion.getLiquidityBacking(uint256)(accuracy)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1350]
-    LNE: getLiquidityBacking(accuracy) > target
+    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
 
-    IR:  TMP_424(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accuracy', 'TMP_423'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1521]
-    LNE: accuracy.mul(balanceOf(pair).mul(2)).div(getCirculatingSupply())
+    IR:  _totalSupply(uint256) := TMP_248(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
+
+    IR:  TMP_284(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'TMP_283'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1225]
+    LNE: _totalSupply.sub(balanceOf(DEAD)).sub(balanceOf(ZERO))
 
 ----------------------------------------
 
-## Path #66
+## Path #67
 Source: external_input_params in Revoluzion.constructor
 Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
@@ -1819,7 +1730,253 @@ Sink: tainted_state_changing_external_call in Revoluzion.swapBack
 
 ----------------------------------------
 
-## Path #67
+## Path #68
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_219(uint256) -> feeSettings_[0]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  totalFee(uint256) := TMP_362(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_445(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalFee', 'TMP_444'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1550]
+    LNE: totalBNBFee = totalFee.sub(dynamicLiquidityFee.div(2))
+
+    IR:  totalBNBFee(uint256) := TMP_445(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1550]
+    LNE: totalBNBFee = totalFee.sub(dynamicLiquidityFee.div(2))
+
+----------------------------------------
+
+## Path #69
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion._setFees
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_224(uint256) -> feeSettings_[5]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  feeDenominator(uint256) := _feeDenominator(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1387]
+    LNE: feeDenominator = _feeDenominator
+
+----------------------------------------
+
+## Path #70
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.getCirculatingSupply
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
+
+    IR:  _totalSupply(uint256) := TMP_248(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1177]
+    LNE: _totalSupply = totalSupply_ * 10 ** _decimals
+
+----------------------------------------
+
+## Path #71
+Source: external_input_params in Revoluzion.setDistributorSettings
+Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  setDistributorSettings
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1228, 1229, 1230, 1231]
+    LNE: (No direct expression available)
+
+    IR:  distributorGas(uint256) := gas(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1230]
+    LNE: distributorGas = gas
+
+----------------------------------------
+
+## Path #72
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion._setFees
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_219(uint256) -> feeSettings_[0]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+----------------------------------------
+
+## Path #73
+Source: external_input_params in DividendDistributor.constructor
+Sink: tainted_state_changing_external_call in DividendDistributor.deposit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [696, 697, 698, 699, 700, 701, 702, 703, 704]
+    LNE: (No direct expression available)
+
+    IR:  TMP_65 = CONVERT rewardToken_ to IERC20Extended
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
+    LNE: rewardToken = IERC20Extended(rewardToken_)
+
+    IR:  rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
+    LNE: rewardToken = IERC20Extended(rewardToken_)
+
+    IR:  TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
+    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
+
+----------------------------------------
+
+## Path #74
+Source: external_input_params in Revoluzion.setIsDividendExempt
+Sink: tainted_state_changing_external_call in Revoluzion.setIsDividendExempt
+
+### Operations with Source Code Mapping:
+    IR:  setIsDividendExempt
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1490, 1491, 1492, 1493, 1494, 1495, 1496, 1497, 1498, 1499]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #75
+Source: external_input_params in Revoluzion.transferFrom
+Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1273, 1274, 1275, 1276, 1277, 1278, 1279]
+    LNE: (No direct expression available)
+
+    IR:  TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1278]
+    LNE: _transferFrom(sender,recipient,amount)
+
+    IR:  REF_190(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1293]
+    LNE: _balances[sender] = _balances[sender].sub(amount,Insufficient Balance)
+
+----------------------------------------
+
+## Path #76
+Source: external_input_params in Revoluzion.transferFrom
+Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1273, 1274, 1275, 1276, 1277, 1278, 1279]
+    LNE: (No direct expression available)
+
+    IR:  TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1278]
+    LNE: _transferFrom(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #77
+Source: external_input_params in DividendDistributor.constructor
+Sink: tainted_state_changing_external_call in DividendDistributor.deposit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [696, 697, 698, 699, 700, 701, 702, 703, 704]
+    LNE: (No direct expression available)
+
+    IR:  TMP_65 = CONVERT rewardToken_ to IERC20Extended
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
+    LNE: rewardToken = IERC20Extended(rewardToken_)
+
+    IR:  rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
+    LNE: rewardToken = IERC20Extended(rewardToken_)
+
+    IR:  TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
+    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
+
+    IR:  TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
+    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
+
+    IR:  amount(uint256) := TMP_100(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
+    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
+
+    IR:  TMP_101(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDividends', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [754]
+    LNE: totalDividends = totalDividends.add(amount)
+
+    IR:  totalDividends(uint256) := TMP_101(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [754]
+    LNE: totalDividends = totalDividends.add(amount)
+
+----------------------------------------
+
+## Path #78
 Source: external_input_params in Revoluzion.transfer
 Sink: tainted_state_changing_external_call in Revoluzion.takeFee
 
@@ -1850,141 +2007,41 @@ Sink: tainted_state_changing_external_call in Revoluzion.takeFee
 
 ----------------------------------------
 
-## Path #68
+## Path #79
 Source: external_input_params in DiamondDistributor.setEligibility
-Sink: tainted_state_changing_external_call in DiamondDistributor.distributeDiamond
+Sink: tainted_erc20_transfer in DiamondDistributor.setEligibility
 
 ### Operations with Source Code Mapping:
     IR:  setEligibility
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, 963]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, DiamondDistributor.distributeDiamond(address)(holder)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [953]
-    LNE: distributeDiamond(holder)
-
-    IR:  TMP_216(uint256) = INTERNAL_CALL, DiamondDistributor.getUnpaidEarnings(address)(holder)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1023]
-    LNE: amount = getUnpaidEarnings(holder)
-
-    IR:  amount(uint256) := TMP_216(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1023]
-    LNE: amount = getUnpaidEarnings(holder)
-
-    IR:  TMP_218(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDistributed', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1026]
-    LNE: totalDistributed = totalDistributed.add(amount)
-
-    IR:  totalDistributed(uint256) := TMP_218(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1026]
-    LNE: totalDistributed = totalDistributed.add(amount)
-
 ----------------------------------------
 
-## Path #69
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion._setFees
+## Path #80
+Source: external_input_params in DividendDistributor.setShare
+Sink: tainted_state_changing_external_call in DividendDistributor.distributeDividend
 
 ### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
+    IR:  setShare
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
+    IR:  INTERNAL_CALL, DividendDistributor.distributeDividend(address)(shareholder)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [727]
+    LNE: distributeDividend(shareholder)
 
-    IR:  REF_219(uint256) -> feeSettings_[0]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+    IR:  REF_51(DividendDistributor.Share) -> shares[shareholder]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [802]
+    LNE: shares[shareholder].totalRealised = shares[shareholder].totalRealised.add(amount)
 
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+    IR:  REF_52(uint256) -> REF_51.totalRealised
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [802]
+    LNE: shares[shareholder].totalRealised = shares[shareholder].totalRealised.add(amount)
 
 ----------------------------------------
 
-## Path #70
-Source: external_input_params in Revoluzion.transferFrom
-Sink: tainted_state_changing_external_call in Revoluzion.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1273, 1274, 1275, 1276, 1277, 1278, 1279]
-    LNE: (No direct expression available)
-
-    IR:  REF_186(mapping(address => uint256)) -> _allowances[sender]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1275]
-    LNE: _allowances[sender][_msgSender()] = _allowances[sender][_msgSender()].sub(amount,Insufficient Allowance)
-
-    IR:  REF_187(uint256) -> REF_186[TMP_299]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1275]
-    LNE: _allowances[sender][_msgSender()] = _allowances[sender][_msgSender()].sub(amount,Insufficient Allowance)
-
-----------------------------------------
-
-## Path #71
-Source: external_input_params in Revoluzion.distributorInitialization
-Sink: tainted_state_changing_external_call in Revoluzion.distributorInitialization
-
-### Operations with Source Code Mapping:
-    IR:  distributorInitialization
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1470, 1471, 1472]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #72
-Source: external_input_params in Revoluzion.transfer
-Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
-    LNE: (No direct expression available)
-
-    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
-    LNE: _transferFrom(_msgSender(),recipient,amount)
-
-----------------------------------------
-
-## Path #73
-Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion._setFees
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
-    LNE: _initializeFees(feeSettings_)
-
-    IR:  REF_219(uint256) -> feeSettings_[0]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
-    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
-
-    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
-    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
-
-----------------------------------------
-
-## Path #74
+## Path #81
 Source: external_input_params in Revoluzion.constructor
 Sink: tainted_state_changing_external_call in Revoluzion.getLiquidityBacking
 
@@ -2023,115 +2080,40 @@ Sink: tainted_state_changing_external_call in Revoluzion.getLiquidityBacking
 
 ----------------------------------------
 
-## Path #75
-Source: external_input_params in DividendDistributor.setShare
-Sink: tainted_state_changing_external_call in DividendDistributor.distributeDividend
+## Path #82
+Source: external_input_params in DividendDistributor.constructor
+Sink: tainted_state_changing_external_call in DividendDistributor.deposit
 
 ### Operations with Source Code Mapping:
-    IR:  setShare
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739]
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [696, 697, 698, 699, 700, 701, 702, 703, 704]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, DividendDistributor.distributeDividend(address)(shareholder)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [727]
-    LNE: distributeDividend(shareholder)
+    IR:  TMP_65 = CONVERT rewardToken_ to IERC20Extended
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
+    LNE: rewardToken = IERC20Extended(rewardToken_)
 
-    IR:  REF_51(DividendDistributor.Share) -> shares[shareholder]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [802]
-    LNE: shares[shareholder].totalRealised = shares[shareholder].totalRealised.add(amount)
+    IR:  rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [698]
+    LNE: rewardToken = IERC20Extended(rewardToken_)
 
-    IR:  REF_52(uint256) -> REF_51.totalRealised
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [802]
-    LNE: shares[shareholder].totalRealised = shares[shareholder].totalRealised.add(amount)
+    IR:  TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
+    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
+
+    IR:  TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
+    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
+
+    IR:  amount(uint256) := TMP_100(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [752]
+    LNE: amount = rewardToken.balanceOf(address(this)).sub(balanceBefore)
 
 ----------------------------------------
 
-## Path #76
-Source: external_input_params in Revoluzion.transferFrom
-Sink: tainted_state_changing_external_call in Revoluzion._basicTransfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1273, 1274, 1275, 1276, 1277, 1278, 1279]
-    LNE: (No direct expression available)
-
-    IR:  TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1278]
-    LNE: _transferFrom(sender,recipient,amount)
-
-    IR:  TMP_302(bool) = INTERNAL_CALL, Revoluzion._basicTransfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1283]
-    LNE: _basicTransfer(sender,recipient,amount)
-
-    IR:  REF_212(uint256) -> _balances[sender]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1329]
-    LNE: _balances[sender] = _balances[sender].sub(amount,Insufficient Balance)
-
-----------------------------------------
-
-## Path #77
-Source: external_input_params in DiamondDistributor.setEligibility
-Sink: tainted_erc20_transfer in DiamondDistributor.setEligibility
-
-### Operations with Source Code Mapping:
-    IR:  setEligibility
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, 963]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #78
-Source: external_input_params in Revoluzion.setIsDiamondExempt
-Sink: tainted_state_changing_external_call in Revoluzion.setIsDiamondExempt
-
-### Operations with Source Code Mapping:
-    IR:  setIsDiamondExempt
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1450, 1451, 1452, 1453, 1454, 1455, 1456, 1457, 1458]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #79
-Source: external_input_params in Revoluzion.transfer
-Sink: tainted_state_changing_external_call in Revoluzion._basicTransfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
-    LNE: (No direct expression available)
-
-    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
-    LNE: _transferFrom(_msgSender(),recipient,amount)
-
-    IR:  TMP_302(bool) = INTERNAL_CALL, Revoluzion._basicTransfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1283]
-    LNE: _basicTransfer(sender,recipient,amount)
-
-    IR:  REF_215(uint256) -> _balances[recipient]
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1330]
-    LNE: _balances[recipient] = _balances[recipient].add(amount)
-
-----------------------------------------
-
-## Path #80
-Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
-Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
-
-### Operations with Source Code Mapping:
-    IR:  setBuybackMultiplierSettings
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1586, 1587, 1588, 1589, 1590, 1591]
-    LNE: (No direct expression available)
-
-    IR:  buybackMultiplierLength(uint256) := length(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1590]
-    LNE: buybackMultiplierLength = length
-
-----------------------------------------
-
-## Path #81
+## Path #83
 Source: external_input_params in Revoluzion.constructor
-Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
 
 ### Operations with Source Code Mapping:
     IR:  constructor
@@ -2142,7 +2124,7 @@ Sink: tainted_state_changing_external_call in Revoluzion.swapBack
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
     LNE: _initializeFees(feeSettings_)
 
-    IR:  REF_221(uint256) -> feeSettings_[2]
+    IR:  REF_219(uint256) -> feeSettings_[0]
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
     LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
 
@@ -2150,53 +2132,71 @@ Sink: tainted_state_changing_external_call in Revoluzion.swapBack
     SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
     LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
 
-    IR:  reflectionFee(uint256) := _reflectionFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1383]
-    LNE: reflectionFee = _reflectionFee
+    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
 
-----------------------------------------
+    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
 
-## Path #82
-Source: external_input_params in Revoluzion.transfer
-Sink: tainted_state_changing_external_call in Revoluzion.takeFee
+    IR:  TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
 
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
-    LNE: (No direct expression available)
+    IR:  TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
 
-    IR:  TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1270]
-    LNE: _transferFrom(_msgSender(),recipient,amount)
-
-    IR:  TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1295]
-    LNE: amountReceived = takeFee(sender,recipient,amount)
-
-----------------------------------------
-
-## Path #83
-Source: external_input_params in Revoluzion.transferFrom
-Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1273, 1274, 1275, 1276, 1277, 1278, 1279]
-    LNE: (No direct expression available)
-
-    IR:  TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1278]
-    LNE: _transferFrom(sender,recipient,amount)
+    IR:  totalFee(uint256) := TMP_362(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
 
 ----------------------------------------
 
 ## Path #84
-Source: external_input_params in Revoluzion.transfer
-Sink: tainted_erc20_transfer in Revoluzion.transfer
+Source: external_input_params in Revoluzion.constructor
+Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
 
 ### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1269, 1270, 1271]
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217]
     LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1183]
+    LNE: _initializeFees(feeSettings_)
+
+    IR:  REF_219(uint256) -> feeSettings_[0]
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1367]
+    LNE: _setFees(feeSettings_[0],feeSettings_[1],feeSettings_[2],feeSettings_[3],feeSettings_[4],feeSettings_[5])
+
+    IR:  TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  totalFee(uint256) := TMP_362(uint256)
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1386]
+    LNE: totalFee = _liquidityFee.add(_buybackFee).add(_reflectionFee).add(_marketingFee).add(_diamondFee)
+
+    IR:  TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalFee', 'buybackMultiplierNumerator'] 
+    SRC: File 'pmdetector/flattened_contracts/bb1d088e_Revoluzion/flattened.sol', Lines [1416]
+    LNE: feeIncrease = totalFee.mul(buybackMultiplierNumerator).div(buybackMultiplierDenominator).sub(totalFee)
 
 ----------------------------------------

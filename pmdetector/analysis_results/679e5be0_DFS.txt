@@ -260,19 +260,6 @@ Sink #17: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in DFS.mint
-  Sink: tainted_state_changing_external_call in DFS._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, DFS._mint(address,uint256)(TMP_133,amount)
-
-Path #2:
-  Source: external_input_params in DFS.transferFrom
-  Sink: tainted_erc20_transfer in DFS.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #3:
   Source: external_input_params in DFS.transferFrom
   Sink: tainted_state_changing_external_call in DFS._transfer
   Path Operations:
@@ -281,7 +268,30 @@ Path #3:
     3. REF_27(uint256) -> _balance[from]
     4. TMP_108(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_27', 'amount'] 
 
+Path #2:
+  Source: external_input_params in DFS.mint
+  Sink: tainted_state_changing_external_call in DFS._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, DFS._mint(address,uint256)(TMP_133,amount)
+    3. TMP_138(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_138(uint256)
+
+Path #3:
+  Source: external_input_params in DFS.transfer
+  Sink: tainted_erc20_transfer in DFS.transfer
+  Path Operations:
+    1. transfer
+
 Path #4:
+  Source: external_input_params in DFS.transfer
+  Sink: tainted_state_changing_external_call in DFS._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(TMP_69,recipient,amount)
+    3. REF_52(uint256) -> _balance[to]
+
+Path #5:
   Source: external_input_params in DFS.mint
   Sink: tainted_state_changing_external_call in DFS._burn
   Path Operations:
@@ -290,7 +300,15 @@ Path #4:
     3. TMP_138(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_138(uint256)
 
-Path #5:
+Path #6:
+  Source: external_input_params in DFS.transferFrom
+  Sink: tainted_state_changing_external_call in DFS._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_27(uint256) -> _balance[from]
+
+Path #7:
   Source: external_input_params in DFS.transferFrom
   Sink: tainted_state_changing_external_call in DFS._transfer
   Path Operations:
@@ -298,29 +316,7 @@ Path #5:
     2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(sender,recipient,amount)
     3. REF_34(uint256) -> _balance[from]
 
-Path #6:
-  Source: external_input_params in DFS.burn
-  Sink: tainted_state_changing_external_call in DFS._burn
-  Path Operations:
-    1. burn
-    2. INTERNAL_CALL, DFS._burn(address,uint256)(TMP_86,amount)
-
-Path #7:
-  Source: external_input_params in DFS.transferFrom
-  Sink: tainted_state_changing_external_call in DFS.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_13(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_14(uint256) -> REF_13[TMP_75]
-
 Path #8:
-  Source: external_input_params in DFS.transfer
-  Sink: tainted_state_changing_external_call in DFS._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(TMP_69,recipient,amount)
-
-Path #9:
   Source: external_input_params in DFS.transfer
   Sink: tainted_state_changing_external_call in DFS._transfer
   Path Operations:
@@ -330,37 +326,38 @@ Path #9:
     4. TMP_107(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_106', '1000'] 
     5. fee(uint256) := TMP_107(uint256)
 
+Path #9:
+  Source: external_input_params in DFS.burn
+  Sink: tainted_state_changing_external_call in DFS._burn
+  Path Operations:
+    1. burn
+    2. INTERNAL_CALL, DFS._burn(address,uint256)(TMP_86,amount)
+
 Path #10:
   Source: external_input_params in DFS.mint
   Sink: tainted_state_changing_external_call in DFS._mint
   Path Operations:
     1. mint
     2. INTERNAL_CALL, DFS._mint(address,uint256)(TMP_133,amount)
-    3. TMP_138(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_138(uint256)
 
 Path #11:
+  Source: external_input_params in DFS.transferFrom
+  Sink: tainted_erc20_transfer in DFS.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #12:
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Path Operations:
+    1. transferOwnership
+
+Path #13:
   Source: external_input_params in DFS.increaseAllowance
   Sink: tainted_state_changing_external_call in DFS.increaseAllowance
   Path Operations:
     1. increaseAllowance
     2. REF_17(uint256) -> REF_16[spender]
-
-Path #12:
-  Source: external_input_params in DFS.transferFrom
-  Sink: tainted_state_changing_external_call in DFS._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_27(uint256) -> _balance[from]
-
-Path #13:
-  Source: external_input_params in DFS.transfer
-  Sink: tainted_state_changing_external_call in DFS._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(TMP_69,recipient,amount)
-    3. REF_52(uint256) -> _balance[to]
 
 Path #14:
   Source: external_input_params in DFS.transfer
@@ -372,9 +369,10 @@ Path #14:
 
 Path #15:
   Source: external_input_params in DFS.transfer
-  Sink: tainted_erc20_transfer in DFS.transfer
+  Sink: tainted_state_changing_external_call in DFS._transfer
   Path Operations:
     1. transfer
+    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(TMP_69,recipient,amount)
 
 Path #16:
   Source: external_input_params in DFS.decreaseAllowance
@@ -384,7 +382,9 @@ Path #16:
     2. REF_20(uint256) -> REF_19[spender]
 
 Path #17:
-  Source: external_input_params in Ownable.transferOwnership
-  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Source: external_input_params in DFS.transferFrom
+  Sink: tainted_state_changing_external_call in DFS.transferFrom
   Path Operations:
-    1. transferOwnership
+    1. transferFrom
+    2. REF_13(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_14(uint256) -> REF_13[TMP_75]

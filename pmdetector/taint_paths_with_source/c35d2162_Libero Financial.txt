@@ -2,6 +2,17 @@
 Found 39 tainted paths.
 
 ## Path #1
+Source: external_input_params in LiberoToken.getLiquidityBacking
+Sink: tainted_state_changing_external_call in LiberoToken.getLiquidityBacking
+
+### Operations with Source Code Mapping:
+    IR:  getLiquidityBacking
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [429, 430, 431, 432, 433, 434, 435]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
 Source: external_input_params in LiberoToken.transfer
 Sink: tainted_state_changing_external_call in LiberoToken.takeFee
 
@@ -26,30 +37,23 @@ Sink: tainted_state_changing_external_call in LiberoToken.takeFee
     SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [486]
     LNE: gonAmountReceived = takeFee(sender,recipient,gonAmount)
 
-----------------------------------------
+    IR:  TMP_266(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['gonAmount', '_realFee'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
+    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
 
-## Path #2
-Source: external_input_params in LiberoToken.transferFrom
-Sink: tainted_state_changing_external_call in LiberoToken._transferFrom
+    IR:  TMP_267(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_266', 'feeDenominator'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
+    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
 
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [506, 507, 508, 509, 510, 511, 512, 513, 514, 515]
-    LNE: (No direct expression available)
-
-    IR:  TMP_209(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(from,to,value)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [513]
-    LNE: _transferFrom(from,to,value)
-
-    IR:  REF_69(uint256) -> _gonBalances[sender]
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [484]
-    LNE: _gonBalances[sender] = _gonBalances[sender].sub(gonAmount)
+    IR:  feeAmount(uint256) := TMP_267(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
+    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
 
 ----------------------------------------
 
 ## Path #3
 Source: external_input_params in LiberoToken.transfer
-Sink: tainted_state_changing_external_call in LiberoToken._basicTransfer
+Sink: tainted_state_changing_external_call in LiberoToken._transferFrom
 
 ### Operations with Source Code Mapping:
     IR:  transfer
@@ -60,40 +64,17 @@ Sink: tainted_state_changing_external_call in LiberoToken._basicTransfer
     SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
     LNE: _transferFrom(msg.sender,to,value)
 
-    IR:  TMP_188(bool) = INTERNAL_CALL, LiberoToken._basicTransfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [475]
-    LNE: _basicTransfer(sender,recipient,amount)
+    IR:  TMP_204(uint256) = INTERNAL_CALL, LiberoToken.takeFee(address,address,uint256)(sender,recipient,gonAmount)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [486]
+    LNE: gonAmountReceived = takeFee(sender,recipient,gonAmount)
+
+    IR:  gonAmountReceived(uint256) := TMP_204(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [486]
+    LNE: gonAmountReceived = takeFee(sender,recipient,gonAmount)
 
 ----------------------------------------
 
 ## Path #4
-Source: external_input_params in LiberoToken.balanceOf
-Sink: tainted_state_changing_external_call in LiberoToken.getLiquidityBacking
-
-### Operations with Source Code Mapping:
-    IR:  balanceOf
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [390, 391, 392]
-    LNE: (No direct expression available)
-
-    IR:  REF_30(uint256) -> _gonBalances[who]
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [391]
-    LNE: _gonBalances[who].div(_gonsPerFragment)
-
-    IR:  TMP_139(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['REF_30', '_gonsPerFragment'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [391]
-    LNE: _gonBalances[who].div(_gonsPerFragment)
-
-    IR:  TMP_158(uint256) = INTERNAL_CALL, LiberoToken.balanceOf(address)(REF_48)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [432]
-    LNE: liquidityBalance.add(balanceOf(_markerPairs[i]).div(10 ** 9))
-
-    IR:  TMP_160(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_158', 'TMP_159'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [432]
-    LNE: liquidityBalance.add(balanceOf(_markerPairs[i]).div(10 ** 9))
-
-----------------------------------------
-
-## Path #5
 Source: external_input_params in LiberoToken.transfer
 Sink: tainted_state_changing_external_call in LiberoToken._transferFrom
 
@@ -106,36 +87,48 @@ Sink: tainted_state_changing_external_call in LiberoToken._transferFrom
     SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
     LNE: _transferFrom(msg.sender,to,value)
 
-    IR:  REF_72(uint256) -> _gonBalances[recipient]
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [487]
-    LNE: _gonBalances[recipient] = _gonBalances[recipient].add(gonAmountReceived)
+----------------------------------------
+
+## Path #5
+Source: external_input_params in LiberoToken.transfer
+Sink: tainted_state_changing_external_call in LiberoToken.takeFee
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
+    LNE: (No direct expression available)
+
+    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
+    LNE: _transferFrom(msg.sender,to,value)
+
+    IR:  TMP_189(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_gonsPerFragment'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
+    LNE: gonAmount = amount.mul(_gonsPerFragment)
+
+    IR:  gonAmount(uint256) := TMP_189(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
+    LNE: gonAmount = amount.mul(_gonsPerFragment)
+
+    IR:  TMP_204(uint256) = INTERNAL_CALL, LiberoToken.takeFee(address,address,uint256)(sender,recipient,gonAmount)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [486]
+    LNE: gonAmountReceived = takeFee(sender,recipient,gonAmount)
+
+    IR:  TMP_266(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['gonAmount', '_realFee'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
+    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
+
+    IR:  TMP_267(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_266', 'feeDenominator'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
+    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
+
+    IR:  feeAmount(uint256) := TMP_267(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
+    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
 
 ----------------------------------------
 
 ## Path #6
-Source: external_input_params in LiberoToken.balanceOf
-Sink: tainted_state_changing_external_call in LiberoToken.getLiquidityBacking
-
-### Operations with Source Code Mapping:
-    IR:  balanceOf
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [390, 391, 392]
-    LNE: (No direct expression available)
-
-    IR:  REF_30(uint256) -> _gonBalances[who]
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [391]
-    LNE: _gonBalances[who].div(_gonsPerFragment)
-
-    IR:  TMP_139(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['REF_30', '_gonsPerFragment'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [391]
-    LNE: _gonBalances[who].div(_gonsPerFragment)
-
-    IR:  TMP_158(uint256) = INTERNAL_CALL, LiberoToken.balanceOf(address)(REF_48)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [432]
-    LNE: liquidityBalance.add(balanceOf(_markerPairs[i]).div(10 ** 9))
-
-----------------------------------------
-
-## Path #7
 Source: external_input_params in LiberoToken.transferFrom
 Sink: tainted_state_changing_external_call in LiberoToken._basicTransfer
 
@@ -158,22 +151,18 @@ Sink: tainted_state_changing_external_call in LiberoToken._basicTransfer
 
 ----------------------------------------
 
-## Path #8
-Source: external_input_params in LiberoToken.setFees
-Sink: tainted_state_changing_external_call in LiberoToken.swapBack
+## Path #7
+Source: external_input_params in LiberoToken.transferFrom
+Sink: tainted_erc20_transfer in LiberoToken.transferFrom
 
 ### Operations with Source Code Mapping:
-    IR:  setFees
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [760, 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778, 779]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [506, 507, 508, 509, 510, 511, 512, 513, 514, 515]
     LNE: (No direct expression available)
-
-    IR:  buyFeeRFV(uint256) := _riskFreeValue(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [771]
-    LNE: buyFeeRFV = _riskFreeValue
 
 ----------------------------------------
 
-## Path #9
+## Path #8
 Source: external_input_params in LiberoToken.setFees
 Sink: tainted_state_changing_external_call in LiberoToken.setFees
 
@@ -186,17 +175,20 @@ Sink: tainted_state_changing_external_call in LiberoToken.setFees
     SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [770]
     LNE: liquidityFee = _liquidityFee
 
-    IR:  TMP_346(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['liquidityFee', 'treasuryFee'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [775]
-    LNE: totalBuyFee = liquidityFee.add(treasuryFee).add(buyFeeRFV)
+----------------------------------------
 
-    IR:  TMP_347(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_346', 'buyFeeRFV'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [775]
-    LNE: totalBuyFee = liquidityFee.add(treasuryFee).add(buyFeeRFV)
+## Path #9
+Source: external_input_params in LiberoToken.transfer
+Sink: tainted_erc20_transfer in LiberoToken._transferFrom
 
-    IR:  totalBuyFee(uint256) := TMP_347(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [775]
-    LNE: totalBuyFee = liquidityFee.add(treasuryFee).add(buyFeeRFV)
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
+    LNE: (No direct expression available)
+
+    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
+    LNE: _transferFrom(msg.sender,to,value)
 
 ----------------------------------------
 
@@ -228,343 +220,23 @@ Sink: tainted_state_changing_external_call in LiberoToken.shouldSwapBack
 ----------------------------------------
 
 ## Path #11
-Source: external_input_params in LiberoToken.decreaseAllowance
-Sink: tainted_state_changing_external_call in LiberoToken.decreaseAllowance
+Source: external_input_params in LiberoToken.balanceOf
+Sink: tainted_state_changing_external_call in LiberoToken.balanceOf
 
 ### Operations with Source Code Mapping:
-    IR:  decreaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647]
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [390, 391, 392]
     LNE: (No direct expression available)
 
-    IR:  REF_122(uint256) -> REF_121[spender]
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [633]
-    LNE: oldValue = _allowedFragments[msg.sender][spender]
-
-    IR:  oldValue(uint256) := REF_122(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [633]
-    LNE: oldValue = _allowedFragments[msg.sender][spender]
+    IR:  REF_30(uint256) -> _gonBalances[who]
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [391]
+    LNE: _gonBalances[who].div(_gonsPerFragment)
 
 ----------------------------------------
 
 ## Path #12
-Source: external_input_params in LiberoToken.increaseAllowance
-Sink: tainted_state_changing_external_call in LiberoToken.increaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  increaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [649, 650, 651, 652, 653, 654, 655, 656, 657, 658, 659]
-    LNE: (No direct expression available)
-
-    IR:  REF_133(uint256) -> REF_132[spender]
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [650, 651, 652]
-    LNE: _allowedFragments[msg.sender][spender] = _allowedFragments[msg.sender][spender].add(addedValue)
-
-----------------------------------------
-
-## Path #13
-Source: external_input_params in Ownable.transferOwnership
-Sink: tainted_erc20_transfer in Ownable.transferOwnership
-
-### Operations with Source Code Mapping:
-    IR:  transferOwnership
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [268, 269, 270]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #14
-Source: external_input_params in LiberoToken.transfer
-Sink: tainted_state_changing_external_call in LiberoToken._basicTransfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
-    LNE: (No direct expression available)
-
-    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
-    LNE: _transferFrom(msg.sender,to,value)
-
-    IR:  TMP_188(bool) = INTERNAL_CALL, LiberoToken._basicTransfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [475]
-    LNE: _basicTransfer(sender,recipient,amount)
-
-    IR:  REF_62(uint256) -> _gonBalances[to]
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [455]
-    LNE: _gonBalances[to] = _gonBalances[to].add(gonAmount)
-
-----------------------------------------
-
-## Path #15
 Source: external_input_params in LiberoToken.setFees
 Sink: tainted_state_changing_external_call in LiberoToken.setFees
-
-### Operations with Source Code Mapping:
-    IR:  setFees
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [760, 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778, 779]
-    LNE: (No direct expression available)
-
-    IR:  liquidityFee(uint256) := _liquidityFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [770]
-    LNE: liquidityFee = _liquidityFee
-
-----------------------------------------
-
-## Path #16
-Source: external_input_params in LiberoToken.rescueToken
-Sink: tainted_erc20_transfer in LiberoToken.rescueToken
-
-### Operations with Source Code Mapping:
-    IR:  rescueToken
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [786, 787, 788]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #17
-Source: external_input_params in LiberoToken.setSwapBackSettings
-Sink: tainted_state_changing_external_call in LiberoToken.checkSwapThreshold
-
-### Operations with Source Code Mapping:
-    IR:  setSwapBackSettings
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [749, 750, 751, 752]
-    LNE: (No direct expression available)
-
-    IR:  TMP_332(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TOTAL_GONS', '_denom'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [751]
-    LNE: gonSwapThreshold = TOTAL_GONS.div(_denom).mul(_num)
-
-    IR:  TMP_333(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_332', '_num'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [751]
-    LNE: gonSwapThreshold = TOTAL_GONS.div(_denom).mul(_num)
-
-    IR:  gonSwapThreshold(uint256) := TMP_333(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [751]
-    LNE: gonSwapThreshold = TOTAL_GONS.div(_denom).mul(_num)
-
-----------------------------------------
-
-## Path #18
-Source: external_input_params in LiberoToken.getLiquidityBacking
-Sink: tainted_state_changing_external_call in LiberoToken.getLiquidityBacking
-
-### Operations with Source Code Mapping:
-    IR:  getLiquidityBacking
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [429, 430, 431, 432, 433, 434, 435]
-    LNE: (No direct expression available)
-
-    IR:  TMP_164(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accuracy', 'TMP_163'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [434]
-    LNE: accuracy.mul(liquidityBalance.mul(2)).div(getCirculatingSupply().div(10 ** 9))
-
-----------------------------------------
-
-## Path #19
-Source: external_input_params in LiberoToken.setSwapBackSettings
-Sink: tainted_state_changing_external_call in LiberoToken.setSwapBackSettings
-
-### Operations with Source Code Mapping:
-    IR:  setSwapBackSettings
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [749, 750, 751, 752]
-    LNE: (No direct expression available)
-
-    IR:  TMP_332(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TOTAL_GONS', '_denom'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [751]
-    LNE: gonSwapThreshold = TOTAL_GONS.div(_denom).mul(_num)
-
-----------------------------------------
-
-## Path #20
-Source: external_input_params in LiberoToken.transfer
-Sink: tainted_state_changing_external_call in LiberoToken.takeFee
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
-    LNE: (No direct expression available)
-
-    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
-    LNE: _transferFrom(msg.sender,to,value)
-
-    IR:  TMP_189(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_gonsPerFragment'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
-    LNE: gonAmount = amount.mul(_gonsPerFragment)
-
-    IR:  gonAmount(uint256) := TMP_189(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
-    LNE: gonAmount = amount.mul(_gonsPerFragment)
-
-    IR:  TMP_204(uint256) = INTERNAL_CALL, LiberoToken.takeFee(address,address,uint256)(sender,recipient,gonAmount)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [486]
-    LNE: gonAmountReceived = takeFee(sender,recipient,gonAmount)
-
-    IR:  TMP_266(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['gonAmount', '_realFee'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
-    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
-
-----------------------------------------
-
-## Path #21
-Source: external_input_params in LiberoToken.transfer
-Sink: tainted_state_changing_external_call in LiberoToken.takeFee
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
-    LNE: (No direct expression available)
-
-    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
-    LNE: _transferFrom(msg.sender,to,value)
-
-    IR:  TMP_189(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_gonsPerFragment'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
-    LNE: gonAmount = amount.mul(_gonsPerFragment)
-
-    IR:  gonAmount(uint256) := TMP_189(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
-    LNE: gonAmount = amount.mul(_gonsPerFragment)
-
-    IR:  TMP_204(uint256) = INTERNAL_CALL, LiberoToken.takeFee(address,address,uint256)(sender,recipient,gonAmount)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [486]
-    LNE: gonAmountReceived = takeFee(sender,recipient,gonAmount)
-
-    IR:  TMP_266(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['gonAmount', '_realFee'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
-    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
-
-    IR:  TMP_267(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_266', 'feeDenominator'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
-    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
-
-    IR:  feeAmount(uint256) := TMP_267(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
-    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
-
-----------------------------------------
-
-## Path #22
-Source: external_input_params in LiberoToken.transfer
-Sink: tainted_state_changing_external_call in LiberoToken._transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
-    LNE: (No direct expression available)
-
-    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
-    LNE: _transferFrom(msg.sender,to,value)
-
-    IR:  TMP_204(uint256) = INTERNAL_CALL, LiberoToken.takeFee(address,address,uint256)(sender,recipient,gonAmount)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [486]
-    LNE: gonAmountReceived = takeFee(sender,recipient,gonAmount)
-
-    IR:  gonAmountReceived(uint256) := TMP_204(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [486]
-    LNE: gonAmountReceived = takeFee(sender,recipient,gonAmount)
-
-----------------------------------------
-
-## Path #23
-Source: external_input_params in LiberoToken.setFees
-Sink: tainted_state_changing_external_call in LiberoToken.setFees
-
-### Operations with Source Code Mapping:
-    IR:  setFees
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [760, 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778, 779]
-    LNE: (No direct expression available)
-
-    IR:  liquidityFee(uint256) := _liquidityFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [770]
-    LNE: liquidityFee = _liquidityFee
-
-    IR:  TMP_346(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['liquidityFee', 'treasuryFee'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [775]
-    LNE: totalBuyFee = liquidityFee.add(treasuryFee).add(buyFeeRFV)
-
-----------------------------------------
-
-## Path #24
-Source: external_input_params in LiberoToken.transfer
-Sink: tainted_erc20_transfer in LiberoToken._transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
-    LNE: (No direct expression available)
-
-    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
-    LNE: _transferFrom(msg.sender,to,value)
-
-----------------------------------------
-
-## Path #25
-Source: external_input_params in LiberoToken.transferFrom
-Sink: tainted_erc20_transfer in LiberoToken._transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [506, 507, 508, 509, 510, 511, 512, 513, 514, 515]
-    LNE: (No direct expression available)
-
-    IR:  TMP_209(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(from,to,value)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [513]
-    LNE: _transferFrom(from,to,value)
-
-----------------------------------------
-
-## Path #26
-Source: external_input_params in LiberoToken.transfer
-Sink: tainted_state_changing_external_call in LiberoToken.takeFee
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
-    LNE: (No direct expression available)
-
-    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
-    LNE: _transferFrom(msg.sender,to,value)
-
-    IR:  TMP_189(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_gonsPerFragment'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
-    LNE: gonAmount = amount.mul(_gonsPerFragment)
-
-    IR:  gonAmount(uint256) := TMP_189(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
-    LNE: gonAmount = amount.mul(_gonsPerFragment)
-
-    IR:  TMP_204(uint256) = INTERNAL_CALL, LiberoToken.takeFee(address,address,uint256)(sender,recipient,gonAmount)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [486]
-    LNE: gonAmountReceived = takeFee(sender,recipient,gonAmount)
-
-----------------------------------------
-
-## Path #27
-Source: external_input_params in LiberoToken.setFees
-Sink: tainted_state_changing_external_call in LiberoToken.swapBack
-
-### Operations with Source Code Mapping:
-    IR:  setFees
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [760, 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778, 779]
-    LNE: (No direct expression available)
-
-    IR:  liquidityFee(uint256) := _liquidityFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [770]
-    LNE: liquidityFee = _liquidityFee
-
-    IR:  dynamicLiquidityFee(uint256) := liquidityFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [598]
-    LNE: dynamicLiquidityFee = liquidityFee
-
-----------------------------------------
-
-## Path #28
-Source: external_input_params in LiberoToken.setFees
-Sink: tainted_state_changing_external_call in LiberoToken.swapBack
 
 ### Operations with Source Code Mapping:
     IR:  setFees
@@ -589,54 +261,32 @@ Sink: tainted_state_changing_external_call in LiberoToken.swapBack
 
 ----------------------------------------
 
-## Path #29
-Source: external_input_params in LiberoToken.setSwapBackSettings
-Sink: tainted_state_changing_external_call in LiberoToken.setSwapBackSettings
-
-### Operations with Source Code Mapping:
-    IR:  setSwapBackSettings
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [749, 750, 751, 752]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #30
-Source: external_input_params in LiberoToken.balanceOf
-Sink: tainted_state_changing_external_call in LiberoToken.balanceOf
-
-### Operations with Source Code Mapping:
-    IR:  balanceOf
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [390, 391, 392]
-    LNE: (No direct expression available)
-
-    IR:  REF_30(uint256) -> _gonBalances[who]
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [391]
-    LNE: _gonBalances[who].div(_gonsPerFragment)
-
-----------------------------------------
-
-## Path #31
-Source: external_input_params in LiberoToken.transferFrom
-Sink: tainted_state_changing_external_call in LiberoToken.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [506, 507, 508, 509, 510, 511, 512, 513, 514, 515]
-    LNE: (No direct expression available)
-
-    IR:  REF_81(mapping(address => uint256)) -> _allowedFragments[from]
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [508, 509, 510]
-    LNE: _allowedFragments[from][msg.sender] = _allowedFragments[from][msg.sender].sub(value,Insufficient Allowance)
-
-    IR:  REF_82(uint256) -> REF_81[msg.sender]
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [508, 509, 510]
-    LNE: _allowedFragments[from][msg.sender] = _allowedFragments[from][msg.sender].sub(value,Insufficient Allowance)
-
-----------------------------------------
-
-## Path #32
+## Path #13
 Source: external_input_params in LiberoToken.transfer
-Sink: tainted_state_changing_external_call in LiberoToken._transferFrom
+Sink: tainted_state_changing_external_call in LiberoToken._basicTransfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
+    LNE: (No direct expression available)
+
+    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
+    LNE: _transferFrom(msg.sender,to,value)
+
+    IR:  TMP_188(bool) = INTERNAL_CALL, LiberoToken._basicTransfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [475]
+    LNE: _basicTransfer(sender,recipient,amount)
+
+    IR:  REF_62(uint256) -> _gonBalances[to]
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [455]
+    LNE: _gonBalances[to] = _gonBalances[to].add(gonAmount)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in LiberoToken.transfer
+Sink: tainted_state_changing_external_call in LiberoToken.takeFee
 
 ### Operations with Source Code Mapping:
     IR:  transfer
@@ -655,39 +305,13 @@ Sink: tainted_state_changing_external_call in LiberoToken._transferFrom
     SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
     LNE: gonAmount = amount.mul(_gonsPerFragment)
 
-----------------------------------------
-
-## Path #33
-Source: external_input_params in LiberoToken.setFees
-Sink: tainted_state_changing_external_call in LiberoToken.swapBack
-
-### Operations with Source Code Mapping:
-    IR:  setFees
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [760, 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778, 779]
-    LNE: (No direct expression available)
-
-    IR:  buyFeeRFV(uint256) := _riskFreeValue(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [771]
-    LNE: buyFeeRFV = _riskFreeValue
-
-    IR:  TMP_251(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyFeeRFV', '2'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [602]
-    LNE: amountToRFV = contractTokenBalance.mul(buyFeeRFV.mul(2).add(sellFeeRFVAdded)).div(realTotalFee)
+    IR:  TMP_204(uint256) = INTERNAL_CALL, LiberoToken.takeFee(address,address,uint256)(sender,recipient,gonAmount)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [486]
+    LNE: gonAmountReceived = takeFee(sender,recipient,gonAmount)
 
 ----------------------------------------
 
-## Path #34
-Source: external_input_params in LiberoToken.getLiquidityBacking
-Sink: tainted_state_changing_external_call in LiberoToken.getLiquidityBacking
-
-### Operations with Source Code Mapping:
-    IR:  getLiquidityBacking
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [429, 430, 431, 432, 433, 434, 435]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #35
+## Path #15
 Source: external_input_params in LiberoToken.transfer
 Sink: tainted_state_changing_external_call in LiberoToken.takeFee
 
@@ -716,39 +340,9 @@ Sink: tainted_state_changing_external_call in LiberoToken.takeFee
     SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
     LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
 
-    IR:  TMP_267(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_266', 'feeDenominator'] 
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
-    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
-
-    IR:  feeAmount(uint256) := TMP_267(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [624]
-    LNE: feeAmount = gonAmount.mul(_realFee).div(feeDenominator)
-
 ----------------------------------------
 
-## Path #36
-Source: external_input_params in LiberoToken.transferFrom
-Sink: tainted_erc20_transfer in LiberoToken.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [506, 507, 508, 509, 510, 511, 512, 513, 514, 515]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #37
-Source: external_input_params in LiberoToken.transfer
-Sink: tainted_erc20_transfer in LiberoToken.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #38
+## Path #16
 Source: external_input_params in LiberoToken.transfer
 Sink: tainted_state_changing_external_call in LiberoToken._transferFrom
 
@@ -761,9 +355,168 @@ Sink: tainted_state_changing_external_call in LiberoToken._transferFrom
     SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
     LNE: _transferFrom(msg.sender,to,value)
 
+    IR:  TMP_189(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_gonsPerFragment'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
+    LNE: gonAmount = amount.mul(_gonsPerFragment)
+
+    IR:  gonAmount(uint256) := TMP_189(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
+    LNE: gonAmount = amount.mul(_gonsPerFragment)
+
 ----------------------------------------
 
-## Path #39
+## Path #17
+Source: external_input_params in LiberoToken.setFees
+Sink: tainted_state_changing_external_call in LiberoToken.swapBack
+
+### Operations with Source Code Mapping:
+    IR:  setFees
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [760, 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778, 779]
+    LNE: (No direct expression available)
+
+    IR:  buyFeeRFV(uint256) := _riskFreeValue(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [771]
+    LNE: buyFeeRFV = _riskFreeValue
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in LiberoToken.increaseAllowance
+Sink: tainted_state_changing_external_call in LiberoToken.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [649, 650, 651, 652, 653, 654, 655, 656, 657, 658, 659]
+    LNE: (No direct expression available)
+
+    IR:  REF_133(uint256) -> REF_132[spender]
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [650, 651, 652]
+    LNE: _allowedFragments[msg.sender][spender] = _allowedFragments[msg.sender][spender].add(addedValue)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in Ownable.transferOwnership
+Sink: tainted_erc20_transfer in Ownable.transferOwnership
+
+### Operations with Source Code Mapping:
+    IR:  transferOwnership
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [268, 269, 270]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in LiberoToken.transferFrom
+Sink: tainted_state_changing_external_call in LiberoToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [506, 507, 508, 509, 510, 511, 512, 513, 514, 515]
+    LNE: (No direct expression available)
+
+    IR:  REF_81(mapping(address => uint256)) -> _allowedFragments[from]
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [508, 509, 510]
+    LNE: _allowedFragments[from][msg.sender] = _allowedFragments[from][msg.sender].sub(value,Insufficient Allowance)
+
+    IR:  REF_82(uint256) -> REF_81[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [508, 509, 510]
+    LNE: _allowedFragments[from][msg.sender] = _allowedFragments[from][msg.sender].sub(value,Insufficient Allowance)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in LiberoToken.setSwapBackSettings
+Sink: tainted_state_changing_external_call in LiberoToken.setSwapBackSettings
+
+### Operations with Source Code Mapping:
+    IR:  setSwapBackSettings
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [749, 750, 751, 752]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in LiberoToken.setFees
+Sink: tainted_state_changing_external_call in LiberoToken.setFees
+
+### Operations with Source Code Mapping:
+    IR:  setFees
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [760, 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778, 779]
+    LNE: (No direct expression available)
+
+    IR:  liquidityFee(uint256) := _liquidityFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [770]
+    LNE: liquidityFee = _liquidityFee
+
+    IR:  TMP_346(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['liquidityFee', 'treasuryFee'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [775]
+    LNE: totalBuyFee = liquidityFee.add(treasuryFee).add(buyFeeRFV)
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in LiberoToken.transferFrom
+Sink: tainted_state_changing_external_call in LiberoToken._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [506, 507, 508, 509, 510, 511, 512, 513, 514, 515]
+    LNE: (No direct expression available)
+
+    IR:  TMP_209(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(from,to,value)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [513]
+    LNE: _transferFrom(from,to,value)
+
+    IR:  REF_69(uint256) -> _gonBalances[sender]
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [484]
+    LNE: _gonBalances[sender] = _gonBalances[sender].sub(gonAmount)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in LiberoToken.setSwapBackSettings
+Sink: tainted_state_changing_external_call in LiberoToken.checkSwapThreshold
+
+### Operations with Source Code Mapping:
+    IR:  setSwapBackSettings
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [749, 750, 751, 752]
+    LNE: (No direct expression available)
+
+    IR:  TMP_332(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TOTAL_GONS', '_denom'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [751]
+    LNE: gonSwapThreshold = TOTAL_GONS.div(_denom).mul(_num)
+
+    IR:  TMP_333(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_332', '_num'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [751]
+    LNE: gonSwapThreshold = TOTAL_GONS.div(_denom).mul(_num)
+
+    IR:  gonSwapThreshold(uint256) := TMP_333(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [751]
+    LNE: gonSwapThreshold = TOTAL_GONS.div(_denom).mul(_num)
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in LiberoToken.setFees
+Sink: tainted_state_changing_external_call in LiberoToken.swapBack
+
+### Operations with Source Code Mapping:
+    IR:  setFees
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [760, 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778, 779]
+    LNE: (No direct expression available)
+
+    IR:  liquidityFee(uint256) := _liquidityFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [770]
+    LNE: liquidityFee = _liquidityFee
+
+    IR:  dynamicLiquidityFee(uint256) := liquidityFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [598]
+    LNE: dynamicLiquidityFee = liquidityFee
+
+----------------------------------------
+
+## Path #26
 Source: external_input_params in LiberoToken.setFees
 Sink: tainted_state_changing_external_call in LiberoToken.setFees
 
@@ -791,5 +544,252 @@ Sink: tainted_state_changing_external_call in LiberoToken.setFees
     IR:  TMP_348(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBuyFee', 'sellFeeTreasuryAdded'] 
     SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [776]
     LNE: totalSellFee = totalBuyFee.add(sellFeeTreasuryAdded).add(sellFeeRFVAdded)
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in LiberoToken.getLiquidityBacking
+Sink: tainted_state_changing_external_call in LiberoToken.getLiquidityBacking
+
+### Operations with Source Code Mapping:
+    IR:  getLiquidityBacking
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [429, 430, 431, 432, 433, 434, 435]
+    LNE: (No direct expression available)
+
+    IR:  TMP_164(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accuracy', 'TMP_163'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [434]
+    LNE: accuracy.mul(liquidityBalance.mul(2)).div(getCirculatingSupply().div(10 ** 9))
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in LiberoToken.setFees
+Sink: tainted_state_changing_external_call in LiberoToken.swapBack
+
+### Operations with Source Code Mapping:
+    IR:  setFees
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [760, 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778, 779]
+    LNE: (No direct expression available)
+
+    IR:  buyFeeRFV(uint256) := _riskFreeValue(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [771]
+    LNE: buyFeeRFV = _riskFreeValue
+
+    IR:  TMP_251(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyFeeRFV', '2'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [602]
+    LNE: amountToRFV = contractTokenBalance.mul(buyFeeRFV.mul(2).add(sellFeeRFVAdded)).div(realTotalFee)
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in LiberoToken.transferFrom
+Sink: tainted_erc20_transfer in LiberoToken._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [506, 507, 508, 509, 510, 511, 512, 513, 514, 515]
+    LNE: (No direct expression available)
+
+    IR:  TMP_209(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(from,to,value)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [513]
+    LNE: _transferFrom(from,to,value)
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in LiberoToken.decreaseAllowance
+Sink: tainted_state_changing_external_call in LiberoToken.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647]
+    LNE: (No direct expression available)
+
+    IR:  REF_122(uint256) -> REF_121[spender]
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [633]
+    LNE: oldValue = _allowedFragments[msg.sender][spender]
+
+    IR:  oldValue(uint256) := REF_122(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [633]
+    LNE: oldValue = _allowedFragments[msg.sender][spender]
+
+----------------------------------------
+
+## Path #31
+Source: external_input_params in LiberoToken.rescueToken
+Sink: tainted_erc20_transfer in LiberoToken.rescueToken
+
+### Operations with Source Code Mapping:
+    IR:  rescueToken
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [786, 787, 788]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #32
+Source: external_input_params in LiberoToken.balanceOf
+Sink: tainted_state_changing_external_call in LiberoToken.getLiquidityBacking
+
+### Operations with Source Code Mapping:
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [390, 391, 392]
+    LNE: (No direct expression available)
+
+    IR:  REF_30(uint256) -> _gonBalances[who]
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [391]
+    LNE: _gonBalances[who].div(_gonsPerFragment)
+
+    IR:  TMP_139(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['REF_30', '_gonsPerFragment'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [391]
+    LNE: _gonBalances[who].div(_gonsPerFragment)
+
+    IR:  TMP_158(uint256) = INTERNAL_CALL, LiberoToken.balanceOf(address)(REF_48)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [432]
+    LNE: liquidityBalance.add(balanceOf(_markerPairs[i]).div(10 ** 9))
+
+----------------------------------------
+
+## Path #33
+Source: external_input_params in LiberoToken.setFees
+Sink: tainted_state_changing_external_call in LiberoToken.swapBack
+
+### Operations with Source Code Mapping:
+    IR:  setFees
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [760, 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778, 779]
+    LNE: (No direct expression available)
+
+    IR:  liquidityFee(uint256) := _liquidityFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [770]
+    LNE: liquidityFee = _liquidityFee
+
+    IR:  TMP_346(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['liquidityFee', 'treasuryFee'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [775]
+    LNE: totalBuyFee = liquidityFee.add(treasuryFee).add(buyFeeRFV)
+
+    IR:  TMP_347(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_346', 'buyFeeRFV'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [775]
+    LNE: totalBuyFee = liquidityFee.add(treasuryFee).add(buyFeeRFV)
+
+    IR:  totalBuyFee(uint256) := TMP_347(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [775]
+    LNE: totalBuyFee = liquidityFee.add(treasuryFee).add(buyFeeRFV)
+
+----------------------------------------
+
+## Path #34
+Source: external_input_params in LiberoToken.balanceOf
+Sink: tainted_state_changing_external_call in LiberoToken.getLiquidityBacking
+
+### Operations with Source Code Mapping:
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [390, 391, 392]
+    LNE: (No direct expression available)
+
+    IR:  REF_30(uint256) -> _gonBalances[who]
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [391]
+    LNE: _gonBalances[who].div(_gonsPerFragment)
+
+    IR:  TMP_139(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['REF_30', '_gonsPerFragment'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [391]
+    LNE: _gonBalances[who].div(_gonsPerFragment)
+
+    IR:  TMP_158(uint256) = INTERNAL_CALL, LiberoToken.balanceOf(address)(REF_48)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [432]
+    LNE: liquidityBalance.add(balanceOf(_markerPairs[i]).div(10 ** 9))
+
+    IR:  TMP_160(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_158', 'TMP_159'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [432]
+    LNE: liquidityBalance.add(balanceOf(_markerPairs[i]).div(10 ** 9))
+
+----------------------------------------
+
+## Path #35
+Source: external_input_params in LiberoToken.transfer
+Sink: tainted_state_changing_external_call in LiberoToken._basicTransfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
+    LNE: (No direct expression available)
+
+    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
+    LNE: _transferFrom(msg.sender,to,value)
+
+    IR:  TMP_188(bool) = INTERNAL_CALL, LiberoToken._basicTransfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [475]
+    LNE: _basicTransfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #36
+Source: external_input_params in LiberoToken.transfer
+Sink: tainted_state_changing_external_call in LiberoToken._transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
+    LNE: (No direct expression available)
+
+    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
+    LNE: _transferFrom(msg.sender,to,value)
+
+    IR:  REF_72(uint256) -> _gonBalances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [487]
+    LNE: _gonBalances[recipient] = _gonBalances[recipient].add(gonAmountReceived)
+
+----------------------------------------
+
+## Path #37
+Source: external_input_params in LiberoToken.setSwapBackSettings
+Sink: tainted_state_changing_external_call in LiberoToken.setSwapBackSettings
+
+### Operations with Source Code Mapping:
+    IR:  setSwapBackSettings
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [749, 750, 751, 752]
+    LNE: (No direct expression available)
+
+    IR:  TMP_332(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TOTAL_GONS', '_denom'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [751]
+    LNE: gonSwapThreshold = TOTAL_GONS.div(_denom).mul(_num)
+
+----------------------------------------
+
+## Path #38
+Source: external_input_params in LiberoToken.transfer
+Sink: tainted_state_changing_external_call in LiberoToken.takeFee
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
+    LNE: (No direct expression available)
+
+    IR:  TMP_175(bool) = INTERNAL_CALL, LiberoToken._transferFrom(address,address,uint256)(msg.sender,to,value)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [448]
+    LNE: _transferFrom(msg.sender,to,value)
+
+    IR:  TMP_189(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_gonsPerFragment'] 
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
+    LNE: gonAmount = amount.mul(_gonsPerFragment)
+
+    IR:  gonAmount(uint256) := TMP_189(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [478]
+    LNE: gonAmount = amount.mul(_gonsPerFragment)
+
+    IR:  TMP_204(uint256) = INTERNAL_CALL, LiberoToken.takeFee(address,address,uint256)(sender,recipient,gonAmount)
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [486]
+    LNE: gonAmountReceived = takeFee(sender,recipient,gonAmount)
+
+----------------------------------------
+
+## Path #39
+Source: external_input_params in LiberoToken.transfer
+Sink: tainted_erc20_transfer in LiberoToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c35d2162_Libero Financial/flattened.sol', Lines [447, 448, 449, 450]
+    LNE: (No direct expression available)
 
 ----------------------------------------

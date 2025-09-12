@@ -212,19 +212,38 @@ Sink #13: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in AntexToken.burnSupply
+  Sink: tainted_state_changing_external_call in AntexToken.burnSupply
+  Path Operations:
+    1. burnSupply
+
+Path #2:
+  Source: external_input_params in AntexToken.batchTransfer
+  Sink: tainted_state_changing_external_call in AntexToken.batchTransfer
+  Path Operations:
+    1. batchTransfer
+    2. REF_14(uint256) -> _amounts[i]
+    3. TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAmount', 'REF_14'] 
+    4. totalAmount(uint256) := TMP_77(uint256)
+
+Path #3:
   Source: external_input_params in AntexToken.transferFrom
   Sink: tainted_state_changing_external_call in AntexToken.transferFrom
   Path Operations:
     1. transferFrom
-    2. REF_31(uint256) -> balances[from]
+    2. REF_35(mapping(address => uint256)) -> allowed[from]
+    3. REF_36(uint256) -> REF_35[msg.sender]
 
-Path #2:
-  Source: external_input_params in AntexToken.transfer
-  Sink: tainted_state_changing_external_call in AntexToken.transfer
+Path #4:
+  Source: external_input_params in AntexToken.batchTransfer
+  Sink: tainted_state_changing_external_call in AntexToken.batchTransfer
   Path Operations:
-    1. transfer
+    1. batchTransfer
+    2. REF_14(uint256) -> _amounts[i]
+    3. TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAmount', 'REF_14'] 
+    4. totalAmount(uint256) := TMP_77(uint256)
 
-Path #3:
+Path #5:
   Source: external_input_params in AntexToken.batchTransfer
   Sink: tainted_state_changing_external_call in AntexToken.batchTransfer
   Path Operations:
@@ -232,14 +251,21 @@ Path #3:
     2. REF_21(address) -> _receivers[i_scope_0]
     3. REF_22(uint256) -> balances[REF_21]
 
-Path #4:
+Path #6:
+  Source: external_input_params in AntexToken.transferFrom
+  Sink: tainted_state_changing_external_call in AntexToken.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_31(uint256) -> balances[from]
+
+Path #7:
   Source: external_input_params in AntexToken.transferFrom
   Sink: tainted_state_changing_external_call in AntexToken.transferFrom
   Path Operations:
     1. transferFrom
     2. REF_39(uint256) -> balances[to]
 
-Path #5:
+Path #8:
   Source: external_input_params in Ownable.transferOwnership
   Sink: tainted_erc20_transfer in AntexToken.transferAnyERC20Token
   Path Operations:
@@ -248,7 +274,13 @@ Path #5:
     3. _owner(address) := newOwner(address)
     4. TMP_98(address) = INTERNAL_CALL, Ownable.owner()()
 
-Path #6:
+Path #9:
+  Source: external_input_params in AntexToken.burnDead
+  Sink: tainted_state_changing_external_call in AntexToken.burnDead
+  Path Operations:
+    1. burnDead
+
+Path #10:
   Source: external_input_params in AntexToken.seizeBlackFunds
   Sink: tainted_state_changing_external_call in AntexToken.seizeBlackFunds
   Path Operations:
@@ -256,44 +288,12 @@ Path #6:
     2. TMP_117(uint256) = INTERNAL_CALL, AntexToken.balanceOf(address)(_blackListedUser)
     3. dirtyFunds(uint256) := TMP_117(uint256)
 
-Path #7:
-  Source: external_input_params in AntexToken.batchTransfer
-  Sink: tainted_state_changing_external_call in AntexToken.batchTransfer
-  Path Operations:
-    1. batchTransfer
-    2. REF_14(uint256) -> _amounts[i]
-    3. TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAmount', 'REF_14'] 
-    4. totalAmount(uint256) := TMP_77(uint256)
-
-Path #8:
-  Source: external_input_params in AntexToken.transferFrom
-  Sink: tainted_state_changing_external_call in AntexToken.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_35(mapping(address => uint256)) -> allowed[from]
-    3. REF_36(uint256) -> REF_35[msg.sender]
-
-Path #9:
+Path #11:
   Source: external_input_params in AntexToken.transfer
   Sink: tainted_state_changing_external_call in AntexToken.transfer
   Path Operations:
     1. transfer
     2. REF_7(uint256) -> balances[to]
-
-Path #10:
-  Source: external_input_params in AntexToken.burnDead
-  Sink: tainted_state_changing_external_call in AntexToken.burnDead
-  Path Operations:
-    1. burnDead
-
-Path #11:
-  Source: external_input_params in AntexToken.batchTransfer
-  Sink: tainted_state_changing_external_call in AntexToken.batchTransfer
-  Path Operations:
-    1. batchTransfer
-    2. REF_14(uint256) -> _amounts[i]
-    3. TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAmount', 'REF_14'] 
-    4. totalAmount(uint256) := TMP_77(uint256)
 
 Path #12:
   Source: external_input_params in AntexToken.burnDead
@@ -302,7 +302,7 @@ Path #12:
     1. burnDead
 
 Path #13:
-  Source: external_input_params in AntexToken.burnSupply
-  Sink: tainted_state_changing_external_call in AntexToken.burnSupply
+  Source: external_input_params in AntexToken.transfer
+  Sink: tainted_state_changing_external_call in AntexToken.transfer
   Path Operations:
-    1. burnSupply
+    1. transfer

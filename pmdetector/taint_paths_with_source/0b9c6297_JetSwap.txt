@@ -2,6 +2,294 @@
 Found 20 tainted paths.
 
 ## Path #1
+Source: external_input_params in WingsToken.mint
+Sink: tainted_state_changing_external_call in WingsToken._moveDelegates
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [933, 934, 935, 936]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, WingsToken._moveDelegates(address,address,uint256)(TMP_211,REF_65,_amount)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [935]
+    LNE: _moveDelegates(address(0),_delegates[_to],_amount)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in WingsToken.mint
+Sink: tainted_state_changing_external_call in WingsToken._moveDelegates
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [933, 934, 935, 936]
+    LNE: (No direct expression available)
+
+    IR:  REF_65(address) -> _delegates[_to]
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [935]
+    LNE: _moveDelegates(address(0),_delegates[_to],_amount)
+
+    IR:  INTERNAL_CALL, WingsToken._moveDelegates(address,address,uint256)(TMP_211,REF_65,_amount)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [935]
+    LNE: _moveDelegates(address(0),_delegates[_to],_amount)
+
+    IR:  REF_102(mapping(uint32 => WingsToken.Checkpoint)) -> checkpoints[dstRep]
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1137, 1138, 1139]
+    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
+
+    IR:  REF_103(WingsToken.Checkpoint) -> REF_102[TMP_270]
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1137, 1138, 1139]
+    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
+
+    IR:  REF_104(uint256) -> REF_103.votes
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1137, 1138, 1139]
+    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
+
+    IR:  dstRepOld(uint256) := REF_104(uint256)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1137, 1138, 1139]
+    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in WingsToken._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [812, 813, 814, 815]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [813]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_115(uint256)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in WingsToken.mint
+Sink: tainted_erc20_transfer in WingsToken.mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [933, 934, 935, 936]
+    LNE: (No direct expression available)
+
+    IR:  REF_65(address) -> _delegates[_to]
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [935]
+    LNE: _moveDelegates(address(0),_delegates[_to],_amount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in WingsToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [812, 813, 814, 815]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [813]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_115(uint256)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in BEP20.transferFrom
+Sink: tainted_state_changing_external_call in BEP20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [738, 739, 740, 741, 742, 743, 744, 745, 746, 747, 748, 749]
+    LNE: (No direct expression available)
+
+    IR:  REF_6(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [740, 741, 742, 743, 744, 745, 746, 747]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,BEP20: transfer amount exceeds allowance))
+
+    IR:  REF_7(uint256) -> REF_6[TMP_89]
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [740, 741, 742, 743, 744, 745, 746, 747]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,BEP20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in Ownable.transferOwnership
+Sink: tainted_erc20_transfer in Ownable.transferOwnership
+
+### Operations with Source Code Mapping:
+    IR:  transferOwnership
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [91, 92, 93]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in BEP20._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [812, 813, 814, 815]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [813]
+    LNE: _mint(_msgSender(),amount)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in BEP20.constructor
+Sink: tainted_erc20_transfer in WingsToken._delegate
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [629, 630, 631, 632, 633]
+    LNE: (No direct expression available)
+
+    IR:  _name(string) := name(string)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [630]
+    LNE: _name = name
+
+    IR:  TMP_215(string) = INTERNAL_CALL, BEP20.name()()
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
+
+    IR:  TMP_216 = CONVERT TMP_215 to bytes
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
+
+    IR:  TMP_217(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_216)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
+
+    IR:  TMP_220(bytes) = SOLIDITY_CALL abi.encode()(DOMAIN_TYPEHASH,TMP_217,TMP_218,TMP_219)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
+
+    IR:  TMP_221(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_220)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
+
+    IR:  domainSeparator(bytes32) := TMP_221(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
+
+    IR:  TMP_224(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1032, 1033, 1034]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  TMP_225(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_224)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1032, 1033, 1034]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  digest(bytes32) := TMP_225(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1032, 1033, 1034]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  TMP_226(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1036]
+    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  signatory(address) := TMP_226(address)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1036]
+    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  INTERNAL_CALL, WingsToken._delegate(address,address)(signatory,delegatee)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1046]
+    LNE: _delegate(signatory,delegatee)
+
+    IR:  REF_93(address) -> _delegates[delegator]
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1109]
+    LNE: currentDelegate = _delegates[delegator]
+
+    IR:  currentDelegate(address) := REF_93(address)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1109]
+    LNE: currentDelegate = _delegates[delegator]
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in BEP20._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [812, 813, 814, 815]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [813]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_115(uint256)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in BEP20._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [812, 813, 814, 815]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [813]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_115(uint256)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in BEP20.increaseAllowance
+Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [766, 767, 768, 769, 770, 771, 772, 773]
+    LNE: (No direct expression available)
+
+    IR:  REF_10(uint256) -> REF_9[spender]
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [767, 768, 769, 770, 771]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #13
 Source: external_input_params in BEP20.transfer
 Sink: tainted_state_changing_external_call in BEP20._transfer
 
@@ -20,48 +308,7 @@ Sink: tainted_state_changing_external_call in BEP20._transfer
 
 ----------------------------------------
 
-## Path #2
-Source: external_input_params in BEP20.transfer
-Sink: tainted_erc20_transfer in BEP20.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [689, 690, 691, 692]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in BEP20.transferFrom
-Sink: tainted_state_changing_external_call in BEP20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [738, 739, 740, 741, 742, 743, 744, 745, 746, 747, 748, 749]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [739]
-    LNE: _transfer(sender,recipient,amount)
-
-    IR:  REF_16(uint256) -> _balances[sender]
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [839, 840, 841, 842]
-    LNE: _balances[sender] = _balances[sender].sub(amount,BEP20: transfer amount exceeds balance)
-
-----------------------------------------
-
-## Path #4
-Source: external_input_params in Ownable.transferOwnership
-Sink: tainted_erc20_transfer in Ownable.transferOwnership
-
-### Operations with Source Code Mapping:
-    IR:  transferOwnership
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [91, 92, 93]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #5
+## Path #14
 Source: external_input_params in BEP20.constructor
 Sink: tainted_state_changing_external_call in WingsToken._moveDelegates
 
@@ -152,245 +399,6 @@ Sink: tainted_state_changing_external_call in WingsToken._moveDelegates
 
 ----------------------------------------
 
-## Path #6
-Source: external_input_params in BEP20.mint
-Sink: tainted_state_changing_external_call in BEP20._mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [812, 813, 814, 815]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [813]
-    LNE: _mint(_msgSender(),amount)
-
-    IR:  TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-    IR:  _totalSupply(uint256) := TMP_115(uint256)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-----------------------------------------
-
-## Path #7
-Source: external_input_params in BEP20.mint
-Sink: tainted_state_changing_external_call in WingsToken._burn
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [812, 813, 814, 815]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [813]
-    LNE: _mint(_msgSender(),amount)
-
-    IR:  TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-    IR:  _totalSupply(uint256) := TMP_115(uint256)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-----------------------------------------
-
-## Path #8
-Source: external_input_params in BEP20.increaseAllowance
-Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  increaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [766, 767, 768, 769, 770, 771, 772, 773]
-    LNE: (No direct expression available)
-
-    IR:  REF_10(uint256) -> REF_9[spender]
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [767, 768, 769, 770, 771]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in BEP20.constructor
-Sink: tainted_erc20_transfer in WingsToken._delegate
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [629, 630, 631, 632, 633]
-    LNE: (No direct expression available)
-
-    IR:  _name(string) := name(string)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [630]
-    LNE: _name = name
-
-    IR:  TMP_215(string) = INTERNAL_CALL, BEP20.name()()
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
-    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
-
-    IR:  TMP_216 = CONVERT TMP_215 to bytes
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
-    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
-
-    IR:  TMP_217(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_216)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
-    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
-
-    IR:  TMP_220(bytes) = SOLIDITY_CALL abi.encode()(DOMAIN_TYPEHASH,TMP_217,TMP_218,TMP_219)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
-    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
-
-    IR:  TMP_221(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_220)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
-    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
-
-    IR:  domainSeparator(bytes32) := TMP_221(bytes32)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
-    LNE: domainSeparator = keccak256(bytes)(abi.encode(DOMAIN_TYPEHASH,keccak256(bytes)(bytes(name())),getChainId(),address(this)))
-
-    IR:  TMP_224(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1032, 1033, 1034]
-    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
-
-    IR:  TMP_225(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_224)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1032, 1033, 1034]
-    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
-
-    IR:  digest(bytes32) := TMP_225(bytes32)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1032, 1033, 1034]
-    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
-
-    IR:  TMP_226(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1036]
-    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-
-    IR:  signatory(address) := TMP_226(address)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1036]
-    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-
-    IR:  INTERNAL_CALL, WingsToken._delegate(address,address)(signatory,delegatee)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1046]
-    LNE: _delegate(signatory,delegatee)
-
-    IR:  REF_93(address) -> _delegates[delegator]
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1109]
-    LNE: currentDelegate = _delegates[delegator]
-
-    IR:  currentDelegate(address) := REF_93(address)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1109]
-    LNE: currentDelegate = _delegates[delegator]
-
-----------------------------------------
-
-## Path #10
-Source: external_input_params in WingsToken.mint
-Sink: tainted_state_changing_external_call in WingsToken._moveDelegates
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [933, 934, 935, 936]
-    LNE: (No direct expression available)
-
-    IR:  REF_65(address) -> _delegates[_to]
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [935]
-    LNE: _moveDelegates(address(0),_delegates[_to],_amount)
-
-    IR:  INTERNAL_CALL, WingsToken._moveDelegates(address,address,uint256)(TMP_211,REF_65,_amount)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [935]
-    LNE: _moveDelegates(address(0),_delegates[_to],_amount)
-
-    IR:  REF_102(mapping(uint32 => WingsToken.Checkpoint)) -> checkpoints[dstRep]
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1137, 1138, 1139]
-    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
-
-    IR:  REF_103(WingsToken.Checkpoint) -> REF_102[TMP_270]
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1137, 1138, 1139]
-    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
-
-    IR:  REF_104(uint256) -> REF_103.votes
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1137, 1138, 1139]
-    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
-
-    IR:  dstRepOld(uint256) := REF_104(uint256)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [1137, 1138, 1139]
-    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
-
-----------------------------------------
-
-## Path #11
-Source: external_input_params in BEP20.mint
-Sink: tainted_state_changing_external_call in BEP20._mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [812, 813, 814, 815]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [813]
-    LNE: _mint(_msgSender(),amount)
-
-----------------------------------------
-
-## Path #12
-Source: external_input_params in BEP20.transferFrom
-Sink: tainted_state_changing_external_call in BEP20.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [738, 739, 740, 741, 742, 743, 744, 745, 746, 747, 748, 749]
-    LNE: (No direct expression available)
-
-    IR:  REF_6(mapping(address => uint256)) -> _allowances[sender]
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [740, 741, 742, 743, 744, 745, 746, 747]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,BEP20: transfer amount exceeds allowance))
-
-    IR:  REF_7(uint256) -> REF_6[TMP_89]
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [740, 741, 742, 743, 744, 745, 746, 747]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,BEP20: transfer amount exceeds allowance))
-
-----------------------------------------
-
-## Path #13
-Source: external_input_params in BEP20.mint
-Sink: tainted_state_changing_external_call in WingsToken._mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [812, 813, 814, 815]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [813]
-    LNE: _mint(_msgSender(),amount)
-
-    IR:  TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-    IR:  _totalSupply(uint256) := TMP_115(uint256)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-----------------------------------------
-
-## Path #14
-Source: external_input_params in WingsToken.mint
-Sink: tainted_state_changing_external_call in WingsToken._moveDelegates
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [933, 934, 935, 936]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, WingsToken._moveDelegates(address,address,uint256)(TMP_211,REF_65,_amount)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [935]
-    LNE: _moveDelegates(address(0),_delegates[_to],_amount)
-
-----------------------------------------
-
 ## Path #15
 Source: external_input_params in WingsToken.mint
 Sink: tainted_state_changing_external_call in WingsToken._mint
@@ -411,17 +419,6 @@ Sink: tainted_state_changing_external_call in WingsToken._mint
 ----------------------------------------
 
 ## Path #16
-Source: external_input_params in BEP20.transferFrom
-Sink: tainted_erc20_transfer in BEP20.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [738, 739, 740, 741, 742, 743, 744, 745, 746, 747, 748, 749]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #17
 Source: external_input_params in WingsToken.mint
 Sink: tainted_state_changing_external_call in WingsToken._moveDelegates
 
@@ -436,30 +433,7 @@ Sink: tainted_state_changing_external_call in WingsToken._moveDelegates
 
 ----------------------------------------
 
-## Path #18
-Source: external_input_params in BEP20.mint
-Sink: tainted_state_changing_external_call in BEP20._burn
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [812, 813, 814, 815]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [813]
-    LNE: _mint(_msgSender(),amount)
-
-    IR:  TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-    IR:  _totalSupply(uint256) := TMP_115(uint256)
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [859]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-----------------------------------------
-
-## Path #19
+## Path #17
 Source: external_input_params in BEP20.decreaseAllowance
 Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
 
@@ -474,17 +448,43 @@ Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
 
 ----------------------------------------
 
-## Path #20
-Source: external_input_params in WingsToken.mint
-Sink: tainted_erc20_transfer in WingsToken.mint
+## Path #18
+Source: external_input_params in BEP20.transfer
+Sink: tainted_erc20_transfer in BEP20.transfer
 
 ### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [933, 934, 935, 936]
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [689, 690, 691, 692]
     LNE: (No direct expression available)
 
-    IR:  REF_65(address) -> _delegates[_to]
-    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [935]
-    LNE: _moveDelegates(address(0),_delegates[_to],_amount)
+----------------------------------------
+
+## Path #19
+Source: external_input_params in BEP20.transferFrom
+Sink: tainted_erc20_transfer in BEP20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [738, 739, 740, 741, 742, 743, 744, 745, 746, 747, 748, 749]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in BEP20.transferFrom
+Sink: tainted_state_changing_external_call in BEP20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [738, 739, 740, 741, 742, 743, 744, 745, 746, 747, 748, 749]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [739]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_16(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/0b9c6297_JetSwap/flattened.sol', Lines [839, 840, 841, 842]
+    LNE: _balances[sender] = _balances[sender].sub(amount,BEP20: transfer amount exceeds balance)
 
 ----------------------------------------

@@ -290,14 +290,35 @@ Sink #19: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in SakeToken.mint
-  Sink: tainted_state_changing_external_call in SakeToken._mint
+  Source: external_input_params in SakeToken.transfer
+  Sink: tainted_state_changing_external_call in SakeToken._moveDelegates
   Path Operations:
-    1. mint
-    2. INTERNAL_CALL, SakeToken._mint(address,uint256)(_to,_amount)
-    3. REF_25(uint256) -> _balances[account]
+    1. transfer
+    2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(TMP_71,recipient,amount)
+    3. INTERNAL_CALL, SakeToken._moveDelegates(address,address,uint256)(REF_21,REF_22,amount)
 
 Path #2:
+  Source: external_input_params in SakeToken.transfer
+  Sink: tainted_erc20_transfer in SakeToken.transfer
+  Path Operations:
+    1. transfer
+
+Path #3:
+  Source: external_input_params in SakeToken.transfer
+  Sink: tainted_state_changing_external_call in SakeToken._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(TMP_71,recipient,amount)
+    3. REF_19(uint256) -> _balances[recipient]
+
+Path #4:
+  Source: external_input_params in SakeToken.decreaseAllowance
+  Sink: tainted_state_changing_external_call in SakeToken.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_13(uint256) -> REF_12[spender]
+
+Path #5:
   Source: external_input_params in SakeToken.mint
   Sink: tainted_state_changing_external_call in SakeToken._burn
   Path Operations:
@@ -306,36 +327,45 @@ Path #2:
     3. TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_104(uint256)
 
-Path #3:
-  Source: external_input_params in SakeToken.transferFrom
-  Sink: tainted_state_changing_external_call in SakeToken._moveDelegates
+Path #6:
+  Source: external_input_params in SakeToken.increaseAllowance
+  Sink: tainted_state_changing_external_call in SakeToken.increaseAllowance
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_21(address) -> _delegates[sender]
-    4. INTERNAL_CALL, SakeToken._moveDelegates(address,address,uint256)(REF_21,REF_22,amount)
-    5. REF_67(mapping(uint32 => SakeToken.Checkpoint)) -> checkpoints[srcRep]
-    6. REF_68(SakeToken.Checkpoint) -> REF_67[TMP_182]
-    7. REF_69(uint256) -> REF_68.votes
-    8. srcRepOld(uint256) := REF_69(uint256)
+    1. increaseAllowance
+    2. REF_10(uint256) -> REF_9[spender]
 
-Path #4:
+Path #7:
   Source: external_input_params in SakeToken.mint
   Sink: tainted_state_changing_external_call in SakeToken._mint
   Path Operations:
     1. mint
     2. INTERNAL_CALL, SakeToken._mint(address,uint256)(_to,_amount)
-    3. TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_104(uint256)
+    3. REF_25(uint256) -> _balances[account]
 
-Path #5:
+Path #8:
+  Source: external_input_params in SakeToken.transfer
+  Sink: tainted_state_changing_external_call in SakeToken._moveDelegates
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(TMP_71,recipient,amount)
+    3. INTERNAL_CALL, SakeToken._moveDelegates(address,address,uint256)(REF_21,REF_22,amount)
+
+Path #9:
+  Source: external_input_params in SakeToken.transferFrom
+  Sink: tainted_erc20_transfer in SakeToken._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_21(address) -> _delegates[sender]
+
+Path #10:
   Source: external_input_params in SakeToken.mint
   Sink: tainted_erc20_transfer in SakeToken.mint
   Path Operations:
     1. mint
     2. REF_33(address) -> _delegates[_to]
 
-Path #6:
+Path #11:
   Source: external_input_params in SakeToken.transfer
   Sink: tainted_state_changing_external_call in SakeToken._moveDelegates
   Path Operations:
@@ -348,14 +378,7 @@ Path #6:
     7. REF_72(uint256) -> REF_71.votes
     8. dstRepOld(uint256) := REF_72(uint256)
 
-Path #7:
-  Source: external_input_params in SakeToken.mint
-  Sink: tainted_erc20_transfer in SakeToken._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, SakeToken._mint(address,uint256)(_to,_amount)
-
-Path #8:
+Path #12:
   Source: external_input_params in SakeToken.transferFrom
   Sink: tainted_state_changing_external_call in SakeToken.transferFrom
   Path Operations:
@@ -363,7 +386,14 @@ Path #8:
     2. REF_6(mapping(address => uint256)) -> _allowances[sender]
     3. REF_7(uint256) -> REF_6[TMP_77]
 
-Path #9:
+Path #13:
+  Source: external_input_params in SakeToken.transferFrom
+  Sink: tainted_erc20_transfer in SakeToken._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #14:
   Source: external_input_params in SakeToken.transferFrom
   Sink: tainted_state_changing_external_call in SakeToken._transfer
   Path Operations:
@@ -371,50 +401,42 @@ Path #9:
     2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(sender,recipient,amount)
     3. REF_16(uint256) -> _balances[sender]
 
-Path #10:
-  Source: external_input_params in SakeToken.transfer
-  Sink: tainted_state_changing_external_call in SakeToken._moveDelegates
+Path #15:
+  Source: external_input_params in SakeToken.mint
+  Sink: tainted_erc20_transfer in SakeToken._mint
   Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(TMP_71,recipient,amount)
-    3. INTERNAL_CALL, SakeToken._moveDelegates(address,address,uint256)(REF_21,REF_22,amount)
+    1. mint
+    2. INTERNAL_CALL, SakeToken._mint(address,uint256)(_to,_amount)
 
-Path #11:
+Path #16:
+  Source: external_input_params in SakeToken.mint
+  Sink: tainted_state_changing_external_call in SakeToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, SakeToken._mint(address,uint256)(_to,_amount)
+    3. TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_104(uint256)
+
+Path #17:
   Source: external_input_params in SakeToken.transferFrom
-  Sink: tainted_erc20_transfer in SakeToken._transfer
+  Sink: tainted_state_changing_external_call in SakeToken._moveDelegates
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(sender,recipient,amount)
     3. REF_21(address) -> _delegates[sender]
+    4. INTERNAL_CALL, SakeToken._moveDelegates(address,address,uint256)(REF_21,REF_22,amount)
+    5. REF_67(mapping(uint32 => SakeToken.Checkpoint)) -> checkpoints[srcRep]
+    6. REF_68(SakeToken.Checkpoint) -> REF_67[TMP_182]
+    7. REF_69(uint256) -> REF_68.votes
+    8. srcRepOld(uint256) := REF_69(uint256)
 
-Path #12:
-  Source: external_input_params in SakeToken.transfer
-  Sink: tainted_state_changing_external_call in SakeToken._moveDelegates
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(TMP_71,recipient,amount)
-    3. INTERNAL_CALL, SakeToken._moveDelegates(address,address,uint256)(REF_21,REF_22,amount)
-
-Path #13:
+Path #18:
   Source: external_input_params in SakeToken.transferFrom
   Sink: tainted_erc20_transfer in SakeToken.transferFrom
   Path Operations:
     1. transferFrom
 
-Path #14:
-  Source: external_input_params in SakeToken.transfer
-  Sink: tainted_erc20_transfer in SakeToken.transfer
-  Path Operations:
-    1. transfer
-
-Path #15:
-  Source: external_input_params in SakeToken.increaseAllowance
-  Sink: tainted_state_changing_external_call in SakeToken.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_10(uint256) -> REF_9[spender]
-
-Path #16:
+Path #19:
   Source: external_input_params in SakeToken.delegateBySig
   Sink: tainted_erc20_transfer in SakeToken._delegate
   Path Operations:
@@ -430,25 +452,3 @@ Path #16:
     10. INTERNAL_CALL, SakeToken._delegate(address,address)(signatory,delegatee)
     11. REF_61(address) -> _delegates[delegator]
     12. currentDelegate(address) := REF_61(address)
-
-Path #17:
-  Source: external_input_params in SakeToken.decreaseAllowance
-  Sink: tainted_state_changing_external_call in SakeToken.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_13(uint256) -> REF_12[spender]
-
-Path #18:
-  Source: external_input_params in SakeToken.transfer
-  Sink: tainted_state_changing_external_call in SakeToken._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(TMP_71,recipient,amount)
-    3. REF_19(uint256) -> _balances[recipient]
-
-Path #19:
-  Source: external_input_params in SakeToken.transferFrom
-  Sink: tainted_erc20_transfer in SakeToken._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, SakeToken._transfer(address,address,uint256)(sender,recipient,amount)

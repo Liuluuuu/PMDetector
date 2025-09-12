@@ -2,8 +2,34 @@
 Found 17 tainted paths.
 
 ## Path #1
+Source: external_input_params in ERC20.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [581, 582, 583, 584]
+    LNE: (No direct expression available)
+
+    IR:  REF_11(uint256) -> REF_10[spender]
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [582]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [527, 528, 529, 530]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #3
 Source: external_input_params in DraculaToken.mint
-Sink: tainted_state_changing_external_call in DraculaToken._mint
+Sink: tainted_state_changing_external_call in DraculaToken._burn
 
 ### Operations with Source Code Mapping:
     IR:  mint
@@ -24,48 +50,18 @@ Sink: tainted_state_changing_external_call in DraculaToken._mint
 
 ----------------------------------------
 
-## Path #2
-Source: external_input_params in ERC20.transfer
-Sink: tainted_erc20_transfer in ERC20.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [527, 528, 529, 530]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in DraculaToken.burn
-Sink: tainted_erc20_transfer in DraculaToken._burn
-
-### Operations with Source Code Mapping:
-    IR:  burn
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [807, 808, 809, 810]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(msg.sender,_amount)
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [808]
-    LNE: _burn(msg.sender,_amount)
-
-----------------------------------------
-
 ## Path #4
-Source: external_input_params in DraculaToken.mint
-Sink: tainted_state_changing_external_call in DraculaToken._mint
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
 
 ### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [802, 803, 804, 805]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [563, 564, 565, 566, 567]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [803]
-    LNE: _mint(_to,_amount)
-
-    IR:  REF_52(uint256) -> _balances[account]
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [645]
-    LNE: _balances[account] = _balances[account].add(amount)
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [564]
+    LNE: _transfer(sender,recipient,amount)
 
 ----------------------------------------
 
@@ -90,7 +86,7 @@ Sink: tainted_state_changing_external_call in ERC20._transfer
 
 ## Path #6
 Source: external_input_params in DraculaToken.mint
-Sink: tainted_state_changing_external_call in DraculaToken._burn
+Sink: tainted_state_changing_external_call in DraculaToken._mint
 
 ### Operations with Source Code Mapping:
     IR:  mint
@@ -127,70 +123,25 @@ Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
 ----------------------------------------
 
 ## Path #8
-Source: external_input_params in DraculaToken.mint
-Sink: tainted_erc20_transfer in DraculaToken._mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [802, 803, 804, 805]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [803]
-    LNE: _mint(_to,_amount)
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in ERC20.transfer
-Sink: tainted_state_changing_external_call in ERC20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [527, 528, 529, 530]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_41,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [528]
-    LNE: _transfer(_msgSender(),recipient,amount)
-
-    IR:  REF_20(uint256) -> _balances[recipient]
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [626]
-    LNE: _balances[recipient] = _balances[recipient].add(amount)
-
-----------------------------------------
-
-## Path #10
 Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20._transfer
+Sink: tainted_state_changing_external_call in ERC20.transferFrom
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [563, 564, 565, 566, 567]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [564]
-    LNE: _transfer(sender,recipient,amount)
+    IR:  REF_7(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [565]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_8(uint256) -> REF_7[TMP_47]
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [565]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
 
 ----------------------------------------
 
-## Path #11
-Source: external_input_params in ERC20.increaseAllowance
-Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  increaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [581, 582, 583, 584]
-    LNE: (No direct expression available)
-
-    IR:  REF_11(uint256) -> REF_10[spender]
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [582]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
-
-----------------------------------------
-
-## Path #12
+## Path #9
 Source: external_input_params in ERC20.constructor
 Sink: tainted_erc20_transfer in DraculaToken._delegate
 
@@ -261,9 +212,62 @@ Sink: tainted_erc20_transfer in DraculaToken._delegate
 
 ----------------------------------------
 
+## Path #10
+Source: external_input_params in ERC20.transfer
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [527, 528, 529, 530]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [528]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_20(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [626]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in DraculaToken.mint
+Sink: tainted_state_changing_external_call in ERC20._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [802, 803, 804, 805]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [803]
+    LNE: _mint(_to,_amount)
+
+    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [644]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_152(uint256)
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [644]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [563, 564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
 ## Path #13
 Source: external_input_params in DraculaToken.burn
-Sink: tainted_state_changing_external_call in DraculaToken._burn
+Sink: tainted_erc20_transfer in DraculaToken._burn
 
 ### Operations with Source Code Mapping:
     IR:  burn
@@ -300,38 +304,8 @@ Sink: tainted_state_changing_external_call in ERC20._burn
 ----------------------------------------
 
 ## Path #15
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_state_changing_external_call in ERC20.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [563, 564, 565, 566, 567]
-    LNE: (No direct expression available)
-
-    IR:  REF_7(mapping(address => uint256)) -> _allowances[sender]
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [565]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
-
-    IR:  REF_8(uint256) -> REF_7[TMP_47]
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [565]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
-
-----------------------------------------
-
-## Path #16
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [563, 564, 565, 566, 567]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #17
 Source: external_input_params in DraculaToken.mint
-Sink: tainted_state_changing_external_call in ERC20._mint
+Sink: tainted_state_changing_external_call in DraculaToken._mint
 
 ### Operations with Source Code Mapping:
     IR:  mint
@@ -342,12 +316,38 @@ Sink: tainted_state_changing_external_call in ERC20._mint
     SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [803]
     LNE: _mint(_to,_amount)
 
-    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [644]
-    LNE: _totalSupply = _totalSupply.add(amount)
+    IR:  REF_52(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [645]
+    LNE: _balances[account] = _balances[account].add(amount)
 
-    IR:  _totalSupply(uint256) := TMP_152(uint256)
-    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [644]
-    LNE: _totalSupply = _totalSupply.add(amount)
+----------------------------------------
+
+## Path #16
+Source: external_input_params in DraculaToken.burn
+Sink: tainted_state_changing_external_call in DraculaToken._burn
+
+### Operations with Source Code Mapping:
+    IR:  burn
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(msg.sender,_amount)
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [808]
+    LNE: _burn(msg.sender,_amount)
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in DraculaToken.mint
+Sink: tainted_erc20_transfer in DraculaToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [802, 803, 804, 805]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/73ad1932_Dracula/flattened.sol', Lines [803]
+    LNE: _mint(_to,_amount)
 
 ----------------------------------------

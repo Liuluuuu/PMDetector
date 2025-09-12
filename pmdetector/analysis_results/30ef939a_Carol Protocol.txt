@@ -460,6 +460,51 @@ Sink #31: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #2:
+  Source: external_input_params in CAROLProtocol.influencerBond
+  Sink: tainted_state_changing_external_call in CAROLProtocol.influencerBond
+  Path Operations:
+    1. influencerBond
+
+Path #3:
+  Source: external_input_params in CAROLProtocol.constructor
+  Sink: tainted_state_changing_external_call in CAROLProtocol.stake
+  Path Operations:
+    1. constructor
+    2. TOKEN_ADDRESS(address) := CAROLTokenAddress(address)
+
+Path #4:
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Path Operations:
+    1. transferOwnership
+
+Path #5:
+  Source: external_input_params in CAROLProtocol.claim
+  Sink: tainted_state_changing_external_call in CAROLProtocol.claim
+  Path Operations:
+    1. claim
+
+Path #6:
+  Source: external_input_params in CAROLProtocol.constructor
+  Sink: tainted_state_changing_external_call in CAROLProtocol.sell
+  Path Operations:
+    1. constructor
+    2. UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
+
+Path #7:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_erc20_transfer in ERC20Burnable._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+
+Path #8:
   Source: external_input_params in CAROLProtocol.stake
   Sink: tainted_state_changing_external_call in CAROLProtocol.newBond
   Path Operations:
@@ -476,27 +521,76 @@ Path #1:
     11. TMP_354(uint256) = INTERNAL_CALL, CAROLProtocol.getTokensAmount(uint256)(liquidityAmount)
     12. tokensAmount(uint256) := TMP_354(uint256)
 
-Path #2:
+Path #9:
+  Source: external_input_params in CAROLProtocol.constructor
+  Sink: tainted_state_changing_external_call in CAROLProtocol.newBond
+  Path Operations:
+    1. constructor
+    2. TOKEN_ADDRESS(address) := CAROLTokenAddress(address)
+
+Path #10:
   Source: external_input_params in CAROLProtocol.sell
   Sink: tainted_state_changing_external_call in CAROLProtocol.sell
   Path Operations:
     1. sell
 
-Path #3:
+Path #11:
   Source: external_input_params in CAROLProtocol.constructor
   Sink: tainted_state_changing_external_call in CAROLProtocol.stake
   Path Operations:
     1. constructor
     2. UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
 
-Path #4:
+Path #12:
+  Source: external_input_params in CAROLToken.mint
+  Sink: tainted_erc20_transfer in CAROLToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(to,amount)
+
+Path #13:
+  Source: external_input_params in CAROLProtocol.constructor
+  Sink: tainted_state_changing_external_call in CAROLProtocol.swap
+  Path Operations:
+    1. constructor
+    2. UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
+
+Path #14:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+
+Path #15:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_erc20_transfer in ERC20Burnable._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+
+Path #16:
+  Source: external_input_params in CAROLProtocol.constructor
+  Sink: tainted_erc20_transfer in CAROLProtocol.sell
+  Path Operations:
+    1. constructor
+    2. TOKEN_ADDRESS(address) := CAROLTokenAddress(address)
+
+Path #17:
+  Source: external_input_params in CAROLProtocol.constructor
+  Sink: tainted_state_changing_external_call in CAROLProtocol.newBond
+  Path Operations:
+    1. constructor
+    2. UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
+
+Path #18:
   Source: external_input_params in CAROLProtocol.constructor
   Sink: tainted_state_changing_external_call in CAROLProtocol.sell
   Path Operations:
     1. constructor
     2. UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
 
-Path #5:
+Path #19:
   Source: external_input_params in CAROLProtocol.stake
   Sink: tainted_state_changing_external_call in CAROLProtocol.stake
   Path Operations:
@@ -510,47 +604,13 @@ Path #5:
     8. TMP_387(uint256) = INTERNAL_CALL, CAROLProtocol.getTokensAmount(uint256)(ethAmount)
     9. liquidityTokensAmount(uint256) := TMP_387(uint256)
 
-Path #6:
-  Source: external_input_params in CAROLToken.mint
-  Sink: tainted_erc20_transfer in CAROLToken._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(to,amount)
-
-Path #7:
-  Source: external_input_params in Ownable.transferOwnership
-  Sink: tainted_erc20_transfer in Ownable.transferOwnership
-  Path Operations:
-    1. transferOwnership
-
-Path #8:
+Path #20:
   Source: external_input_params in CAROLProtocol.sell
   Sink: tainted_state_changing_external_call in CAROLProtocol.sell
   Path Operations:
     1. sell
 
-Path #9:
-  Source: external_input_params in CAROLProtocol.constructor
-  Sink: tainted_state_changing_external_call in CAROLProtocol.swap
-  Path Operations:
-    1. constructor
-    2. UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
-
-Path #10:
-  Source: external_input_params in ERC20Burnable.burnFrom
-  Sink: tainted_erc20_transfer in ERC20Burnable._burn
-  Path Operations:
-    1. burnFrom
-    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
-
-Path #11:
-  Source: external_input_params in CAROLProtocol.constructor
-  Sink: tainted_erc20_transfer in CAROLProtocol.sell
-  Path Operations:
-    1. constructor
-    2. TOKEN_ADDRESS(address) := CAROLTokenAddress(address)
-
-Path #12:
+Path #21:
   Source: external_input_params in CAROLProtocol.constructor
   Sink: tainted_state_changing_external_call in CAROLProtocol.swap
   Path Operations:
@@ -562,71 +622,11 @@ Path #12:
     6. REF_293(uint256) -> amounts[1]
     7. tokensAmount(uint256) := REF_293(uint256)
 
-Path #13:
-  Source: external_input_params in CAROLProtocol.constructor
-  Sink: tainted_state_changing_external_call in CAROLProtocol.sell
-  Path Operations:
-    1. constructor
-    2. UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
-
-Path #14:
-  Source: external_input_params in CAROLToken.mint
-  Sink: tainted_erc20_transfer in CAROLToken._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(to,amount)
-
-Path #15:
-  Source: external_input_params in CAROLProtocol.constructor
-  Sink: tainted_state_changing_external_call in CAROLProtocol.newBond
-  Path Operations:
-    1. constructor
-    2. TOKEN_ADDRESS(address) := CAROLTokenAddress(address)
-
-Path #16:
-  Source: external_input_params in CAROLProtocol.constructor
-  Sink: tainted_state_changing_external_call in CAROLProtocol.stake
-  Path Operations:
-    1. constructor
-    2. TOKEN_ADDRESS(address) := CAROLTokenAddress(address)
-
-Path #17:
-  Source: external_input_params in CAROLProtocol.constructor
-  Sink: tainted_state_changing_external_call in CAROLProtocol.newBond
-  Path Operations:
-    1. constructor
-    2. UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
-
-Path #18:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
-
-Path #19:
+Path #22:
   Source: external_input_params in ERC20.transferFrom
   Sink: tainted_erc20_transfer in ERC20.transferFrom
   Path Operations:
     1. transferFrom
-
-Path #20:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
-  Path Operations:
-    1. transfer
-
-Path #21:
-  Source: external_input_params in CAROLProtocol.influencerBond
-  Sink: tainted_state_changing_external_call in CAROLProtocol.influencerBond
-  Path Operations:
-    1. influencerBond
-
-Path #22:
-  Source: external_input_params in CAROLProtocol.claim
-  Sink: tainted_state_changing_external_call in CAROLProtocol.claim
-  Path Operations:
-    1. claim
 
 Path #23:
   Source: external_input_params in ERC20.transferFrom
@@ -636,8 +636,8 @@ Path #23:
     2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
 
 Path #24:
-  Source: external_input_params in ERC20Burnable.burnFrom
-  Sink: tainted_erc20_transfer in ERC20Burnable._burn
+  Source: external_input_params in CAROLToken.mint
+  Sink: tainted_erc20_transfer in CAROLToken._mint
   Path Operations:
-    1. burnFrom
-    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(to,amount)

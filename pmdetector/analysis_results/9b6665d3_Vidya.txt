@@ -182,6 +182,38 @@ Sink #11: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in Team3D.transferFrom
+  Sink: tainted_state_changing_external_call in Team3D.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_34(mapping(address => uint256)) -> allowed[from]
+    3. REF_35(uint256) -> REF_34[msg.sender]
+
+Path #2:
+  Source: external_input_params in Team3D.initialize
+  Sink: tainted_state_changing_external_call in Team3D.transfer
+  Path Operations:
+    1. initialize
+    2. TMP_2 = CONVERT _presaleAddr to Presale
+    3. presale(Presale) := TMP_2(Presale)
+    4. TMP_17(uint256) = HIGH_LEVEL_CALL, dest:presale(Presale), function:balances, arguments:['_addr']  
+    5. TMP_18(bool) = INTERNAL_CALL, Team3D.transfer(address,uint256)(_addr,TMP_17)
+
+Path #3:
+  Source: external_input_params in Team3D.decreaseAllowance
+  Sink: tainted_state_changing_external_call in Team3D.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_47(uint256) -> REF_46[spender]
+
+Path #4:
+  Source: external_input_params in Team3D.transferFrom
+  Sink: tainted_state_changing_external_call in Team3D.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_30(uint256) -> balances[to]
+
+Path #5:
   Source: external_input_params in Team3D.initialize
   Sink: tainted_erc20_transfer in Team3D.distributePresale
   Path Operations:
@@ -191,14 +223,20 @@ Path #1:
     4. TMP_16(address) = HIGH_LEVEL_CALL, dest:presale(Presale), function:keys, arguments:['i']  
     5. _addr(address) := TMP_16(address)
 
-Path #2:
+Path #6:
   Source: external_input_params in Team3D.transferFrom
   Sink: tainted_state_changing_external_call in Team3D.transferFrom
   Path Operations:
     1. transferFrom
     2. REF_27(uint256) -> balances[from]
 
-Path #3:
+Path #7:
+  Source: external_input_params in Team3D.approveAndCall
+  Sink: tainted_state_changing_external_call in Team3D.approveAndCall
+  Path Operations:
+    1. approveAndCall
+
+Path #8:
   Source: external_input_params in Team3D.initialize
   Sink: tainted_state_changing_external_call in Team3D.transfer
   Path Operations:
@@ -210,7 +248,14 @@ Path #3:
     6. TMP_18(bool) = INTERNAL_CALL, Team3D.transfer(address,uint256)(_addr,TMP_17)
     7. REF_16(uint256) -> balances[to]
 
-Path #4:
+Path #9:
+  Source: external_input_params in Team3D.distributePresale
+  Sink: tainted_state_changing_external_call in Team3D.distributePresale
+  Path Operations:
+    1. distributePresale
+    2. i(uint256) := _min(uint256)
+
+Path #10:
   Source: external_input_params in Team3D.initialize
   Sink: tainted_state_changing_external_call in Team3D.distributePresale
   Path Operations:
@@ -220,54 +265,9 @@ Path #4:
     4. TMP_16(address) = HIGH_LEVEL_CALL, dest:presale(Presale), function:keys, arguments:['i']  
     5. _addr(address) := TMP_16(address)
 
-Path #5:
+Path #11:
   Source: external_input_params in Team3D.increaseAllowance
   Sink: tainted_state_changing_external_call in Team3D.increaseAllowance
   Path Operations:
     1. increaseAllowance
     2. REF_40(uint256) -> REF_39[spender]
-
-Path #6:
-  Source: external_input_params in Team3D.transferFrom
-  Sink: tainted_state_changing_external_call in Team3D.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_30(uint256) -> balances[to]
-
-Path #7:
-  Source: external_input_params in Team3D.transferFrom
-  Sink: tainted_state_changing_external_call in Team3D.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_34(mapping(address => uint256)) -> allowed[from]
-    3. REF_35(uint256) -> REF_34[msg.sender]
-
-Path #8:
-  Source: external_input_params in Team3D.initialize
-  Sink: tainted_state_changing_external_call in Team3D.transfer
-  Path Operations:
-    1. initialize
-    2. TMP_2 = CONVERT _presaleAddr to Presale
-    3. presale(Presale) := TMP_2(Presale)
-    4. TMP_17(uint256) = HIGH_LEVEL_CALL, dest:presale(Presale), function:balances, arguments:['_addr']  
-    5. TMP_18(bool) = INTERNAL_CALL, Team3D.transfer(address,uint256)(_addr,TMP_17)
-
-Path #9:
-  Source: external_input_params in Team3D.decreaseAllowance
-  Sink: tainted_state_changing_external_call in Team3D.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_47(uint256) -> REF_46[spender]
-
-Path #10:
-  Source: external_input_params in Team3D.distributePresale
-  Sink: tainted_state_changing_external_call in Team3D.distributePresale
-  Path Operations:
-    1. distributePresale
-    2. i(uint256) := _min(uint256)
-
-Path #11:
-  Source: external_input_params in Team3D.approveAndCall
-  Sink: tainted_state_changing_external_call in Team3D.approveAndCall
-  Path Operations:
-    1. approveAndCall

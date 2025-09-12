@@ -122,17 +122,17 @@ Sink #3: tainted_erc20_transfer
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in AXLToken.transfer
+  Sink: tainted_erc20_transfer in AXLToken.transfer
+  Path Operations:
+    1. transfer
+
+Path #2:
   Source: external_input_params in AXLToken.transferFrom
   Sink: tainted_erc20_transfer in AXLToken._transfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, AXLToken._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #2:
-  Source: external_input_params in AXLToken.transfer
-  Sink: tainted_erc20_transfer in AXLToken.transfer
-  Path Operations:
-    1. transfer
 
 Path #3:
   Source: external_input_params in AXLToken.transferFrom

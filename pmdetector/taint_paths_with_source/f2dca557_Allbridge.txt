@@ -2,80 +2,17 @@
 Found 25 tainted paths.
 
 ## Path #1
-Source: external_input_params in Pool.constructor
-Sink: tainted_erc20_transfer in Pool.deposit
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
 
 ### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2458, 2459, 2460, 2461, 2462, 2463, 2464, 2465, 2466, 2467, 2468, 2469, 2470]
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [227, 228, 229, 230, 231]
     LNE: (No direct expression available)
-
-    IR:  a(uint256) := a_(uint256)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2459]
-    LNE: a = a_
-
-    IR:  a_(uint256) := a(uint256)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2651]
-    LNE: a_ = a
-
-    IR:  TMP_962(uint256) = a_ (c)* xy
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2653]
-    LNE: p1 = a_ * xy * (x + y)
-
-    IR:  TMP_964(uint256) = TMP_962 (c)* TMP_963
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2653]
-    LNE: p1 = a_ * xy * (x + y)
-
-    IR:  p1(uint256) := TMP_964(uint256)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2653]
-    LNE: p1 = a_ * xy * (x + y)
-
-    IR:  TMP_974(uint256) = p1 + p3
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2659]
-    LNE: d_ = cbrt(p1 + p3)
-
-    IR:  TMP_975(uint256) = INTERNAL_CALL, Pool.cbrt(uint256)(TMP_974)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2659]
-    LNE: d_ = cbrt(p1 + p3)
-
-    IR:  d_(uint256) := TMP_975(uint256)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2659]
-    LNE: d_ = cbrt(p1 + p3)
-
-    IR:  TMP_981(uint256) = d_ << 1
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2665]
-    LNE: d = (d_ << 1) + 1
-
-    IR:  TMP_982(uint256) = TMP_981 + 1
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2665]
-    LNE: d = (d_ << 1) + 1
-
-    IR:  d(uint256) := TMP_982(uint256)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2665]
-    LNE: d = (d_ << 1) + 1
-
-    IR:  TMP_831(uint256) = d >> 1
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2511]
-    LNE: _depositLp(msg.sender,d >> 1)
 
 ----------------------------------------
 
 ## Path #2
-Source: external_input_params in RewardManager.constructor
-Sink: tainted_erc20_transfer in RewardManager.claimAdminFee
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
-    LNE: (No direct expression available)
-
-    IR:  token(ERC20) := token_(ERC20)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
-    LNE: token = token_
-
-----------------------------------------
-
-## Path #3
 Source: external_input_params in Pool.deposit
 Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
 
@@ -92,15 +29,15 @@ Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
     SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2499]
     LNE: amountSP = toSystemPrecision(amount)
 
-    IR:  tokenBalance(uint256) = tokenBalance (c)+ amountSP
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2501]
-    LNE: tokenBalance += amountSP
+    IR:  vUsdBalance(uint256) = vUsdBalance (c)+ amountSP
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2502]
+    LNE: vUsdBalance += amountSP
 
-    IR:  TMP_838(uint256) = tokenBalance (c)* amountLp
+    IR:  TMP_840(uint256) = vUsdBalance (c)* amountLp
     SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2526, 2527, 2528, 2529]
     LNE: amountSP = _preWithdrawSwap(tokenBalance * amountLp / totalLpAmount_,vUsdBalance * amountLp / totalLpAmount_)
 
-    IR:  TMP_839(uint256) = TMP_838 (c)/ totalLpAmount_
+    IR:  TMP_841(uint256) = TMP_840 (c)/ totalLpAmount_
     SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2526, 2527, 2528, 2529]
     LNE: amountSP = _preWithdrawSwap(tokenBalance * amountLp / totalLpAmount_,vUsdBalance * amountLp / totalLpAmount_)
 
@@ -108,24 +45,13 @@ Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
     SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2526, 2527, 2528, 2529]
     LNE: amountSP = _preWithdrawSwap(tokenBalance * amountLp / totalLpAmount_,vUsdBalance * amountLp / totalLpAmount_)
 
-    IR:  TMP_852(uint256) = amountToken - extraToken
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2551]
-    LNE: Math.min(amountToken - extraToken,amountVUsd + extraVUsd)
+    IR:  TMP_860(uint256) = amountVUsd - extraVUsd_scope_0
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2561]
+    LNE: Math.min(amountVUsd - extraVUsd_scope_0,amountToken + extraToken_scope_1)
 
 ----------------------------------------
 
-## Path #4
-Source: external_input_params in Ownable.transferOwnership
-Sink: tainted_erc20_transfer in Ownable.transferOwnership
-
-### Operations with Source Code Mapping:
-    IR:  transferOwnership
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2295, 2296, 2297, 2298]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #5
+## Path #3
 Source: external_input_params in Pool.withdraw
 Sink: tainted_erc20_transfer in Pool.deposit
 
@@ -152,7 +78,74 @@ Sink: tainted_erc20_transfer in Pool.deposit
 
 ----------------------------------------
 
+## Path #4
+Source: external_input_params in Ownable.transferOwnership
+Sink: tainted_erc20_transfer in Ownable.transferOwnership
+
+### Operations with Source Code Mapping:
+    IR:  transferOwnership
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2295, 2296, 2297, 2298]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in RewardManager.constructor
+Sink: tainted_erc20_transfer in Pool.swapToVUsd
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
+    LNE: (No direct expression available)
+
+    IR:  token(ERC20) := token_(ERC20)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
+    LNE: token = token_
+
+----------------------------------------
+
 ## Path #6
+Source: external_input_params in RewardManager.constructor
+Sink: tainted_erc20_transfer in RewardManager._depositLp
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
+    LNE: (No direct expression available)
+
+    IR:  token(ERC20) := token_(ERC20)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
+    LNE: token = token_
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in RewardManager.constructor
+Sink: tainted_erc20_transfer in Pool.deposit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
+    LNE: (No direct expression available)
+
+    IR:  token(ERC20) := token_(ERC20)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
+    LNE: token = token_
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in Pool.withdraw
+Sink: tainted_erc20_transfer in Pool.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2519, 2520, 2521, 2522, 2523, 2524, 2525, 2526, 2527, 2528, 2529, 2530, 2531, 2532, 2533, 2534, 2535, 2536, 2537, 2538]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #9
 Source: external_input_params in Pool.constructor
 Sink: tainted_state_changing_external_call in Pool.getPrice
 
@@ -215,7 +208,7 @@ Sink: tainted_state_changing_external_call in Pool.getPrice
 
 ----------------------------------------
 
-## Path #7
+## Path #10
 Source: external_input_params in Pool.deposit
 Sink: tainted_state_changing_external_call in Pool.swapToVUsd
 
@@ -238,24 +231,9 @@ Sink: tainted_state_changing_external_call in Pool.swapToVUsd
 
 ----------------------------------------
 
-## Path #8
-Source: external_input_params in RewardManager.constructor
-Sink: tainted_erc20_transfer in Pool.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
-    LNE: (No direct expression available)
-
-    IR:  token(ERC20) := token_(ERC20)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
-    LNE: token = token_
-
-----------------------------------------
-
-## Path #9
+## Path #11
 Source: external_input_params in Pool.deposit
-Sink: tainted_erc20_transfer in Pool.withdraw
+Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
 
 ### Operations with Source Code Mapping:
     IR:  deposit
@@ -282,116 +260,17 @@ Sink: tainted_erc20_transfer in Pool.withdraw
     SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2526, 2527, 2528, 2529]
     LNE: amountSP = _preWithdrawSwap(tokenBalance * amountLp / totalLpAmount_,vUsdBalance * amountLp / totalLpAmount_)
 
-----------------------------------------
-
-## Path #10
-Source: external_input_params in RewardManager.constructor
-Sink: tainted_erc20_transfer in Pool.swapFromVUsd
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
-    LNE: (No direct expression available)
-
-    IR:  token(ERC20) := token_(ERC20)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
-    LNE: token = token_
-
-----------------------------------------
-
-## Path #11
-Source: external_input_params in RewardManager.constructor
-Sink: tainted_erc20_transfer in RewardManager._withdrawLp
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
-    LNE: (No direct expression available)
-
-    IR:  token(ERC20) := token_(ERC20)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
-    LNE: token = token_
-
-----------------------------------------
-
-## Path #12
-Source: external_input_params in Pool.deposit
-Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
-
-### Operations with Source Code Mapping:
-    IR:  deposit
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2496, 2497, 2498, 2499, 2500, 2501, 2502, 2503, 2504, 2505, 2506, 2507, 2508, 2509, 2510, 2511, 2512, 2513, 2514, 2515, 2516]
-    LNE: (No direct expression available)
-
-    IR:  TMP_820(uint256) = INTERNAL_CALL, Pool.toSystemPrecision(uint256)(amount)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2499]
-    LNE: amountSP = toSystemPrecision(amount)
-
-    IR:  amountSP(uint256) := TMP_820(uint256)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2499]
-    LNE: amountSP = toSystemPrecision(amount)
-
-    IR:  vUsdBalance(uint256) = vUsdBalance (c)+ amountSP
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2502]
-    LNE: vUsdBalance += amountSP
-
-    IR:  TMP_840(uint256) = vUsdBalance (c)* amountLp
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2526, 2527, 2528, 2529]
-    LNE: amountSP = _preWithdrawSwap(tokenBalance * amountLp / totalLpAmount_,vUsdBalance * amountLp / totalLpAmount_)
-
-    IR:  TMP_841(uint256) = TMP_840 (c)/ totalLpAmount_
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2526, 2527, 2528, 2529]
-    LNE: amountSP = _preWithdrawSwap(tokenBalance * amountLp / totalLpAmount_,vUsdBalance * amountLp / totalLpAmount_)
-
     IR:  TMP_842(uint256) = INTERNAL_CALL, Pool._preWithdrawSwap(uint256,uint256)(TMP_839,TMP_841)
     SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2526, 2527, 2528, 2529]
     LNE: amountSP = _preWithdrawSwap(tokenBalance * amountLp / totalLpAmount_,vUsdBalance * amountLp / totalLpAmount_)
 
-    IR:  TMP_860(uint256) = amountVUsd - extraVUsd_scope_0
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2561]
-    LNE: Math.min(amountVUsd - extraVUsd_scope_0,amountToken + extraToken_scope_1)
+    IR:  TMP_852(uint256) = amountToken - extraToken
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2551]
+    LNE: Math.min(amountToken - extraToken,amountVUsd + extraVUsd)
 
 ----------------------------------------
 
-## Path #13
-Source: external_input_params in Pool.deposit
-Sink: tainted_state_changing_external_call in Pool.swapFromVUsd
-
-### Operations with Source Code Mapping:
-    IR:  deposit
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2496, 2497, 2498, 2499, 2500, 2501, 2502, 2503, 2504, 2505, 2506, 2507, 2508, 2509, 2510, 2511, 2512, 2513, 2514, 2515, 2516]
-    LNE: (No direct expression available)
-
-    IR:  TMP_820(uint256) = INTERNAL_CALL, Pool.toSystemPrecision(uint256)(amount)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2499]
-    LNE: amountSP = toSystemPrecision(amount)
-
-    IR:  amountSP(uint256) := TMP_820(uint256)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2499]
-    LNE: amountSP = toSystemPrecision(amount)
-
-    IR:  vUsdBalance(uint256) = vUsdBalance (c)+ amountSP
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2502]
-    LNE: vUsdBalance += amountSP
-
-----------------------------------------
-
-## Path #14
-Source: external_input_params in RewardManager.constructor
-Sink: tainted_erc20_transfer in RewardManager._depositLp
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
-    LNE: (No direct expression available)
-
-    IR:  token(ERC20) := token_(ERC20)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
-    LNE: token = token_
-
-----------------------------------------
-
-## Path #15
+## Path #12
 Source: external_input_params in Pool.deposit
 Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
 
@@ -418,37 +297,7 @@ Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
 
 ----------------------------------------
 
-## Path #16
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [276, 277, 278, 279, 280, 281]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [279]
-    LNE: _transfer(from,to,amount)
-
-----------------------------------------
-
-## Path #17
-Source: external_input_params in RewardManager.constructor
-Sink: tainted_erc20_transfer in RewardManager.claimRewards
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
-    LNE: (No direct expression available)
-
-    IR:  token(ERC20) := token_(ERC20)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
-    LNE: token = token_
-
-----------------------------------------
-
-## Path #18
+## Path #13
 Source: external_input_params in Pool.getY
 Sink: tainted_state_changing_external_call in Pool.getY
 
@@ -479,29 +328,7 @@ Sink: tainted_state_changing_external_call in Pool.getY
 
 ----------------------------------------
 
-## Path #19
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [276, 277, 278, 279, 280, 281]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #20
-Source: external_input_params in ERC20.transfer
-Sink: tainted_erc20_transfer in ERC20.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [227, 228, 229, 230, 231]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #21
+## Path #14
 Source: external_input_params in Pool.deposit
 Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
 
@@ -528,20 +355,24 @@ Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
 
 ----------------------------------------
 
-## Path #22
-Source: external_input_params in Pool.withdraw
-Sink: tainted_erc20_transfer in Pool.withdraw
+## Path #15
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
 
 ### Operations with Source Code Mapping:
-    IR:  withdraw
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2519, 2520, 2521, 2522, 2523, 2524, 2525, 2526, 2527, 2528, 2529, 2530, 2531, 2532, 2533, 2534, 2535, 2536, 2537, 2538]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [276, 277, 278, 279, 280, 281]
     LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [279]
+    LNE: _transfer(from,to,amount)
 
 ----------------------------------------
 
-## Path #23
+## Path #16
 Source: external_input_params in RewardManager.constructor
-Sink: tainted_erc20_transfer in Pool.swapToVUsd
+Sink: tainted_erc20_transfer in RewardManager.claimAdminFee
 
 ### Operations with Source Code Mapping:
     IR:  constructor
@@ -551,6 +382,159 @@ Sink: tainted_erc20_transfer in Pool.swapToVUsd
     IR:  token(ERC20) := token_(ERC20)
     SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
     LNE: token = token_
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in RewardManager.constructor
+Sink: tainted_erc20_transfer in Pool.swapFromVUsd
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
+    LNE: (No direct expression available)
+
+    IR:  token(ERC20) := token_(ERC20)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
+    LNE: token = token_
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in Pool.constructor
+Sink: tainted_erc20_transfer in Pool.deposit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2458, 2459, 2460, 2461, 2462, 2463, 2464, 2465, 2466, 2467, 2468, 2469, 2470]
+    LNE: (No direct expression available)
+
+    IR:  a(uint256) := a_(uint256)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2459]
+    LNE: a = a_
+
+    IR:  a_(uint256) := a(uint256)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2651]
+    LNE: a_ = a
+
+    IR:  TMP_962(uint256) = a_ (c)* xy
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2653]
+    LNE: p1 = a_ * xy * (x + y)
+
+    IR:  TMP_964(uint256) = TMP_962 (c)* TMP_963
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2653]
+    LNE: p1 = a_ * xy * (x + y)
+
+    IR:  p1(uint256) := TMP_964(uint256)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2653]
+    LNE: p1 = a_ * xy * (x + y)
+
+    IR:  TMP_974(uint256) = p1 + p3
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2659]
+    LNE: d_ = cbrt(p1 + p3)
+
+    IR:  TMP_975(uint256) = INTERNAL_CALL, Pool.cbrt(uint256)(TMP_974)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2659]
+    LNE: d_ = cbrt(p1 + p3)
+
+    IR:  d_(uint256) := TMP_975(uint256)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2659]
+    LNE: d_ = cbrt(p1 + p3)
+
+    IR:  TMP_981(uint256) = d_ << 1
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2665]
+    LNE: d = (d_ << 1) + 1
+
+    IR:  TMP_982(uint256) = TMP_981 + 1
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2665]
+    LNE: d = (d_ << 1) + 1
+
+    IR:  d(uint256) := TMP_982(uint256)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2665]
+    LNE: d = (d_ << 1) + 1
+
+    IR:  TMP_831(uint256) = d >> 1
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2511]
+    LNE: _depositLp(msg.sender,d >> 1)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in RewardManager.constructor
+Sink: tainted_erc20_transfer in Pool.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
+    LNE: (No direct expression available)
+
+    IR:  token(ERC20) := token_(ERC20)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
+    LNE: token = token_
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in Pool.deposit
+Sink: tainted_state_changing_external_call in Pool.swapFromVUsd
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2496, 2497, 2498, 2499, 2500, 2501, 2502, 2503, 2504, 2505, 2506, 2507, 2508, 2509, 2510, 2511, 2512, 2513, 2514, 2515, 2516]
+    LNE: (No direct expression available)
+
+    IR:  TMP_820(uint256) = INTERNAL_CALL, Pool.toSystemPrecision(uint256)(amount)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2499]
+    LNE: amountSP = toSystemPrecision(amount)
+
+    IR:  amountSP(uint256) := TMP_820(uint256)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2499]
+    LNE: amountSP = toSystemPrecision(amount)
+
+    IR:  vUsdBalance(uint256) = vUsdBalance (c)+ amountSP
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2502]
+    LNE: vUsdBalance += amountSP
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in RewardManager.constructor
+Sink: tainted_erc20_transfer in RewardManager.claimRewards
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
+    LNE: (No direct expression available)
+
+    IR:  token(ERC20) := token_(ERC20)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
+    LNE: token = token_
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in RewardManager.constructor
+Sink: tainted_erc20_transfer in RewardManager._withdrawLp
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
+    LNE: (No direct expression available)
+
+    IR:  token(ERC20) := token_(ERC20)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
+    LNE: token = token_
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [276, 277, 278, 279, 280, 281]
+    LNE: (No direct expression available)
 
 ----------------------------------------
 
@@ -570,16 +554,32 @@ Sink: tainted_erc20_transfer in ERC20._transfer
 ----------------------------------------
 
 ## Path #25
-Source: external_input_params in RewardManager.constructor
-Sink: tainted_erc20_transfer in Pool.deposit
+Source: external_input_params in Pool.deposit
+Sink: tainted_erc20_transfer in Pool.withdraw
 
 ### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2341, 2342, 2343, 2344, 2345]
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2496, 2497, 2498, 2499, 2500, 2501, 2502, 2503, 2504, 2505, 2506, 2507, 2508, 2509, 2510, 2511, 2512, 2513, 2514, 2515, 2516]
     LNE: (No direct expression available)
 
-    IR:  token(ERC20) := token_(ERC20)
-    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2342]
-    LNE: token = token_
+    IR:  TMP_820(uint256) = INTERNAL_CALL, Pool.toSystemPrecision(uint256)(amount)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2499]
+    LNE: amountSP = toSystemPrecision(amount)
+
+    IR:  amountSP(uint256) := TMP_820(uint256)
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2499]
+    LNE: amountSP = toSystemPrecision(amount)
+
+    IR:  tokenBalance(uint256) = tokenBalance (c)+ amountSP
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2501]
+    LNE: tokenBalance += amountSP
+
+    IR:  TMP_838(uint256) = tokenBalance (c)* amountLp
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2526, 2527, 2528, 2529]
+    LNE: amountSP = _preWithdrawSwap(tokenBalance * amountLp / totalLpAmount_,vUsdBalance * amountLp / totalLpAmount_)
+
+    IR:  TMP_839(uint256) = TMP_838 (c)/ totalLpAmount_
+    SRC: File 'pmdetector/flattened_contracts/f2dca557_Allbridge/flattened.sol', Lines [2526, 2527, 2528, 2529]
+    LNE: amountSP = _preWithdrawSwap(tokenBalance * amountLp / totalLpAmount_,vUsdBalance * amountLp / totalLpAmount_)
 
 ----------------------------------------

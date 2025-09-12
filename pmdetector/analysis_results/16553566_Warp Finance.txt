@@ -962,51 +962,6 @@ Sink #93: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
-  Path Operations:
-    1. viewMaxWithdrawAllowed
-    2. TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
-    3. collateralValue(uint256) := TMP_408(uint256)
-    4. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
-    5. leftoverCollateral(uint256) := TMP_411(uint256)
-    6. TMP_413(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['leftoverCollateral', '1000000000000000000'] 
-
-Path #2:
-  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-  Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
-  Path Operations:
-    1. updateJumpRateModel
-    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    3. kink(uint256) := kink_(uint256)
-    4. TMP_84(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
-
-Path #3:
-  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.viewTotalBorrowedValue
-  Path Operations:
-    1. viewMaxWithdrawAllowed
-    2. TMP_407(uint256) = INTERNAL_CALL, WarpControl.viewTotalBorrowedValue(address)(account)
-
-Path #4:
-  Source: external_input_params in WarpControl.liquidateAccount
-  Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
-  Path Operations:
-    1. liquidateAccount
-
-Path #5:
-  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
-  Path Operations:
-    1. getMaxWithdrawAllowed
-
-Path #6:
-  Source: external_input_params in WarpControl.borrowSC
-  Sink: tainted_state_changing_external_call in WarpControl.borrowSC
-  Path Operations:
-    1. borrowSC
-
-Path #7:
   Source: external_input_params in BaseJumpRateModelV2.utilizationRate
   Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
   Path Operations:
@@ -1017,35 +972,75 @@ Path #7:
     5. util(uint256) := TMP_44(uint256)
     6. TMP_52(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['util', 'kink'] 
     7. excessUtil(uint256) := TMP_52(uint256)
-    8. TMP_53(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['excessUtil', 'jumpMultiplierPerBlock'] 
 
-Path #8:
-  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
+Path #2:
+  Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
   Path Operations:
-    1. getMaxWithdrawAllowed
-    2. TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
-    3. collateralValue(uint256) := TMP_400(uint256)
+    1. getSupplyRate
+    2. TMP_61(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+    3. TMP_62(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_61', 'rateToPool'] 
 
-Path #9:
+Path #3:
   Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
   Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
   Path Operations:
     1. getSupplyRate
     2. TMP_58(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.getBorrowRateInternal(uint256,uint256,uint256)(cash,borrows,reserves)
     3. borrowRate(uint256) := TMP_58(uint256)
-    4. TMP_59(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrowRate', 'oneMinusReserveFactor'] 
 
-Path #10:
-  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+Path #4:
+  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
   Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
   Path Operations:
-    1. updateJumpRateModel
-    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    3. kink(uint256) := kink_(uint256)
-    4. TMP_49(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
+    1. utilizationRate
+    2. TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
+    3. TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
+    4. TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+    5. util(uint256) := TMP_44(uint256)
 
-Path #11:
+Path #5:
+  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
+  Path Operations:
+    1. getMaxWithdrawAllowed
+    2. TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
+    3. collateralValue(uint256) := TMP_400(uint256)
+    4. TMP_403(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
+    5. leftoverCollateral(uint256) := TMP_403(uint256)
+    6. TMP_405(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['leftoverCollateral', '1000000000000000000'] 
+
+Path #6:
+  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
+  Path Operations:
+    1. viewMaxWithdrawAllowed
+    2. TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
+
+Path #7:
+  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
+  Path Operations:
+    1. getMaxWithdrawAllowed
+    2. TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
+
+Path #8:
+  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.calcCollateralRequired
+  Path Operations:
+    1. getMaxWithdrawAllowed
+    2. TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
+    3. borrowedTotal(uint256) := TMP_399(uint256)
+    4. TMP_401(uint256) = INTERNAL_CALL, WarpControl.calcCollateralRequired(uint256)(borrowedTotal)
+    5. TMP_458(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_borrowAmount', '3'] 
+
+Path #9:
+  Source: external_input_params in WarpControl.manuallyCreateOracles
+  Sink: tainted_state_changing_external_call in WarpControl.manuallyCreateOracles
+  Path Operations:
+    1. manuallyCreateOracles
+
+Path #10:
   Source: external_input_params in WarpControl.constructor
   Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
   Path Operations:
@@ -1058,98 +1053,56 @@ Path #11:
     7. TMP_482(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['borrowedAmount', 'borrowedAmountInUSDC'] 
     8. borrowedAmount(uint256) := TMP_482(uint256)
 
-Path #12:
+Path #11:
   Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.calcCollateralRequired
   Path Operations:
     1. getMaxWithdrawAllowed
-    2. TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
-    3. collateralValue(uint256) := TMP_400(uint256)
-    4. TMP_403(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
-    5. leftoverCollateral(uint256) := TMP_403(uint256)
-    6. TMP_405(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['leftoverCollateral', '1000000000000000000'] 
+    2. TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
+    3. borrowedTotal(uint256) := TMP_399(uint256)
+    4. TMP_401(uint256) = INTERNAL_CALL, WarpControl.calcCollateralRequired(uint256)(borrowedTotal)
+
+Path #12:
+  Source: external_input_params in WarpControl.getPriceOfCollateral
+  Sink: tainted_state_changing_external_call in WarpControl.getPriceOfCollateral
+  Path Operations:
+    1. getPriceOfCollateral
 
 Path #13:
-  Source: external_input_params in WarpControl.createNewLPVault
-  Sink: tainted_state_changing_external_call in WarpControl.createNewLPVault
-  Path Operations:
-    1. createNewLPVault
-
-Path #14:
-  Source: external_input_params in WarpControl.startUpgradeTimer
-  Sink: tainted_state_changing_external_call in WarpControl.upgradeWarp
-  Path Operations:
-    1. startUpgradeTimer
-    2. newWarpControl(address) := _newWarpControl(address)
-
-Path #15:
-  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
-  Path Operations:
-    1. updateJumpRateModel
-    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-Path #16:
-  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
-  Path Operations:
-    1. viewMaxWithdrawAllowed
-
-Path #17:
-  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
-  Path Operations:
-    1. updateJumpRateModel
-    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-Path #18:
-  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
-  Path Operations:
-    1. getMaxWithdrawAllowed
-    2. TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
-    3. TMP_419(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
-    4. accountCollateral(uint256) := TMP_419(uint256)
-    5. TMP_420(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
-    6. accountAssetsValue(uint256) := TMP_420(uint256)
-    7. TMP_421(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
-    8. totalCollateral(uint256) := TMP_421(uint256)
-
-Path #19:
   Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
   Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
   Path Operations:
     1. getSupplyRate
-    2. TMP_58(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.getBorrowRateInternal(uint256,uint256,uint256)(cash,borrows,reserves)
-    3. borrowRate(uint256) := TMP_58(uint256)
 
-Path #20:
+Path #14:
+  Source: external_input_params in WarpControl.viewPriceOfToken
+  Sink: tainted_state_changing_external_call in WarpControl.viewPriceOfToken
+  Path Operations:
+    1. viewPriceOfToken
+
+Path #15:
   Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
   Path Operations:
     1. updateJumpRateModel
     2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    3. TMP_65(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplierPerYear', '1000000000000000000'] 
+    3. kink(uint256) := kink_(uint256)
+    4. TMP_49(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
 
-Path #21:
-  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
+Path #16:
+  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.getTotalBorrowedValue
   Path Operations:
-    1. utilizationRate
-    2. TMP_41(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['cash', 'borrows'] 
+    1. getMaxWithdrawAllowed
+    2. TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
 
-Path #22:
-  Source: external_input_params in WarpControl.getBorrowLimit
-  Sink: tainted_state_changing_external_call in WarpControl.borrowSC
+Path #17:
+  Source: external_input_params in WarpControl.getPriceOfToken
+  Sink: tainted_state_changing_external_call in WarpControl.getPriceOfToken
   Path Operations:
-    1. getBorrowLimit
-    2. TMP_460(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(_account)
-    3. availibleCollateralValue(uint256) := TMP_460(uint256)
-    4. TMP_461(uint256) = INTERNAL_CALL, WarpControl.calcBorrowLimit(uint256)(availibleCollateralValue)
-    5. TMP_465(uint256) = INTERNAL_CALL, WarpControl.getBorrowLimit(address)(msg.sender)
-    6. borrowLimitInUSDC(uint256) := TMP_465(uint256)
+    1. getPriceOfToken
 
-Path #23:
+Path #18:
   Source: external_input_params in BaseJumpRateModelV2.utilizationRate
   Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
   Path Operations:
@@ -1159,169 +1112,8 @@ Path #23:
     4. TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
     5. util(uint256) := TMP_44(uint256)
     6. TMP_46(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['util', 'multiplierPerBlock'] 
-    7. TMP_47(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_46', '1000000000000000000'] 
 
-Path #24:
-  Source: external_input_params in WarpControl.createNewLPVault
-  Sink: tainted_state_changing_external_call in WarpControl.createNewLPVault
-  Path Operations:
-    1. createNewLPVault
-
-Path #25:
-  Source: external_input_params in WarpControl.getPriceOfToken
-  Sink: tainted_state_changing_external_call in WarpControl.getPriceOfToken
-  Path Operations:
-    1. getPriceOfToken
-
-Path #26:
-  Source: external_input_params in WarpControl.transferWarpTeam
-  Sink: tainted_state_changing_external_call in WarpControl.transferWarpTeam
-  Path Operations:
-    1. transferWarpTeam
-
-Path #27:
-  Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
-  Path Operations:
-    1. getSupplyRate
-    2. TMP_61(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-    3. TMP_62(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_61', 'rateToPool'] 
-
-Path #28:
-  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
-  Path Operations:
-    1. getMaxWithdrawAllowed
-    2. TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
-    3. collateralValue(uint256) := TMP_400(uint256)
-    4. TMP_403(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
-    5. leftoverCollateral(uint256) := TMP_403(uint256)
-
-Path #29:
-  Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
-  Path Operations:
-    1. getSupplyRate
-    2. TMP_61(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-
-Path #30:
-  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-  Path Operations:
-    1. updateJumpRateModel
-    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    3. kink(uint256) := kink_(uint256)
-
-Path #31:
-  Source: external_input_params in WarpControl.updateInterestRateModel
-  Sink: tainted_state_changing_external_call in WarpControl.updateInterestRateModel
-  Path Operations:
-    1. updateInterestRateModel
-    2. TMP_494(JumpRateModelV2) = new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,TMP_493) 
-    3. TMP_495 = CONVERT TMP_494 to address
-    4. IR(address) := TMP_495(address)
-
-Path #32:
-  Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
-  Path Operations:
-    1. getSupplyRate
-
-Path #33:
-  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
-  Path Operations:
-    1. utilizationRate
-
-Path #34:
-  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
-  Path Operations:
-    1. utilizationRate
-    2. TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
-
-Path #35:
-  Source: external_input_params in WarpControl.createNewSCVault
-  Sink: tainted_state_changing_external_call in WarpControl.createNewSCVault
-  Path Operations:
-    1. createNewSCVault
-    2. TMP_382(JumpRateModelV2) = new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,TMP_381) 
-    3. TMP_383 = CONVERT TMP_382 to address
-    4. IR(address) := TMP_383(address)
-
-Path #36:
-  Source: external_input_params in WarpControl.liquidateAccount
-  Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
-  Path Operations:
-    1. liquidateAccount
-
-Path #37:
-  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
-  Path Operations:
-    1. viewMaxWithdrawAllowed
-    2. TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
-    3. TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
-    4. accountCollateral(uint256) := TMP_427(uint256)
-    5. TMP_428(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
-    6. accountAssetsValue(uint256) := TMP_428(uint256)
-    7. TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
-    8. totalCollateral(uint256) := TMP_429(uint256)
-
-Path #38:
-  Source: external_input_params in WarpControl.viewPriceOfCollateral
-  Sink: tainted_state_changing_external_call in WarpControl.viewPriceOfCollateral
-  Path Operations:
-    1. viewPriceOfCollateral
-
-Path #39:
-  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-  Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
-  Path Operations:
-    1. updateJumpRateModel
-    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    3. kink(uint256) := kink_(uint256)
-    4. TMP_84(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
-    5. TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_84', '1000000000000000000'] 
-
-Path #40:
-  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.calcCollateralRequired
-  Path Operations:
-    1. getMaxWithdrawAllowed
-    2. TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
-    3. borrowedTotal(uint256) := TMP_399(uint256)
-    4. TMP_401(uint256) = INTERNAL_CALL, WarpControl.calcCollateralRequired(uint256)(borrowedTotal)
-
-Path #41:
-  Source: external_input_params in WarpControl.calcBorrowLimit
-  Sink: tainted_state_changing_external_call in WarpControl.calcBorrowLimit
-  Path Operations:
-    1. calcBorrowLimit
-    2. TMP_456(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['_collateralValue', '3'] 
-    3. thirdCollatVal(uint256) := TMP_456(uint256)
-
-Path #42:
-  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-  Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
-  Path Operations:
-    1. updateJumpRateModel
-    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    3. kink(uint256) := kink_(uint256)
-
-Path #43:
-  Source: external_input_params in WarpControl.viewTotalLentValue
-  Sink: tainted_state_changing_external_call in WarpControl.viewTotalLentValue
-  Path Operations:
-    1. viewTotalLentValue
-    2. TMP_437(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:viewAccountBalance, arguments:['_account']  
-    3. lentBalanceInStable(uint256) := TMP_437(uint256)
-    4. TMP_440(uint256) = INTERNAL_CALL, WarpControl.viewPriceOfToken(address,uint256)(TMP_439,lentBalanceInStable)
-    5. usdcLentAmount(uint256) := TMP_440(uint256)
-    6. TMP_441(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalValue', 'usdcLentAmount'] 
-    7. totalValue(uint256) := TMP_441(uint256)
-
-Path #44:
+Path #19:
   Source: external_input_params in BaseJumpRateModelV2.utilizationRate
   Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
   Path Operations:
@@ -1335,135 +1127,43 @@ Path #44:
     8. TMP_53(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['excessUtil', 'jumpMultiplierPerBlock'] 
     9. TMP_54(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_53', '1000000000000000000'] 
 
-Path #45:
+Path #20:
   Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
   Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
   Path Operations:
     1. updateJumpRateModel
     2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
 
-Path #46:
-  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
-  Path Operations:
-    1. getMaxWithdrawAllowed
-    2. TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
-
-Path #47:
-  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.viewTotalBorrowedValue
-  Path Operations:
-    1. viewMaxWithdrawAllowed
-    2. TMP_407(uint256) = INTERNAL_CALL, WarpControl.viewTotalBorrowedValue(address)(account)
-    3. TMP_444(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:borrowBalancePrior, arguments:['_account']  
-    4. borrowBalanceInStable(uint256) := TMP_444(uint256)
-    5. TMP_447(uint256) = INTERNAL_CALL, WarpControl.viewPriceOfToken(address,uint256)(TMP_446,borrowBalanceInStable)
-    6. usdcBorrowedAmount(uint256) := TMP_447(uint256)
-    7. TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBorrowedValue', 'usdcBorrowedAmount'] 
-    8. totalBorrowedValue(uint256) := TMP_448(uint256)
-
-Path #48:
-  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-  Path Operations:
-    1. utilizationRate
-    2. TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
-    3. TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
-    4. TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-    5. util(uint256) := TMP_44(uint256)
-    6. TMP_46(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['util', 'multiplierPerBlock'] 
-
-Path #49:
-  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
-  Path Operations:
-    1. viewMaxWithdrawAllowed
-    2. TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
-    3. TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
-    4. accountCollateral(uint256) := TMP_427(uint256)
-
-Path #50:
-  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-  Path Operations:
-    1. utilizationRate
-    2. TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
-    3. TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
-    4. TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-    5. util(uint256) := TMP_44(uint256)
-
-Path #51:
-  Source: external_input_params in WarpControl.viewTotalLentValue
-  Sink: tainted_state_changing_external_call in WarpControl.viewTotalLentValue
-  Path Operations:
-    1. viewTotalLentValue
-
-Path #52:
-  Source: external_input_params in WarpControl.calcBorrowLimit
-  Sink: tainted_state_changing_external_call in WarpControl.calcBorrowLimit
-  Path Operations:
-    1. calcBorrowLimit
-
-Path #53:
-  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
-  Path Operations:
-    1. viewMaxWithdrawAllowed
-    2. TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
-
-Path #54:
+Path #21:
   Source: external_input_params in BaseJumpRateModelV2.utilizationRate
   Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
   Path Operations:
     1. utilizationRate
+    2. TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
 
-Path #55:
-  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
+Path #22:
+  Source: external_input_params in WarpControl.liquidateAccount
+  Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
   Path Operations:
-    1. viewMaxWithdrawAllowed
-    2. TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
-    3. TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
-    4. accountCollateral(uint256) := TMP_427(uint256)
-    5. TMP_428(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
-    6. accountAssetsValue(uint256) := TMP_428(uint256)
-    7. TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
-    8. totalCollateral(uint256) := TMP_429(uint256)
+    1. liquidateAccount
 
-Path #56:
-  Source: external_input_params in WarpControl.startUpgradeTimer
-  Sink: tainted_state_changing_external_call in WarpControl.upgradeWarp
+Path #23:
+  Source: external_input_params in WarpControl.liquidateAccount
+  Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
   Path Operations:
-    1. startUpgradeTimer
-    2. newWarpControl(address) := _newWarpControl(address)
+    1. liquidateAccount
 
-Path #57:
-  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-  Path Operations:
-    1. updateJumpRateModel
-    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    3. kink(uint256) := kink_(uint256)
-    4. TMP_49(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
-    5. TMP_50(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_49', '1000000000000000000'] 
-
-Path #58:
-  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
-  Path Operations:
-    1. updateJumpRateModel
-    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-Path #59:
+Path #24:
   Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
+  Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
   Path Operations:
     1. getMaxWithdrawAllowed
     2. TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
-    3. TMP_419(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
-    4. accountCollateral(uint256) := TMP_419(uint256)
+    3. collateralValue(uint256) := TMP_400(uint256)
+    4. TMP_403(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
+    5. leftoverCollateral(uint256) := TMP_403(uint256)
 
-Path #60:
+Path #25:
   Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
   Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
   Path Operations:
@@ -1472,65 +1172,9 @@ Path #60:
     3. collateralValue(uint256) := TMP_408(uint256)
     4. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
     5. leftoverCollateral(uint256) := TMP_411(uint256)
+    6. TMP_413(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['leftoverCollateral', '1000000000000000000'] 
 
-Path #61:
-  Source: external_input_params in WarpControl.startUpgradeTimer
-  Sink: tainted_erc20_transfer in WarpControl.upgradeWarp
-  Path Operations:
-    1. startUpgradeTimer
-    2. newWarpControl(address) := _newWarpControl(address)
-
-Path #62:
-  Source: external_input_params in WarpControl.viewPriceOfToken
-  Sink: tainted_state_changing_external_call in WarpControl.viewPriceOfToken
-  Path Operations:
-    1. viewPriceOfToken
-
-Path #63:
-  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-  Path Operations:
-    1. utilizationRate
-    2. TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
-    3. TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
-    4. TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-    5. util(uint256) := TMP_44(uint256)
-    6. TMP_52(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['util', 'kink'] 
-    7. excessUtil(uint256) := TMP_52(uint256)
-
-Path #64:
-  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.calcCollateralRequired
-  Path Operations:
-    1. getMaxWithdrawAllowed
-    2. TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
-    3. borrowedTotal(uint256) := TMP_399(uint256)
-    4. TMP_401(uint256) = INTERNAL_CALL, WarpControl.calcCollateralRequired(uint256)(borrowedTotal)
-    5. TMP_458(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_borrowAmount', '3'] 
-
-Path #65:
-  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-  Path Operations:
-    1. utilizationRate
-    2. TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
-    3. TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
-    4. TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-    5. util(uint256) := TMP_44(uint256)
-
-Path #66:
-  Source: external_input_params in WarpControl.liquidateAccount
-  Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
-  Path Operations:
-    1. liquidateAccount
-
-Path #67:
-  Source: external_input_params in WarpControl.getPriceOfCollateral
-  Sink: tainted_state_changing_external_call in WarpControl.getPriceOfCollateral
-  Path Operations:
-    1. getPriceOfCollateral
-
-Path #68:
+Path #26:
   Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
   Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
   Path Operations:
@@ -1538,20 +1182,20 @@ Path #68:
     2. TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
     3. collateralValue(uint256) := TMP_408(uint256)
 
-Path #69:
-  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-  Sink: tainted_state_changing_external_call in WarpControl.getTotalBorrowedValue
+Path #27:
+  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
   Path Operations:
-    1. getMaxWithdrawAllowed
-    2. TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
-    3. TMP_451(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:borrowBalanceCurrent, arguments:['_account']  
-    4. borrowBalanceInStable(uint256) := TMP_451(uint256)
-    5. TMP_454(uint256) = INTERNAL_CALL, WarpControl.getPriceOfToken(address,uint256)(TMP_453,borrowBalanceInStable)
-    6. usdcBorrowedAmount(uint256) := TMP_454(uint256)
-    7. TMP_455(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBorrowedValue', 'usdcBorrowedAmount'] 
-    8. totalBorrowedValue(uint256) := TMP_455(uint256)
+    1. utilizationRate
 
-Path #70:
+Path #28:
+  Source: external_input_params in WarpControl.startUpgradeTimer
+  Sink: tainted_state_changing_external_call in WarpControl.upgradeWarp
+  Path Operations:
+    1. startUpgradeTimer
+    2. newWarpControl(address) := _newWarpControl(address)
+
+Path #29:
   Source: external_input_params in WarpControl.getMaxWithdrawAllowed
   Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
   Path Operations:
@@ -1564,15 +1208,371 @@ Path #70:
     7. TMP_421(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
     8. totalCollateral(uint256) := TMP_421(uint256)
 
-Path #71:
+Path #30:
+  Source: external_input_params in WarpControl.getBorrowLimit
+  Sink: tainted_state_changing_external_call in WarpControl.borrowSC
+  Path Operations:
+    1. getBorrowLimit
+    2. TMP_460(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(_account)
+    3. availibleCollateralValue(uint256) := TMP_460(uint256)
+    4. TMP_461(uint256) = INTERNAL_CALL, WarpControl.calcBorrowLimit(uint256)(availibleCollateralValue)
+    5. TMP_465(uint256) = INTERNAL_CALL, WarpControl.getBorrowLimit(address)(msg.sender)
+    6. borrowLimitInUSDC(uint256) := TMP_465(uint256)
+
+Path #31:
+  Source: external_input_params in WarpControl.borrowSC
+  Sink: tainted_state_changing_external_call in WarpControl.borrowSC
+  Path Operations:
+    1. borrowSC
+
+Path #32:
+  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
+  Path Operations:
+    1. utilizationRate
+    2. TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
+    3. TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
+    4. TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+    5. util(uint256) := TMP_44(uint256)
+
+Path #33:
+  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
+  Path Operations:
+    1. getMaxWithdrawAllowed
+    2. TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
+    3. TMP_419(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
+    4. accountCollateral(uint256) := TMP_419(uint256)
+    5. TMP_420(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
+    6. accountAssetsValue(uint256) := TMP_420(uint256)
+    7. TMP_421(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
+    8. totalCollateral(uint256) := TMP_421(uint256)
+
+Path #34:
+  Source: external_input_params in WarpControl.createNewSCVault
+  Sink: tainted_state_changing_external_call in WarpControl.createNewSCVault
+  Path Operations:
+    1. createNewSCVault
+    2. TMP_382(JumpRateModelV2) = new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,TMP_381) 
+    3. TMP_383 = CONVERT TMP_382 to address
+    4. IR(address) := TMP_383(address)
+
+Path #35:
+  Source: external_input_params in WarpControl.startUpgradeTimer
+  Sink: tainted_erc20_transfer in WarpControl.upgradeWarp
+  Path Operations:
+    1. startUpgradeTimer
+    2. newWarpControl(address) := _newWarpControl(address)
+
+Path #36:
+  Source: external_input_params in WarpControl.calcBorrowLimit
+  Sink: tainted_state_changing_external_call in WarpControl.calcBorrowLimit
+  Path Operations:
+    1. calcBorrowLimit
+
+Path #37:
+  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
+  Path Operations:
+    1. utilizationRate
+    2. TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
+    3. TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
+    4. TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+    5. util(uint256) := TMP_44(uint256)
+    6. TMP_52(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['util', 'kink'] 
+    7. excessUtil(uint256) := TMP_52(uint256)
+    8. TMP_53(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['excessUtil', 'jumpMultiplierPerBlock'] 
+
+Path #38:
+  Source: external_input_params in WarpControl.viewPriceOfCollateral
+  Sink: tainted_state_changing_external_call in WarpControl.viewPriceOfCollateral
+  Path Operations:
+    1. viewPriceOfCollateral
+
+Path #39:
+  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
+  Path Operations:
+    1. updateJumpRateModel
+    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+Path #40:
+  Source: external_input_params in WarpControl.transferWarpTeam
+  Sink: tainted_state_changing_external_call in WarpControl.transferWarpTeam
+  Path Operations:
+    1. transferWarpTeam
+
+Path #41:
+  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
+  Path Operations:
+    1. getMaxWithdrawAllowed
+    2. TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
+    3. TMP_419(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
+    4. accountCollateral(uint256) := TMP_419(uint256)
+
+Path #42:
   Source: external_input_params in WarpControl.getMaxWithdrawAllowed
   Sink: tainted_state_changing_external_call in WarpControl.getTotalBorrowedValue
   Path Operations:
     1. getMaxWithdrawAllowed
     2. TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
+    3. TMP_451(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:borrowBalanceCurrent, arguments:['_account']  
+    4. borrowBalanceInStable(uint256) := TMP_451(uint256)
+    5. TMP_454(uint256) = INTERNAL_CALL, WarpControl.getPriceOfToken(address,uint256)(TMP_453,borrowBalanceInStable)
+    6. usdcBorrowedAmount(uint256) := TMP_454(uint256)
+    7. TMP_455(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBorrowedValue', 'usdcBorrowedAmount'] 
+    8. totalBorrowedValue(uint256) := TMP_455(uint256)
+
+Path #43:
+  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
+  Path Operations:
+    1. viewMaxWithdrawAllowed
+
+Path #44:
+  Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
+  Path Operations:
+    1. getSupplyRate
+    2. TMP_61(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+
+Path #45:
+  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
+  Path Operations:
+    1. viewMaxWithdrawAllowed
+    2. TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
+    3. TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
+    4. accountCollateral(uint256) := TMP_427(uint256)
+
+Path #46:
+  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
+  Path Operations:
+    1. utilizationRate
+
+Path #47:
+  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+  Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
+  Path Operations:
+    1. updateJumpRateModel
+    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    3. kink(uint256) := kink_(uint256)
+    4. TMP_84(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
+    5. TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_84', '1000000000000000000'] 
+
+Path #48:
+  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+  Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
+  Path Operations:
+    1. updateJumpRateModel
+    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    3. kink(uint256) := kink_(uint256)
+
+Path #49:
+  Source: external_input_params in WarpControl.createNewLPVault
+  Sink: tainted_state_changing_external_call in WarpControl.createNewLPVault
+  Path Operations:
+    1. createNewLPVault
+
+Path #50:
+  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
+  Path Operations:
+    1. updateJumpRateModel
+    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    3. kink(uint256) := kink_(uint256)
+    4. TMP_49(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
+    5. TMP_50(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_49', '1000000000000000000'] 
+
+Path #51:
+  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.viewTotalBorrowedValue
+  Path Operations:
+    1. viewMaxWithdrawAllowed
+    2. TMP_407(uint256) = INTERNAL_CALL, WarpControl.viewTotalBorrowedValue(address)(account)
+    3. TMP_444(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:borrowBalancePrior, arguments:['_account']  
+    4. borrowBalanceInStable(uint256) := TMP_444(uint256)
+    5. TMP_447(uint256) = INTERNAL_CALL, WarpControl.viewPriceOfToken(address,uint256)(TMP_446,borrowBalanceInStable)
+    6. usdcBorrowedAmount(uint256) := TMP_447(uint256)
+    7. TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBorrowedValue', 'usdcBorrowedAmount'] 
+    8. totalBorrowedValue(uint256) := TMP_448(uint256)
+
+Path #52:
+  Source: external_input_params in WarpControl.startUpgradeTimer
+  Sink: tainted_state_changing_external_call in WarpControl.upgradeWarp
+  Path Operations:
+    1. startUpgradeTimer
+    2. newWarpControl(address) := _newWarpControl(address)
+
+Path #53:
+  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
+  Path Operations:
+    1. getMaxWithdrawAllowed
+
+Path #54:
+  Source: external_input_params in WarpControl.liquidateAccount
+  Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
+  Path Operations:
+    1. liquidateAccount
+
+Path #55:
+  Source: external_input_params in WarpControl.calcBorrowLimit
+  Sink: tainted_state_changing_external_call in WarpControl.calcBorrowLimit
+  Path Operations:
+    1. calcBorrowLimit
+    2. TMP_456(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['_collateralValue', '3'] 
+    3. thirdCollatVal(uint256) := TMP_456(uint256)
+
+Path #56:
+  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
+  Path Operations:
+    1. updateJumpRateModel
+    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+Path #57:
+  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
+  Path Operations:
+    1. viewMaxWithdrawAllowed
+    2. TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
+    3. collateralValue(uint256) := TMP_408(uint256)
+    4. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
+    5. leftoverCollateral(uint256) := TMP_411(uint256)
+
+Path #58:
+  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
+  Path Operations:
+    1. viewMaxWithdrawAllowed
+    2. TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
+    3. TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
+    4. accountCollateral(uint256) := TMP_427(uint256)
+    5. TMP_428(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
+    6. accountAssetsValue(uint256) := TMP_428(uint256)
+    7. TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
+    8. totalCollateral(uint256) := TMP_429(uint256)
+
+Path #59:
+  Source: external_input_params in WarpControl.viewTotalLentValue
+  Sink: tainted_state_changing_external_call in WarpControl.viewTotalLentValue
+  Path Operations:
+    1. viewTotalLentValue
+    2. TMP_437(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:viewAccountBalance, arguments:['_account']  
+    3. lentBalanceInStable(uint256) := TMP_437(uint256)
+    4. TMP_440(uint256) = INTERNAL_CALL, WarpControl.viewPriceOfToken(address,uint256)(TMP_439,lentBalanceInStable)
+    5. usdcLentAmount(uint256) := TMP_440(uint256)
+    6. TMP_441(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalValue', 'usdcLentAmount'] 
+    7. totalValue(uint256) := TMP_441(uint256)
+
+Path #60:
+  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
+  Path Operations:
+    1. updateJumpRateModel
+    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    3. kink(uint256) := kink_(uint256)
+
+Path #61:
+  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
+  Path Operations:
+    1. utilizationRate
+    2. TMP_41(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['cash', 'borrows'] 
+
+Path #62:
+  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
+  Path Operations:
+    1. updateJumpRateModel
+    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+Path #63:
+  Source: external_input_params in WarpControl.viewTotalLentValue
+  Sink: tainted_state_changing_external_call in WarpControl.viewTotalLentValue
+  Path Operations:
+    1. viewTotalLentValue
+
+Path #64:
+  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
+  Path Operations:
+    1. viewMaxWithdrawAllowed
+    2. TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
+    3. TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
+    4. accountCollateral(uint256) := TMP_427(uint256)
+    5. TMP_428(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
+    6. accountAssetsValue(uint256) := TMP_428(uint256)
+    7. TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
+    8. totalCollateral(uint256) := TMP_429(uint256)
+
+Path #65:
+  Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
+  Path Operations:
+    1. utilizationRate
+    2. TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
+    3. TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
+    4. TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+    5. util(uint256) := TMP_44(uint256)
+    6. TMP_46(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['util', 'multiplierPerBlock'] 
+    7. TMP_47(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_46', '1000000000000000000'] 
+
+Path #66:
+  Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
+  Path Operations:
+    1. getMaxWithdrawAllowed
+    2. TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
+    3. collateralValue(uint256) := TMP_400(uint256)
+
+Path #67:
+  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
+  Path Operations:
+    1. updateJumpRateModel
+    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    3. TMP_65(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplierPerYear', '1000000000000000000'] 
+
+Path #68:
+  Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+  Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
+  Path Operations:
+    1. updateJumpRateModel
+    2. INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    3. kink(uint256) := kink_(uint256)
+    4. TMP_84(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
+
+Path #69:
+  Source: external_input_params in WarpControl.updateInterestRateModel
+  Sink: tainted_state_changing_external_call in WarpControl.updateInterestRateModel
+  Path Operations:
+    1. updateInterestRateModel
+    2. TMP_494(JumpRateModelV2) = new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,TMP_493) 
+    3. TMP_495 = CONVERT TMP_494 to address
+    4. IR(address) := TMP_495(address)
+
+Path #70:
+  Source: external_input_params in WarpControl.createNewLPVault
+  Sink: tainted_state_changing_external_call in WarpControl.createNewLPVault
+  Path Operations:
+    1. createNewLPVault
+
+Path #71:
+  Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+  Sink: tainted_state_changing_external_call in WarpControl.viewTotalBorrowedValue
+  Path Operations:
+    1. viewMaxWithdrawAllowed
+    2. TMP_407(uint256) = INTERNAL_CALL, WarpControl.viewTotalBorrowedValue(address)(account)
 
 Path #72:
-  Source: external_input_params in WarpControl.manuallyCreateOracles
-  Sink: tainted_state_changing_external_call in WarpControl.manuallyCreateOracles
+  Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
+  Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
   Path Operations:
-    1. manuallyCreateOracles
+    1. getSupplyRate
+    2. TMP_58(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.getBorrowRateInternal(uint256,uint256,uint256)(cash,borrows,reserves)
+    3. borrowRate(uint256) := TMP_58(uint256)
+    4. TMP_59(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrowRate', 'oneMinusReserveFactor'] 

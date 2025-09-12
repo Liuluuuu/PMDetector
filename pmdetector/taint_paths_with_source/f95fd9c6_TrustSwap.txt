@@ -2,32 +2,6 @@
 Found 4 tainted paths.
 
 ## Path #1
-Source: external_input_params in UpgradeabilityProxy.constructor
-Sink: tainted_state_changing_external_call in UpgradeabilityProxy._setImplementation
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/f95fd9c6_TrustSwap/flattened.sol', Lines [185, 186, 187, 188, 189, 190, 191, 192]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
-    SRC: File 'pmdetector/flattened_contracts/f95fd9c6_TrustSwap/flattened.sol', Lines [187]
-    LNE: _setImplementation(_logic)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in UpgradeabilityProxy.constructor
-Sink: tainted_state_changing_external_call in UpgradeabilityProxy.constructor
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/f95fd9c6_TrustSwap/flattened.sol', Lines [185, 186, 187, 188, 189, 190, 191, 192]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #3
 Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeTo
 Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy._setImplementation
 
@@ -46,13 +20,39 @@ Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy._setI
 
 ----------------------------------------
 
-## Path #4
+## Path #2
 Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeToAndCall
 Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy.upgradeToAndCall
 
 ### Operations with Source Code Mapping:
     IR:  upgradeToAndCall
     SRC: File 'pmdetector/flattened_contracts/f95fd9c6_TrustSwap/flattened.sol', Lines [280, 281, 282, 283, 284]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in UpgradeabilityProxy.constructor
+Sink: tainted_state_changing_external_call in UpgradeabilityProxy._setImplementation
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/f95fd9c6_TrustSwap/flattened.sol', Lines [185, 186, 187, 188, 189, 190, 191, 192]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
+    SRC: File 'pmdetector/flattened_contracts/f95fd9c6_TrustSwap/flattened.sol', Lines [187]
+    LNE: _setImplementation(_logic)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in UpgradeabilityProxy.constructor
+Sink: tainted_state_changing_external_call in UpgradeabilityProxy.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/f95fd9c6_TrustSwap/flattened.sol', Lines [185, 186, 187, 188, 189, 190, 191, 192]
     LNE: (No direct expression available)
 
 ----------------------------------------

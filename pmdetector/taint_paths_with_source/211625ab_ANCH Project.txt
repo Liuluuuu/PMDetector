@@ -3,129 +3,46 @@ Found 74 tainted paths.
 
 ## Path #1
 Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_erc20_transfer in ANCHStakePool.deposit
+Sink: tainted_state_changing_external_call in ANCHStakePool.dailyReleaseReward
 
 ### Operations with Source Code Mapping:
     IR:  constructor
     SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
     LNE: (No direct expression available)
 
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
+    IR:  lastRebaseTime(uint256) := _starttime(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [777]
+    LNE: lastRebaseTime = _starttime
 
 ----------------------------------------
 
 ## Path #2
 Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_erc20_transfer in ANCHStakePool.withdraw
+Sink: tainted_erc20_transfer in ANCHStakePool.safeTransfer
 
 ### Operations with Source Code Mapping:
     IR:  constructor
     SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
     LNE: (No direct expression available)
 
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
+    IR:  token(IERC20) := _token(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [772]
+    LNE: token = _token
 
 ----------------------------------------
 
 ## Path #3
-Source: external_input_params in ANCHStakePool.getTotalReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.getTotalReward
+Source: external_input_params in ANCHStakePool.withdrawAll
+Sink: tainted_erc20_transfer in ANCHStakePool.withdrawAll
 
 ### Operations with Source Code Mapping:
-    IR:  getTotalReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246]
+    IR:  withdrawAll
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1279, 1280, 1281, 1282, 1283, 1284, 1285]
     LNE: (No direct expression available)
-
-    IR:  TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
-
-    IR:  stakeLPReward(uint256)= UNPACK TUPLE_6 index: 1 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
 
 ----------------------------------------
 
 ## Path #4
-Source: external_input_params in Ownable.transferOwnership
-Sink: tainted_erc20_transfer in Ownable.transferOwnership
-
-### Operations with Source Code Mapping:
-    IR:  transferOwnership
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [298, 299, 300]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #5
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_erc20_transfer in ANCHStakePool.deposit
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
-
-----------------------------------------
-
-## Path #6
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
-
-----------------------------------------
-
-## Path #7
-Source: external_input_params in ANCHStakePool.setTriggerNFTPublishUSDTAmount
-Sink: tainted_state_changing_external_call in ANCHStakePool.triggerNFTPublish
-
-### Operations with Source Code Mapping:
-    IR:  setTriggerNFTPublishUSDTAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1346, 1347, 1348]
-    LNE: (No direct expression available)
-
-    IR:  triggerNFTPublishUSDTAmount(uint256) := _triggerNFTPublishUSDTAmount(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1347]
-    LNE: triggerNFTPublishUSDTAmount = _triggerNFTPublishUSDTAmount
-
-----------------------------------------
-
-## Path #8
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
-
-    IR:  TMP_318 = CONVERT lpToken to address
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1017]
-    LNE: usdtTotal = IERC20(usdtToken).balanceOf(address(lpToken))
-
-----------------------------------------
-
-## Path #9
 Source: external_input_params in ANCHStakePool.constructor
 Sink: tainted_state_changing_external_call in ANCHStakePool.swapTokenAmount
 
@@ -144,626 +61,7 @@ Sink: tainted_state_changing_external_call in ANCHStakePool.swapTokenAmount
 
 ----------------------------------------
 
-## Path #10
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_309(uint256) -> user.amount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
-    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
-
-    IR:  TMP_406(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_309', 'accStakeRewardPerShare'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
-    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
-
-    IR:  TMP_407(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_406', '1000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
-    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
-
-----------------------------------------
-
-## Path #11
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_erc20_transfer in ANCHStakePool.earnStakeReward
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_314(uint256) -> user.inviteLPAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  inviteReward(uint256) := TMP_411(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TUPLE_2(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1110]
-    LNE: (None,stakeLPReward,None) = getReward(msg.sender)
-
-    IR:  stakeLPReward(uint256)= UNPACK TUPLE_2 index: 1 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1110]
-    LNE: (None,stakeLPReward,None) = getReward(msg.sender)
-
-----------------------------------------
-
-## Path #12
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.earn
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_314(uint256) -> user.inviteLPAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  inviteReward(uint256) := TMP_411(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TUPLE_5(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
-
-    IR:  inviteReward(uint256)= UNPACK TUPLE_5 index: 2 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
-
-----------------------------------------
-
-## Path #13
-Source: external_input_params in LPTokenWrapper.withdraw
-Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  withdraw
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #14
-Source: external_input_params in ANCHStakePool.getRewardWithdrawed
-Sink: tainted_state_changing_external_call in ANCHStakePool.getRewardWithdrawed
-
-### Operations with Source Code Mapping:
-    IR:  getRewardWithdrawed
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1227, 1228, 1229, 1230, 1231, 1232, 1233, 1234, 1235]
-    LNE: (No direct expression available)
-
-    IR:  REF_320(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1229]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_320(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1229]
-    LNE: user = userInfo[account]
-
-    IR:  REF_321(uint256) -> user.stakeRewardWithdrawedAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1231]
-    LNE: stakeLPReward = user.stakeRewardWithdrawedAmount
-
-    IR:  stakeLPReward(uint256) := REF_321(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1231]
-    LNE: stakeLPReward = user.stakeRewardWithdrawedAmount
-
-----------------------------------------
-
-## Path #15
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_erc20_transfer in ANCHStakePool.earnInviteReward
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_314(uint256) -> user.inviteLPAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  inviteReward(uint256) := TMP_411(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TUPLE_3(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1126]
-    LNE: (None,None,inviteReward) = getReward(account)
-
-    IR:  inviteReward(uint256)= UNPACK TUPLE_3 index: 2 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1126]
-    LNE: (None,None,inviteReward) = getReward(account)
-
-----------------------------------------
-
-## Path #16
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
-
-----------------------------------------
-
-## Path #17
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_314(uint256) -> user.inviteLPAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-----------------------------------------
-
-## Path #18
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.earnStakeReward
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_314(uint256) -> user.inviteLPAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  inviteReward(uint256) := TMP_411(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TUPLE_2(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1110]
-    LNE: (None,stakeLPReward,None) = getReward(msg.sender)
-
-    IR:  stakeLPReward(uint256)= UNPACK TUPLE_2 index: 1 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1110]
-    LNE: (None,stakeLPReward,None) = getReward(msg.sender)
-
-----------------------------------------
-
-## Path #19
-Source: external_input_params in LPTokenWrapper.deposit
-Sink: tainted_state_changing_external_call in ANCHStakePool.deposit
-
-### Operations with Source Code Mapping:
-    IR:  deposit
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
-    LNE: (No direct expression available)
-
-    IR:  TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-    IR:  _totalSupply(uint256) := TMP_112(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-----------------------------------------
-
-## Path #20
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.earn
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_314(uint256) -> user.inviteLPAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  inviteReward(uint256) := TMP_411(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TUPLE_5(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
-
-    IR:  stakeLPReward(uint256)= UNPACK TUPLE_5 index: 1 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
-
-----------------------------------------
-
-## Path #21
-Source: external_input_params in LPTokenWrapper.withdraw
-Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  withdraw
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
-    LNE: (No direct expression available)
-
-    IR:  TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [644]
-    LNE: lpToken.safeTransfer(msg.sender,amount.div(100).mul(97))
-
-----------------------------------------
-
-## Path #22
-Source: external_input_params in LPTokenWrapper.deposit
-Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
-
-### Operations with Source Code Mapping:
-    IR:  deposit
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
-    LNE: (No direct expression available)
-
-    IR:  TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-    IR:  _totalSupply(uint256) := TMP_112(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-----------------------------------------
-
-## Path #23
-Source: external_input_params in ANCHStakePool.swapLPTokenAmount
-Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
-
-### Operations with Source Code Mapping:
-    IR:  swapLPTokenAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #24
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_erc20_transfer in ANCHStakePool.dailyReleaseReward
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  token(IERC20) := _token(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [772]
-    LNE: token = _token
-
-    IR:  TMP_274 = CONVERT token to address
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [951]
-    LNE: safeTransfer(address(token),lastTrxReward)
-
-----------------------------------------
-
-## Path #25
-Source: external_input_params in LPTokenWrapper.withdraw
-Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  withdraw
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #26
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_erc20_transfer in ANCHStakePool.earn
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_314(uint256) -> user.inviteLPAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  inviteReward(uint256) := TMP_411(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TUPLE_5(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
-
-    IR:  stakeLPReward(uint256)= UNPACK TUPLE_5 index: 1 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
-
-----------------------------------------
-
-## Path #27
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_314(uint256) -> user.inviteLPAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-----------------------------------------
-
-## Path #28
-Source: external_input_params in ANCHStakePool.swapLPTokenAmount
-Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
-
-### Operations with Source Code Mapping:
-    IR:  swapLPTokenAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027]
-    LNE: (No direct expression available)
-
-    IR:  TMP_324(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['usdtAmount', 'usdtAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
-    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
-
-----------------------------------------
-
-## Path #29
-Source: external_input_params in ANCHStakePool.withdrawAll
-Sink: tainted_erc20_transfer in ANCHStakePool.withdrawAll
-
-### Operations with Source Code Mapping:
-    IR:  withdrawAll
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1279, 1280, 1281, 1282, 1283, 1284, 1285]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #30
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
-
-    IR:  TMP_321 = CONVERT lpToken to address
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1018]
-    LNE: tokenTotal = IERC20(token).balanceOf(address(lpToken))
-
-----------------------------------------
-
-## Path #31
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_state_changing_external_call in ANCHStakePool.swapTokenAmount
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
-
-    IR:  TMP_312 = CONVERT lpToken to address
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1004]
-    LNE: tokenTotal = IERC20(token).balanceOf(address(lpToken))
-
-----------------------------------------
-
-## Path #32
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_erc20_transfer in ANCHStakePool.safeTransfer
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  token(IERC20) := _token(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [772]
-    LNE: token = _token
-
-----------------------------------------
-
-## Path #33
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_state_changing_external_call in ANCHStakePool.getTokenAmount
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
-
-    IR:  TMP_298 = CONVERT lpToken to address
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [989]
-    LNE: usdtTotal = IERC20(usdtToken).balanceOf(address(lpToken))
-
-----------------------------------------
-
-## Path #34
-Source: external_input_params in LPTokenWrapper.deposit
-Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
-
-### Operations with Source Code Mapping:
-    IR:  deposit
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #35
+## Path #5
 Source: external_input_params in LPTokenWrapper.setProjectAddress
 Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
 
@@ -778,41 +76,7 @@ Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
 
 ----------------------------------------
 
-## Path #36
-Source: external_input_params in LPTokenWrapper.deposit
-Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  deposit
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
-    LNE: (No direct expression available)
-
-    IR:  TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-    IR:  _totalSupply(uint256) := TMP_112(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
-    LNE: _totalSupply = _totalSupply.add(amount)
-
-----------------------------------------
-
-## Path #37
-Source: external_input_params in LPTokenWrapper.setProjectAddress
-Sink: tainted_erc20_transfer in ANCHStakePool.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  setProjectAddress
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [613, 614, 615, 616]
-    LNE: (No direct expression available)
-
-    IR:  projectAddress(address) := _projectAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [615]
-    LNE: projectAddress = _projectAddress
-
-----------------------------------------
-
-## Path #38
+## Path #6
 Source: external_input_params in ANCHStakePool.constructor
 Sink: tainted_state_changing_external_call in ANCHStakePool.getUSDTAmount
 
@@ -831,95 +95,7 @@ Sink: tainted_state_changing_external_call in ANCHStakePool.getUSDTAmount
 
 ----------------------------------------
 
-## Path #39
-Source: external_input_params in LPTokenWrapper.deposit
-Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
-
-### Operations with Source Code Mapping:
-    IR:  deposit
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
-    LNE: (No direct expression available)
-
-    IR:  TMP_118(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [635]
-    LNE: lpToken.safeTransferFrom(msg.sender,address(this),amount.sub(amount.div(100).mul(1)))
-
-----------------------------------------
-
-## Path #40
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_erc20_transfer in ANCHStakePool.safeTransfer
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  token(IERC20) := _token(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [772]
-    LNE: token = _token
-
-----------------------------------------
-
-## Path #41
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_309(uint256) -> user.amount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
-    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
-
-    IR:  TMP_406(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_309', 'accStakeRewardPerShare'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
-    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
-
-    IR:  TMP_407(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_406', '1000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
-    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
-
-    IR:  TMP_408(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_407', 'REF_313'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
-    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
-
-    IR:  stakeLPReward(uint256) := TMP_408(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
-    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
-
-----------------------------------------
-
-## Path #42
-Source: external_input_params in ANCHStakePool.swapLPTokenAmount
-Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
-
-### Operations with Source Code Mapping:
-    IR:  swapLPTokenAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027]
-    LNE: (No direct expression available)
-
-    IR:  TMP_324(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['usdtAmount', 'usdtAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
-    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
-
-    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_324', 'tokenTotal'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
-    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
-
-----------------------------------------
-
-## Path #43
+## Path #7
 Source: external_input_params in ANCHStakePool.getReward
 Sink: tainted_state_changing_external_call in ANCHStakePool.earn
 
@@ -966,7 +142,125 @@ Sink: tainted_state_changing_external_call in ANCHStakePool.earn
 
 ----------------------------------------
 
-## Path #44
+## Path #8
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_314(uint256) -> user.inviteLPAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_erc20_transfer in ANCHStakePool.safeTransfer
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  token(IERC20) := _token(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [772]
+    LNE: token = _token
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in ANCHStakePool.setTriggerNFTPublishUSDTAmount
+Sink: tainted_state_changing_external_call in ANCHStakePool.triggerNFTPublish
+
+### Operations with Source Code Mapping:
+    IR:  setTriggerNFTPublishUSDTAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1346, 1347, 1348]
+    LNE: (No direct expression available)
+
+    IR:  triggerNFTPublishUSDTAmount(uint256) := _triggerNFTPublishUSDTAmount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1347]
+    LNE: triggerNFTPublishUSDTAmount = _triggerNFTPublishUSDTAmount
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in ANCHStakePool.getRewardWithdrawed
+Sink: tainted_state_changing_external_call in ANCHStakePool.getRewardWithdrawed
+
+### Operations with Source Code Mapping:
+    IR:  getRewardWithdrawed
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1227, 1228, 1229, 1230, 1231, 1232, 1233, 1234, 1235]
+    LNE: (No direct expression available)
+
+    IR:  REF_320(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1229]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_320(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1229]
+    LNE: user = userInfo[account]
+
+    IR:  REF_321(uint256) -> user.stakeRewardWithdrawedAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1231]
+    LNE: stakeLPReward = user.stakeRewardWithdrawedAmount
+
+    IR:  stakeLPReward(uint256) := REF_321(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1231]
+    LNE: stakeLPReward = user.stakeRewardWithdrawedAmount
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in ANCHStakePool.setNewMillionReleaseAmount
+Sink: tainted_state_changing_external_call in ANCHStakePool.newMillionReleaseReward
+
+### Operations with Source Code Mapping:
+    IR:  setNewMillionReleaseAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1315, 1316, 1317]
+    LNE: (No direct expression available)
+
+    IR:  newMillionReleaseAmount(uint256) := _newMillionReleaseAmount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1316]
+    LNE: newMillionReleaseAmount = _newMillionReleaseAmount
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in LPTokenWrapper.setProjectAddress
+Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
+
+### Operations with Source Code Mapping:
+    IR:  setProjectAddress
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [613, 614, 615, 616]
+    LNE: (No direct expression available)
+
+    IR:  projectAddress(address) := _projectAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [615]
+    LNE: projectAddress = _projectAddress
+
+----------------------------------------
+
+## Path #14
 Source: external_input_params in ANCHStakePool.getReward
 Sink: tainted_state_changing_external_call in ANCHStakePool.earn
 
@@ -1013,9 +307,24 @@ Sink: tainted_state_changing_external_call in ANCHStakePool.earn
 
 ----------------------------------------
 
-## Path #45
+## Path #15
+Source: external_input_params in LPTokenWrapper.withdraw
+Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
+    LNE: (No direct expression available)
+
+    IR:  TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [644]
+    LNE: lpToken.safeTransfer(msg.sender,amount.div(100).mul(97))
+
+----------------------------------------
+
+## Path #16
 Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_state_changing_external_call in ANCHStakePool.getUSDTAmount
+Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
 
 ### Operations with Source Code Mapping:
     IR:  constructor
@@ -1026,15 +335,105 @@ Sink: tainted_state_changing_external_call in ANCHStakePool.getUSDTAmount
     SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
     LNE: lpToken = _lpToken
 
-    IR:  TMP_287 = CONVERT lpToken to address
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [975]
-    LNE: usdtTotal = IERC20(usdtToken).balanceOf(address(lpToken))
+----------------------------------------
+
+## Path #17
+Source: external_input_params in LPTokenWrapper.deposit
+Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
+    LNE: (No direct expression available)
 
 ----------------------------------------
 
-## Path #46
+## Path #18
+Source: external_input_params in ANCHStakePool.setTriggerNFTPublishUSDTAmount
+Sink: tainted_state_changing_external_call in ANCHStakePool.triggerNFTPublish
+
+### Operations with Source Code Mapping:
+    IR:  setTriggerNFTPublishUSDTAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1346, 1347, 1348]
+    LNE: (No direct expression available)
+
+    IR:  triggerNFTPublishUSDTAmount(uint256) := _triggerNFTPublishUSDTAmount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1347]
+    LNE: triggerNFTPublishUSDTAmount = _triggerNFTPublishUSDTAmount
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in LPTokenWrapper.deposit
+Sink: tainted_state_changing_external_call in ANCHStakePool.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
+    LNE: (No direct expression available)
+
+    IR:  TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_112(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in LPTokenWrapper.withdraw
+Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in ANCHStakePool.bindReferrer
+Sink: tainted_state_changing_external_call in ANCHStakePool.bindReferrer
+
+### Operations with Source Code Mapping:
+    IR:  bindReferrer
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [790, 791, 792, 793, 794, 795, 796, 797, 798, 799, 800, 801, 802, 803, 804]
+    LNE: (No direct expression available)
+
+    IR:  REF_84(ANCHStakePool.UserInfo) -> userInfo[_address]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [800]
+    LNE: userInfo[_address].directNums = userInfo[_address].directNums.add(1)
+
+    IR:  REF_85(uint256) -> REF_84.directNums
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [800]
+    LNE: userInfo[_address].directNums = userInfo[_address].directNums.add(1)
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+    IR:  TMP_321 = CONVERT lpToken to address
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1018]
+    LNE: tokenTotal = IERC20(token).balanceOf(address(lpToken))
+
+----------------------------------------
+
+## Path #23
 Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.earn
 
 ### Operations with Source Code Mapping:
     IR:  getReward
@@ -1061,9 +460,433 @@ Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
     SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
     LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
 
+    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  inviteReward(uint256) := TMP_411(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TUPLE_5(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
+
+    IR:  stakeLPReward(uint256)= UNPACK TUPLE_5 index: 1 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
+
 ----------------------------------------
 
-## Path #47
+## Path #24
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_309(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
+    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
+
+    IR:  TMP_406(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_309', 'accStakeRewardPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
+    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
+
+    IR:  TMP_407(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_406', '1000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
+    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in LPTokenWrapper.deposit
+Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
+    LNE: (No direct expression available)
+
+    IR:  TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_112(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_state_changing_external_call in ANCHStakePool.swapTokenAmount
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+    IR:  TMP_312 = CONVERT lpToken to address
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1004]
+    LNE: tokenTotal = IERC20(token).balanceOf(address(lpToken))
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_erc20_transfer in ANCHStakePool.earnInviteReward
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_314(uint256) -> user.inviteLPAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  inviteReward(uint256) := TMP_411(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TUPLE_3(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1126]
+    LNE: (None,None,inviteReward) = getReward(account)
+
+    IR:  inviteReward(uint256)= UNPACK TUPLE_3 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1126]
+    LNE: (None,None,inviteReward) = getReward(account)
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in ANCHStakePool.swapLPTokenAmount
+Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+
+### Operations with Source Code Mapping:
+    IR:  swapLPTokenAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in LPTokenWrapper.deposit
+Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #31
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_309(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
+    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
+
+----------------------------------------
+
+## Path #32
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_state_changing_external_call in ANCHStakePool.getUSDTAmount
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+    IR:  TMP_287 = CONVERT lpToken to address
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [975]
+    LNE: usdtTotal = IERC20(usdtToken).balanceOf(address(lpToken))
+
+----------------------------------------
+
+## Path #33
+Source: external_input_params in ANCHStakePool.getTotalReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.getTotalReward
+
+### Operations with Source Code Mapping:
+    IR:  getTotalReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
+
+    IR:  stakeLPReward(uint256)= UNPACK TUPLE_6 index: 1 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
+
+----------------------------------------
+
+## Path #34
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_erc20_transfer in ANCHStakePool.earnStakeReward
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_314(uint256) -> user.inviteLPAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  inviteReward(uint256) := TMP_411(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TUPLE_2(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1110]
+    LNE: (None,stakeLPReward,None) = getReward(msg.sender)
+
+    IR:  stakeLPReward(uint256)= UNPACK TUPLE_2 index: 1 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1110]
+    LNE: (None,stakeLPReward,None) = getReward(msg.sender)
+
+----------------------------------------
+
+## Path #35
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_309(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
+    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
+
+    IR:  TMP_406(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_309', 'accStakeRewardPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
+    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
+
+----------------------------------------
+
+## Path #36
+Source: external_input_params in LPTokenWrapper.deposit
+Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #37
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_erc20_transfer in ANCHStakePool.deposit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+----------------------------------------
+
+## Path #38
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+----------------------------------------
+
+## Path #39
+Source: external_input_params in LPTokenWrapper.deposit
+Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
+    LNE: (No direct expression available)
+
+    IR:  TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_112(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #40
+Source: external_input_params in LPTokenWrapper.setProjectAddress
+Sink: tainted_erc20_transfer in ANCHStakePool.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  setProjectAddress
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [613, 614, 615, 616]
+    LNE: (No direct expression available)
+
+    IR:  projectAddress(address) := _projectAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [615]
+    LNE: projectAddress = _projectAddress
+
+----------------------------------------
+
+## Path #41
+Source: external_input_params in LPTokenWrapper.withdraw
+Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
+    LNE: (No direct expression available)
+
+    IR:  TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [644]
+    LNE: lpToken.safeTransfer(msg.sender,amount.div(100).mul(97))
+
+    IR:  TMP_128(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_127', '97'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [644]
+    LNE: lpToken.safeTransfer(msg.sender,amount.div(100).mul(97))
+
+----------------------------------------
+
+## Path #42
+Source: external_input_params in LPTokenWrapper.withdraw
+Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #43
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_erc20_transfer in ANCHStakePool.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+----------------------------------------
+
+## Path #44
 Source: external_input_params in ANCHStakePool.getReward
 Sink: tainted_erc20_transfer in ANCHStakePool.earn
 
@@ -1110,360 +933,7 @@ Sink: tainted_erc20_transfer in ANCHStakePool.earn
 
 ----------------------------------------
 
-## Path #48
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.earnInviteReward
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_314(uint256) -> user.inviteLPAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  inviteReward(uint256) := TMP_411(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
-    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
-
-    IR:  TUPLE_3(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1126]
-    LNE: (None,None,inviteReward) = getReward(account)
-
-    IR:  inviteReward(uint256)= UNPACK TUPLE_3 index: 2 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1126]
-    LNE: (None,None,inviteReward) = getReward(account)
-
-----------------------------------------
-
-## Path #49
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_state_changing_external_call in ANCHStakePool.getTokenAmount
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
-
-    IR:  TMP_301 = CONVERT lpToken to address
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [990]
-    LNE: tokenTotal = IERC20(token).balanceOf(address(lpToken))
-
-----------------------------------------
-
-## Path #50
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_state_changing_external_call in ANCHStakePool.dailyReleaseReward
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lastRebaseTime(uint256) := _starttime(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [777]
-    LNE: lastRebaseTime = _starttime
-
-----------------------------------------
-
-## Path #51
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
-
-----------------------------------------
-
-## Path #52
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_erc20_transfer in ANCHStakePool.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
-
-----------------------------------------
-
-## Path #53
-Source: external_input_params in LPTokenWrapper.setProjectAddress
-Sink: tainted_erc20_transfer in ANCHStakePool.deposit
-
-### Operations with Source Code Mapping:
-    IR:  setProjectAddress
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [613, 614, 615, 616]
-    LNE: (No direct expression available)
-
-    IR:  projectAddress(address) := _projectAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [615]
-    LNE: projectAddress = _projectAddress
-
-----------------------------------------
-
-## Path #54
-Source: external_input_params in ANCHStakePool.constructor
-Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
-    LNE: (No direct expression available)
-
-    IR:  lpToken(IERC20) := _lpToken(IERC20)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
-    LNE: lpToken = _lpToken
-
-----------------------------------------
-
-## Path #55
-Source: external_input_params in ANCHStakePool.setTriggerNFTPublishUSDTAmount
-Sink: tainted_state_changing_external_call in ANCHStakePool.triggerNFTPublish
-
-### Operations with Source Code Mapping:
-    IR:  setTriggerNFTPublishUSDTAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1346, 1347, 1348]
-    LNE: (No direct expression available)
-
-    IR:  triggerNFTPublishUSDTAmount(uint256) := _triggerNFTPublishUSDTAmount(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1347]
-    LNE: triggerNFTPublishUSDTAmount = _triggerNFTPublishUSDTAmount
-
-----------------------------------------
-
-## Path #56
-Source: external_input_params in LPTokenWrapper.withdraw
-Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  withdraw
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
-    LNE: (No direct expression available)
-
-    IR:  TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [644]
-    LNE: lpToken.safeTransfer(msg.sender,amount.div(100).mul(97))
-
-    IR:  TMP_128(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_127', '97'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [644]
-    LNE: lpToken.safeTransfer(msg.sender,amount.div(100).mul(97))
-
-----------------------------------------
-
-## Path #57
-Source: external_input_params in ANCHStakePool.getTotalReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.getTotalReward
-
-### Operations with Source Code Mapping:
-    IR:  getTotalReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246]
-    LNE: (No direct expression available)
-
-    IR:  TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
-
-    IR:  stakeLPReward(uint256)= UNPACK TUPLE_6 index: 1 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
-
-    IR:  TMP_414(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['stakeLPReward', 'REF_326'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1242]
-    LNE: totalStakeLPReward = stakeLPReward.add(user.stakeRewardWithdrawedAmount)
-
-    IR:  totalStakeLPReward(uint256) := TMP_414(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1242]
-    LNE: totalStakeLPReward = stakeLPReward.add(user.stakeRewardWithdrawedAmount)
-
-----------------------------------------
-
-## Path #58
-Source: external_input_params in LPTokenWrapper.withdraw
-Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  withdraw
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #59
-Source: external_input_params in LPTokenWrapper.withdraw
-Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
-
-### Operations with Source Code Mapping:
-    IR:  withdraw
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
-    LNE: (No direct expression available)
-
-    IR:  TMP_124(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [642]
-    LNE: lpToken.safeTransfer(projectAddress,amount.div(100).mul(2))
-
-----------------------------------------
-
-## Path #60
-Source: external_input_params in LPTokenWrapper.deposit
-Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
-
-### Operations with Source Code Mapping:
-    IR:  deposit
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
-    LNE: (No direct expression available)
-
-    IR:  TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [634]
-    LNE: lpToken.safeTransferFrom(msg.sender,projectAddress,amount.div(100).mul(1))
-
-----------------------------------------
-
-## Path #61
-Source: external_input_params in ANCHStakePool.getTotalReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.getTotalReward
-
-### Operations with Source Code Mapping:
-    IR:  getTotalReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246]
-    LNE: (No direct expression available)
-
-    IR:  TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
-
-    IR:  inviteReward(uint256)= UNPACK TUPLE_6 index: 2 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
-    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
-
-----------------------------------------
-
-## Path #62
-Source: external_input_params in ANCHStakePool.bindReferrer
-Sink: tainted_state_changing_external_call in ANCHStakePool.bindReferrer
-
-### Operations with Source Code Mapping:
-    IR:  bindReferrer
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [790, 791, 792, 793, 794, 795, 796, 797, 798, 799, 800, 801, 802, 803, 804]
-    LNE: (No direct expression available)
-
-    IR:  REF_84(ANCHStakePool.UserInfo) -> userInfo[_address]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [800]
-    LNE: userInfo[_address].directNums = userInfo[_address].directNums.add(1)
-
-    IR:  REF_85(uint256) -> REF_84.directNums
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [800]
-    LNE: userInfo[_address].directNums = userInfo[_address].directNums.add(1)
-
-----------------------------------------
-
-## Path #63
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_309(uint256) -> user.amount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
-    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
-
-    IR:  TMP_406(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_309', 'accStakeRewardPerShare'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
-    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
-
-----------------------------------------
-
-## Path #64
-Source: external_input_params in ANCHStakePool.setNewMillionReleaseAmount
-Sink: tainted_state_changing_external_call in ANCHStakePool.newMillionReleaseReward
-
-### Operations with Source Code Mapping:
-    IR:  setNewMillionReleaseAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1315, 1316, 1317]
-    LNE: (No direct expression available)
-
-    IR:  newMillionReleaseAmount(uint256) := _newMillionReleaseAmount(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1316]
-    LNE: newMillionReleaseAmount = _newMillionReleaseAmount
-
-----------------------------------------
-
-## Path #65
-Source: external_input_params in ANCHStakePool.setMillion
-Sink: tainted_state_changing_external_call in ANCHStakePool.newMillionReleaseReward
-
-### Operations with Source Code Mapping:
-    IR:  setMillion
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1329, 1330, 1331, 1332, 1333]
-    LNE: (No direct expression available)
-
-    IR:  MILLION(uint256) := _MILLION(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1331]
-    LNE: MILLION = _MILLION
-
-    IR:  newMillionUSDTAmount(uint256) := MILLION(uint256)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1332]
-    LNE: newMillionUSDTAmount = MILLION
-
-----------------------------------------
-
-## Path #66
-Source: external_input_params in LPTokenWrapper.deposit
-Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
-
-### Operations with Source Code Mapping:
-    IR:  deposit
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #67
+## Path #45
 Source: external_input_params in LPTokenWrapper.deposit
 Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
 
@@ -1478,90 +948,7 @@ Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
 
 ----------------------------------------
 
-## Path #68
-Source: external_input_params in ANCHStakePool.swapLPTokenAmount
-Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
-
-### Operations with Source Code Mapping:
-    IR:  swapLPTokenAmount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027]
-    LNE: (No direct expression available)
-
-    IR:  TMP_324(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['usdtAmount', 'usdtAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
-    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
-
-    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_324', 'tokenTotal'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
-    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
-
-    IR:  TMP_326(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_325', 'usdtTotal'] 
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
-    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
-
-----------------------------------------
-
-## Path #69
-Source: external_input_params in ANCHStakePool.getReward
-Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
-
-### Operations with Source Code Mapping:
-    IR:  getReward
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
-    LNE: (No direct expression available)
-
-    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
-    LNE: user = userInfo[account]
-
-    IR:  REF_309(uint256) -> user.amount
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
-    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
-
-----------------------------------------
-
-## Path #70
-Source: external_input_params in LPTokenWrapper.deposit
-Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
-
-### Operations with Source Code Mapping:
-    IR:  deposit
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #71
-Source: external_input_params in LPTokenWrapper.setProjectAddress
-Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
-
-### Operations with Source Code Mapping:
-    IR:  setProjectAddress
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [613, 614, 615, 616]
-    LNE: (No direct expression available)
-
-    IR:  projectAddress(address) := _projectAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [615]
-    LNE: projectAddress = _projectAddress
-
-----------------------------------------
-
-## Path #72
-Source: external_input_params in LPTokenWrapper.deposit
-Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
-
-### Operations with Source Code Mapping:
-    IR:  deposit
-    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #73
+## Path #46
 Source: external_input_params in ANCHStakePool.getReward
 Sink: tainted_erc20_transfer in ANCHStakePool.earn
 
@@ -1608,9 +995,475 @@ Sink: tainted_erc20_transfer in ANCHStakePool.earn
 
 ----------------------------------------
 
-## Path #74
+## Path #47
+Source: external_input_params in ANCHStakePool.swapLPTokenAmount
+Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+
+### Operations with Source Code Mapping:
+    IR:  swapLPTokenAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027]
+    LNE: (No direct expression available)
+
+    IR:  TMP_324(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['usdtAmount', 'usdtAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
+    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
+
+    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_324', 'tokenTotal'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
+    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
+
+    IR:  TMP_326(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_325', 'usdtTotal'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
+    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
+
+----------------------------------------
+
+## Path #48
 Source: external_input_params in LPTokenWrapper.deposit
-Sink: tainted_state_changing_external_call in ANCHStakePool.withdraw
+Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
+    LNE: (No direct expression available)
+
+    IR:  TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [634]
+    LNE: lpToken.safeTransferFrom(msg.sender,projectAddress,amount.div(100).mul(1))
+
+----------------------------------------
+
+## Path #49
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_state_changing_external_call in ANCHStakePool.getTokenAmount
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+    IR:  TMP_298 = CONVERT lpToken to address
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [989]
+    LNE: usdtTotal = IERC20(usdtToken).balanceOf(address(lpToken))
+
+----------------------------------------
+
+## Path #50
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.earnInviteReward
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_314(uint256) -> user.inviteLPAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  inviteReward(uint256) := TMP_411(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TUPLE_3(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1126]
+    LNE: (None,None,inviteReward) = getReward(account)
+
+    IR:  inviteReward(uint256)= UNPACK TUPLE_3 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1126]
+    LNE: (None,None,inviteReward) = getReward(account)
+
+----------------------------------------
+
+## Path #51
+Source: external_input_params in ANCHStakePool.swapLPTokenAmount
+Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+
+### Operations with Source Code Mapping:
+    IR:  swapLPTokenAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027]
+    LNE: (No direct expression available)
+
+    IR:  TMP_324(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['usdtAmount', 'usdtAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
+    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
+
+----------------------------------------
+
+## Path #52
+Source: external_input_params in ANCHStakePool.getTotalReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.getTotalReward
+
+### Operations with Source Code Mapping:
+    IR:  getTotalReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
+
+    IR:  inviteReward(uint256)= UNPACK TUPLE_6 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
+
+----------------------------------------
+
+## Path #53
+Source: external_input_params in LPTokenWrapper.setProjectAddress
+Sink: tainted_erc20_transfer in ANCHStakePool.deposit
+
+### Operations with Source Code Mapping:
+    IR:  setProjectAddress
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [613, 614, 615, 616]
+    LNE: (No direct expression available)
+
+    IR:  projectAddress(address) := _projectAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [615]
+    LNE: projectAddress = _projectAddress
+
+----------------------------------------
+
+## Path #54
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.earn
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_314(uint256) -> user.inviteLPAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  inviteReward(uint256) := TMP_411(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TUPLE_5(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
+
+    IR:  inviteReward(uint256)= UNPACK TUPLE_5 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
+
+----------------------------------------
+
+## Path #55
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_state_changing_external_call in ANCHStakePool.getTokenAmount
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+    IR:  TMP_301 = CONVERT lpToken to address
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [990]
+    LNE: tokenTotal = IERC20(token).balanceOf(address(lpToken))
+
+----------------------------------------
+
+## Path #56
+Source: external_input_params in LPTokenWrapper.deposit
+Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #57
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_erc20_transfer in ANCHStakePool.dailyReleaseReward
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  token(IERC20) := _token(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [772]
+    LNE: token = _token
+
+    IR:  TMP_274 = CONVERT token to address
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [951]
+    LNE: safeTransfer(address(token),lastTrxReward)
+
+----------------------------------------
+
+## Path #58
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_314(uint256) -> user.inviteLPAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+----------------------------------------
+
+## Path #59
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_314(uint256) -> user.inviteLPAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+----------------------------------------
+
+## Path #60
+Source: external_input_params in ANCHStakePool.setMillion
+Sink: tainted_state_changing_external_call in ANCHStakePool.newMillionReleaseReward
+
+### Operations with Source Code Mapping:
+    IR:  setMillion
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1329, 1330, 1331, 1332, 1333]
+    LNE: (No direct expression available)
+
+    IR:  MILLION(uint256) := _MILLION(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1331]
+    LNE: MILLION = _MILLION
+
+    IR:  newMillionUSDTAmount(uint256) := MILLION(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1332]
+    LNE: newMillionUSDTAmount = MILLION
+
+----------------------------------------
+
+## Path #61
+Source: external_input_params in LPTokenWrapper.withdraw
+Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
+    LNE: (No direct expression available)
+
+    IR:  TMP_124(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [642]
+    LNE: lpToken.safeTransfer(projectAddress,amount.div(100).mul(2))
+
+----------------------------------------
+
+## Path #62
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+----------------------------------------
+
+## Path #63
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_erc20_transfer in ANCHStakePool.earn
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_314(uint256) -> user.inviteLPAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  inviteReward(uint256) := TMP_411(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TUPLE_5(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
+
+    IR:  stakeLPReward(uint256)= UNPACK TUPLE_5 index: 1 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1177]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(msg.sender)
+
+----------------------------------------
+
+## Path #64
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_erc20_transfer in ANCHStakePool.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+----------------------------------------
+
+## Path #65
+Source: external_input_params in Ownable.transferOwnership
+Sink: tainted_erc20_transfer in Ownable.transferOwnership
+
+### Operations with Source Code Mapping:
+    IR:  transferOwnership
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [298, 299, 300]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #66
+Source: external_input_params in LPTokenWrapper.withdraw
+Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [638, 639, 640, 641, 642, 643, 644, 645]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #67
+Source: external_input_params in ANCHStakePool.swapLPTokenAmount
+Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+
+### Operations with Source Code Mapping:
+    IR:  swapLPTokenAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027]
+    LNE: (No direct expression available)
+
+    IR:  TMP_324(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['usdtAmount', 'usdtAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
+    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
+
+    IR:  TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_324', 'tokenTotal'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1022]
+    LNE: Math.sqrt(usdtAmount.mul(usdtAmount).mul(tokenTotal).div(usdtTotal))
+
+----------------------------------------
+
+## Path #68
+Source: external_input_params in LPTokenWrapper.deposit
+Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [631, 632, 633, 634, 635, 636]
+    LNE: (No direct expression available)
+
+    IR:  TMP_118(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [635]
+    LNE: lpToken.safeTransferFrom(msg.sender,address(this),amount.sub(amount.div(100).mul(1)))
+
+----------------------------------------
+
+## Path #69
+Source: external_input_params in LPTokenWrapper.deposit
+Sink: tainted_state_changing_external_call in ANCHStakePool.deposit
 
 ### Operations with Source Code Mapping:
     IR:  deposit
@@ -1624,5 +1477,152 @@ Sink: tainted_state_changing_external_call in ANCHStakePool.withdraw
     IR:  _totalSupply(uint256) := TMP_112(uint256)
     SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [632]
     LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #70
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_309(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
+    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
+
+    IR:  TMP_406(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_309', 'accStakeRewardPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
+    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
+
+    IR:  TMP_407(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_406', '1000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
+    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
+
+    IR:  TMP_408(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_407', 'REF_313'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
+    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
+
+    IR:  stakeLPReward(uint256) := TMP_408(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1219]
+    LNE: stakeLPReward = user.amount.mul(accStakeRewardPerShare).div(1e12).sub(user.stakeRewardDebt)
+
+----------------------------------------
+
+## Path #71
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+    IR:  TMP_318 = CONVERT lpToken to address
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1017]
+    LNE: usdtTotal = IERC20(usdtToken).balanceOf(address(lpToken))
+
+----------------------------------------
+
+## Path #72
+Source: external_input_params in ANCHStakePool.getReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.earnStakeReward
+
+### Operations with Source Code Mapping:
+    IR:  getReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1215, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223]
+    LNE: (No direct expression available)
+
+    IR:  REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1217]
+    LNE: user = userInfo[account]
+
+    IR:  REF_314(uint256) -> user.inviteLPAmount
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  inviteReward(uint256) := TMP_411(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1220]
+    LNE: inviteReward = user.inviteLPAmount.mul(accInviteRewardPerShare).div(1e12).sub(user.inviteRewardDebt)
+
+    IR:  TUPLE_2(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1110]
+    LNE: (None,stakeLPReward,None) = getReward(msg.sender)
+
+    IR:  stakeLPReward(uint256)= UNPACK TUPLE_2 index: 1 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1110]
+    LNE: (None,stakeLPReward,None) = getReward(msg.sender)
+
+----------------------------------------
+
+## Path #73
+Source: external_input_params in ANCHStakePool.constructor
+Sink: tainted_erc20_transfer in ANCHStakePool.deposit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [770, 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788]
+    LNE: (No direct expression available)
+
+    IR:  lpToken(IERC20) := _lpToken(IERC20)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [773]
+    LNE: lpToken = _lpToken
+
+----------------------------------------
+
+## Path #74
+Source: external_input_params in ANCHStakePool.getTotalReward
+Sink: tainted_state_changing_external_call in ANCHStakePool.getTotalReward
+
+### Operations with Source Code Mapping:
+    IR:  getTotalReward
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
+
+    IR:  stakeLPReward(uint256)= UNPACK TUPLE_6 index: 1 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1240]
+    LNE: (None,stakeLPReward,inviteReward) = getReward(account)
+
+    IR:  TMP_414(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['stakeLPReward', 'REF_326'] 
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1242]
+    LNE: totalStakeLPReward = stakeLPReward.add(user.stakeRewardWithdrawedAmount)
+
+    IR:  totalStakeLPReward(uint256) := TMP_414(uint256)
+    SRC: File 'pmdetector/flattened_contracts/211625ab_ANCH Project/flattened.sol', Lines [1242]
+    LNE: totalStakeLPReward = stakeLPReward.add(user.stakeRewardWithdrawedAmount)
 
 ----------------------------------------

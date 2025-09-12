@@ -181,21 +181,21 @@ Path #1:
     12. currentDelegate(address) := REF_36(address)
 
 Path #2:
-  Source: external_input_params in Comp.transferFrom
-  Sink: tainted_erc20_transfer in Comp.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #3:
   Source: external_input_params in Comp.transfer
   Sink: tainted_erc20_transfer in Comp.transfer
   Path Operations:
     1. transfer
 
-Path #4:
+Path #3:
   Source: external_input_params in Comp.transferFrom
   Sink: tainted_erc20_transfer in Comp._transferTokens
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, Comp._transferTokens(address,address,uint96)(src,dst,amount)
     3. REF_43(address) -> delegates[src]
+
+Path #4:
+  Source: external_input_params in Comp.transferFrom
+  Sink: tainted_erc20_transfer in Comp.transferFrom
+  Path Operations:
+    1. transferFrom

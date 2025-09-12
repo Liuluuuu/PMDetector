@@ -1,2 +1,0 @@
-[console_scripts]
-pmdetector = pmdetector.main:main

@@ -2,23 +2,23 @@
 Found 4 tainted paths.
 
 ## Path #1
-Source: external_input_params in EPNS.transfer
-Sink: tainted_erc20_transfer in EPNS.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/d75b735e_EPNS/flattened.sol', Lines [176, 177, 178, 179, 180]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #2
 Source: external_input_params in EPNS.transferFrom
 Sink: tainted_erc20_transfer in EPNS.transferFrom
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/d75b735e_EPNS/flattened.sol', Lines [189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in EPNS.transfer
+Sink: tainted_erc20_transfer in EPNS.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/d75b735e_EPNS/flattened.sol', Lines [176, 177, 178, 179, 180]
     LNE: (No direct expression available)
 
 ----------------------------------------

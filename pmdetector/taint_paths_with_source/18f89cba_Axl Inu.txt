@@ -2,6 +2,17 @@
 Found 3 tainted paths.
 
 ## Path #1
+Source: external_input_params in AXLToken.transfer
+Sink: tainted_erc20_transfer in AXLToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/18f89cba_Axl Inu/flattened.sol', Lines [534, 535, 536, 537]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
 Source: external_input_params in AXLToken.transferFrom
 Sink: tainted_erc20_transfer in AXLToken._transfer
 
@@ -13,17 +24,6 @@ Sink: tainted_erc20_transfer in AXLToken._transfer
     IR:  INTERNAL_CALL, AXLToken._transfer(address,address,uint256)(sender,recipient,amount)
     SRC: File 'pmdetector/flattened_contracts/18f89cba_Axl Inu/flattened.sol', Lines [578]
     LNE: _transfer(sender,recipient,amount)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in AXLToken.transfer
-Sink: tainted_erc20_transfer in AXLToken.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/18f89cba_Axl Inu/flattened.sol', Lines [534, 535, 536, 537]
-    LNE: (No direct expression available)
 
 ----------------------------------------
 

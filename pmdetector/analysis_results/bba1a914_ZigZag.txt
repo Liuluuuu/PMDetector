@@ -141,14 +141,14 @@ Path #2:
     2. INTERNAL_CALL, ZigZagToken._transfer(address,address,uint256)(from,to,amount)
 
 Path #3:
-  Source: external_input_params in ZigZagToken.transfer
-  Sink: tainted_erc20_transfer in ZigZagToken.transfer
-  Path Operations:
-    1. transfer
-
-Path #4:
   Source: external_input_params in ZigZagToken.transferFrom
   Sink: tainted_erc20_transfer in ZigZagToken._transfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, ZigZagToken._transfer(address,address,uint256)(from,to,amount)
+
+Path #4:
+  Source: external_input_params in ZigZagToken.transfer
+  Sink: tainted_erc20_transfer in ZigZagToken.transfer
+  Path Operations:
+    1. transfer

@@ -530,44 +530,44 @@ Sink #26: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in BitindiChain.transferOwner
-  Sink: tainted_state_changing_external_call in BitindiChain.processRewards
-  Path Operations:
-    1. transferOwner
-    2. TMP_40(bool) = INTERNAL_CALL, BitindiChain.finalizeTransfer(address,address,uint256,bool,bool,bool)(_owner,newOwner,TMP_39,False,False,True)
-    3. INTERNAL_CALL, BitindiChain.processRewards(address,address)(from,to)
-
-Path #2:
-  Source: external_input_params in BitindiChain.getUserUnpaidEarnings
-  Sink: tainted_state_changing_external_call in BitindiChain.getUserUnpaidEarnings
-  Path Operations:
-    1. getUserUnpaidEarnings
-
-Path #3:
-  Source: external_input_params in BitindiChain.setLpPair
-  Sink: tainted_state_changing_external_call in BitindiChain.setLpPair
-  Path Operations:
-    1. setLpPair
-
-Path #4:
-  Source: external_input_params in BitindiChain.setReflectorSettings
-  Sink: tainted_state_changing_external_call in BitindiChain.processRewards
-  Path Operations:
-    1. setReflectorSettings
-    2. reflectorGas(uint256) := gas(uint256)
-
-Path #5:
   Source: external_input_params in BitindiChain.setRewardsProperties
   Sink: tainted_state_changing_external_call in BitindiChain.setRewardsProperties
   Path Operations:
     1. setRewardsProperties
 
-Path #6:
-  Source: external_input_params in BitindiChain.transferFrom
-  Sink: tainted_erc20_transfer in BitindiChain._transfer
+Path #2:
+  Source: external_input_params in BitindiChain.getUserInfo
+  Sink: tainted_state_changing_external_call in BitindiChain.getUserInfo
   Path Operations:
-    1. transferFrom
-    2. TMP_81(bool) = INTERNAL_CALL, BitindiChain._transfer(address,address,uint256)(sender,recipient,amount)
+    1. getUserInfo
+
+Path #3:
+  Source: external_input_params in BitindiChain.setNewRouter
+  Sink: tainted_state_changing_external_call in BitindiChain.constructor
+  Path Operations:
+    1. setNewRouter
+    2. TMP_84 = CONVERT newRouter to IRouter02
+    3. _newRouter(IRouter02) := TMP_84(IRouter02)
+    4. dexRouter(IRouter02) := _newRouter(IRouter02)
+    5. TMP_18(address) = HIGH_LEVEL_CALL, dest:dexRouter(IRouter02), function:WETH, arguments:[]  
+
+Path #4:
+  Source: external_input_params in BitindiChain.setDividendExcluded
+  Sink: tainted_state_changing_external_call in BitindiChain.setDividendExcluded
+  Path Operations:
+    1. setDividendExcluded
+
+Path #5:
+  Source: external_input_params in BitindiChain.setLpPair
+  Sink: tainted_state_changing_external_call in BitindiChain.setLpPair
+  Path Operations:
+    1. setLpPair
+
+Path #6:
+  Source: external_input_params in BitindiChain.transfer
+  Sink: tainted_erc20_transfer in BitindiChain.transfer
+  Path Operations:
+    1. transfer
 
 Path #7:
   Source: external_input_params in BitindiChain.transferOwner
@@ -578,18 +578,58 @@ Path #7:
     3. INTERNAL_CALL, BitindiChain.processRewards(address,address)(from,to)
 
 Path #8:
-  Source: external_input_params in BitindiChain.setDividendExcluded
-  Sink: tainted_state_changing_external_call in BitindiChain.setDividendExcluded
+  Source: external_input_params in BitindiChain.setReflectorSettings
+  Sink: tainted_state_changing_external_call in BitindiChain.processRewards
   Path Operations:
-    1. setDividendExcluded
+    1. setReflectorSettings
+    2. reflectorGas(uint256) := gas(uint256)
 
 Path #9:
+  Source: external_input_params in BitindiChain.setLpPair
+  Sink: tainted_state_changing_external_call in BitindiChain.setLpPair
+  Path Operations:
+    1. setLpPair
+
+Path #10:
+  Source: external_input_params in BitindiChain.transferFrom
+  Sink: tainted_erc20_transfer in BitindiChain.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #11:
+  Source: external_input_params in BitindiChain.transferFrom
+  Sink: tainted_erc20_transfer in BitindiChain._transfer
+  Path Operations:
+    1. transferFrom
+    2. TMP_81(bool) = INTERNAL_CALL, BitindiChain._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #12:
+  Source: external_input_params in BitindiChain.transferOwner
+  Sink: tainted_state_changing_external_call in BitindiChain.processRewards
+  Path Operations:
+    1. transferOwner
+    2. TMP_40(bool) = INTERNAL_CALL, BitindiChain.finalizeTransfer(address,address,uint256,bool,bool,bool)(_owner,newOwner,TMP_39,False,False,True)
+    3. INTERNAL_CALL, BitindiChain.processRewards(address,address)(from,to)
+
+Path #13:
+  Source: external_input_params in BitindiChain.getUserRealizedGains
+  Sink: tainted_state_changing_external_call in BitindiChain.getUserRealizedGains
+  Path Operations:
+    1. getUserRealizedGains
+
+Path #14:
   Source: external_input_params in BitindiChain.removeSniper
   Sink: tainted_erc20_transfer in BitindiChain.removeSniper
   Path Operations:
     1. removeSniper
 
-Path #10:
+Path #15:
+  Source: external_input_params in BitindiChain.setProtectionSettings
+  Sink: tainted_state_changing_external_call in BitindiChain.setProtectionSettings
+  Path Operations:
+    1. setProtectionSettings
+
+Path #16:
   Source: external_input_params in BitindiChain.setNewRouter
   Sink: tainted_state_changing_external_call in BitindiChain.setNewRouter
   Path Operations:
@@ -598,13 +638,35 @@ Path #10:
     3. _newRouter(IRouter02) := TMP_84(IRouter02)
     4. TMP_88(address) = HIGH_LEVEL_CALL, dest:_newRouter(IRouter02), function:WETH, arguments:[]  
 
-Path #11:
-  Source: external_input_params in BitindiChain.setLpPair
-  Sink: tainted_state_changing_external_call in BitindiChain.setLpPair
+Path #17:
+  Source: external_input_params in BitindiChain.getUserUnpaidEarnings
+  Sink: tainted_state_changing_external_call in BitindiChain.getUserUnpaidEarnings
   Path Operations:
-    1. setLpPair
+    1. getUserUnpaidEarnings
 
-Path #12:
+Path #18:
+  Source: external_input_params in BitindiChain.setDividendExcluded
+  Sink: tainted_state_changing_external_call in BitindiChain.setDividendExcluded
+  Path Operations:
+    1. setDividendExcluded
+
+Path #19:
+  Source: external_input_params in BitindiChain.multiSendTokens
+  Sink: tainted_erc20_transfer in BitindiChain.multiSendTokens
+  Path Operations:
+    1. multiSendTokens
+    2. REF_112(address) -> accounts[i]
+
+Path #20:
+  Source: external_input_params in BitindiChain.setNewRouter
+  Sink: tainted_state_changing_external_call in BitindiChain.setNewRouter
+  Path Operations:
+    1. setNewRouter
+    2. TMP_84 = CONVERT newRouter to IRouter02
+    3. _newRouter(IRouter02) := TMP_84(IRouter02)
+    4. TMP_95(address) = HIGH_LEVEL_CALL, dest:_newRouter(IRouter02), function:WETH, arguments:[]  
+
+Path #21:
   Source: external_input_params in BitindiChain.setNewRouter
   Sink: tainted_state_changing_external_call in BitindiChain.enableTrading
   Path Operations:
@@ -615,65 +677,3 @@ Path #12:
     5. TMP_93 = CONVERT TMP_92 to IFactoryV2
     6. TMP_96(address) = HIGH_LEVEL_CALL, dest:TMP_93(IFactoryV2), function:createPair, arguments:['TMP_94', 'TMP_95']  
     7. lpPair(address) := TMP_96(address)
-
-Path #13:
-  Source: external_input_params in BitindiChain.getUserRealizedGains
-  Sink: tainted_state_changing_external_call in BitindiChain.getUserRealizedGains
-  Path Operations:
-    1. getUserRealizedGains
-
-Path #14:
-  Source: external_input_params in BitindiChain.transfer
-  Sink: tainted_erc20_transfer in BitindiChain.transfer
-  Path Operations:
-    1. transfer
-
-Path #15:
-  Source: external_input_params in BitindiChain.setNewRouter
-  Sink: tainted_state_changing_external_call in BitindiChain.setNewRouter
-  Path Operations:
-    1. setNewRouter
-    2. TMP_84 = CONVERT newRouter to IRouter02
-    3. _newRouter(IRouter02) := TMP_84(IRouter02)
-    4. TMP_95(address) = HIGH_LEVEL_CALL, dest:_newRouter(IRouter02), function:WETH, arguments:[]  
-
-Path #16:
-  Source: external_input_params in BitindiChain.multiSendTokens
-  Sink: tainted_erc20_transfer in BitindiChain.multiSendTokens
-  Path Operations:
-    1. multiSendTokens
-    2. REF_112(address) -> accounts[i]
-
-Path #17:
-  Source: external_input_params in BitindiChain.setNewRouter
-  Sink: tainted_state_changing_external_call in BitindiChain.constructor
-  Path Operations:
-    1. setNewRouter
-    2. TMP_84 = CONVERT newRouter to IRouter02
-    3. _newRouter(IRouter02) := TMP_84(IRouter02)
-    4. dexRouter(IRouter02) := _newRouter(IRouter02)
-    5. TMP_18(address) = HIGH_LEVEL_CALL, dest:dexRouter(IRouter02), function:WETH, arguments:[]  
-
-Path #18:
-  Source: external_input_params in BitindiChain.transferFrom
-  Sink: tainted_erc20_transfer in BitindiChain.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #19:
-  Source: external_input_params in BitindiChain.getUserInfo
-  Sink: tainted_state_changing_external_call in BitindiChain.getUserInfo
-  Path Operations:
-    1. getUserInfo
-
-Path #20:
-  Source: external_input_params in BitindiChain.setDividendExcluded
-  Sink: tainted_state_changing_external_call in BitindiChain.setDividendExcluded
-  Path Operations:
-    1. setDividendExcluded
-
-Path #21:
-  Source: external_input_params in BitindiChain.setProtectionSettings
-  Sink: tainted_state_changing_external_call in BitindiChain.setProtectionSettings
-  Path Operations:
-    1. setProtectionSettings

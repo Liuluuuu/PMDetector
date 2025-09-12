@@ -2,17 +2,6 @@
 Found 5 tainted paths.
 
 ## Path #1
-Source: external_input_params in ProxyERC20.transfer
-Sink: tainted_erc20_transfer in ProxyERC20.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/b0ee8a43_PERI Finance/flattened.sol', Lines [335, 336, 337, 338, 339, 340, 341, 342, 343, 344]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #2
 Source: external_input_params in ProxyERC20.transferFrom
 Sink: tainted_erc20_transfer in ProxyERC20.transferFrom
 
@@ -23,18 +12,7 @@ Sink: tainted_erc20_transfer in ProxyERC20.transferFrom
 
 ----------------------------------------
 
-## Path #3
-Source: external_input_params in ProxyERC20.allowance
-Sink: tainted_state_changing_external_call in ProxyERC20.allowance
-
-### Operations with Source Code Mapping:
-    IR:  allowance
-    SRC: File 'pmdetector/flattened_contracts/b0ee8a43_PERI Finance/flattened.sol', Lines [325, 326, 327, 328]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #4
+## Path #2
 Source: external_input_params in ProxyERC20.approve
 Sink: tainted_state_changing_external_call in ProxyERC20.approve
 
@@ -45,13 +23,35 @@ Sink: tainted_state_changing_external_call in ProxyERC20.approve
 
 ----------------------------------------
 
-## Path #5
+## Path #3
+Source: external_input_params in ProxyERC20.transfer
+Sink: tainted_erc20_transfer in ProxyERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/b0ee8a43_PERI Finance/flattened.sol', Lines [335, 336, 337, 338, 339, 340, 341, 342, 343, 344]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #4
 Source: external_input_params in ProxyERC20.balanceOf
 Sink: tainted_state_changing_external_call in ProxyERC20.balanceOf
 
 ### Operations with Source Code Mapping:
     IR:  balanceOf
     SRC: File 'pmdetector/flattened_contracts/b0ee8a43_PERI Finance/flattened.sol', Lines [314, 315, 316, 317]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in ProxyERC20.allowance
+Sink: tainted_state_changing_external_call in ProxyERC20.allowance
+
+### Operations with Source Code Mapping:
+    IR:  allowance
+    SRC: File 'pmdetector/flattened_contracts/b0ee8a43_PERI Finance/flattened.sol', Lines [325, 326, 327, 328]
     LNE: (No direct expression available)
 
 ----------------------------------------

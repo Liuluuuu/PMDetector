@@ -3,28 +3,6 @@ Found 3 tainted paths.
 
 ## Path #1
 Source: external_input_params in UpgradeabilityProxy.constructor
-Sink: tainted_state_changing_external_call in UpgradeabilityProxy.constructor
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/e5a9cd5f_APWine/flattened.sol', Lines [275, 276, 277, 278, 279, 280, 281, 282]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in AdminUpgradeabilityProxy.upgradeToAndCall
-Sink: tainted_state_changing_external_call in AdminUpgradeabilityProxy.upgradeToAndCall
-
-### Operations with Source Code Mapping:
-    IR:  upgradeToAndCall
-    SRC: File 'pmdetector/flattened_contracts/e5a9cd5f_APWine/flattened.sol', Lines [418, 419, 420, 421, 422]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in UpgradeabilityProxy.constructor
 Sink: tainted_state_changing_external_call in UpgradeabilityProxy._setImplementation
 
 ### Operations with Source Code Mapping:
@@ -35,5 +13,27 @@ Sink: tainted_state_changing_external_call in UpgradeabilityProxy._setImplementa
     IR:  INTERNAL_CALL, UpgradeabilityProxy._setImplementation(address)(_logic)
     SRC: File 'pmdetector/flattened_contracts/e5a9cd5f_APWine/flattened.sol', Lines [277]
     LNE: _setImplementation(_logic)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in UpgradeabilityProxy.constructor
+Sink: tainted_state_changing_external_call in UpgradeabilityProxy.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/e5a9cd5f_APWine/flattened.sol', Lines [275, 276, 277, 278, 279, 280, 281, 282]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in AdminUpgradeabilityProxy.upgradeToAndCall
+Sink: tainted_state_changing_external_call in AdminUpgradeabilityProxy.upgradeToAndCall
+
+### Operations with Source Code Mapping:
+    IR:  upgradeToAndCall
+    SRC: File 'pmdetector/flattened_contracts/e5a9cd5f_APWine/flattened.sol', Lines [418, 419, 420, 421, 422]
+    LNE: (No direct expression available)
 
 ----------------------------------------

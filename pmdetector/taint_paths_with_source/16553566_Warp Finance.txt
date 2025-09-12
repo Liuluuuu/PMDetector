@@ -2,108 +2,6 @@
 Found 72 tainted paths.
 
 ## Path #1
-Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
-
-### Operations with Source Code Mapping:
-    IR:  viewMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
-    LNE: (No direct expression available)
-
-    IR:  TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
-    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
-
-    IR:  collateralValue(uint256) := TMP_408(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
-    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
-
-    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1303]
-    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
-
-    IR:  leftoverCollateral(uint256) := TMP_411(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1303]
-    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
-
-    IR:  TMP_413(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['leftoverCollateral', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1305]
-    LNE: leftoverCollateral.mul(1e18).div(lpValue)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
-
-### Operations with Source Code Mapping:
-    IR:  updateJumpRateModel
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
-    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-    IR:  kink(uint256) := kink_(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
-    LNE: kink = kink_
-
-    IR:  TMP_84(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
-    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.viewTotalBorrowedValue
-
-### Operations with Source Code Mapping:
-    IR:  viewMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
-    LNE: (No direct expression available)
-
-    IR:  TMP_407(uint256) = INTERNAL_CALL, WarpControl.viewTotalBorrowedValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1297]
-    LNE: borrowedTotal = viewTotalBorrowedValue(account)
-
-----------------------------------------
-
-## Path #4
-Source: external_input_params in WarpControl.liquidateAccount
-Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
-
-### Operations with Source Code Mapping:
-    IR:  liquidateAccount
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1600, 1601, 1602, 1603, 1604, 1605, 1606, 1607, 1608, 1609, 1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1631, 1632, 1633, 1634, 1635, 1636, 1637, 1638, 1639, 1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649, 1650]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #5
-Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
-
-### Operations with Source Code Mapping:
-    IR:  getMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #6
-Source: external_input_params in WarpControl.borrowSC
-Sink: tainted_state_changing_external_call in WarpControl.borrowSC
-
-### Operations with Source Code Mapping:
-    IR:  borrowSC
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1574, 1575, 1576, 1577, 1578, 1579, 1580, 1581, 1582, 1583, 1584, 1585, 1586, 1587, 1588, 1589, 1590, 1591, 1592, 1593, 1594]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #7
 Source: external_input_params in BaseJumpRateModelV2.utilizationRate
 Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
 
@@ -136,32 +34,28 @@ Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateI
     SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [537]
     LNE: excessUtil = util.sub(kink)
 
-    IR:  TMP_53(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['excessUtil', 'jumpMultiplierPerBlock'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [538]
-    LNE: excessUtil.mul(jumpMultiplierPerBlock).div(1e18).add(normalRate)
-
 ----------------------------------------
 
-## Path #8
-Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
+## Path #2
+Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
 
 ### Operations with Source Code Mapping:
-    IR:  getMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
+    IR:  getSupplyRate
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [550, 551, 552, 553, 554, 555]
     LNE: (No direct expression available)
 
-    IR:  TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
-    LNE: collateralValue = getTotalAvailableCollateralValue(account)
+    IR:  TMP_61(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [554]
+    LNE: utilizationRate(cash,borrows,reserves).mul(rateToPool).div(1e18)
 
-    IR:  collateralValue(uint256) := TMP_400(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
-    LNE: collateralValue = getTotalAvailableCollateralValue(account)
+    IR:  TMP_62(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_61', 'rateToPool'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [554]
+    LNE: utilizationRate(cash,borrows,reserves).mul(rateToPool).div(1e18)
 
 ----------------------------------------
 
-## Path #9
+## Path #3
 Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
 Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
 
@@ -178,36 +72,135 @@ Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
     SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [552]
     LNE: borrowRate = getBorrowRateInternal(cash,borrows,reserves)
 
-    IR:  TMP_59(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrowRate', 'oneMinusReserveFactor'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [553]
-    LNE: rateToPool = borrowRate.mul(oneMinusReserveFactor).div(1e18)
+----------------------------------------
+
+## Path #4
+Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
+
+### Operations with Source Code Mapping:
+    IR:  utilizationRate
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
+    LNE: (No direct expression available)
+
+    IR:  TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
+    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
+
+    IR:  TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
+    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
+
+    IR:  TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
+    LNE: util = utilizationRate(cash,borrows,reserves)
+
+    IR:  util(uint256) := TMP_44(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
+    LNE: util = utilizationRate(cash,borrows,reserves)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
+
+### Operations with Source Code Mapping:
+    IR:  getMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
+    LNE: (No direct expression available)
+
+    IR:  TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
+    LNE: collateralValue = getTotalAvailableCollateralValue(account)
+
+    IR:  collateralValue(uint256) := TMP_400(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
+    LNE: collateralValue = getTotalAvailableCollateralValue(account)
+
+    IR:  TMP_403(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1281]
+    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
+
+    IR:  leftoverCollateral(uint256) := TMP_403(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1281]
+    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
+
+    IR:  TMP_405(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['leftoverCollateral', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1283]
+    LNE: leftoverCollateral.mul(1e18).div(lpValue)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
+
+### Operations with Source Code Mapping:
+    IR:  viewMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    LNE: (No direct expression available)
+
+    IR:  TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
+    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
+
+### Operations with Source Code Mapping:
+    IR:  getMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
+    LNE: (No direct expression available)
+
+    IR:  TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
+    LNE: collateralValue = getTotalAvailableCollateralValue(account)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.calcCollateralRequired
+
+### Operations with Source Code Mapping:
+    IR:  getMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
+    LNE: (No direct expression available)
+
+    IR:  TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1275]
+    LNE: borrowedTotal = getTotalBorrowedValue(account)
+
+    IR:  borrowedTotal(uint256) := TMP_399(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1275]
+    LNE: borrowedTotal = getTotalBorrowedValue(account)
+
+    IR:  TMP_401(uint256) = INTERNAL_CALL, WarpControl.calcCollateralRequired(uint256)(borrowedTotal)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1277]
+    LNE: requiredCollateral = calcCollateralRequired(borrowedTotal)
+
+    IR:  TMP_458(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_borrowAmount', '3'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1540]
+    LNE: _borrowAmount.mul(3).div(2)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in WarpControl.manuallyCreateOracles
+Sink: tainted_state_changing_external_call in WarpControl.manuallyCreateOracles
+
+### Operations with Source Code Mapping:
+    IR:  manuallyCreateOracles
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1194, 1195, 1196]
+    LNE: (No direct expression available)
 
 ----------------------------------------
 
 ## Path #10
-Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-
-### Operations with Source Code Mapping:
-    IR:  updateJumpRateModel
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
-    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-    IR:  kink(uint256) := kink_(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
-    LNE: kink = kink_
-
-    IR:  TMP_49(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
-    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
-
-----------------------------------------
-
-## Path #11
 Source: external_input_params in WarpControl.constructor
 Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
 
@@ -246,144 +239,41 @@ Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
 
 ----------------------------------------
 
-## Path #12
+## Path #11
 Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.calcCollateralRequired
 
 ### Operations with Source Code Mapping:
     IR:  getMaxWithdrawAllowed
     SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
     LNE: (No direct expression available)
 
-    IR:  TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
-    LNE: collateralValue = getTotalAvailableCollateralValue(account)
+    IR:  TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1275]
+    LNE: borrowedTotal = getTotalBorrowedValue(account)
 
-    IR:  collateralValue(uint256) := TMP_400(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
-    LNE: collateralValue = getTotalAvailableCollateralValue(account)
+    IR:  borrowedTotal(uint256) := TMP_399(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1275]
+    LNE: borrowedTotal = getTotalBorrowedValue(account)
 
-    IR:  TMP_403(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1281]
-    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
+    IR:  TMP_401(uint256) = INTERNAL_CALL, WarpControl.calcCollateralRequired(uint256)(borrowedTotal)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1277]
+    LNE: requiredCollateral = calcCollateralRequired(borrowedTotal)
 
-    IR:  leftoverCollateral(uint256) := TMP_403(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1281]
-    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
+----------------------------------------
 
-    IR:  TMP_405(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['leftoverCollateral', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1283]
-    LNE: leftoverCollateral.mul(1e18).div(lpValue)
+## Path #12
+Source: external_input_params in WarpControl.getPriceOfCollateral
+Sink: tainted_state_changing_external_call in WarpControl.getPriceOfCollateral
+
+### Operations with Source Code Mapping:
+    IR:  getPriceOfCollateral
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1392, 1393, 1394]
+    LNE: (No direct expression available)
 
 ----------------------------------------
 
 ## Path #13
-Source: external_input_params in WarpControl.createNewLPVault
-Sink: tainted_state_changing_external_call in WarpControl.createNewLPVault
-
-### Operations with Source Code Mapping:
-    IR:  createNewLPVault
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #14
-Source: external_input_params in WarpControl.startUpgradeTimer
-Sink: tainted_state_changing_external_call in WarpControl.upgradeWarp
-
-### Operations with Source Code Mapping:
-    IR:  startUpgradeTimer
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1692, 1693, 1694, 1695]
-    LNE: (No direct expression available)
-
-    IR:  newWarpControl(address) := _newWarpControl(address)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1693]
-    LNE: newWarpControl = _newWarpControl
-
-----------------------------------------
-
-## Path #15
-Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
-
-### Operations with Source Code Mapping:
-    IR:  updateJumpRateModel
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
-    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-----------------------------------------
-
-## Path #16
-Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
-
-### Operations with Source Code Mapping:
-    IR:  viewMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #17
-Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
-
-### Operations with Source Code Mapping:
-    IR:  updateJumpRateModel
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
-    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-----------------------------------------
-
-## Path #18
-Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
-
-### Operations with Source Code Mapping:
-    IR:  getMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
-    LNE: (No direct expression available)
-
-    IR:  TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
-    LNE: collateralValue = getTotalAvailableCollateralValue(account)
-
-    IR:  TMP_419(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1330]
-    LNE: accountCollateral = vault.collateralOfAccount(_account)
-
-    IR:  accountCollateral(uint256) := TMP_419(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1330]
-    LNE: accountCollateral = vault.collateralOfAccount(_account)
-
-    IR:  TMP_420(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1334]
-    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
-
-    IR:  accountAssetsValue(uint256) := TMP_420(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1334]
-    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
-
-    IR:  TMP_421(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1336]
-    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
-
-    IR:  totalCollateral(uint256) := TMP_421(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1336]
-    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
-
-----------------------------------------
-
-## Path #19
 Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
 Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
 
@@ -392,19 +282,22 @@ Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
     SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [550, 551, 552, 553, 554, 555]
     LNE: (No direct expression available)
 
-    IR:  TMP_58(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.getBorrowRateInternal(uint256,uint256,uint256)(cash,borrows,reserves)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [552]
-    LNE: borrowRate = getBorrowRateInternal(cash,borrows,reserves)
+----------------------------------------
 
-    IR:  borrowRate(uint256) := TMP_58(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [552]
-    LNE: borrowRate = getBorrowRateInternal(cash,borrows,reserves)
+## Path #14
+Source: external_input_params in WarpControl.viewPriceOfToken
+Sink: tainted_state_changing_external_call in WarpControl.viewPriceOfToken
+
+### Operations with Source Code Mapping:
+    IR:  viewPriceOfToken
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1406, 1407, 1408]
+    LNE: (No direct expression available)
 
 ----------------------------------------
 
-## Path #20
+## Path #15
 Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
 
 ### Operations with Source Code Mapping:
     IR:  updateJumpRateModel
@@ -415,59 +308,43 @@ Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRate
     SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
     LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
 
-    IR:  TMP_65(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplierPerYear', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [566]
-    LNE: multiplierPerBlock = (multiplierPerYear.mul(1e18)).div(blocksPerYear.mul(kink_))
+    IR:  kink(uint256) := kink_(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
+    LNE: kink = kink_
+
+    IR:  TMP_49(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
+    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
 
 ----------------------------------------
 
-## Path #21
-Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
+## Path #16
+Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.getTotalBorrowedValue
 
 ### Operations with Source Code Mapping:
-    IR:  utilizationRate
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
+    IR:  getMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
     LNE: (No direct expression available)
 
-    IR:  TMP_41(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['cash', 'borrows'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
-    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
+    IR:  TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1275]
+    LNE: borrowedTotal = getTotalBorrowedValue(account)
 
 ----------------------------------------
 
-## Path #22
-Source: external_input_params in WarpControl.getBorrowLimit
-Sink: tainted_state_changing_external_call in WarpControl.borrowSC
+## Path #17
+Source: external_input_params in WarpControl.getPriceOfToken
+Sink: tainted_state_changing_external_call in WarpControl.getPriceOfToken
 
 ### Operations with Source Code Mapping:
-    IR:  getBorrowLimit
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1548, 1549, 1550, 1551, 1552, 1553, 1554]
+    IR:  getPriceOfToken
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1419, 1420, 1421]
     LNE: (No direct expression available)
-
-    IR:  TMP_460(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(_account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1549, 1550, 1551]
-    LNE: availibleCollateralValue = getTotalAvailableCollateralValue(_account)
-
-    IR:  availibleCollateralValue(uint256) := TMP_460(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1549, 1550, 1551]
-    LNE: availibleCollateralValue = getTotalAvailableCollateralValue(_account)
-
-    IR:  TMP_461(uint256) = INTERNAL_CALL, WarpControl.calcBorrowLimit(uint256)(availibleCollateralValue)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1553]
-    LNE: calcBorrowLimit(availibleCollateralValue)
-
-    IR:  TMP_465(uint256) = INTERNAL_CALL, WarpControl.getBorrowLimit(address)(msg.sender)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1576]
-    LNE: borrowLimitInUSDC = getBorrowLimit(msg.sender)
-
-    IR:  borrowLimitInUSDC(uint256) := TMP_465(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1576]
-    LNE: borrowLimitInUSDC = getBorrowLimit(msg.sender)
 
 ----------------------------------------
 
-## Path #23
+## Path #18
 Source: external_input_params in BaseJumpRateModelV2.utilizationRate
 Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
 
@@ -496,393 +373,9 @@ Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateI
     SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [534]
     LNE: util.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
 
-    IR:  TMP_47(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_46', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [534]
-    LNE: util.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
-
 ----------------------------------------
 
-## Path #24
-Source: external_input_params in WarpControl.createNewLPVault
-Sink: tainted_state_changing_external_call in WarpControl.createNewLPVault
-
-### Operations with Source Code Mapping:
-    IR:  createNewLPVault
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #25
-Source: external_input_params in WarpControl.getPriceOfToken
-Sink: tainted_state_changing_external_call in WarpControl.getPriceOfToken
-
-### Operations with Source Code Mapping:
-    IR:  getPriceOfToken
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1419, 1420, 1421]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #26
-Source: external_input_params in WarpControl.transferWarpTeam
-Sink: tainted_state_changing_external_call in WarpControl.transferWarpTeam
-
-### Operations with Source Code Mapping:
-    IR:  transferWarpTeam
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1724, 1725, 1726, 1727, 1728, 1729, 1730, 1731]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #27
-Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
-
-### Operations with Source Code Mapping:
-    IR:  getSupplyRate
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [550, 551, 552, 553, 554, 555]
-    LNE: (No direct expression available)
-
-    IR:  TMP_61(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [554]
-    LNE: utilizationRate(cash,borrows,reserves).mul(rateToPool).div(1e18)
-
-    IR:  TMP_62(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_61', 'rateToPool'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [554]
-    LNE: utilizationRate(cash,borrows,reserves).mul(rateToPool).div(1e18)
-
-----------------------------------------
-
-## Path #28
-Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
-
-### Operations with Source Code Mapping:
-    IR:  getMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
-    LNE: (No direct expression available)
-
-    IR:  TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
-    LNE: collateralValue = getTotalAvailableCollateralValue(account)
-
-    IR:  collateralValue(uint256) := TMP_400(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
-    LNE: collateralValue = getTotalAvailableCollateralValue(account)
-
-    IR:  TMP_403(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1281]
-    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
-
-    IR:  leftoverCollateral(uint256) := TMP_403(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1281]
-    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
-
-----------------------------------------
-
-## Path #29
-Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
-
-### Operations with Source Code Mapping:
-    IR:  getSupplyRate
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [550, 551, 552, 553, 554, 555]
-    LNE: (No direct expression available)
-
-    IR:  TMP_61(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [554]
-    LNE: utilizationRate(cash,borrows,reserves).mul(rateToPool).div(1e18)
-
-----------------------------------------
-
-## Path #30
-Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-
-### Operations with Source Code Mapping:
-    IR:  updateJumpRateModel
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
-    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-    IR:  kink(uint256) := kink_(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
-    LNE: kink = kink_
-
-----------------------------------------
-
-## Path #31
-Source: external_input_params in WarpControl.updateInterestRateModel
-Sink: tainted_state_changing_external_call in WarpControl.updateInterestRateModel
-
-### Operations with Source Code Mapping:
-    IR:  updateInterestRateModel
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1666, 1667, 1668, 1669, 1670, 1671, 1672, 1673, 1674, 1675, 1676, 1677, 1678, 1679, 1680, 1681, 1682, 1683, 1684, 1685, 1686]
-    LNE: (No direct expression available)
-
-    IR:  TMP_494(JumpRateModelV2) = new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,TMP_493) 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1667, 1668, 1669, 1670, 1671, 1672, 1673, 1674, 1675]
-    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
-
-    IR:  TMP_495 = CONVERT TMP_494 to address
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1667, 1668, 1669, 1670, 1671, 1672, 1673, 1674, 1675]
-    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
-
-    IR:  IR(address) := TMP_495(address)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1667, 1668, 1669, 1670, 1671, 1672, 1673, 1674, 1675]
-    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
-
-----------------------------------------
-
-## Path #32
-Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
-
-### Operations with Source Code Mapping:
-    IR:  getSupplyRate
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [550, 551, 552, 553, 554, 555]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #33
-Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
-
-### Operations with Source Code Mapping:
-    IR:  utilizationRate
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #34
-Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
-
-### Operations with Source Code Mapping:
-    IR:  utilizationRate
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
-    LNE: (No direct expression available)
-
-    IR:  TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
-    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
-
-----------------------------------------
-
-## Path #35
-Source: external_input_params in WarpControl.createNewSCVault
-Sink: tainted_state_changing_external_call in WarpControl.createNewSCVault
-
-### Operations with Source Code Mapping:
-    IR:  createNewSCVault
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233, 1234, 1235, 1236, 1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246]
-    LNE: (No direct expression available)
-
-    IR:  TMP_382(JumpRateModelV2) = new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,TMP_381) 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1219, 1220, 1221, 1222, 1223, 1224, 1225, 1226, 1227]
-    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
-
-    IR:  TMP_383 = CONVERT TMP_382 to address
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1219, 1220, 1221, 1222, 1223, 1224, 1225, 1226, 1227]
-    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
-
-    IR:  IR(address) := TMP_383(address)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1219, 1220, 1221, 1222, 1223, 1224, 1225, 1226, 1227]
-    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
-
-----------------------------------------
-
-## Path #36
-Source: external_input_params in WarpControl.liquidateAccount
-Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
-
-### Operations with Source Code Mapping:
-    IR:  liquidateAccount
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1600, 1601, 1602, 1603, 1604, 1605, 1606, 1607, 1608, 1609, 1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1631, 1632, 1633, 1634, 1635, 1636, 1637, 1638, 1639, 1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649, 1650]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #37
-Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
-
-### Operations with Source Code Mapping:
-    IR:  viewMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
-    LNE: (No direct expression available)
-
-    IR:  TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
-    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
-
-    IR:  TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
-    LNE: accountCollateral = vault.collateralOfAccount(_account)
-
-    IR:  accountCollateral(uint256) := TMP_427(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
-    LNE: accountCollateral = vault.collateralOfAccount(_account)
-
-    IR:  TMP_428(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1366]
-    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
-
-    IR:  accountAssetsValue(uint256) := TMP_428(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1366]
-    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
-
-    IR:  TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1368]
-    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
-
-    IR:  totalCollateral(uint256) := TMP_429(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1368]
-    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
-
-----------------------------------------
-
-## Path #38
-Source: external_input_params in WarpControl.viewPriceOfCollateral
-Sink: tainted_state_changing_external_call in WarpControl.viewPriceOfCollateral
-
-### Operations with Source Code Mapping:
-    IR:  viewPriceOfCollateral
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1383, 1384, 1385]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #39
-Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
-
-### Operations with Source Code Mapping:
-    IR:  updateJumpRateModel
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
-    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-    IR:  kink(uint256) := kink_(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
-    LNE: kink = kink_
-
-    IR:  TMP_84(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
-    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
-
-    IR:  TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_84', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
-    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
-
-----------------------------------------
-
-## Path #40
-Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.calcCollateralRequired
-
-### Operations with Source Code Mapping:
-    IR:  getMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
-    LNE: (No direct expression available)
-
-    IR:  TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1275]
-    LNE: borrowedTotal = getTotalBorrowedValue(account)
-
-    IR:  borrowedTotal(uint256) := TMP_399(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1275]
-    LNE: borrowedTotal = getTotalBorrowedValue(account)
-
-    IR:  TMP_401(uint256) = INTERNAL_CALL, WarpControl.calcCollateralRequired(uint256)(borrowedTotal)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1277]
-    LNE: requiredCollateral = calcCollateralRequired(borrowedTotal)
-
-----------------------------------------
-
-## Path #41
-Source: external_input_params in WarpControl.calcBorrowLimit
-Sink: tainted_state_changing_external_call in WarpControl.calcBorrowLimit
-
-### Operations with Source Code Mapping:
-    IR:  calcBorrowLimit
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1524, 1525, 1526, 1527, 1528, 1529]
-    LNE: (No direct expression available)
-
-    IR:  TMP_456(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['_collateralValue', '3'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1526]
-    LNE: thirdCollatVal = _collateralValue.div(3)
-
-    IR:  thirdCollatVal(uint256) := TMP_456(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1526]
-    LNE: thirdCollatVal = _collateralValue.div(3)
-
-----------------------------------------
-
-## Path #42
-Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
-
-### Operations with Source Code Mapping:
-    IR:  updateJumpRateModel
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
-    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-    IR:  kink(uint256) := kink_(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
-    LNE: kink = kink_
-
-----------------------------------------
-
-## Path #43
-Source: external_input_params in WarpControl.viewTotalLentValue
-Sink: tainted_state_changing_external_call in WarpControl.viewTotalLentValue
-
-### Operations with Source Code Mapping:
-    IR:  viewTotalLentValue
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1431, 1432, 1433, 1434, 1435, 1436, 1437, 1438, 1439, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1447, 1448, 1449, 1450, 1451, 1452]
-    LNE: (No direct expression available)
-
-    IR:  TMP_437(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:viewAccountBalance, arguments:['_account']  
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1440]
-    LNE: lentBalanceInStable = WVSC.viewAccountBalance(_account)
-
-    IR:  lentBalanceInStable(uint256) := TMP_437(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1440]
-    LNE: lentBalanceInStable = WVSC.viewAccountBalance(_account)
-
-    IR:  TMP_440(uint256) = INTERNAL_CALL, WarpControl.viewPriceOfToken(address,uint256)(TMP_439,lentBalanceInStable)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1444, 1445, 1446, 1447]
-    LNE: usdcLentAmount = viewPriceOfToken(WVSC.getSCAddress(),lentBalanceInStable)
-
-    IR:  usdcLentAmount(uint256) := TMP_440(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1444, 1445, 1446, 1447]
-    LNE: usdcLentAmount = viewPriceOfToken(WVSC.getSCAddress(),lentBalanceInStable)
-
-    IR:  TMP_441(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalValue', 'usdcLentAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1448]
-    LNE: totalValue = totalValue.add(usdcLentAmount)
-
-    IR:  totalValue(uint256) := TMP_441(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1448]
-    LNE: totalValue = totalValue.add(usdcLentAmount)
-
-----------------------------------------
-
-## Path #44
+## Path #19
 Source: external_input_params in BaseJumpRateModelV2.utilizationRate
 Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
 
@@ -925,7 +418,7 @@ Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateI
 
 ----------------------------------------
 
-## Path #45
+## Path #20
 Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
 Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
 
@@ -940,179 +433,7 @@ Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRate
 
 ----------------------------------------
 
-## Path #46
-Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
-
-### Operations with Source Code Mapping:
-    IR:  getMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
-    LNE: (No direct expression available)
-
-    IR:  TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
-    LNE: collateralValue = getTotalAvailableCollateralValue(account)
-
-----------------------------------------
-
-## Path #47
-Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.viewTotalBorrowedValue
-
-### Operations with Source Code Mapping:
-    IR:  viewMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
-    LNE: (No direct expression available)
-
-    IR:  TMP_407(uint256) = INTERNAL_CALL, WarpControl.viewTotalBorrowedValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1297]
-    LNE: borrowedTotal = viewTotalBorrowedValue(account)
-
-    IR:  TMP_444(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:borrowBalancePrior, arguments:['_account']  
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1472]
-    LNE: borrowBalanceInStable = WVSC.borrowBalancePrior(_account)
-
-    IR:  borrowBalanceInStable(uint256) := TMP_444(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1472]
-    LNE: borrowBalanceInStable = WVSC.borrowBalancePrior(_account)
-
-    IR:  TMP_447(uint256) = INTERNAL_CALL, WarpControl.viewPriceOfToken(address,uint256)(TMP_446,borrowBalanceInStable)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1476, 1477, 1478, 1479]
-    LNE: usdcBorrowedAmount = viewPriceOfToken(WVSC.getSCAddress(),borrowBalanceInStable)
-
-    IR:  usdcBorrowedAmount(uint256) := TMP_447(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1476, 1477, 1478, 1479]
-    LNE: usdcBorrowedAmount = viewPriceOfToken(WVSC.getSCAddress(),borrowBalanceInStable)
-
-    IR:  TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBorrowedValue', 'usdcBorrowedAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1480]
-    LNE: totalBorrowedValue = totalBorrowedValue.add(usdcBorrowedAmount)
-
-    IR:  totalBorrowedValue(uint256) := TMP_448(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1480]
-    LNE: totalBorrowedValue = totalBorrowedValue.add(usdcBorrowedAmount)
-
-----------------------------------------
-
-## Path #48
-Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-
-### Operations with Source Code Mapping:
-    IR:  utilizationRate
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
-    LNE: (No direct expression available)
-
-    IR:  TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
-    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
-
-    IR:  TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
-    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
-
-    IR:  TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
-    LNE: util = utilizationRate(cash,borrows,reserves)
-
-    IR:  util(uint256) := TMP_44(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
-    LNE: util = utilizationRate(cash,borrows,reserves)
-
-    IR:  TMP_46(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['util', 'multiplierPerBlock'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [534]
-    LNE: util.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
-
-----------------------------------------
-
-## Path #49
-Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
-
-### Operations with Source Code Mapping:
-    IR:  viewMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
-    LNE: (No direct expression available)
-
-    IR:  TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
-    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
-
-    IR:  TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
-    LNE: accountCollateral = vault.collateralOfAccount(_account)
-
-    IR:  accountCollateral(uint256) := TMP_427(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
-    LNE: accountCollateral = vault.collateralOfAccount(_account)
-
-----------------------------------------
-
-## Path #50
-Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-
-### Operations with Source Code Mapping:
-    IR:  utilizationRate
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
-    LNE: (No direct expression available)
-
-    IR:  TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
-    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
-
-    IR:  TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
-    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
-
-    IR:  TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
-    LNE: util = utilizationRate(cash,borrows,reserves)
-
-    IR:  util(uint256) := TMP_44(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
-    LNE: util = utilizationRate(cash,borrows,reserves)
-
-----------------------------------------
-
-## Path #51
-Source: external_input_params in WarpControl.viewTotalLentValue
-Sink: tainted_state_changing_external_call in WarpControl.viewTotalLentValue
-
-### Operations with Source Code Mapping:
-    IR:  viewTotalLentValue
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1431, 1432, 1433, 1434, 1435, 1436, 1437, 1438, 1439, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1447, 1448, 1449, 1450, 1451, 1452]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #52
-Source: external_input_params in WarpControl.calcBorrowLimit
-Sink: tainted_state_changing_external_call in WarpControl.calcBorrowLimit
-
-### Operations with Source Code Mapping:
-    IR:  calcBorrowLimit
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1524, 1525, 1526, 1527, 1528, 1529]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #53
-Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
-
-### Operations with Source Code Mapping:
-    IR:  viewMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
-    LNE: (No direct expression available)
-
-    IR:  TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
-    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
-
-----------------------------------------
-
-## Path #54
+## Path #21
 Source: external_input_params in BaseJumpRateModelV2.utilizationRate
 Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
 
@@ -1121,107 +442,37 @@ Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRat
     SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
     LNE: (No direct expression available)
 
+    IR:  TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
+    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
+
 ----------------------------------------
 
-## Path #55
-Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
+## Path #22
+Source: external_input_params in WarpControl.liquidateAccount
+Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
 
 ### Operations with Source Code Mapping:
-    IR:  viewMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    IR:  liquidateAccount
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1600, 1601, 1602, 1603, 1604, 1605, 1606, 1607, 1608, 1609, 1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1631, 1632, 1633, 1634, 1635, 1636, 1637, 1638, 1639, 1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649, 1650]
     LNE: (No direct expression available)
-
-    IR:  TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
-    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
-
-    IR:  TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
-    LNE: accountCollateral = vault.collateralOfAccount(_account)
-
-    IR:  accountCollateral(uint256) := TMP_427(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
-    LNE: accountCollateral = vault.collateralOfAccount(_account)
-
-    IR:  TMP_428(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1366]
-    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
-
-    IR:  accountAssetsValue(uint256) := TMP_428(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1366]
-    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
-
-    IR:  TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1368]
-    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
-
-    IR:  totalCollateral(uint256) := TMP_429(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1368]
-    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
 
 ----------------------------------------
 
-## Path #56
-Source: external_input_params in WarpControl.startUpgradeTimer
-Sink: tainted_state_changing_external_call in WarpControl.upgradeWarp
+## Path #23
+Source: external_input_params in WarpControl.liquidateAccount
+Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
 
 ### Operations with Source Code Mapping:
-    IR:  startUpgradeTimer
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1692, 1693, 1694, 1695]
+    IR:  liquidateAccount
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1600, 1601, 1602, 1603, 1604, 1605, 1606, 1607, 1608, 1609, 1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1631, 1632, 1633, 1634, 1635, 1636, 1637, 1638, 1639, 1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649, 1650]
     LNE: (No direct expression available)
-
-    IR:  newWarpControl(address) := _newWarpControl(address)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1693]
-    LNE: newWarpControl = _newWarpControl
 
 ----------------------------------------
 
-## Path #57
-Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-
-### Operations with Source Code Mapping:
-    IR:  updateJumpRateModel
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
-    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-    IR:  kink(uint256) := kink_(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
-    LNE: kink = kink_
-
-    IR:  TMP_49(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
-    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
-
-    IR:  TMP_50(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_49', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
-    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
-
-----------------------------------------
-
-## Path #58
-Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
-
-### Operations with Source Code Mapping:
-    IR:  updateJumpRateModel
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
-    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
-
-----------------------------------------
-
-## Path #59
+## Path #24
 Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
+Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
 
 ### Operations with Source Code Mapping:
     IR:  getMaxWithdrawAllowed
@@ -1232,17 +483,21 @@ Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableColla
     SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
     LNE: collateralValue = getTotalAvailableCollateralValue(account)
 
-    IR:  TMP_419(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1330]
-    LNE: accountCollateral = vault.collateralOfAccount(_account)
+    IR:  collateralValue(uint256) := TMP_400(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
+    LNE: collateralValue = getTotalAvailableCollateralValue(account)
 
-    IR:  accountCollateral(uint256) := TMP_419(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1330]
-    LNE: accountCollateral = vault.collateralOfAccount(_account)
+    IR:  TMP_403(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1281]
+    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
+
+    IR:  leftoverCollateral(uint256) := TMP_403(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1281]
+    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
 
 ----------------------------------------
 
-## Path #60
+## Path #25
 Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
 Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
 
@@ -1267,146 +522,13 @@ Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
     SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1303]
     LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
 
-----------------------------------------
-
-## Path #61
-Source: external_input_params in WarpControl.startUpgradeTimer
-Sink: tainted_erc20_transfer in WarpControl.upgradeWarp
-
-### Operations with Source Code Mapping:
-    IR:  startUpgradeTimer
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1692, 1693, 1694, 1695]
-    LNE: (No direct expression available)
-
-    IR:  newWarpControl(address) := _newWarpControl(address)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1693]
-    LNE: newWarpControl = _newWarpControl
+    IR:  TMP_413(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['leftoverCollateral', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1305]
+    LNE: leftoverCollateral.mul(1e18).div(lpValue)
 
 ----------------------------------------
 
-## Path #62
-Source: external_input_params in WarpControl.viewPriceOfToken
-Sink: tainted_state_changing_external_call in WarpControl.viewPriceOfToken
-
-### Operations with Source Code Mapping:
-    IR:  viewPriceOfToken
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1406, 1407, 1408]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #63
-Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-
-### Operations with Source Code Mapping:
-    IR:  utilizationRate
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
-    LNE: (No direct expression available)
-
-    IR:  TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
-    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
-
-    IR:  TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
-    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
-
-    IR:  TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
-    LNE: util = utilizationRate(cash,borrows,reserves)
-
-    IR:  util(uint256) := TMP_44(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
-    LNE: util = utilizationRate(cash,borrows,reserves)
-
-    IR:  TMP_52(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['util', 'kink'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [537]
-    LNE: excessUtil = util.sub(kink)
-
-    IR:  excessUtil(uint256) := TMP_52(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [537]
-    LNE: excessUtil = util.sub(kink)
-
-----------------------------------------
-
-## Path #64
-Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.calcCollateralRequired
-
-### Operations with Source Code Mapping:
-    IR:  getMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
-    LNE: (No direct expression available)
-
-    IR:  TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1275]
-    LNE: borrowedTotal = getTotalBorrowedValue(account)
-
-    IR:  borrowedTotal(uint256) := TMP_399(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1275]
-    LNE: borrowedTotal = getTotalBorrowedValue(account)
-
-    IR:  TMP_401(uint256) = INTERNAL_CALL, WarpControl.calcCollateralRequired(uint256)(borrowedTotal)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1277]
-    LNE: requiredCollateral = calcCollateralRequired(borrowedTotal)
-
-    IR:  TMP_458(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_borrowAmount', '3'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1540]
-    LNE: _borrowAmount.mul(3).div(2)
-
-----------------------------------------
-
-## Path #65
-Source: external_input_params in BaseJumpRateModelV2.utilizationRate
-Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
-
-### Operations with Source Code Mapping:
-    IR:  utilizationRate
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
-    LNE: (No direct expression available)
-
-    IR:  TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
-    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
-
-    IR:  TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
-    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
-
-    IR:  TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
-    LNE: util = utilizationRate(cash,borrows,reserves)
-
-    IR:  util(uint256) := TMP_44(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
-    LNE: util = utilizationRate(cash,borrows,reserves)
-
-----------------------------------------
-
-## Path #66
-Source: external_input_params in WarpControl.liquidateAccount
-Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
-
-### Operations with Source Code Mapping:
-    IR:  liquidateAccount
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1600, 1601, 1602, 1603, 1604, 1605, 1606, 1607, 1608, 1609, 1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1631, 1632, 1633, 1634, 1635, 1636, 1637, 1638, 1639, 1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649, 1650]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #67
-Source: external_input_params in WarpControl.getPriceOfCollateral
-Sink: tainted_state_changing_external_call in WarpControl.getPriceOfCollateral
-
-### Operations with Source Code Mapping:
-    IR:  getPriceOfCollateral
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1392, 1393, 1394]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #68
+## Path #26
 Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
 Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
 
@@ -1425,46 +547,33 @@ Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
 
 ----------------------------------------
 
-## Path #69
-Source: external_input_params in WarpControl.getMaxWithdrawAllowed
-Sink: tainted_state_changing_external_call in WarpControl.getTotalBorrowedValue
+## Path #27
+Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
 
 ### Operations with Source Code Mapping:
-    IR:  getMaxWithdrawAllowed
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
+    IR:  utilizationRate
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
     LNE: (No direct expression available)
-
-    IR:  TMP_399(uint256) = INTERNAL_CALL, WarpControl.getTotalBorrowedValue(address)(account)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1275]
-    LNE: borrowedTotal = getTotalBorrowedValue(account)
-
-    IR:  TMP_451(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:borrowBalanceCurrent, arguments:['_account']  
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1500]
-    LNE: borrowBalanceInStable = WVSC.borrowBalanceCurrent(_account)
-
-    IR:  borrowBalanceInStable(uint256) := TMP_451(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1500]
-    LNE: borrowBalanceInStable = WVSC.borrowBalanceCurrent(_account)
-
-    IR:  TMP_454(uint256) = INTERNAL_CALL, WarpControl.getPriceOfToken(address,uint256)(TMP_453,borrowBalanceInStable)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1504, 1505, 1506, 1507]
-    LNE: usdcBorrowedAmount = getPriceOfToken(WVSC.getSCAddress(),borrowBalanceInStable)
-
-    IR:  usdcBorrowedAmount(uint256) := TMP_454(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1504, 1505, 1506, 1507]
-    LNE: usdcBorrowedAmount = getPriceOfToken(WVSC.getSCAddress(),borrowBalanceInStable)
-
-    IR:  TMP_455(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBorrowedValue', 'usdcBorrowedAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1508]
-    LNE: totalBorrowedValue = totalBorrowedValue.add(usdcBorrowedAmount)
-
-    IR:  totalBorrowedValue(uint256) := TMP_455(uint256)
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1508]
-    LNE: totalBorrowedValue = totalBorrowedValue.add(usdcBorrowedAmount)
 
 ----------------------------------------
 
-## Path #70
+## Path #28
+Source: external_input_params in WarpControl.startUpgradeTimer
+Sink: tainted_state_changing_external_call in WarpControl.upgradeWarp
+
+### Operations with Source Code Mapping:
+    IR:  startUpgradeTimer
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1692, 1693, 1694, 1695]
+    LNE: (No direct expression available)
+
+    IR:  newWarpControl(address) := _newWarpControl(address)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1693]
+    LNE: newWarpControl = _newWarpControl
+
+----------------------------------------
+
+## Path #29
 Source: external_input_params in WarpControl.getMaxWithdrawAllowed
 Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
 
@@ -1503,7 +612,263 @@ Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableColla
 
 ----------------------------------------
 
-## Path #71
+## Path #30
+Source: external_input_params in WarpControl.getBorrowLimit
+Sink: tainted_state_changing_external_call in WarpControl.borrowSC
+
+### Operations with Source Code Mapping:
+    IR:  getBorrowLimit
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1548, 1549, 1550, 1551, 1552, 1553, 1554]
+    LNE: (No direct expression available)
+
+    IR:  TMP_460(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(_account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1549, 1550, 1551]
+    LNE: availibleCollateralValue = getTotalAvailableCollateralValue(_account)
+
+    IR:  availibleCollateralValue(uint256) := TMP_460(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1549, 1550, 1551]
+    LNE: availibleCollateralValue = getTotalAvailableCollateralValue(_account)
+
+    IR:  TMP_461(uint256) = INTERNAL_CALL, WarpControl.calcBorrowLimit(uint256)(availibleCollateralValue)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1553]
+    LNE: calcBorrowLimit(availibleCollateralValue)
+
+    IR:  TMP_465(uint256) = INTERNAL_CALL, WarpControl.getBorrowLimit(address)(msg.sender)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1576]
+    LNE: borrowLimitInUSDC = getBorrowLimit(msg.sender)
+
+    IR:  borrowLimitInUSDC(uint256) := TMP_465(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1576]
+    LNE: borrowLimitInUSDC = getBorrowLimit(msg.sender)
+
+----------------------------------------
+
+## Path #31
+Source: external_input_params in WarpControl.borrowSC
+Sink: tainted_state_changing_external_call in WarpControl.borrowSC
+
+### Operations with Source Code Mapping:
+    IR:  borrowSC
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1574, 1575, 1576, 1577, 1578, 1579, 1580, 1581, 1582, 1583, 1584, 1585, 1586, 1587, 1588, 1589, 1590, 1591, 1592, 1593, 1594]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #32
+Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
+
+### Operations with Source Code Mapping:
+    IR:  utilizationRate
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
+    LNE: (No direct expression available)
+
+    IR:  TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
+    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
+
+    IR:  TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
+    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
+
+    IR:  TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
+    LNE: util = utilizationRate(cash,borrows,reserves)
+
+    IR:  util(uint256) := TMP_44(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
+    LNE: util = utilizationRate(cash,borrows,reserves)
+
+----------------------------------------
+
+## Path #33
+Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
+
+### Operations with Source Code Mapping:
+    IR:  getMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
+    LNE: (No direct expression available)
+
+    IR:  TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
+    LNE: collateralValue = getTotalAvailableCollateralValue(account)
+
+    IR:  TMP_419(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1330]
+    LNE: accountCollateral = vault.collateralOfAccount(_account)
+
+    IR:  accountCollateral(uint256) := TMP_419(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1330]
+    LNE: accountCollateral = vault.collateralOfAccount(_account)
+
+    IR:  TMP_420(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1334]
+    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
+
+    IR:  accountAssetsValue(uint256) := TMP_420(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1334]
+    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
+
+    IR:  TMP_421(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1336]
+    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
+
+    IR:  totalCollateral(uint256) := TMP_421(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1336]
+    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
+
+----------------------------------------
+
+## Path #34
+Source: external_input_params in WarpControl.createNewSCVault
+Sink: tainted_state_changing_external_call in WarpControl.createNewSCVault
+
+### Operations with Source Code Mapping:
+    IR:  createNewSCVault
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233, 1234, 1235, 1236, 1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246]
+    LNE: (No direct expression available)
+
+    IR:  TMP_382(JumpRateModelV2) = new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,TMP_381) 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1219, 1220, 1221, 1222, 1223, 1224, 1225, 1226, 1227]
+    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
+
+    IR:  TMP_383 = CONVERT TMP_382 to address
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1219, 1220, 1221, 1222, 1223, 1224, 1225, 1226, 1227]
+    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
+
+    IR:  IR(address) := TMP_383(address)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1219, 1220, 1221, 1222, 1223, 1224, 1225, 1226, 1227]
+    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
+
+----------------------------------------
+
+## Path #35
+Source: external_input_params in WarpControl.startUpgradeTimer
+Sink: tainted_erc20_transfer in WarpControl.upgradeWarp
+
+### Operations with Source Code Mapping:
+    IR:  startUpgradeTimer
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1692, 1693, 1694, 1695]
+    LNE: (No direct expression available)
+
+    IR:  newWarpControl(address) := _newWarpControl(address)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1693]
+    LNE: newWarpControl = _newWarpControl
+
+----------------------------------------
+
+## Path #36
+Source: external_input_params in WarpControl.calcBorrowLimit
+Sink: tainted_state_changing_external_call in WarpControl.calcBorrowLimit
+
+### Operations with Source Code Mapping:
+    IR:  calcBorrowLimit
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1524, 1525, 1526, 1527, 1528, 1529]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #37
+Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
+
+### Operations with Source Code Mapping:
+    IR:  utilizationRate
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
+    LNE: (No direct expression available)
+
+    IR:  TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
+    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
+
+    IR:  TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
+    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
+
+    IR:  TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
+    LNE: util = utilizationRate(cash,borrows,reserves)
+
+    IR:  util(uint256) := TMP_44(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
+    LNE: util = utilizationRate(cash,borrows,reserves)
+
+    IR:  TMP_52(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['util', 'kink'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [537]
+    LNE: excessUtil = util.sub(kink)
+
+    IR:  excessUtil(uint256) := TMP_52(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [537]
+    LNE: excessUtil = util.sub(kink)
+
+    IR:  TMP_53(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['excessUtil', 'jumpMultiplierPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [538]
+    LNE: excessUtil.mul(jumpMultiplierPerBlock).div(1e18).add(normalRate)
+
+----------------------------------------
+
+## Path #38
+Source: external_input_params in WarpControl.viewPriceOfCollateral
+Sink: tainted_state_changing_external_call in WarpControl.viewPriceOfCollateral
+
+### Operations with Source Code Mapping:
+    IR:  viewPriceOfCollateral
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1383, 1384, 1385]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #39
+Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
+
+### Operations with Source Code Mapping:
+    IR:  updateJumpRateModel
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
+    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+----------------------------------------
+
+## Path #40
+Source: external_input_params in WarpControl.transferWarpTeam
+Sink: tainted_state_changing_external_call in WarpControl.transferWarpTeam
+
+### Operations with Source Code Mapping:
+    IR:  transferWarpTeam
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1724, 1725, 1726, 1727, 1728, 1729, 1730, 1731]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #41
+Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.getTotalAvailableCollateralValue
+
+### Operations with Source Code Mapping:
+    IR:  getMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
+    LNE: (No direct expression available)
+
+    IR:  TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
+    LNE: collateralValue = getTotalAvailableCollateralValue(account)
+
+    IR:  TMP_419(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1330]
+    LNE: accountCollateral = vault.collateralOfAccount(_account)
+
+    IR:  accountCollateral(uint256) := TMP_419(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1330]
+    LNE: accountCollateral = vault.collateralOfAccount(_account)
+
+----------------------------------------
+
+## Path #42
 Source: external_input_params in WarpControl.getMaxWithdrawAllowed
 Sink: tainted_state_changing_external_call in WarpControl.getTotalBorrowedValue
 
@@ -1516,15 +881,650 @@ Sink: tainted_state_changing_external_call in WarpControl.getTotalBorrowedValue
     SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1275]
     LNE: borrowedTotal = getTotalBorrowedValue(account)
 
+    IR:  TMP_451(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:borrowBalanceCurrent, arguments:['_account']  
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1500]
+    LNE: borrowBalanceInStable = WVSC.borrowBalanceCurrent(_account)
+
+    IR:  borrowBalanceInStable(uint256) := TMP_451(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1500]
+    LNE: borrowBalanceInStable = WVSC.borrowBalanceCurrent(_account)
+
+    IR:  TMP_454(uint256) = INTERNAL_CALL, WarpControl.getPriceOfToken(address,uint256)(TMP_453,borrowBalanceInStable)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1504, 1505, 1506, 1507]
+    LNE: usdcBorrowedAmount = getPriceOfToken(WVSC.getSCAddress(),borrowBalanceInStable)
+
+    IR:  usdcBorrowedAmount(uint256) := TMP_454(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1504, 1505, 1506, 1507]
+    LNE: usdcBorrowedAmount = getPriceOfToken(WVSC.getSCAddress(),borrowBalanceInStable)
+
+    IR:  TMP_455(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBorrowedValue', 'usdcBorrowedAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1508]
+    LNE: totalBorrowedValue = totalBorrowedValue.add(usdcBorrowedAmount)
+
+    IR:  totalBorrowedValue(uint256) := TMP_455(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1508]
+    LNE: totalBorrowedValue = totalBorrowedValue.add(usdcBorrowedAmount)
+
+----------------------------------------
+
+## Path #43
+Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
+
+### Operations with Source Code Mapping:
+    IR:  viewMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #44
+Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
+
+### Operations with Source Code Mapping:
+    IR:  getSupplyRate
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [550, 551, 552, 553, 554, 555]
+    LNE: (No direct expression available)
+
+    IR:  TMP_61(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [554]
+    LNE: utilizationRate(cash,borrows,reserves).mul(rateToPool).div(1e18)
+
+----------------------------------------
+
+## Path #45
+Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
+
+### Operations with Source Code Mapping:
+    IR:  viewMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    LNE: (No direct expression available)
+
+    IR:  TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
+    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
+
+    IR:  TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
+    LNE: accountCollateral = vault.collateralOfAccount(_account)
+
+    IR:  accountCollateral(uint256) := TMP_427(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
+    LNE: accountCollateral = vault.collateralOfAccount(_account)
+
+----------------------------------------
+
+## Path #46
+Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
+
+### Operations with Source Code Mapping:
+    IR:  utilizationRate
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #47
+Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
+
+### Operations with Source Code Mapping:
+    IR:  updateJumpRateModel
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
+    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+    IR:  kink(uint256) := kink_(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
+    LNE: kink = kink_
+
+    IR:  TMP_84(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
+    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
+
+    IR:  TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_84', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
+    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
+
+----------------------------------------
+
+## Path #48
+Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
+
+### Operations with Source Code Mapping:
+    IR:  updateJumpRateModel
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
+    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+    IR:  kink(uint256) := kink_(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
+    LNE: kink = kink_
+
+----------------------------------------
+
+## Path #49
+Source: external_input_params in WarpControl.createNewLPVault
+Sink: tainted_state_changing_external_call in WarpControl.createNewLPVault
+
+### Operations with Source Code Mapping:
+    IR:  createNewLPVault
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #50
+Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
+
+### Operations with Source Code Mapping:
+    IR:  updateJumpRateModel
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
+    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+    IR:  kink(uint256) := kink_(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
+    LNE: kink = kink_
+
+    IR:  TMP_49(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
+    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
+
+    IR:  TMP_50(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_49', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
+    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
+
+----------------------------------------
+
+## Path #51
+Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.viewTotalBorrowedValue
+
+### Operations with Source Code Mapping:
+    IR:  viewMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    LNE: (No direct expression available)
+
+    IR:  TMP_407(uint256) = INTERNAL_CALL, WarpControl.viewTotalBorrowedValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1297]
+    LNE: borrowedTotal = viewTotalBorrowedValue(account)
+
+    IR:  TMP_444(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:borrowBalancePrior, arguments:['_account']  
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1472]
+    LNE: borrowBalanceInStable = WVSC.borrowBalancePrior(_account)
+
+    IR:  borrowBalanceInStable(uint256) := TMP_444(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1472]
+    LNE: borrowBalanceInStable = WVSC.borrowBalancePrior(_account)
+
+    IR:  TMP_447(uint256) = INTERNAL_CALL, WarpControl.viewPriceOfToken(address,uint256)(TMP_446,borrowBalanceInStable)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1476, 1477, 1478, 1479]
+    LNE: usdcBorrowedAmount = viewPriceOfToken(WVSC.getSCAddress(),borrowBalanceInStable)
+
+    IR:  usdcBorrowedAmount(uint256) := TMP_447(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1476, 1477, 1478, 1479]
+    LNE: usdcBorrowedAmount = viewPriceOfToken(WVSC.getSCAddress(),borrowBalanceInStable)
+
+    IR:  TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBorrowedValue', 'usdcBorrowedAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1480]
+    LNE: totalBorrowedValue = totalBorrowedValue.add(usdcBorrowedAmount)
+
+    IR:  totalBorrowedValue(uint256) := TMP_448(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1480]
+    LNE: totalBorrowedValue = totalBorrowedValue.add(usdcBorrowedAmount)
+
+----------------------------------------
+
+## Path #52
+Source: external_input_params in WarpControl.startUpgradeTimer
+Sink: tainted_state_changing_external_call in WarpControl.upgradeWarp
+
+### Operations with Source Code Mapping:
+    IR:  startUpgradeTimer
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1692, 1693, 1694, 1695]
+    LNE: (No direct expression available)
+
+    IR:  newWarpControl(address) := _newWarpControl(address)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1693]
+    LNE: newWarpControl = _newWarpControl
+
+----------------------------------------
+
+## Path #53
+Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
+
+### Operations with Source Code Mapping:
+    IR:  getMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #54
+Source: external_input_params in WarpControl.liquidateAccount
+Sink: tainted_state_changing_external_call in WarpControl.liquidateAccount
+
+### Operations with Source Code Mapping:
+    IR:  liquidateAccount
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1600, 1601, 1602, 1603, 1604, 1605, 1606, 1607, 1608, 1609, 1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1631, 1632, 1633, 1634, 1635, 1636, 1637, 1638, 1639, 1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649, 1650]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #55
+Source: external_input_params in WarpControl.calcBorrowLimit
+Sink: tainted_state_changing_external_call in WarpControl.calcBorrowLimit
+
+### Operations with Source Code Mapping:
+    IR:  calcBorrowLimit
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1524, 1525, 1526, 1527, 1528, 1529]
+    LNE: (No direct expression available)
+
+    IR:  TMP_456(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['_collateralValue', '3'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1526]
+    LNE: thirdCollatVal = _collateralValue.div(3)
+
+    IR:  thirdCollatVal(uint256) := TMP_456(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1526]
+    LNE: thirdCollatVal = _collateralValue.div(3)
+
+----------------------------------------
+
+## Path #56
+Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
+
+### Operations with Source Code Mapping:
+    IR:  updateJumpRateModel
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
+    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+----------------------------------------
+
+## Path #57
+Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.viewMaxWithdrawAllowed
+
+### Operations with Source Code Mapping:
+    IR:  viewMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    LNE: (No direct expression available)
+
+    IR:  TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
+    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
+
+    IR:  collateralValue(uint256) := TMP_408(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
+    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
+
+    IR:  TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['collateralValue', 'requiredCollateral'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1303]
+    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
+
+    IR:  leftoverCollateral(uint256) := TMP_411(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1303]
+    LNE: leftoverCollateral = collateralValue.sub(requiredCollateral)
+
+----------------------------------------
+
+## Path #58
+Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
+
+### Operations with Source Code Mapping:
+    IR:  viewMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    LNE: (No direct expression available)
+
+    IR:  TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
+    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
+
+    IR:  TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
+    LNE: accountCollateral = vault.collateralOfAccount(_account)
+
+    IR:  accountCollateral(uint256) := TMP_427(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
+    LNE: accountCollateral = vault.collateralOfAccount(_account)
+
+    IR:  TMP_428(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1366]
+    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
+
+    IR:  accountAssetsValue(uint256) := TMP_428(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1366]
+    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
+
+    IR:  TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1368]
+    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
+
+    IR:  totalCollateral(uint256) := TMP_429(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1368]
+    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
+
+----------------------------------------
+
+## Path #59
+Source: external_input_params in WarpControl.viewTotalLentValue
+Sink: tainted_state_changing_external_call in WarpControl.viewTotalLentValue
+
+### Operations with Source Code Mapping:
+    IR:  viewTotalLentValue
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1431, 1432, 1433, 1434, 1435, 1436, 1437, 1438, 1439, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1447, 1448, 1449, 1450, 1451, 1452]
+    LNE: (No direct expression available)
+
+    IR:  TMP_437(uint256) = HIGH_LEVEL_CALL, dest:WVSC(WarpVaultSCI), function:viewAccountBalance, arguments:['_account']  
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1440]
+    LNE: lentBalanceInStable = WVSC.viewAccountBalance(_account)
+
+    IR:  lentBalanceInStable(uint256) := TMP_437(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1440]
+    LNE: lentBalanceInStable = WVSC.viewAccountBalance(_account)
+
+    IR:  TMP_440(uint256) = INTERNAL_CALL, WarpControl.viewPriceOfToken(address,uint256)(TMP_439,lentBalanceInStable)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1444, 1445, 1446, 1447]
+    LNE: usdcLentAmount = viewPriceOfToken(WVSC.getSCAddress(),lentBalanceInStable)
+
+    IR:  usdcLentAmount(uint256) := TMP_440(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1444, 1445, 1446, 1447]
+    LNE: usdcLentAmount = viewPriceOfToken(WVSC.getSCAddress(),lentBalanceInStable)
+
+    IR:  TMP_441(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalValue', 'usdcLentAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1448]
+    LNE: totalValue = totalValue.add(usdcLentAmount)
+
+    IR:  totalValue(uint256) := TMP_441(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1448]
+    LNE: totalValue = totalValue.add(usdcLentAmount)
+
+----------------------------------------
+
+## Path #60
+Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
+
+### Operations with Source Code Mapping:
+    IR:  updateJumpRateModel
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
+    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+    IR:  kink(uint256) := kink_(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
+    LNE: kink = kink_
+
+----------------------------------------
+
+## Path #61
+Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.utilizationRate
+
+### Operations with Source Code Mapping:
+    IR:  utilizationRate
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
+    LNE: (No direct expression available)
+
+    IR:  TMP_41(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['cash', 'borrows'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
+    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
+
+----------------------------------------
+
+## Path #62
+Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
+
+### Operations with Source Code Mapping:
+    IR:  updateJumpRateModel
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
+    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+----------------------------------------
+
+## Path #63
+Source: external_input_params in WarpControl.viewTotalLentValue
+Sink: tainted_state_changing_external_call in WarpControl.viewTotalLentValue
+
+### Operations with Source Code Mapping:
+    IR:  viewTotalLentValue
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1431, 1432, 1433, 1434, 1435, 1436, 1437, 1438, 1439, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1447, 1448, 1449, 1450, 1451, 1452]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #64
+Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.viewTotalAvailableCollateralValue
+
+### Operations with Source Code Mapping:
+    IR:  viewMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    LNE: (No direct expression available)
+
+    IR:  TMP_408(uint256) = INTERNAL_CALL, WarpControl.viewTotalAvailableCollateralValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1298]
+    LNE: collateralValue = viewTotalAvailableCollateralValue(account)
+
+    IR:  TMP_427(uint256) = HIGH_LEVEL_CALL, dest:vault(WarpVaultLPI), function:collateralOfAccount, arguments:['_account']  
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
+    LNE: accountCollateral = vault.collateralOfAccount(_account)
+
+    IR:  accountCollateral(uint256) := TMP_427(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1363]
+    LNE: accountCollateral = vault.collateralOfAccount(_account)
+
+    IR:  TMP_428(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accountCollateral', 'assetPrice'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1366]
+    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
+
+    IR:  accountAssetsValue(uint256) := TMP_428(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1366]
+    LNE: accountAssetsValue = accountCollateral.mul(assetPrice)
+
+    IR:  TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalCollateral', 'accountAssetsValue'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1368]
+    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
+
+    IR:  totalCollateral(uint256) := TMP_429(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1368]
+    LNE: totalCollateral = totalCollateral.add(accountAssetsValue)
+
+----------------------------------------
+
+## Path #65
+Source: external_input_params in BaseJumpRateModelV2.utilizationRate
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getBorrowRateInternal
+
+### Operations with Source Code Mapping:
+    IR:  utilizationRate
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [514, 515, 516, 517, 518, 519, 520, 521]
+    LNE: (No direct expression available)
+
+    IR:  TMP_40(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrows', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
+    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
+
+    IR:  TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_40', 'TMP_42'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [520]
+    LNE: borrows.mul(1e18).div(cash.add(borrows).sub(reserves))
+
+    IR:  TMP_44(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.utilizationRate(uint256,uint256,uint256)(cash,borrows,reserves)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
+    LNE: util = utilizationRate(cash,borrows,reserves)
+
+    IR:  util(uint256) := TMP_44(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [531]
+    LNE: util = utilizationRate(cash,borrows,reserves)
+
+    IR:  TMP_46(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['util', 'multiplierPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [534]
+    LNE: util.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
+
+    IR:  TMP_47(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_46', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [534]
+    LNE: util.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
+
+----------------------------------------
+
+## Path #66
+Source: external_input_params in WarpControl.getMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.getMaxWithdrawAllowed
+
+### Operations with Source Code Mapping:
+    IR:  getMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284]
+    LNE: (No direct expression available)
+
+    IR:  TMP_400(uint256) = INTERNAL_CALL, WarpControl.getTotalAvailableCollateralValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
+    LNE: collateralValue = getTotalAvailableCollateralValue(account)
+
+    IR:  collateralValue(uint256) := TMP_400(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1276]
+    LNE: collateralValue = getTotalAvailableCollateralValue(account)
+
+----------------------------------------
+
+## Path #67
+Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.updateJumpRateModelInternal
+
+### Operations with Source Code Mapping:
+    IR:  updateJumpRateModel
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
+    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+    IR:  TMP_65(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplierPerYear', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [566]
+    LNE: multiplierPerBlock = (multiplierPerYear.mul(1e18)).div(blocksPerYear.mul(kink_))
+
+----------------------------------------
+
+## Path #68
+Source: external_input_params in BaseJumpRateModelV2.updateJumpRateModel
+Sink: tainted_state_changing_external_call in JumpRateModelV2.getBorrowRateInternal
+
+### Operations with Source Code Mapping:
+    IR:  updateJumpRateModel
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [501, 502, 503, 504, 505]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseJumpRateModelV2.updateJumpRateModelInternal(uint256,uint256,uint256,uint256)(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [504]
+    LNE: updateJumpRateModelInternal(baseRatePerYear,multiplierPerYear,jumpMultiplierPerYear,kink_)
+
+    IR:  kink(uint256) := kink_(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [568]
+    LNE: kink = kink_
+
+    IR:  TMP_84(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['kink', 'multiplierPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [536]
+    LNE: normalRate = kink.mul(multiplierPerBlock).div(1e18).add(baseRatePerBlock)
+
+----------------------------------------
+
+## Path #69
+Source: external_input_params in WarpControl.updateInterestRateModel
+Sink: tainted_state_changing_external_call in WarpControl.updateInterestRateModel
+
+### Operations with Source Code Mapping:
+    IR:  updateInterestRateModel
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1666, 1667, 1668, 1669, 1670, 1671, 1672, 1673, 1674, 1675, 1676, 1677, 1678, 1679, 1680, 1681, 1682, 1683, 1684, 1685, 1686]
+    LNE: (No direct expression available)
+
+    IR:  TMP_494(JumpRateModelV2) = new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,TMP_493) 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1667, 1668, 1669, 1670, 1671, 1672, 1673, 1674, 1675]
+    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
+
+    IR:  TMP_495 = CONVERT TMP_494 to address
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1667, 1668, 1669, 1670, 1671, 1672, 1673, 1674, 1675]
+    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
+
+    IR:  IR(address) := TMP_495(address)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1667, 1668, 1669, 1670, 1671, 1672, 1673, 1674, 1675]
+    LNE: IR = address(new JumpRateModelV2(_baseRatePerYear,_multiplierPerYear,_jumpMultiplierPerYear,_optimal,address(this)))
+
+----------------------------------------
+
+## Path #70
+Source: external_input_params in WarpControl.createNewLPVault
+Sink: tainted_state_changing_external_call in WarpControl.createNewLPVault
+
+### Operations with Source Code Mapping:
+    IR:  createNewLPVault
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #71
+Source: external_input_params in WarpControl.viewMaxWithdrawAllowed
+Sink: tainted_state_changing_external_call in WarpControl.viewTotalBorrowedValue
+
+### Operations with Source Code Mapping:
+    IR:  viewMaxWithdrawAllowed
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    LNE: (No direct expression available)
+
+    IR:  TMP_407(uint256) = INTERNAL_CALL, WarpControl.viewTotalBorrowedValue(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1297]
+    LNE: borrowedTotal = viewTotalBorrowedValue(account)
+
 ----------------------------------------
 
 ## Path #72
-Source: external_input_params in WarpControl.manuallyCreateOracles
-Sink: tainted_state_changing_external_call in WarpControl.manuallyCreateOracles
+Source: external_input_params in BaseJumpRateModelV2.getSupplyRate
+Sink: tainted_state_changing_external_call in BaseJumpRateModelV2.getSupplyRate
 
 ### Operations with Source Code Mapping:
-    IR:  manuallyCreateOracles
-    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [1194, 1195, 1196]
+    IR:  getSupplyRate
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [550, 551, 552, 553, 554, 555]
     LNE: (No direct expression available)
+
+    IR:  TMP_58(uint256) = INTERNAL_CALL, BaseJumpRateModelV2.getBorrowRateInternal(uint256,uint256,uint256)(cash,borrows,reserves)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [552]
+    LNE: borrowRate = getBorrowRateInternal(cash,borrows,reserves)
+
+    IR:  borrowRate(uint256) := TMP_58(uint256)
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [552]
+    LNE: borrowRate = getBorrowRateInternal(cash,borrows,reserves)
+
+    IR:  TMP_59(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['borrowRate', 'oneMinusReserveFactor'] 
+    SRC: File 'pmdetector/flattened_contracts/16553566_Warp Finance/flattened.sol', Lines [553]
+    LNE: rateToPool = borrowRate.mul(oneMinusReserveFactor).div(1e18)
 
 ----------------------------------------

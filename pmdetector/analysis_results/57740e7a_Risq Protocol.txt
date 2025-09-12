@@ -314,6 +314,35 @@ Sink #32: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in BEP20.transfer
+  Sink: tainted_state_changing_external_call in BEP20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_44,recipient,amount)
+    3. REF_19(uint256) -> _balances[recipient]
+
+Path #2:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_state_changing_external_call in ERC20Burnable.burnFrom
+  Path Operations:
+    1. burnFrom
+    2. TMP_151(uint256) = INTERNAL_CALL, BEP20.allowance(address,address)(account,TMP_150)
+
+Path #3:
+  Source: external_input_params in BEP20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_13(uint256) -> REF_12[spender]
+
+Path #4:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_erc20_transfer in BEP20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #5:
   Source: external_input_params in ERC20Burnable.burnFrom
   Sink: tainted_state_changing_external_call in ERC20Burnable._burn
   Path Operations:
@@ -321,62 +350,7 @@ Path #1:
     2. INTERNAL_CALL, BEP20._burn(address,uint256)(account,amount)
     3. REF_54(uint256) -> _balances[account]
 
-Path #2:
-  Source: external_input_params in BEP20.transfer
-  Sink: tainted_erc20_transfer in BEP20.transfer
-  Path Operations:
-    1. transfer
-
-Path #3:
-  Source: external_input_params in ERC20Burnable.burnFrom
-  Sink: tainted_state_changing_external_call in ERC20Burnable.burnFrom
-  Path Operations:
-    1. burnFrom
-    2. TMP_151(uint256) = INTERNAL_CALL, BEP20.allowance(address,address)(account,TMP_150)
-
-Path #4:
-  Source: external_input_params in BEP20.increaseAllowance
-  Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_10(uint256) -> REF_9[spender]
-
-Path #5:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_state_changing_external_call in BEP20.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_6(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_7(uint256) -> REF_6[TMP_50]
-
 Path #6:
-  Source: external_input_params in BEP20.decreaseAllowance
-  Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_13(uint256) -> REF_12[spender]
-
-Path #7:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_erc20_transfer in BEP20.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #8:
-  Source: external_input_params in ERC20Burnable.burnFrom
-  Sink: tainted_erc20_transfer in ERC20Burnable._burn
-  Path Operations:
-    1. burnFrom
-    2. INTERNAL_CALL, BEP20._burn(address,uint256)(account,amount)
-
-Path #9:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_erc20_transfer in BEP20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #10:
   Source: external_input_params in BEP20.transferFrom
   Sink: tainted_state_changing_external_call in BEP20._transfer
   Path Operations:
@@ -384,10 +358,36 @@ Path #10:
     2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
     3. REF_16(uint256) -> _balances[sender]
 
-Path #11:
+Path #7:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_state_changing_external_call in BEP20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_6(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_7(uint256) -> REF_6[TMP_50]
+
+Path #8:
   Source: external_input_params in BEP20.transfer
-  Sink: tainted_state_changing_external_call in BEP20._transfer
+  Sink: tainted_erc20_transfer in BEP20.transfer
   Path Operations:
     1. transfer
-    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_44,recipient,amount)
-    3. REF_19(uint256) -> _balances[recipient]
+
+Path #9:
+  Source: external_input_params in BEP20.increaseAllowance
+  Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_10(uint256) -> REF_9[spender]
+
+Path #10:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_erc20_transfer in BEP20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #11:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_erc20_transfer in ERC20Burnable._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, BEP20._burn(address,uint256)(account,amount)

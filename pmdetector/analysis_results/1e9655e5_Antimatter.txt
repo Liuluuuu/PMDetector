@@ -722,103 +722,13 @@ Sink #57: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in UpgradeabilityProxy.constructor
-  Sink: tainted_state_changing_external_call in UpgradeabilityProxy._setImplementation
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
-
-Path #2:
-  Source: external_input_params in __InitializableAdminUpgradeabilityProductProxy__.__InitializableAdminUpgradeabilityProductProxy_init__
-  Sink: tainted_state_changing_external_call in __InitializableAdminUpgradeabilityProductProxy__._setFactory
-  Path Operations:
-    1. __InitializableAdminUpgradeabilityProductProxy_init__
-    2. INTERNAL_CALL, ProductProxy._setFactory(address)(factory)
-
-Path #3:
   Source: external_input_params in ERC20UpgradeSafe.increaseAllowance
   Sink: tainted_state_changing_external_call in ERC20UpgradeSafe.increaseAllowance
   Path Operations:
     1. increaseAllowance
     2. REF_97(uint256) -> REF_96[spender]
 
-Path #4:
-  Source: external_input_params in ERC20UpgradeSafe.transferFrom
-  Sink: tainted_erc20_transfer in ERC20UpgradeSafe._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20UpgradeSafe._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #5:
-  Source: external_input_params in InitializableProductProxy.__InitializableProductProxy_init
-  Sink: tainted_state_changing_external_call in InitializableProductProxy.__InitializableProductProxy_init
-  Path Operations:
-    1. __InitializableProductProxy_init
-
-Path #6:
-  Source: external_input_params in __BaseAdminUpgradeabilityProxy__.__upgradeTo__
-  Sink: tainted_state_changing_external_call in __BaseAdminUpgradeabilityProxy__._setImplementation
-  Path Operations:
-    1. __upgradeTo__
-    2. INTERNAL_CALL, BaseUpgradeabilityProxy._upgradeTo(address)(newImplementation)
-    3. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(newImplementation)
-
-Path #7:
-  Source: external_input_params in InitializableUpgradeabilityProxy.initialize
-  Sink: tainted_state_changing_external_call in InitializableUpgradeabilityProxy.initialize
-  Path Operations:
-    1. initialize
-
-Path #8:
-  Source: external_input_params in ERC20UpgradeSafe.decreaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20UpgradeSafe.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_100(uint256) -> REF_99[spender]
-
-Path #9:
-  Source: external_input_params in InitializableUpgradeabilityProxy.initialize
-  Sink: tainted_state_changing_external_call in InitializableUpgradeabilityProxy._setImplementation
-  Path Operations:
-    1. initialize
-    2. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
-
-Path #10:
-  Source: external_input_params in __InitializableAdminUpgradeabilityProductProxy__.__InitializableAdminUpgradeabilityProductProxy_init__
-  Sink: tainted_state_changing_external_call in __InitializableAdminUpgradeabilityProductProxy__.__InitializableAdminUpgradeabilityProductProxy_init__
-  Path Operations:
-    1. __InitializableAdminUpgradeabilityProductProxy_init__
-
-Path #11:
-  Source: external_input_params in InitializableProductProxy.__InitializableProductProxy_init
-  Sink: tainted_state_changing_external_call in InitializableProductProxy._setFactory
-  Path Operations:
-    1. __InitializableProductProxy_init
-    2. INTERNAL_CALL, ProductProxy._setFactory(address)(factory)
-
-Path #12:
-  Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeTo
-  Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy._setImplementation
-  Path Operations:
-    1. upgradeTo
-    2. INTERNAL_CALL, BaseUpgradeabilityProxy._upgradeTo(address)(newImplementation)
-    3. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(newImplementation)
-
-Path #13:
-  Source: external_input_params in ERC20UpgradeSafe.transfer
-  Sink: tainted_state_changing_external_call in ERC20UpgradeSafe._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ERC20UpgradeSafe._transfer(address,address,uint256)(TMP_919,recipient,amount)
-    3. REF_106(uint256) -> _balances[recipient]
-
-Path #14:
-  Source: external_input_params in __BaseAdminUpgradeabilityProxy__.__upgradeToAndCall__
-  Sink: tainted_state_changing_external_call in __BaseAdminUpgradeabilityProxy__.__upgradeToAndCall__
-  Path Operations:
-    1. __upgradeToAndCall__
-
-Path #15:
+Path #2:
   Source: external_input_params in ERC20UpgradeSafe.transferFrom
   Sink: tainted_state_changing_external_call in ERC20UpgradeSafe._transfer
   Path Operations:
@@ -826,25 +736,74 @@ Path #15:
     2. INTERNAL_CALL, ERC20UpgradeSafe._transfer(address,address,uint256)(sender,recipient,amount)
     3. REF_103(uint256) -> _balances[sender]
 
-Path #16:
+Path #3:
+  Source: external_input_params in InitializableUpgradeabilityProxy.initialize
+  Sink: tainted_state_changing_external_call in InitializableUpgradeabilityProxy.initialize
+  Path Operations:
+    1. initialize
+
+Path #4:
   Source: external_input_params in UpgradeabilityProxy.constructor
   Sink: tainted_state_changing_external_call in UpgradeabilityProxy.constructor
   Path Operations:
     1. constructor
 
-Path #17:
-  Source: external_input_params in ERC20UpgradeSafe.transferFrom
-  Sink: tainted_erc20_transfer in ERC20UpgradeSafe.transferFrom
+Path #5:
+  Source: external_input_params in ERC20UpgradeSafe.transfer
+  Sink: tainted_erc20_transfer in ERC20UpgradeSafe.transfer
   Path Operations:
-    1. transferFrom
+    1. transfer
 
-Path #18:
+Path #6:
+  Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeTo
+  Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy._setImplementation
+  Path Operations:
+    1. upgradeTo
+    2. INTERNAL_CALL, BaseUpgradeabilityProxy._upgradeTo(address)(newImplementation)
+    3. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(newImplementation)
+
+Path #7:
+  Source: external_input_params in ERC20UpgradeSafe.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20UpgradeSafe.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_100(uint256) -> REF_99[spender]
+
+Path #8:
+  Source: external_input_params in __InitializableAdminUpgradeabilityProductProxy__.__InitializableAdminUpgradeabilityProductProxy_init__
+  Sink: tainted_state_changing_external_call in __InitializableAdminUpgradeabilityProductProxy__._setFactory
+  Path Operations:
+    1. __InitializableAdminUpgradeabilityProductProxy_init__
+    2. INTERNAL_CALL, ProductProxy._setFactory(address)(factory)
+
+Path #9:
+  Source: external_input_params in __BaseAdminUpgradeabilityProxy__.__upgradeTo__
+  Sink: tainted_state_changing_external_call in __BaseAdminUpgradeabilityProxy__._setImplementation
+  Path Operations:
+    1. __upgradeTo__
+    2. INTERNAL_CALL, BaseUpgradeabilityProxy._upgradeTo(address)(newImplementation)
+    3. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(newImplementation)
+
+Path #10:
   Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeToAndCall
   Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy.upgradeToAndCall
   Path Operations:
     1. upgradeToAndCall
 
-Path #19:
+Path #11:
+  Source: external_input_params in __InitializableAdminUpgradeabilityProductProxy__.__InitializableAdminUpgradeabilityProductProxy_init__
+  Sink: tainted_state_changing_external_call in __InitializableAdminUpgradeabilityProductProxy__.__InitializableAdminUpgradeabilityProductProxy_init__
+  Path Operations:
+    1. __InitializableAdminUpgradeabilityProductProxy_init__
+
+Path #12:
+  Source: external_input_params in UpgradeabilityProxy.constructor
+  Sink: tainted_state_changing_external_call in UpgradeabilityProxy._setImplementation
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
+
+Path #13:
   Source: external_input_params in ERC20UpgradeSafe.transferFrom
   Sink: tainted_state_changing_external_call in ERC20UpgradeSafe.transferFrom
   Path Operations:
@@ -852,14 +811,55 @@ Path #19:
     2. REF_93(mapping(address => uint256)) -> _allowances[sender]
     3. REF_94(uint256) -> REF_93[TMP_932]
 
-Path #20:
+Path #14:
+  Source: external_input_params in InitializableUpgradeabilityProxy.initialize
+  Sink: tainted_state_changing_external_call in InitializableUpgradeabilityProxy._setImplementation
+  Path Operations:
+    1. initialize
+    2. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
+
+Path #15:
+  Source: external_input_params in ERC20UpgradeSafe.transferFrom
+  Sink: tainted_erc20_transfer in ERC20UpgradeSafe.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #16:
+  Source: external_input_params in __BaseAdminUpgradeabilityProxy__.__upgradeToAndCall__
+  Sink: tainted_state_changing_external_call in __BaseAdminUpgradeabilityProxy__.__upgradeToAndCall__
+  Path Operations:
+    1. __upgradeToAndCall__
+
+Path #17:
   Source: external_input_params in ERC20UpgradeSafe.transfer
-  Sink: tainted_erc20_transfer in ERC20UpgradeSafe.transfer
+  Sink: tainted_state_changing_external_call in ERC20UpgradeSafe._transfer
   Path Operations:
     1. transfer
+    2. INTERNAL_CALL, ERC20UpgradeSafe._transfer(address,address,uint256)(TMP_919,recipient,amount)
+    3. REF_106(uint256) -> _balances[recipient]
 
-Path #21:
+Path #18:
+  Source: external_input_params in ERC20UpgradeSafe.transferFrom
+  Sink: tainted_erc20_transfer in ERC20UpgradeSafe._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20UpgradeSafe._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #19:
   Source: external_input_params in Governable.transferGovernorship
   Sink: tainted_erc20_transfer in Governable.transferGovernorship
   Path Operations:
     1. transferGovernorship
+
+Path #20:
+  Source: external_input_params in InitializableProductProxy.__InitializableProductProxy_init
+  Sink: tainted_state_changing_external_call in InitializableProductProxy._setFactory
+  Path Operations:
+    1. __InitializableProductProxy_init
+    2. INTERNAL_CALL, ProductProxy._setFactory(address)(factory)
+
+Path #21:
+  Source: external_input_params in InitializableProductProxy.__InitializableProductProxy_init
+  Sink: tainted_state_changing_external_call in InitializableProductProxy.__InitializableProductProxy_init
+  Path Operations:
+    1. __InitializableProductProxy_init

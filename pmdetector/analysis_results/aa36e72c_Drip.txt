@@ -476,58 +476,12 @@ Sink #46: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in MintableToken.mint
-  Sink: tainted_state_changing_external_call in MintableToken.mint
-  Path Operations:
-    1. mint
-    2. REF_111(uint256) -> balances[_to]
-
-Path #2:
-  Source: external_input_params in StandardToken.decreaseApproval
-  Sink: tainted_state_changing_external_call in StandardToken.decreaseApproval
-  Path Operations:
-    1. decreaseApproval
-    2. REF_51(uint256) -> REF_50[_spender]
-    3. oldValue(uint256) := REF_51(uint256)
-
-Path #3:
-  Source: external_input_params in StandardToken.transferFrom
-  Sink: tainted_state_changing_external_call in StandardToken.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_36(mapping(address => uint256)) -> allowed[_from]
-    3. REF_37(uint256) -> REF_36[msg.sender]
-
-Path #4:
-  Source: external_input_params in StandardToken.transferFrom
-  Sink: tainted_state_changing_external_call in StandardToken.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_29(uint256) -> balances[_from]
-
-Path #5:
-  Source: external_input_params in MintableToken.mint
-  Sink: tainted_state_changing_external_call in DripToken.mint
-  Path Operations:
-    1. mint
-    2. TMP_119(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply_', '_amount'] 
-    3. totalSupply_(uint256) := TMP_119(uint256)
-
-Path #6:
-  Source: external_input_params in MintableToken.mint
-  Sink: tainted_state_changing_external_call in MintableToken.mint
-  Path Operations:
-    1. mint
-    2. TMP_119(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply_', '_amount'] 
-    3. totalSupply_(uint256) := TMP_119(uint256)
-
-Path #7:
   Source: external_input_params in BasicToken.transfer
   Sink: tainted_state_changing_external_call in BasicToken.transfer
   Path Operations:
     1. transfer
 
-Path #8:
+Path #2:
   Source: external_input_params in DripToken.constructor
   Sink: tainted_state_changing_external_call in DripToken.mint
   Path Operations:
@@ -535,14 +489,21 @@ Path #8:
     2. TMP_191(uint256) = _initialMint * 1000000000000000000
     3. TMP_192(bool) = INTERNAL_CALL, DripToken.mint(address,uint256)(owner,TMP_191)
 
-Path #9:
-  Source: external_input_params in DripToken.setVaultAddress
-  Sink: tainted_erc20_transfer in DripToken.transfer
+Path #3:
+  Source: external_input_params in Whitelist.removeAddressesFromWhitelist
+  Sink: tainted_erc20_transfer in Whitelist.removeAddressesFromWhitelist
   Path Operations:
-    1. setVaultAddress
-    2. vaultAddress(address) := _newVaultAddress(address)
+    1. removeAddressesFromWhitelist
+    2. REF_7(address) -> addrs[i]
 
-Path #10:
+Path #4:
+  Source: external_input_params in BasicToken.transfer
+  Sink: tainted_state_changing_external_call in BasicToken.transfer
+  Path Operations:
+    1. transfer
+    2. REF_14(uint256) -> balances[_to]
+
+Path #5:
   Source: external_input_params in DripToken.constructor
   Sink: tainted_state_changing_external_call in DripToken.mint
   Path Operations:
@@ -552,21 +513,67 @@ Path #10:
     4. TMP_201(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['mintedSupply_', '_amount'] 
     5. mintedSupply_(uint256) := TMP_201(uint256)
 
-Path #11:
+Path #6:
+  Source: external_input_params in StandardToken.decreaseApproval
+  Sink: tainted_state_changing_external_call in StandardToken.decreaseApproval
+  Path Operations:
+    1. decreaseApproval
+    2. REF_51(uint256) -> REF_50[_spender]
+    3. oldValue(uint256) := REF_51(uint256)
+
+Path #7:
+  Source: external_input_params in MintableToken.mint
+  Sink: tainted_state_changing_external_call in DripToken.mint
+  Path Operations:
+    1. mint
+    2. TMP_119(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply_', '_amount'] 
+    3. totalSupply_(uint256) := TMP_119(uint256)
+
+Path #8:
+  Source: external_input_params in StandardToken.transferFrom
+  Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_36(mapping(address => uint256)) -> allowed[_from]
+    3. REF_37(uint256) -> REF_36[msg.sender]
+
+Path #9:
   Source: external_input_params in StandardToken.increaseApproval
   Sink: tainted_state_changing_external_call in StandardToken.increaseApproval
   Path Operations:
     1. increaseApproval
     2. REF_46(uint256) -> REF_45[_spender]
 
-Path #12:
+Path #10:
+  Source: external_input_params in DripToken.setVaultAddress
+  Sink: tainted_erc20_transfer in DripToken.transfer
+  Path Operations:
+    1. setVaultAddress
+    2. vaultAddress(address) := _newVaultAddress(address)
+
+Path #11:
   Source: external_input_params in StandardToken.transferFrom
   Sink: tainted_state_changing_external_call in StandardToken.transferFrom
   Path Operations:
     1. transferFrom
-    2. REF_32(uint256) -> balances[_to]
+    2. REF_29(uint256) -> balances[_from]
+
+Path #12:
+  Source: external_input_params in MintableToken.mint
+  Sink: tainted_state_changing_external_call in MintableToken.mint
+  Path Operations:
+    1. mint
+    2. REF_111(uint256) -> balances[_to]
 
 Path #13:
+  Source: external_input_params in MintableToken.mint
+  Sink: tainted_state_changing_external_call in MintableToken.mint
+  Path Operations:
+    1. mint
+    2. TMP_119(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply_', '_amount'] 
+    3. totalSupply_(uint256) := TMP_119(uint256)
+
+Path #14:
   Source: external_input_params in DripToken.constructor
   Sink: tainted_state_changing_external_call in DripToken.remainingMintableSupply
   Path Operations:
@@ -576,19 +583,12 @@ Path #13:
     4. TMP_201(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['mintedSupply_', '_amount'] 
     5. mintedSupply_(uint256) := TMP_201(uint256)
 
-Path #14:
-  Source: external_input_params in Whitelist.removeAddressesFromWhitelist
-  Sink: tainted_erc20_transfer in Whitelist.removeAddressesFromWhitelist
-  Path Operations:
-    1. removeAddressesFromWhitelist
-    2. REF_7(address) -> addrs[i]
-
 Path #15:
-  Source: external_input_params in BasicToken.transfer
-  Sink: tainted_state_changing_external_call in BasicToken.transfer
+  Source: external_input_params in StandardToken.transferFrom
+  Sink: tainted_state_changing_external_call in StandardToken.transferFrom
   Path Operations:
-    1. transfer
-    2. REF_14(uint256) -> balances[_to]
+    1. transferFrom
+    2. REF_32(uint256) -> balances[_to]
 
 Path #16:
   Source: external_input_params in DripToken.constructor

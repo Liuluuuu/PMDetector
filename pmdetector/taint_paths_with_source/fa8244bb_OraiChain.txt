@@ -2,17 +2,21 @@
 Found 9 tainted paths.
 
 ## Path #1
-Source: external_input_params in StandardToken.transferFrom
-Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+Source: external_input_params in StandardToken.decreaseApproval
+Sink: tainted_state_changing_external_call in StandardToken.decreaseApproval
 
 ### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133]
+    IR:  decreaseApproval
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [170, 171, 172, 173, 174, 175, 176, 177, 178, 179]
     LNE: (No direct expression available)
 
-    IR:  REF_17(uint256) -> balances[_from]
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [128]
-    LNE: balances[_from] = balances[_from].sub(_value)
+    IR:  REF_37(uint256) -> REF_36[_spender]
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [171]
+    LNE: oldValue = allowed[msg.sender][_spender]
+
+    IR:  oldValue(uint256) := REF_37(uint256)
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [171]
+    LNE: oldValue = allowed[msg.sender][_spender]
 
 ----------------------------------------
 
@@ -40,32 +44,24 @@ Sink: tainted_state_changing_external_call in StandardToken.transferFrom
     SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133]
     LNE: (No direct expression available)
 
-    IR:  REF_14(mapping(address => uint256)) -> allowed[_from]
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [123]
-    LNE: _allowance = allowed[_from][msg.sender]
-
-    IR:  REF_15(uint256) -> REF_14[msg.sender]
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [123]
-    LNE: _allowance = allowed[_from][msg.sender]
-
-    IR:  _allowance(uint256) := REF_15(uint256)
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [123]
-    LNE: _allowance = allowed[_from][msg.sender]
+    IR:  REF_20(uint256) -> balances[_to]
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [129]
+    LNE: balances[_to] = balances[_to].add(_value)
 
 ----------------------------------------
 
 ## Path #4
-Source: external_input_params in StandardToken.transferFrom
-Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+Source: external_input_params in ERC677Token.transferAndCall
+Sink: tainted_erc20_transfer in ERC677Token.contractFallback
 
 ### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133]
+    IR:  transferAndCall
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [194, 195, 196, 197, 198, 199, 200, 201]
     LNE: (No direct expression available)
 
-    IR:  REF_20(uint256) -> balances[_to]
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [129]
-    LNE: balances[_to] = balances[_to].add(_value)
+    IR:  INTERNAL_CALL, ERC677Token.contractFallback(address,uint256,bytes)(_to,_value,_data)
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [198]
+    LNE: contractFallback(_to,_value,_data)
 
 ----------------------------------------
 
@@ -82,20 +78,54 @@ Sink: tainted_state_changing_external_call in BasicToken.transfer
 
 ## Path #6
 Source: external_input_params in ERC677Token.transferAndCall
-Sink: tainted_erc20_transfer in ERC677Token.contractFallback
+Sink: tainted_erc20_transfer in ERC677Token.transferAndCall
 
 ### Operations with Source Code Mapping:
     IR:  transferAndCall
     SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [194, 195, 196, 197, 198, 199, 200, 201]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, ERC677Token.contractFallback(address,uint256,bytes)(_to,_value,_data)
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [198]
-    LNE: contractFallback(_to,_value,_data)
-
 ----------------------------------------
 
 ## Path #7
+Source: external_input_params in StandardToken.transferFrom
+Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133]
+    LNE: (No direct expression available)
+
+    IR:  REF_17(uint256) -> balances[_from]
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [128]
+    LNE: balances[_from] = balances[_from].sub(_value)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in StandardToken.transferFrom
+Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133]
+    LNE: (No direct expression available)
+
+    IR:  REF_14(mapping(address => uint256)) -> allowed[_from]
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [123]
+    LNE: _allowance = allowed[_from][msg.sender]
+
+    IR:  REF_15(uint256) -> REF_14[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [123]
+    LNE: _allowance = allowed[_from][msg.sender]
+
+    IR:  _allowance(uint256) := REF_15(uint256)
+    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [123]
+    LNE: _allowance = allowed[_from][msg.sender]
+
+----------------------------------------
+
+## Path #9
 Source: external_input_params in BasicToken.transfer
 Sink: tainted_state_changing_external_call in BasicToken.transfer
 
@@ -107,35 +137,5 @@ Sink: tainted_state_changing_external_call in BasicToken.transfer
     IR:  REF_4(uint256) -> balances[_to]
     SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [87]
     LNE: balances[_to] = balances[_to].add(_value)
-
-----------------------------------------
-
-## Path #8
-Source: external_input_params in ERC677Token.transferAndCall
-Sink: tainted_erc20_transfer in ERC677Token.transferAndCall
-
-### Operations with Source Code Mapping:
-    IR:  transferAndCall
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [194, 195, 196, 197, 198, 199, 200, 201]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in StandardToken.decreaseApproval
-Sink: tainted_state_changing_external_call in StandardToken.decreaseApproval
-
-### Operations with Source Code Mapping:
-    IR:  decreaseApproval
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [170, 171, 172, 173, 174, 175, 176, 177, 178, 179]
-    LNE: (No direct expression available)
-
-    IR:  REF_37(uint256) -> REF_36[_spender]
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [171]
-    LNE: oldValue = allowed[msg.sender][_spender]
-
-    IR:  oldValue(uint256) := REF_37(uint256)
-    SRC: File 'pmdetector/flattened_contracts/fa8244bb_OraiChain/flattened.sol', Lines [171]
-    LNE: oldValue = allowed[msg.sender][_spender]
 
 ----------------------------------------

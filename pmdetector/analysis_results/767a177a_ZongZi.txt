@@ -692,16 +692,6 @@ Sink #78: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_state_changing_external_call in ZZF._transferStandard
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. REF_79(uint256) -> _rOwned[recipient]
-
-Path #2:
   Source: external_input_params in ZZF.burnToHolder
   Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
   Path Operations:
@@ -711,32 +701,114 @@ Path #2:
     4. deserved(uint256) := REF_197(uint256)
     5. INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
 
-Path #3:
-  Source: external_input_params in ZZF.balanceOf
-  Sink: tainted_erc20_transfer in ZZF.arriveRewards
-  Path Operations:
-    1. balanceOf
-    2. REF_43(uint256) -> _rOwned[account]
-    3. TMP_124(uint256) = INTERNAL_CALL, ZZF.tokenFromReflection(uint256)(REF_43)
-    4. TMP_422(uint256) = INTERNAL_CALL, ZZF.balanceOf(address)(fee2)
-
-Path #4:
+Path #2:
   Source: external_input_params in ZZF.transferFrom
-  Sink: tainted_state_changing_external_call in ZZF._transferToExcluded
+  Sink: tainted_erc20_transfer in ZZF._tokenTransfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
     3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_82(uint256) -> _rOwned[sender]
+
+Path #3:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+  Path Operations:
+    1. burnToHolder
+    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    5. _balance(uint256) := TMP_397(uint256)
+
+Path #4:
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_state_changing_external_call in ZZF._reflectFee
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    6. tFee(uint256)= UNPACK TUPLE_4 index: 4 
+    7. INTERNAL_CALL, ZZF._reflectFee(uint256,uint256)(rFee,tFee)
+    8. TMP_243(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tFee'] 
+    9. _tFeeTotal(uint256) := TMP_243(uint256)
 
 Path #5:
-  Source: external_input_params in ZZF.getInvitationList
-  Sink: tainted_state_changing_external_call in ZZF.getInvitationList
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_state_changing_external_call in ZZF._transferToExcluded
   Path Operations:
-    1. getInvitationList
+    1. transfer
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_85(uint256) -> _tOwned[recipient]
 
 Path #6:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_state_changing_external_call in ZZF.burnToHolder
+  Path Operations:
+    1. burnToHolder
+
+Path #7:
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_state_changing_external_call in ZZF._takeLiquidity
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    6. tLiquidity(uint256)= UNPACK TUPLE_4 index: 5 
+    7. INTERNAL_CALL, ZZF._takeLiquidity(uint256)(tLiquidity)
+
+Path #8:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_erc20_transfer in ZZF._BurnTokenToDead
+  Path Operations:
+    1. burnToHolder
+    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    5. _balance(uint256) := TMP_397(uint256)
+
+Path #9:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_erc20_transfer in ZZF._BurnTokenToDead
+  Path Operations:
+    1. burnToHolder
+    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+
+Path #10:
+  Source: external_input_params in ZZF.transferFrom
+  Sink: tainted_erc20_transfer in ZZF._tokenTransfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+
+Path #11:
+  Source: external_input_params in ZZF.reflectionFromToken
+  Sink: tainted_state_changing_external_call in ZZF.calculateTaxFee
+  Path Operations:
+    1. reflectionFromToken
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    3. TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    4. TMP_245(uint256) = INTERNAL_CALL, ZZF.calculateTaxFee(uint256)(tAmount)
+    5. TMP_273(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_taxFee'] 
+
+Path #12:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
+  Path Operations:
+    1. burnToHolder
+    2. TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    3. REF_197(uint256) -> TMP_366[TMP_367]
+    4. deserved(uint256) := REF_197(uint256)
+    5. INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    6. TMP_381(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBurn', 'increase'] 
+    7. totalBurn(uint256) := TMP_381(uint256)
+
+Path #13:
   Source: external_input_params in ZZF.transfer
   Sink: tainted_state_changing_external_call in ZZF._getCurrentSupply
   Path Operations:
@@ -751,75 +823,74 @@ Path #6:
     9. _rTotal(uint256) := TMP_242(uint256)
     10. rSupply(uint256) := _rTotal(uint256)
 
-Path #7:
+Path #14:
+  Source: external_input_params in ZZF.transferFrom
+  Sink: tainted_erc20_transfer in ZZF.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #15:
+  Source: external_input_params in ZZF.transferFrom
+  Sink: tainted_erc20_transfer in ZZF._tokenTransfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+
+Path #16:
+  Source: external_input_params in ZZF.reflectionFromToken
+  Sink: tainted_state_changing_external_call in ZZF._getRValues
+  Path Operations:
+    1. reflectionFromToken
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    3. TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
+    4. TMP_249(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
+    5. rAmount(uint256) := TMP_249(uint256)
+
+Path #17:
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_erc20_transfer in ZZF.transfer
+  Path Operations:
+    1. transfer
+
+Path #18:
+  Source: external_input_params in ZZF.reflectionFromToken
+  Sink: tainted_state_changing_external_call in ZZF._getRValues
+  Path Operations:
+    1. reflectionFromToken
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    3. TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    4. tFee(uint256)= UNPACK TUPLE_8 index: 1 
+    5. TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
+
+Path #19:
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_state_changing_external_call in ZZF._transferBothExcluded
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_109(uint256) -> _rOwned[recipient]
+
+Path #20:
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_state_changing_external_call in ZZF._transferBothExcluded
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_106(uint256) -> _tOwned[recipient]
+
+Path #21:
   Source: external_input_params in ZZF.increaseAllowance
   Sink: tainted_state_changing_external_call in ZZF.increaseAllowance
   Path Operations:
     1. increaseAllowance
     2. REF_50(uint256) -> REF_49[spender]
 
-Path #8:
-  Source: external_input_params in ZZF.transferFrom
-  Sink: tainted_erc20_transfer in ZZF._tokenTransfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-
-Path #9:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_state_changing_external_call in ZZF._reflectFee
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    6. rFee(uint256)= UNPACK TUPLE_4 index: 2 
-    7. INTERNAL_CALL, ZZF._reflectFee(uint256,uint256)(rFee,tFee)
-    8. TMP_242(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rFee'] 
-    9. _rTotal(uint256) := TMP_242(uint256)
-
-Path #10:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
-  Path Operations:
-    1. burnToHolder
-    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
-    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
-    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
-    5. _balance(uint256) := TMP_397(uint256)
-    6. TMP_400(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_useBalance', '_balance'] 
-    7. _useBalance(uint256) := TMP_400(uint256)
-
-Path #11:
-  Source: external_input_params in ZZF.transferFrom
-  Sink: tainted_erc20_transfer in ZZF._tokenTransfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-
-Path #12:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF.burnToHolder
-  Path Operations:
-    1. burnToHolder
-
-Path #13:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF.burnToHolder
-  Path Operations:
-    1. burnToHolder
-    2. REF_188(EnumerableSet.AddressSet) -> InvitationList[_invitation]
-
-Path #14:
-  Source: external_input_params in ZZF.getUserList
-  Sink: tainted_state_changing_external_call in ZZF.getUserList
-  Path Operations:
-    1. getUserList
-
-Path #15:
+Path #22:
   Source: external_input_params in ZZF.burnToHolder
   Sink: tainted_erc20_transfer in ZZF.arriveRewards
   Path Operations:
@@ -831,92 +902,51 @@ Path #15:
     6. INTERNAL_CALL, ZZF.arriveRewards(uint256)(increase)
     7. TMP_417(uint256) = increase (c)* 2
 
-Path #16:
+Path #23:
+  Source: external_input_params in ZZF.getInvitationList
+  Sink: tainted_state_changing_external_call in ZZF.getInvitationList
+  Path Operations:
+    1. getInvitationList
+    2. TMP_308(uint256) = from (c)+ index
+
+Path #24:
   Source: external_input_params in ZZF.reflectionFromToken
-  Sink: tainted_state_changing_external_call in ZZF._getRValues
+  Sink: tainted_state_changing_external_call in ZZF._getTValues
   Path Operations:
     1. reflectionFromToken
     2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    3. TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
-    4. TMP_249(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
-    5. rAmount(uint256) := TMP_249(uint256)
-    6. TMP_252(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rAmount', 'rFee'] 
-
-Path #17:
-  Source: external_input_params in ZZF.transferFrom
-  Sink: tainted_erc20_transfer in ZZF._tokenTransfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-
-Path #18:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_state_changing_external_call in ZZF._takeLiquidity
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    6. tLiquidity(uint256)= UNPACK TUPLE_4 index: 5 
-    7. INTERNAL_CALL, ZZF._takeLiquidity(uint256)(tLiquidity)
-    8. TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tLiquidity', 'currentRate'] 
-    9. rLiquidity(uint256) := TMP_265(uint256)
-
-Path #19:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_state_changing_external_call in ZZF._transferToExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_88(uint256) -> _rOwned[recipient]
-
-Path #20:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_state_changing_external_call in ZZF._transferFromExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_97(uint256) -> _rOwned[recipient]
-
-Path #21:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_erc20_transfer in ZZF.transfer
-  Path Operations:
-    1. transfer
-
-Path #22:
-  Source: external_input_params in ZZF.transferFrom
-  Sink: tainted_state_changing_external_call in ZZF._transferFromExcluded
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_94(uint256) -> _rOwned[sender]
-
-Path #23:
-  Source: external_input_params in ZZF.transferFrom
-  Sink: tainted_erc20_transfer in ZZF.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #24:
-  Source: external_input_params in ZZF.transferFrom
-  Sink: tainted_state_changing_external_call in ZZF._transferStandard
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. REF_76(uint256) -> _rOwned[sender]
+    3. TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    4. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tAmount', 'tFee'] 
 
 Path #25:
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_state_changing_external_call in ZZF._transferStandard
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. REF_79(uint256) -> _rOwned[recipient]
+
+Path #26:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+  Path Operations:
+    1. burnToHolder
+    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    5. _balance(uint256) := TMP_397(uint256)
+
+Path #27:
+  Source: external_input_params in ZZF.reflectionFromToken
+  Sink: tainted_state_changing_external_call in ZZF._getTValues
+  Path Operations:
+    1. reflectionFromToken
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    3. TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+
+Path #28:
   Source: external_input_params in ZZF.transferFrom
   Sink: tainted_state_changing_external_call in ZZF._transferBothExcluded
   Path Operations:
@@ -926,49 +956,13 @@ Path #25:
     4. INTERNAL_CALL, ZZF._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
     5. REF_103(uint256) -> _rOwned[sender]
 
-Path #26:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
-  Path Operations:
-    1. burnToHolder
-    2. TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
-    3. REF_197(uint256) -> TMP_366[TMP_367]
-    4. deserved(uint256) := REF_197(uint256)
-    5. INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
-
-Path #27:
-  Source: external_input_params in ZZF.reflectionFromToken
-  Sink: tainted_state_changing_external_call in ZZF._getRValues
-  Path Operations:
-    1. reflectionFromToken
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    3. TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
-    4. tFee(uint256)= UNPACK TUPLE_8 index: 1 
-    5. TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
-
-Path #28:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
-  Path Operations:
-    1. burnToHolder
-    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
-
 Path #29:
   Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+  Sink: tainted_state_changing_external_call in ZZF.burnToHolder
   Path Operations:
     1. burnToHolder
-    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
-    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
 
 Path #30:
-  Source: external_input_params in ZZF.transferFrom
-  Sink: tainted_erc20_transfer in ZZF._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #31:
   Source: external_input_params in ZZF.burnToHolder
   Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
   Path Operations:
@@ -977,16 +971,25 @@ Path #31:
     3. REF_197(uint256) -> TMP_366[TMP_367]
     4. deserved(uint256) := REF_197(uint256)
     5. INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
-    6. TMP_386(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalRewards', 'increase'] 
-    7. totalRewards(uint256) := TMP_386(uint256)
+
+Path #31:
+  Source: external_input_params in ZZF.getInvitationList
+  Sink: tainted_state_changing_external_call in ZZF.canRewards
+  Path Operations:
+    1. getInvitationList
+    2. TMP_308(uint256) = from (c)+ index
+    3. TMP_309(address) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.at(EnumerableSet.AddressSet,uint256), arguments:['REF_154', 'TMP_308'] 
+    4. addr(address) := TMP_309(address)
+    5. TMP_310(ZZF.userInfo) = INTERNAL_CALL, ZZF.getUserInfo(address)(addr)
+    6. TMP_313(uint256) = INTERNAL_CALL, ZZF.canRewards(address)(addr)
+    7. TMP_326(uint256) = INTERNAL_CALL, ZZF.balanceOf(address)(addr)
 
 Path #32:
-  Source: external_input_params in ZZF.transferFrom
-  Sink: tainted_erc20_transfer in ZZF._tokenTransfer
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    1. burnToHolder
+    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
 
 Path #33:
   Source: external_input_params in ZZF.transferFrom
@@ -1000,29 +1003,6 @@ Path #33:
 
 Path #34:
   Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
-  Path Operations:
-    1. burnToHolder
-    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
-
-Path #35:
-  Source: external_input_params in ZZF.setInvitation
-  Sink: tainted_state_changing_external_call in ZZF.setInvitation
-  Path Operations:
-    1. setInvitation
-    2. REF_183(EnumerableSet.AddressSet) -> InvitationList[from]
-
-Path #36:
-  Source: external_input_params in ZZF.reflectionFromToken
-  Sink: tainted_state_changing_external_call in ZZF.calculateTaxFee
-  Path Operations:
-    1. reflectionFromToken
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    3. TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
-    4. TMP_245(uint256) = INTERNAL_CALL, ZZF.calculateTaxFee(uint256)(tAmount)
-
-Path #37:
-  Source: external_input_params in ZZF.burnToHolder
   Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
   Path Operations:
     1. burnToHolder
@@ -1030,57 +1010,57 @@ Path #37:
     3. REF_197(uint256) -> TMP_366[TMP_367]
     4. deserved(uint256) := REF_197(uint256)
     5. INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    6. TMP_386(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalRewards', 'increase'] 
+    7. totalRewards(uint256) := TMP_386(uint256)
 
-Path #38:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_state_changing_external_call in ZZF._reflectFee
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    6. tFee(uint256)= UNPACK TUPLE_4 index: 4 
-    7. INTERNAL_CALL, ZZF._reflectFee(uint256,uint256)(rFee,tFee)
-    8. TMP_243(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tFee'] 
-    9. _tFeeTotal(uint256) := TMP_243(uint256)
-
-Path #39:
-  Source: external_input_params in ZZF.getInvitationList
-  Sink: tainted_state_changing_external_call in ZZF.canRewards
-  Path Operations:
-    1. getInvitationList
-    2. TMP_308(uint256) = from (c)+ index
-    3. TMP_309(address) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.at(EnumerableSet.AddressSet,uint256), arguments:['REF_154', 'TMP_308'] 
-    4. addr(address) := TMP_309(address)
-    5. TMP_310(ZZF.userInfo) = INTERNAL_CALL, ZZF.getUserInfo(address)(addr)
-    6. TMP_313(uint256) = INTERNAL_CALL, ZZF.canRewards(address)(addr)
-    7. TMP_326(uint256) = INTERNAL_CALL, ZZF.balanceOf(address)(addr)
-
-Path #40:
+Path #35:
   Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF.burnToHolder
+  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
   Path Operations:
     1. burnToHolder
+    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    5. _balance(uint256) := TMP_397(uint256)
+    6. TMP_400(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_useBalance', '_balance'] 
+    7. _useBalance(uint256) := TMP_400(uint256)
 
-Path #41:
-  Source: external_input_params in ZZF.getInvitationList
-  Sink: tainted_state_changing_external_call in ZZF.getInvitationList
+Path #36:
+  Source: external_input_params in ZZF.setInvitation
+  Sink: tainted_state_changing_external_call in ZZF.setInvitation
   Path Operations:
-    1. getInvitationList
-    2. TMP_308(uint256) = from (c)+ index
+    1. setInvitation
+    2. REF_183(EnumerableSet.AddressSet) -> InvitationList[from]
 
-Path #42:
-  Source: external_input_params in ZZF.reflectionFromToken
-  Sink: tainted_state_changing_external_call in ZZF._getRValues
+Path #37:
+  Source: external_input_params in ZZF.transferFrom
+  Sink: tainted_state_changing_external_call in ZZF._transferBothExcluded
   Path Operations:
-    1. reflectionFromToken
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    3. TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
-    4. TMP_249(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
-    5. rAmount(uint256) := TMP_249(uint256)
+    1. transferFrom
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_100(uint256) -> _tOwned[sender]
 
-Path #43:
+Path #38:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+  Path Operations:
+    1. burnToHolder
+    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+
+Path #39:
+  Source: external_input_params in ZZF.transferFrom
+  Sink: tainted_state_changing_external_call in ZZF._transferStandard
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. REF_76(uint256) -> _rOwned[sender]
+
+Path #40:
   Source: external_input_params in ZZF.transfer
   Sink: tainted_state_changing_external_call in ZZF._getRate
   Path Operations:
@@ -1096,160 +1076,14 @@ Path #43:
     10. TUPLE_10(uint256,uint256) = INTERNAL_CALL, ZZF._getCurrentSupply()()
     11. rSupply(uint256)= UNPACK TUPLE_10 index: 0 
 
-Path #44:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_erc20_transfer in ZZF.burnFeeRewards
-  Path Operations:
-    1. burnToHolder
-    2. TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
-    3. REF_197(uint256) -> TMP_366[TMP_367]
-    4. deserved(uint256) := REF_197(uint256)
-    5. INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
-
-Path #45:
-  Source: external_input_params in ZZF.reflectionFromToken
-  Sink: tainted_state_changing_external_call in ZZF._getTValues
-  Path Operations:
-    1. reflectionFromToken
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    3. TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
-    4. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tAmount', 'tFee'] 
-
-Path #46:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_state_changing_external_call in ZZF._transferBothExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_109(uint256) -> _rOwned[recipient]
-
-Path #47:
-  Source: external_input_params in ZZF.decreaseAllowance
-  Sink: tainted_state_changing_external_call in ZZF.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_53(uint256) -> REF_52[spender]
-
-Path #48:
+Path #41:
   Source: external_input_params in ZZF.getUserList
   Sink: tainted_state_changing_external_call in ZZF.getUserList
   Path Operations:
     1. getUserList
     2. TMP_322(uint256) = from (c)+ index
 
-Path #49:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_erc20_transfer in ZZF.arriveRewards
-  Path Operations:
-    1. burnToHolder
-    2. TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
-    3. REF_197(uint256) -> TMP_366[TMP_367]
-    4. deserved(uint256) := REF_197(uint256)
-    5. INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
-    6. INTERNAL_CALL, ZZF.arriveRewards(uint256)(increase)
-    7. TMP_419(uint256) = increase (c)* 2
-
-Path #50:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_erc20_transfer in ZZF._BurnTokenToDead
-  Path Operations:
-    1. burnToHolder
-    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
-    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
-    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
-    5. _balance(uint256) := TMP_397(uint256)
-
-Path #51:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
-  Path Operations:
-    1. burnToHolder
-    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
-    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
-    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
-    5. _balance(uint256) := TMP_397(uint256)
-
-Path #52:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_state_changing_external_call in ZZF._transferBothExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_106(uint256) -> _tOwned[recipient]
-
-Path #53:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
-  Path Operations:
-    1. burnToHolder
-    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
-    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
-    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
-    5. _balance(uint256) := TMP_397(uint256)
-
-Path #54:
-  Source: external_input_params in ZZF.reflectionFromToken
-  Sink: tainted_state_changing_external_call in ZZF.calculateTaxFee
-  Path Operations:
-    1. reflectionFromToken
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    3. TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
-    4. TMP_245(uint256) = INTERNAL_CALL, ZZF.calculateTaxFee(uint256)(tAmount)
-    5. TMP_273(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_taxFee'] 
-
-Path #55:
-  Source: external_input_params in ZZF.transferFrom
-  Sink: tainted_state_changing_external_call in ZZF.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_46(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_47(uint256) -> REF_46[TMP_133]
-
-Path #56:
-  Source: external_input_params in ZZF.reflectionFromToken
-  Sink: tainted_state_changing_external_call in ZZF._getRValues
-  Path Operations:
-    1. reflectionFromToken
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    3. TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
-
-Path #57:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_erc20_transfer in ZZF._BurnTokenToDead
-  Path Operations:
-    1. burnToHolder
-    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
-    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
-    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
-    5. _balance(uint256) := TMP_397(uint256)
-
-Path #58:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_state_changing_external_call in ZZF._takeLiquidity
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    6. tLiquidity(uint256)= UNPACK TUPLE_4 index: 5 
-    7. INTERNAL_CALL, ZZF._takeLiquidity(uint256)(tLiquidity)
-
-Path #59:
-  Source: external_input_params in ZZF.transferFrom
-  Sink: tainted_state_changing_external_call in ZZF._transferBothExcluded
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_100(uint256) -> _tOwned[sender]
-
-Path #60:
+Path #42:
   Source: external_input_params in ZZF.reflectionFromToken
   Sink: tainted_state_changing_external_call in ZZF._getRValues
   Path Operations:
@@ -1259,35 +1093,30 @@ Path #60:
     4. tLiquidity(uint256)= UNPACK TUPLE_8 index: 2 
     5. TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
 
-Path #61:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_state_changing_external_call in ZZF._takeLiquidity
+Path #43:
+  Source: external_input_params in ZZF.getInvitationList
+  Sink: tainted_state_changing_external_call in ZZF.getInvitationList
   Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    6. tLiquidity(uint256)= UNPACK TUPLE_4 index: 5 
-    7. INTERNAL_CALL, ZZF._takeLiquidity(uint256)(tLiquidity)
+    1. getInvitationList
 
-Path #62:
-  Source: external_input_params in ZZF.reflectionFromToken
-  Sink: tainted_state_changing_external_call in ZZF.calculateLiquidityFee
-  Path Operations:
-    1. reflectionFromToken
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
-    3. TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
-    4. TMP_246(uint256) = INTERNAL_CALL, ZZF.calculateLiquidityFee(uint256)(tAmount)
-
-Path #63:
+Path #44:
   Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_erc20_transfer in ZZF._BurnTokenToDead
+  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
   Path Operations:
     1. burnToHolder
     2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    5. _balance(uint256) := TMP_397(uint256)
 
-Path #64:
+Path #45:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_state_changing_external_call in ZZF.burnToHolder
+  Path Operations:
+    1. burnToHolder
+    2. REF_188(EnumerableSet.AddressSet) -> InvitationList[_invitation]
+
+Path #46:
   Source: external_input_params in ZZF.burnToHolder
   Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
   Path Operations:
@@ -1299,7 +1128,113 @@ Path #64:
     6. TMP_400(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_useBalance', '_balance'] 
     7. _useBalance(uint256) := TMP_400(uint256)
 
-Path #65:
+Path #47:
+  Source: external_input_params in ZZF.transferFrom
+  Sink: tainted_state_changing_external_call in ZZF._transferFromExcluded
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_94(uint256) -> _rOwned[sender]
+
+Path #48:
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_state_changing_external_call in ZZF._reflectFee
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    6. rFee(uint256)= UNPACK TUPLE_4 index: 2 
+    7. INTERNAL_CALL, ZZF._reflectFee(uint256,uint256)(rFee,tFee)
+    8. TMP_242(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rFee'] 
+    9. _rTotal(uint256) := TMP_242(uint256)
+
+Path #49:
+  Source: external_input_params in ZZF.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ZZF.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_53(uint256) -> REF_52[spender]
+
+Path #50:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_erc20_transfer in ZZF.burnFeeRewards
+  Path Operations:
+    1. burnToHolder
+    2. TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    3. REF_197(uint256) -> TMP_366[TMP_367]
+    4. deserved(uint256) := REF_197(uint256)
+    5. INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+
+Path #51:
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_state_changing_external_call in ZZF._takeLiquidity
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    6. tLiquidity(uint256)= UNPACK TUPLE_4 index: 5 
+    7. INTERNAL_CALL, ZZF._takeLiquidity(uint256)(tLiquidity)
+
+Path #52:
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_state_changing_external_call in ZZF._transferFromExcluded
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_97(uint256) -> _rOwned[recipient]
+
+Path #53:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+  Path Operations:
+    1. burnToHolder
+    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+
+Path #54:
+  Source: external_input_params in ZZF.reflectionFromToken
+  Sink: tainted_state_changing_external_call in ZZF.calculateTaxFee
+  Path Operations:
+    1. reflectionFromToken
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    3. TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    4. TMP_245(uint256) = INTERNAL_CALL, ZZF.calculateTaxFee(uint256)(tAmount)
+
+Path #55:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_erc20_transfer in ZZF.arriveRewards
+  Path Operations:
+    1. burnToHolder
+    2. TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    3. REF_197(uint256) -> TMP_366[TMP_367]
+    4. deserved(uint256) := REF_197(uint256)
+    5. INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    6. INTERNAL_CALL, ZZF.arriveRewards(uint256)(increase)
+    7. TMP_419(uint256) = increase (c)* 2
+
+Path #56:
+  Source: external_input_params in ZZF.transferFrom
+  Sink: tainted_erc20_transfer in ZZF._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #57:
+  Source: external_input_params in ZZF.transferFrom
+  Sink: tainted_erc20_transfer in ZZF._tokenTransfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+
+Path #58:
   Source: external_input_params in ZZF.transfer
   Sink: tainted_state_changing_external_call in ZZF._getCurrentSupply
   Path Operations:
@@ -1313,7 +1248,104 @@ Path #65:
     8. TMP_242(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rFee'] 
     9. _rTotal(uint256) := TMP_242(uint256)
 
+Path #59:
+  Source: external_input_params in ZZF.reflectionFromToken
+  Sink: tainted_state_changing_external_call in ZZF._getRValues
+  Path Operations:
+    1. reflectionFromToken
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    3. TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
+    4. TMP_249(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
+    5. rAmount(uint256) := TMP_249(uint256)
+    6. TMP_252(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rAmount', 'rFee'] 
+
+Path #60:
+  Source: external_input_params in ZZF.balanceOf
+  Sink: tainted_erc20_transfer in ZZF.arriveRewards
+  Path Operations:
+    1. balanceOf
+    2. REF_42(uint256) -> _tOwned[account]
+    3. TMP_422(uint256) = INTERNAL_CALL, ZZF.balanceOf(address)(fee2)
+
+Path #61:
+  Source: external_input_params in ZZF.transferFrom
+  Sink: tainted_state_changing_external_call in ZZF.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_46(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_47(uint256) -> REF_46[TMP_133]
+
+Path #62:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_erc20_transfer in ZZF._BurnTokenToDead
+  Path Operations:
+    1. burnToHolder
+    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    5. _balance(uint256) := TMP_397(uint256)
+
+Path #63:
+  Source: external_input_params in ZZF.transferFrom
+  Sink: tainted_state_changing_external_call in ZZF._transferToExcluded
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_82(uint256) -> _rOwned[sender]
+
+Path #64:
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_state_changing_external_call in ZZF._takeLiquidity
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    6. tLiquidity(uint256)= UNPACK TUPLE_4 index: 5 
+    7. INTERNAL_CALL, ZZF._takeLiquidity(uint256)(tLiquidity)
+    8. TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tLiquidity', 'currentRate'] 
+    9. rLiquidity(uint256) := TMP_265(uint256)
+
+Path #65:
+  Source: external_input_params in ZZF.balanceOf
+  Sink: tainted_state_changing_external_call in ZZF.tokenFromReflection
+  Path Operations:
+    1. balanceOf
+    2. REF_43(uint256) -> _rOwned[account]
+    3. TMP_124(uint256) = INTERNAL_CALL, ZZF.tokenFromReflection(uint256)(REF_43)
+
 Path #66:
+  Source: external_input_params in ZZF.burnToHolder
+  Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
+  Path Operations:
+    1. burnToHolder
+    2. TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    3. REF_197(uint256) -> TMP_366[TMP_367]
+    4. deserved(uint256) := REF_197(uint256)
+    5. INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+
+Path #67:
+  Source: external_input_params in ZZF.reflectionFromToken
+  Sink: tainted_state_changing_external_call in ZZF._getRValues
+  Path Operations:
+    1. reflectionFromToken
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    3. TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
+
+Path #68:
+  Source: external_input_params in ZZF.transfer
+  Sink: tainted_state_changing_external_call in ZZF._transferToExcluded
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, ZZF._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_88(uint256) -> _rOwned[recipient]
+
+Path #69:
   Source: external_input_params in ZZF.burnToHolder
   Sink: tainted_state_changing_external_call in ZZF.arriveFeeRewards
   Path Operations:
@@ -1325,7 +1357,7 @@ Path #66:
     6. TMP_386(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalRewards', 'increase'] 
     7. totalRewards(uint256) := TMP_386(uint256)
 
-Path #67:
+Path #70:
   Source: external_input_params in ZZF.reflectionFromToken
   Sink: tainted_state_changing_external_call in ZZF.calculateLiquidityFee
   Path Operations:
@@ -1335,50 +1367,17 @@ Path #67:
     4. TMP_246(uint256) = INTERNAL_CALL, ZZF.calculateLiquidityFee(uint256)(tAmount)
     5. TMP_276(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_liquidityFee'] 
 
-Path #68:
+Path #71:
+  Source: external_input_params in ZZF.getUserList
+  Sink: tainted_state_changing_external_call in ZZF.getUserList
+  Path Operations:
+    1. getUserList
+
+Path #72:
   Source: external_input_params in ZZF.reflectionFromToken
-  Sink: tainted_state_changing_external_call in ZZF._getTValues
+  Sink: tainted_state_changing_external_call in ZZF.calculateLiquidityFee
   Path Operations:
     1. reflectionFromToken
     2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
     3. TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
-
-Path #69:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
-  Path Operations:
-    1. burnToHolder
-    2. TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
-    3. REF_197(uint256) -> TMP_366[TMP_367]
-    4. deserved(uint256) := REF_197(uint256)
-    5. INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
-    6. TMP_381(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBurn', 'increase'] 
-    7. totalBurn(uint256) := TMP_381(uint256)
-
-Path #70:
-  Source: external_input_params in ZZF.burnToHolder
-  Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
-  Path Operations:
-    1. burnToHolder
-    2. INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
-    3. TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
-    4. TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
-    5. _balance(uint256) := TMP_397(uint256)
-
-Path #71:
-  Source: external_input_params in ZZF.transfer
-  Sink: tainted_state_changing_external_call in ZZF._transferToExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
-    3. INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, ZZF._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_85(uint256) -> _tOwned[recipient]
-
-Path #72:
-  Source: external_input_params in ZZF.balanceOf
-  Sink: tainted_state_changing_external_call in ZZF.tokenFromReflection
-  Path Operations:
-    1. balanceOf
-    2. REF_43(uint256) -> _rOwned[account]
-    3. TMP_124(uint256) = INTERNAL_CALL, ZZF.tokenFromReflection(uint256)(REF_43)
+    4. TMP_246(uint256) = INTERNAL_CALL, ZZF.calculateLiquidityFee(uint256)(tAmount)

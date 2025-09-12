@@ -738,13 +738,50 @@ Sink #54: tainted_erc20_transfer
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #2:
+  Source: external_input_params in ERC20FlashMint.flashLoan
+  Sink: tainted_erc20_transfer in ERC20FlashMint._burn
+  Path Operations:
+    1. flashLoan
+    2. TMP_778 = CONVERT receiver to address
+    3. INTERNAL_CALL, ERC20._burn(address,uint256)(TMP_778,TMP_779)
+
+Path #3:
   Source: external_input_params in ERC20Permit.nonces
   Sink: tainted_state_changing_external_call in ERC20Permit.nonces
   Path Operations:
     1. nonces
     2. REF_107(Counters.Counter) -> _nonces[owner]
 
-Path #2:
+Path #4:
+  Source: external_input_params in ERC20FlashMint.flashLoan
+  Sink: tainted_erc20_transfer in ERC20FlashMint.flashLoan
+  Path Operations:
+    1. flashLoan
+    2. TMP_783 = CONVERT receiver to address
+
+Path #5:
+  Source: external_input_params in ERC20Votes.numCheckpoints
+  Sink: tainted_state_changing_external_call in ERC20Votes.numCheckpoints
+  Path Operations:
+    1. numCheckpoints
+    2. REF_140(ERC20Votes.Checkpoint[]) -> _checkpoints[account]
+    3. REF_141 -> LENGTH REF_140
+
+Path #6:
+  Source: external_input_params in ERC20FlashMint.flashLoan
+  Sink: tainted_erc20_transfer in ERC20FlashMint._mint
+  Path Operations:
+    1. flashLoan
+    2. TMP_764 = CONVERT receiver to address
+    3. INTERNAL_CALL, ERC20._mint(address,uint256)(TMP_764,amount)
+
+Path #7:
   Source: external_input_params in ERC20Permit.permit
   Sink: tainted_state_changing_external_call in ERC20Permit._hashTypedDataV4
   Path Operations:
@@ -754,7 +791,42 @@ Path #2:
     4. structHash(bytes32) := TMP_880(bytes32)
     5. TMP_881(bytes32) = INTERNAL_CALL, EIP712._hashTypedDataV4(bytes32)(structHash)
 
-Path #3:
+Path #8:
+  Source: external_input_params in ERC20Permit.permit
+  Sink: tainted_state_changing_external_call in ERC20Permit.permit
+  Path Operations:
+    1. permit
+    2. TMP_879(bytes) = SOLIDITY_CALL abi.encode()(_PERMIT_TYPEHASH,owner,spender,value,TMP_878,deadline)
+    3. TMP_880(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_879)
+    4. structHash(bytes32) := TMP_880(bytes32)
+    5. TMP_881(bytes32) = INTERNAL_CALL, EIP712._hashTypedDataV4(bytes32)(structHash)
+    6. hash(bytes32) := TMP_881(bytes32)
+
+Path #9:
+  Source: external_input_params in ERC20Permit.permit
+  Sink: tainted_state_changing_external_call in ERC20Permit._useNonce
+  Path Operations:
+    1. permit
+    2. TMP_878(uint256) = INTERNAL_CALL, ERC20Permit._useNonce(address)(owner)
+    3. REF_109(Counters.Counter) -> _nonces[owner]
+    4. nonce(Counters.Counter) := REF_109(Counters.Counter)
+
+Path #10:
+  Source: external_input_params in ERC20FlashMint.flashLoan
+  Sink: tainted_erc20_transfer in ERC20FlashMint._mint
+  Path Operations:
+    1. flashLoan
+    2. TMP_764 = CONVERT receiver to address
+    3. INTERNAL_CALL, ERC20._mint(address,uint256)(TMP_764,amount)
+
+Path #11:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_erc20_transfer in ERC20Burnable._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+
+Path #12:
   Source: external_input_params in ERC20Votes.delegateBySig
   Sink: tainted_erc20_transfer in ERC20Votes._delegate
   Path Operations:
@@ -768,61 +840,31 @@ Path #3:
     8. TMP_1048(address) = INTERNAL_CALL, ERC20Votes.delegates(address)(delegator)
     9. currentDelegate(address) := TMP_1048(address)
 
-Path #4:
-  Source: external_input_params in VistaFinance.transfer
-  Sink: tainted_erc20_transfer in VistaFinance.transfer
-  Path Operations:
-    1. transfer
-
-Path #5:
+Path #13:
   Source: external_input_params in ERC20Burnable.burnFrom
   Sink: tainted_erc20_transfer in ERC20Burnable._burn
   Path Operations:
     1. burnFrom
     2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
 
-Path #6:
-  Source: external_input_params in ERC20FlashMint.flashLoan
-  Sink: tainted_erc20_transfer in ERC20FlashMint._mint
+Path #14:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
   Path Operations:
-    1. flashLoan
-    2. TMP_764 = CONVERT receiver to address
-    3. INTERNAL_CALL, ERC20._mint(address,uint256)(TMP_764,amount)
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
 
-Path #7:
-  Source: external_input_params in ERC20Permit.permit
-  Sink: tainted_state_changing_external_call in ERC20Permit._useNonce
+Path #15:
+  Source: external_input_params in ERC20Votes.getPastVotes
+  Sink: tainted_state_changing_external_call in ERC20Votes._checkpointsLookup
   Path Operations:
-    1. permit
-    2. TMP_878(uint256) = INTERNAL_CALL, ERC20Permit._useNonce(address)(owner)
-    3. REF_109(Counters.Counter) -> _nonces[owner]
-    4. nonce(Counters.Counter) := REF_109(Counters.Counter)
+    1. getPastVotes
+    2. REF_148(ERC20Votes.Checkpoint[]) -> _checkpoints[account]
+    3. TMP_1005(uint256) = INTERNAL_CALL, ERC20Votes._checkpointsLookup(ERC20Votes.Checkpoint[],uint256)(REF_148,timepoint)
+    4. REF_149 -> LENGTH ckpts
+    5. length(uint256) := REF_149(uint256)
 
-Path #8:
-  Source: external_input_params in ERC20Votes.numCheckpoints
-  Sink: tainted_state_changing_external_call in ERC20Votes.numCheckpoints
-  Path Operations:
-    1. numCheckpoints
-    2. REF_140(ERC20Votes.Checkpoint[]) -> _checkpoints[account]
-    3. REF_141 -> LENGTH REF_140
-
-Path #9:
-  Source: external_input_params in ERC20FlashMint.flashLoan
-  Sink: tainted_erc20_transfer in ERC20FlashMint._burn
-  Path Operations:
-    1. flashLoan
-    2. TMP_778 = CONVERT receiver to address
-    3. INTERNAL_CALL, ERC20._burn(address,uint256)(TMP_778,TMP_779)
-
-Path #10:
-  Source: external_input_params in ERC20FlashMint.flashLoan
-  Sink: tainted_erc20_transfer in ERC20FlashMint._burn
-  Path Operations:
-    1. flashLoan
-    2. TMP_778 = CONVERT receiver to address
-    3. INTERNAL_CALL, ERC20._burn(address,uint256)(TMP_778,TMP_779)
-
-Path #11:
+Path #16:
   Source: external_input_params in ERC20Votes.getPastVotes
   Sink: tainted_state_changing_external_call in ERC20Votes._checkpointsLookup
   Path Operations:
@@ -836,62 +878,21 @@ Path #11:
     8. TMP_1015(uint256) = mid (c)+ 1
     9. low(uint256) := TMP_1015(uint256)
 
-Path #12:
-  Source: external_input_params in ERC20Burnable.burnFrom
-  Sink: tainted_erc20_transfer in ERC20Burnable._burn
+Path #17:
+  Source: external_input_params in ERC20FlashMint.flashLoan
+  Sink: tainted_erc20_transfer in ERC20FlashMint._burn
   Path Operations:
-    1. burnFrom
-    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    1. flashLoan
+    2. TMP_778 = CONVERT receiver to address
+    3. INTERNAL_CALL, ERC20._burn(address,uint256)(TMP_778,TMP_779)
 
-Path #13:
-  Source: external_input_params in VistaFinance.transferFrom
-  Sink: tainted_erc20_transfer in VistaFinance.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #14:
-  Source: external_input_params in ERC20Votes.delegateBySig
-  Sink: tainted_state_changing_external_call in ERC20Votes.delegateBySig
-  Path Operations:
-    1. delegateBySig
-    2. TMP_1028(bytes) = SOLIDITY_CALL abi.encode()(_DELEGATION_TYPEHASH,delegatee,nonce,expiry)
-    3. TMP_1029(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1028)
-    4. TMP_1030(bytes32) = INTERNAL_CALL, EIP712._hashTypedDataV4(bytes32)(TMP_1029)
-
-Path #15:
+Path #18:
   Source: external_input_params in ERC20FlashMint.flashLoan
   Sink: tainted_state_changing_external_call in ERC20FlashMint.flashLoan
   Path Operations:
     1. flashLoan
 
-Path #16:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
-
-Path #17:
-  Source: external_input_params in ERC20FlashMint.flashLoan
-  Sink: tainted_erc20_transfer in ERC20FlashMint._mint
-  Path Operations:
-    1. flashLoan
-    2. TMP_764 = CONVERT receiver to address
-    3. INTERNAL_CALL, ERC20._mint(address,uint256)(TMP_764,amount)
-
-Path #18:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-
 Path #19:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
-  Path Operations:
-    1. transfer
-
-Path #20:
   Source: external_input_params in ERC20Permit.permit
   Sink: tainted_state_changing_external_call in ERC20Permit._useNonce
   Path Operations:
@@ -900,33 +901,32 @@ Path #20:
     3. REF_109(Counters.Counter) -> _nonces[owner]
     4. nonce(Counters.Counter) := REF_109(Counters.Counter)
 
-Path #21:
-  Source: external_input_params in ERC20Votes.getPastVotes
-  Sink: tainted_state_changing_external_call in ERC20Votes._checkpointsLookup
+Path #20:
+  Source: external_input_params in ERC20Votes.delegateBySig
+  Sink: tainted_state_changing_external_call in ERC20Votes.delegateBySig
   Path Operations:
-    1. getPastVotes
-    2. REF_148(ERC20Votes.Checkpoint[]) -> _checkpoints[account]
-    3. TMP_1005(uint256) = INTERNAL_CALL, ERC20Votes._checkpointsLookup(ERC20Votes.Checkpoint[],uint256)(REF_148,timepoint)
-    4. REF_149 -> LENGTH ckpts
-    5. length(uint256) := REF_149(uint256)
+    1. delegateBySig
+    2. TMP_1028(bytes) = SOLIDITY_CALL abi.encode()(_DELEGATION_TYPEHASH,delegatee,nonce,expiry)
+    3. TMP_1029(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1028)
+    4. TMP_1030(bytes32) = INTERNAL_CALL, EIP712._hashTypedDataV4(bytes32)(TMP_1029)
+
+Path #21:
+  Source: external_input_params in VistaFinance.transfer
+  Sink: tainted_erc20_transfer in VistaFinance.transfer
+  Path Operations:
+    1. transfer
 
 Path #22:
-  Source: external_input_params in ERC20Permit.permit
-  Sink: tainted_state_changing_external_call in ERC20Permit.permit
+  Source: external_input_params in VistaFinance.transferFrom
+  Sink: tainted_erc20_transfer in VistaFinance.transferFrom
   Path Operations:
-    1. permit
-    2. TMP_879(bytes) = SOLIDITY_CALL abi.encode()(_PERMIT_TYPEHASH,owner,spender,value,TMP_878,deadline)
-    3. TMP_880(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_879)
-    4. structHash(bytes32) := TMP_880(bytes32)
-    5. TMP_881(bytes32) = INTERNAL_CALL, EIP712._hashTypedDataV4(bytes32)(structHash)
-    6. hash(bytes32) := TMP_881(bytes32)
+    1. transferFrom
 
 Path #23:
-  Source: external_input_params in ERC20FlashMint.flashLoan
-  Sink: tainted_erc20_transfer in ERC20FlashMint.flashLoan
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
   Path Operations:
-    1. flashLoan
-    2. TMP_783 = CONVERT receiver to address
+    1. transferFrom
 
 Path #24:
   Source: external_input_params in ERC20.transferFrom

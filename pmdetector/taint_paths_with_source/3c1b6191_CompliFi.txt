@@ -2,6 +2,17 @@
 Found 4 tainted paths.
 
 ## Path #1
+Source: external_input_params in Comfi.transfer
+Sink: tainted_erc20_transfer in Comfi.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/3c1b6191_CompliFi/flattened.sol', Lines [149, 150, 151, 152, 153]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
 Source: external_input_params in Comfi.transferFrom
 Sink: tainted_erc20_transfer in Comfi._transferTokens
 
@@ -20,7 +31,18 @@ Sink: tainted_erc20_transfer in Comfi._transferTokens
 
 ----------------------------------------
 
-## Path #2
+## Path #3
+Source: external_input_params in Comfi.transferFrom
+Sink: tainted_erc20_transfer in Comfi.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/3c1b6191_CompliFi/flattened.sol', Lines [162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #4
 Source: external_input_params in Comfi.delegateBySig
 Sink: tainted_erc20_transfer in Comfi._delegate
 
@@ -72,27 +94,5 @@ Sink: tainted_erc20_transfer in Comfi._delegate
     IR:  currentDelegate(address) := REF_42(address)
     SRC: File 'pmdetector/flattened_contracts/3c1b6191_CompliFi/flattened.sol', Lines [258]
     LNE: currentDelegate = delegates[delegator]
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in Comfi.transfer
-Sink: tainted_erc20_transfer in Comfi.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/3c1b6191_CompliFi/flattened.sol', Lines [149, 150, 151, 152, 153]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #4
-Source: external_input_params in Comfi.transferFrom
-Sink: tainted_erc20_transfer in Comfi.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/3c1b6191_CompliFi/flattened.sol', Lines [162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176]
-    LNE: (No direct expression available)
 
 ----------------------------------------

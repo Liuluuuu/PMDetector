@@ -1,91 +1,7 @@
 # Taint Analysis Results with Source Code Mapping
-Found 36 tainted paths.
+Found 37 tainted paths.
 
 ## Path #1
-Source: external_input_params in FEG.transfer
-Sink: tainted_state_changing_external_call in FEG._transferBothExcluded
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [471, 472, 473, 474]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(TMP_76,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [472]
-    LNE: _transfer(_msgSender(),recipient,amount)
-
-    IR:  INTERNAL_CALL, FEG._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [576]
-    LNE: _transferBothExcluded(sender,recipient,amount)
-
-    IR:  REF_90(uint256) -> _rOwned[recipient]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [613]
-    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in FEG.transferFrom
-Sink: tainted_state_changing_external_call in FEG._transferBothExcluded
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
-    LNE: _transfer(sender,recipient,amount)
-
-    IR:  INTERNAL_CALL, FEG._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [576]
-    LNE: _transferBothExcluded(sender,recipient,amount)
-
-    IR:  REF_81(uint256) -> _tOwned[sender]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [610]
-    LNE: _tOwned[sender] = _tOwned[sender].sub(tAmount)
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in FEG.reflect
-Sink: tainted_state_changing_external_call in FEG._getTValues
-
-### Operations with Source Code Mapping:
-    IR:  reflect
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
-    LNE: (No direct expression available)
-
-    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
-    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
-
-    IR:  TUPLE_9(uint256,uint256) = INTERNAL_CALL, FEG._getTValues(uint256)(tAmount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [624]
-    LNE: (tTransferAmount,tFee) = _getTValues(tAmount)
-
-----------------------------------------
-
-## Path #4
-Source: external_input_params in FEG.reflect
-Sink: tainted_state_changing_external_call in FEG.reflect
-
-### Operations with Source Code Mapping:
-    IR:  reflect
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
-    LNE: (No direct expression available)
-
-    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
-    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
-
-    IR:  rAmount(uint256)= UNPACK TUPLE_2 index: 0 
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
-    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
-
-----------------------------------------
-
-## Path #5
 Source: external_input_params in FEG.transferFrom
 Sink: tainted_erc20_transfer in FEG._transfer
 
@@ -100,9 +16,9 @@ Sink: tainted_erc20_transfer in FEG._transfer
 
 ----------------------------------------
 
-## Path #6
+## Path #2
 Source: external_input_params in FEG.transferFrom
-Sink: tainted_state_changing_external_call in FEG._transferBothExcluded
+Sink: tainted_erc20_transfer in FEG._transfer
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
@@ -113,80 +29,11 @@ Sink: tainted_state_changing_external_call in FEG._transferBothExcluded
     SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
     LNE: _transfer(sender,recipient,amount)
 
-    IR:  INTERNAL_CALL, FEG._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [576]
-    LNE: _transferBothExcluded(sender,recipient,amount)
-
-    IR:  REF_84(uint256) -> _rOwned[sender]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [611]
-    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
-
 ----------------------------------------
 
-## Path #7
-Source: external_input_params in FEG.reflect
-Sink: tainted_state_changing_external_call in FEG._getTValues
-
-### Operations with Source Code Mapping:
-    IR:  reflect
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
-    LNE: (No direct expression available)
-
-    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
-    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
-
-    IR:  TUPLE_9(uint256,uint256) = INTERNAL_CALL, FEG._getTValues(uint256)(tAmount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [624]
-    LNE: (tTransferAmount,tFee) = _getTValues(tAmount)
-
-----------------------------------------
-
-## Path #8
-Source: external_input_params in FEG.reflect
-Sink: tainted_state_changing_external_call in FEG._getRValues
-
-### Operations with Source Code Mapping:
-    IR:  reflect
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
-    LNE: (No direct expression available)
-
-    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
-    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
-
-    IR:  TUPLE_10(uint256,uint256,uint256) = INTERNAL_CALL, FEG._getRValues(uint256,uint256,uint256)(tAmount,tFee,currentRate)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [626]
-    LNE: (rAmount,rTransferAmount,rFee) = _getRValues(tAmount,tFee,currentRate)
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in FEG.transfer
-Sink: tainted_state_changing_external_call in FEG._transferToExcluded
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [471, 472, 473, 474]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(TMP_76,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [472]
-    LNE: _transfer(_msgSender(),recipient,amount)
-
-    IR:  INTERNAL_CALL, FEG._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [572]
-    LNE: _transferToExcluded(sender,recipient,amount)
-
-    IR:  REF_66(uint256) -> _tOwned[recipient]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [593]
-    LNE: _tOwned[recipient] = _tOwned[recipient].add(tTransferAmount)
-
-----------------------------------------
-
-## Path #10
+## Path #3
 Source: external_input_params in FEG.transferFrom
-Sink: tainted_state_changing_external_call in FEG._transferStandard
+Sink: tainted_erc20_transfer in FEG._transfer
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
@@ -197,46 +44,11 @@ Sink: tainted_state_changing_external_call in FEG._transferStandard
     SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
     LNE: _transfer(sender,recipient,amount)
 
-    IR:  INTERNAL_CALL, FEG._transferStandard(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [574]
-    LNE: _transferStandard(sender,recipient,amount)
-
-    IR:  REF_57(uint256) -> _rOwned[sender]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [584]
-    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
-
 ----------------------------------------
 
-## Path #11
+## Path #4
 Source: external_input_params in FEG.reflect
-Sink: tainted_state_changing_external_call in FEG._getRValues
-
-### Operations with Source Code Mapping:
-    IR:  reflect
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
-    LNE: (No direct expression available)
-
-    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
-    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
-
-    IR:  TUPLE_10(uint256,uint256,uint256) = INTERNAL_CALL, FEG._getRValues(uint256,uint256,uint256)(tAmount,tFee,currentRate)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [626]
-    LNE: (rAmount,rTransferAmount,rFee) = _getRValues(tAmount,tFee,currentRate)
-
-    IR:  TMP_176(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [637]
-    LNE: rAmount = tAmount.mul(currentRate)
-
-    IR:  rAmount(uint256) := TMP_176(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [637]
-    LNE: rAmount = tAmount.mul(currentRate)
-
-----------------------------------------
-
-## Path #12
-Source: external_input_params in FEG.reflect
-Sink: tainted_state_changing_external_call in FEG._getCurrentSupply
+Sink: tainted_state_changing_external_call in FEG._reflectFee
 
 ### Operations with Source Code Mapping:
     IR:  reflect
@@ -261,30 +73,133 @@ Sink: tainted_state_changing_external_call in FEG._getCurrentSupply
 
 ----------------------------------------
 
-## Path #13
-Source: external_input_params in FEG.transferFrom
-Sink: tainted_state_changing_external_call in FEG._transferFromExcluded
+## Path #5
+Source: external_input_params in FEG.reflect
+Sink: tainted_state_changing_external_call in FEG._getTValues
 
 ### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
+    IR:  reflect
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
-    LNE: _transfer(sender,recipient,amount)
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
 
-    IR:  INTERNAL_CALL, FEG._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [570]
-    LNE: _transferFromExcluded(sender,recipient,amount)
-
-    IR:  REF_75(uint256) -> _rOwned[sender]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [602]
-    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
+    IR:  TUPLE_9(uint256,uint256) = INTERNAL_CALL, FEG._getTValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [624]
+    LNE: (tTransferAmount,tFee) = _getTValues(tAmount)
 
 ----------------------------------------
 
-## Path #14
+## Path #6
+Source: external_input_params in FEG.increaseAllowance
+Sink: tainted_state_changing_external_call in FEG.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [491, 492, 493, 494]
+    LNE: (No direct expression available)
+
+    IR:  REF_13(uint256) -> REF_12[spender]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [492]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in FEG.reflect
+Sink: tainted_state_changing_external_call in FEG._getRValues
+
+### Operations with Source Code Mapping:
+    IR:  reflect
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_10(uint256,uint256,uint256) = INTERNAL_CALL, FEG._getRValues(uint256,uint256,uint256)(tAmount,tFee,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [626]
+    LNE: (rAmount,rTransferAmount,rFee) = _getRValues(tAmount,tFee,currentRate)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in FEG.reflect
+Sink: tainted_state_changing_external_call in FEG.reflect
+
+### Operations with Source Code Mapping:
+    IR:  reflect
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+    IR:  rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TMP_97(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [514]
+    LNE: _rTotal = _rTotal.sub(rAmount)
+
+    IR:  _rTotal(uint256) := TMP_97(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [514]
+    LNE: _rTotal = _rTotal.sub(rAmount)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in FEG.transfer
+Sink: tainted_state_changing_external_call in FEG._transferStandard
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [471, 472, 473, 474]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(TMP_76,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [472]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, FEG._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [574]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  REF_60(uint256) -> _rOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [585]
+    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in FEG.transfer
+Sink: tainted_state_changing_external_call in FEG._transferBothExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [471, 472, 473, 474]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(TMP_76,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [472]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, FEG._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [576]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  REF_90(uint256) -> _rOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [613]
+    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
+
+----------------------------------------
+
+## Path #11
 Source: external_input_params in FEG.reflect
 Sink: tainted_state_changing_external_call in FEG._getRValues
 
@@ -311,9 +226,9 @@ Sink: tainted_state_changing_external_call in FEG._getRValues
 
 ----------------------------------------
 
-## Path #15
+## Path #12
 Source: external_input_params in FEG.transferFrom
-Sink: tainted_erc20_transfer in FEG._transfer
+Sink: tainted_state_changing_external_call in FEG._transferBothExcluded
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
@@ -324,125 +239,65 @@ Sink: tainted_erc20_transfer in FEG._transfer
     SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
     LNE: _transfer(sender,recipient,amount)
 
+    IR:  INTERNAL_CALL, FEG._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [576]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  REF_81(uint256) -> _tOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [610]
+    LNE: _tOwned[sender] = _tOwned[sender].sub(tAmount)
+
 ----------------------------------------
 
-## Path #16
+## Path #13
 Source: external_input_params in FEG.transfer
-Sink: tainted_erc20_transfer in FEG.transfer
+Sink: tainted_state_changing_external_call in FEG._transferBothExcluded
 
 ### Operations with Source Code Mapping:
     IR:  transfer
     SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [471, 472, 473, 474]
     LNE: (No direct expression available)
 
+    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(TMP_76,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [472]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, FEG._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [576]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  REF_87(uint256) -> _tOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [612]
+    LNE: _tOwned[recipient] = _tOwned[recipient].add(tTransferAmount)
+
 ----------------------------------------
 
-## Path #17
-Source: external_input_params in FEG.reflect
-Sink: tainted_state_changing_external_call in FEG._reflectFee
+## Path #14
+Source: external_input_params in FEG.transfer
+Sink: tainted_state_changing_external_call in FEG._transferToExcluded
 
 ### Operations with Source Code Mapping:
-    IR:  reflect
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [471, 472, 473, 474]
     LNE: (No direct expression available)
 
-    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
-    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(TMP_76,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [472]
+    LNE: _transfer(_msgSender(),recipient,amount)
 
-    IR:  rAmount(uint256)= UNPACK TUPLE_2 index: 0 
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
-    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+    IR:  INTERNAL_CALL, FEG._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [572]
+    LNE: _transferToExcluded(sender,recipient,amount)
 
-    IR:  TMP_97(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [514]
-    LNE: _rTotal = _rTotal.sub(rAmount)
-
-    IR:  _rTotal(uint256) := TMP_97(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [514]
-    LNE: _rTotal = _rTotal.sub(rAmount)
+    IR:  REF_69(uint256) -> _rOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [594]
+    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
 
 ----------------------------------------
 
-## Path #18
-Source: external_input_params in FEG.reflect
-Sink: tainted_state_changing_external_call in FEG.reflect
-
-### Operations with Source Code Mapping:
-    IR:  reflect
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
-    LNE: (No direct expression available)
-
-    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
-    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
-
-    IR:  rAmount(uint256)= UNPACK TUPLE_2 index: 0 
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
-    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
-
-    IR:  TMP_97(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [514]
-    LNE: _rTotal = _rTotal.sub(rAmount)
-
-    IR:  _rTotal(uint256) := TMP_97(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [514]
-    LNE: _rTotal = _rTotal.sub(rAmount)
-
-----------------------------------------
-
-## Path #19
-Source: external_input_params in FEG.reflect
-Sink: tainted_state_changing_external_call in FEG._reflectFee
-
-### Operations with Source Code Mapping:
-    IR:  reflect
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
-    LNE: (No direct expression available)
-
-    IR:  TMP_98(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [515]
-    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
-
-    IR:  _tFeeTotal(uint256) := TMP_98(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [515]
-    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
-
-----------------------------------------
-
-## Path #20
+## Path #15
 Source: external_input_params in FEG.transferFrom
-Sink: tainted_erc20_transfer in FEG.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #21
-Source: external_input_params in FEG.transferFrom
-Sink: tainted_state_changing_external_call in FEG.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
-    LNE: (No direct expression available)
-
-    IR:  REF_9(mapping(address => uint256)) -> _allowances[sender]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [487]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
-
-    IR:  REF_10(uint256) -> REF_9[TMP_82]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [487]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
-
-----------------------------------------
-
-## Path #22
-Source: external_input_params in FEG.transferFrom
-Sink: tainted_erc20_transfer in FEG._transfer
+Sink: tainted_state_changing_external_call in FEG._transferBothExcluded
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
@@ -453,32 +308,40 @@ Sink: tainted_erc20_transfer in FEG._transfer
     SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
     LNE: _transfer(sender,recipient,amount)
 
+    IR:  INTERNAL_CALL, FEG._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [576]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  REF_84(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [611]
+    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
+
 ----------------------------------------
 
-## Path #23
-Source: external_input_params in FEG.reflect
-Sink: tainted_state_changing_external_call in FEG._getTValues
+## Path #16
+Source: external_input_params in FEG.transferFrom
+Sink: tainted_state_changing_external_call in FEG._transferToExcluded
 
 ### Operations with Source Code Mapping:
-    IR:  reflect
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
     LNE: (No direct expression available)
 
-    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
-    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
+    LNE: _transfer(sender,recipient,amount)
 
-    IR:  TUPLE_9(uint256,uint256) = INTERNAL_CALL, FEG._getTValues(uint256)(tAmount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [624]
-    LNE: (tTransferAmount,tFee) = _getTValues(tAmount)
+    IR:  INTERNAL_CALL, FEG._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [572]
+    LNE: _transferToExcluded(sender,recipient,amount)
 
-    IR:  TMP_173(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tAmount', '100'] 
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [631]
-    LNE: tFee = tAmount.div(100).mul(2)
+    IR:  REF_63(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [592]
+    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
 
 ----------------------------------------
 
-## Path #24
+## Path #17
 Source: external_input_params in FEG.reflect
 Sink: tainted_state_changing_external_call in FEG._getCurrentSupply
 
@@ -509,26 +372,37 @@ Sink: tainted_state_changing_external_call in FEG._getCurrentSupply
 
 ----------------------------------------
 
-## Path #25
-Source: external_input_params in FEG.balanceOf
-Sink: tainted_state_changing_external_call in FEG.tokenFromReflection
+## Path #18
+Source: external_input_params in FEG.transfer
+Sink: tainted_erc20_transfer in FEG.transfer
 
 ### Operations with Source Code Mapping:
-    IR:  balanceOf
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [466, 467, 468, 469]
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [471, 472, 473, 474]
     LNE: (No direct expression available)
-
-    IR:  REF_6(uint256) -> _rOwned[account]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [468]
-    LNE: tokenFromReflection(_rOwned[account])
-
-    IR:  TMP_75(uint256) = INTERNAL_CALL, FEG.tokenFromReflection(uint256)(REF_6)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [468]
-    LNE: tokenFromReflection(_rOwned[account])
 
 ----------------------------------------
 
-## Path #26
+## Path #19
+Source: external_input_params in FEG.transferFrom
+Sink: tainted_state_changing_external_call in FEG.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
+    LNE: (No direct expression available)
+
+    IR:  REF_9(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [487]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_10(uint256) -> REF_9[TMP_82]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [487]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #20
 Source: external_input_params in FEG.transferFrom
 Sink: tainted_erc20_transfer in FEG._transfer
 
@@ -543,30 +417,7 @@ Sink: tainted_erc20_transfer in FEG._transfer
 
 ----------------------------------------
 
-## Path #27
-Source: external_input_params in FEG.transfer
-Sink: tainted_state_changing_external_call in FEG._transferStandard
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [471, 472, 473, 474]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(TMP_76,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [472]
-    LNE: _transfer(_msgSender(),recipient,amount)
-
-    IR:  INTERNAL_CALL, FEG._transferStandard(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [574]
-    LNE: _transferStandard(sender,recipient,amount)
-
-    IR:  REF_60(uint256) -> _rOwned[recipient]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [585]
-    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
-
-----------------------------------------
-
-## Path #28
+## Path #21
 Source: external_input_params in FEG.transferFrom
 Sink: tainted_state_changing_external_call in FEG._transferFromExcluded
 
@@ -583,146 +434,13 @@ Sink: tainted_state_changing_external_call in FEG._transferFromExcluded
     SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [570]
     LNE: _transferFromExcluded(sender,recipient,amount)
 
-    IR:  REF_72(uint256) -> _tOwned[sender]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [601]
-    LNE: _tOwned[sender] = _tOwned[sender].sub(tAmount)
-
-----------------------------------------
-
-## Path #29
-Source: external_input_params in FEG.increaseAllowance
-Sink: tainted_state_changing_external_call in FEG.increaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  increaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [491, 492, 493, 494]
-    LNE: (No direct expression available)
-
-    IR:  REF_13(uint256) -> REF_12[spender]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [492]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
-
-----------------------------------------
-
-## Path #30
-Source: external_input_params in FEG.transferFrom
-Sink: tainted_state_changing_external_call in FEG._transferToExcluded
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
-    LNE: _transfer(sender,recipient,amount)
-
-    IR:  INTERNAL_CALL, FEG._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [572]
-    LNE: _transferToExcluded(sender,recipient,amount)
-
-    IR:  REF_63(uint256) -> _rOwned[sender]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [592]
+    IR:  REF_75(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [602]
     LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
 
 ----------------------------------------
 
-## Path #31
-Source: external_input_params in FEG.reflect
-Sink: tainted_state_changing_external_call in FEG.reflect
-
-### Operations with Source Code Mapping:
-    IR:  reflect
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
-    LNE: (No direct expression available)
-
-    IR:  TMP_98(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [515]
-    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
-
-    IR:  _tFeeTotal(uint256) := TMP_98(uint256)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [515]
-    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
-
-----------------------------------------
-
-## Path #32
-Source: external_input_params in FEG.transferFrom
-Sink: tainted_erc20_transfer in FEG._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
-    LNE: _transfer(sender,recipient,amount)
-
-----------------------------------------
-
-## Path #33
-Source: external_input_params in FEG.transfer
-Sink: tainted_state_changing_external_call in FEG._transferBothExcluded
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [471, 472, 473, 474]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(TMP_76,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [472]
-    LNE: _transfer(_msgSender(),recipient,amount)
-
-    IR:  INTERNAL_CALL, FEG._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [576]
-    LNE: _transferBothExcluded(sender,recipient,amount)
-
-    IR:  REF_87(uint256) -> _tOwned[recipient]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [612]
-    LNE: _tOwned[recipient] = _tOwned[recipient].add(tTransferAmount)
-
-----------------------------------------
-
-## Path #34
-Source: external_input_params in FEG.transfer
-Sink: tainted_state_changing_external_call in FEG._transferToExcluded
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [471, 472, 473, 474]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(TMP_76,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [472]
-    LNE: _transfer(_msgSender(),recipient,amount)
-
-    IR:  INTERNAL_CALL, FEG._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [572]
-    LNE: _transferToExcluded(sender,recipient,amount)
-
-    IR:  REF_69(uint256) -> _rOwned[recipient]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [594]
-    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
-
-----------------------------------------
-
-## Path #35
-Source: external_input_params in FEG.decreaseAllowance
-Sink: tainted_state_changing_external_call in FEG.decreaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  decreaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [496, 497, 498, 499]
-    LNE: (No direct expression available)
-
-    IR:  REF_16(uint256) -> REF_15[spender]
-    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [497]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
-
-----------------------------------------
-
-## Path #36
+## Path #22
 Source: external_input_params in FEG.transfer
 Sink: tainted_state_changing_external_call in FEG._transferFromExcluded
 
@@ -742,5 +460,322 @@ Sink: tainted_state_changing_external_call in FEG._transferFromExcluded
     IR:  REF_78(uint256) -> _rOwned[recipient]
     SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [603]
     LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in FEG.reflect
+Sink: tainted_state_changing_external_call in FEG._getTValues
+
+### Operations with Source Code Mapping:
+    IR:  reflect
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256) = INTERNAL_CALL, FEG._getTValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [624]
+    LNE: (tTransferAmount,tFee) = _getTValues(tAmount)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in FEG.decreaseAllowance
+Sink: tainted_state_changing_external_call in FEG.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [496, 497, 498, 499]
+    LNE: (No direct expression available)
+
+    IR:  REF_16(uint256) -> REF_15[spender]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [497]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in FEG.reflect
+Sink: tainted_state_changing_external_call in FEG.reflect
+
+### Operations with Source Code Mapping:
+    IR:  reflect
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    LNE: (No direct expression available)
+
+    IR:  TMP_98(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [515]
+    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
+
+    IR:  _tFeeTotal(uint256) := TMP_98(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [515]
+    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in FEG.transferFrom
+Sink: tainted_erc20_transfer in FEG._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in FEG.reflect
+Sink: tainted_state_changing_external_call in FEG._getCurrentSupply
+
+### Operations with Source Code Mapping:
+    IR:  reflect
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+    IR:  rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TMP_97(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [514]
+    LNE: _rTotal = _rTotal.sub(rAmount)
+
+    IR:  _rTotal(uint256) := TMP_97(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [514]
+    LNE: _rTotal = _rTotal.sub(rAmount)
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in FEG.reflect
+Sink: tainted_state_changing_external_call in FEG._getRate
+
+### Operations with Source Code Mapping:
+    IR:  reflect
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+    IR:  rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TMP_97(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [514]
+    LNE: _rTotal = _rTotal.sub(rAmount)
+
+    IR:  _rTotal(uint256) := TMP_97(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [514]
+    LNE: _rTotal = _rTotal.sub(rAmount)
+
+    IR:  TUPLE_11(uint256,uint256) = INTERNAL_CALL, FEG._getCurrentSupply()()
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [644]
+    LNE: (rSupply,tSupply) = _getCurrentSupply()
+
+    IR:  rSupply(uint256)= UNPACK TUPLE_11 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [644]
+    LNE: (rSupply,tSupply) = _getCurrentSupply()
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in FEG.balanceOf
+Sink: tainted_state_changing_external_call in FEG.tokenFromReflection
+
+### Operations with Source Code Mapping:
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [466, 467, 468, 469]
+    LNE: (No direct expression available)
+
+    IR:  REF_6(uint256) -> _rOwned[account]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [468]
+    LNE: tokenFromReflection(_rOwned[account])
+
+    IR:  TMP_75(uint256) = INTERNAL_CALL, FEG.tokenFromReflection(uint256)(REF_6)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [468]
+    LNE: tokenFromReflection(_rOwned[account])
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in FEG.reflect
+Sink: tainted_state_changing_external_call in FEG._getRValues
+
+### Operations with Source Code Mapping:
+    IR:  reflect
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_10(uint256,uint256,uint256) = INTERNAL_CALL, FEG._getRValues(uint256,uint256,uint256)(tAmount,tFee,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [626]
+    LNE: (rAmount,rTransferAmount,rFee) = _getRValues(tAmount,tFee,currentRate)
+
+    IR:  TMP_176(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [637]
+    LNE: rAmount = tAmount.mul(currentRate)
+
+    IR:  rAmount(uint256) := TMP_176(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [637]
+    LNE: rAmount = tAmount.mul(currentRate)
+
+----------------------------------------
+
+## Path #31
+Source: external_input_params in FEG.transfer
+Sink: tainted_state_changing_external_call in FEG._transferToExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [471, 472, 473, 474]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(TMP_76,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [472]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, FEG._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [572]
+    LNE: _transferToExcluded(sender,recipient,amount)
+
+    IR:  REF_66(uint256) -> _tOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [593]
+    LNE: _tOwned[recipient] = _tOwned[recipient].add(tTransferAmount)
+
+----------------------------------------
+
+## Path #32
+Source: external_input_params in FEG.reflect
+Sink: tainted_state_changing_external_call in FEG._getTValues
+
+### Operations with Source Code Mapping:
+    IR:  reflect
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256) = INTERNAL_CALL, FEG._getTValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [624]
+    LNE: (tTransferAmount,tFee) = _getTValues(tAmount)
+
+    IR:  TMP_173(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tAmount', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [631]
+    LNE: tFee = tAmount.div(100).mul(2)
+
+----------------------------------------
+
+## Path #33
+Source: external_input_params in FEG.transferFrom
+Sink: tainted_erc20_transfer in FEG.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #34
+Source: external_input_params in FEG.reflect
+Sink: tainted_state_changing_external_call in FEG.reflect
+
+### Operations with Source Code Mapping:
+    IR:  reflect
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, FEG._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+    IR:  rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [512]
+    LNE: (rAmount,None,None,None,None) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #35
+Source: external_input_params in FEG.transferFrom
+Sink: tainted_state_changing_external_call in FEG._transferStandard
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, FEG._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [574]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  REF_57(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [584]
+    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
+
+----------------------------------------
+
+## Path #36
+Source: external_input_params in FEG.reflect
+Sink: tainted_state_changing_external_call in FEG._reflectFee
+
+### Operations with Source Code Mapping:
+    IR:  reflect
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [509, 510, 511, 512, 513, 514, 515, 516]
+    LNE: (No direct expression available)
+
+    IR:  TMP_98(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [515]
+    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
+
+    IR:  _tFeeTotal(uint256) := TMP_98(uint256)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [515]
+    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
+
+----------------------------------------
+
+## Path #37
+Source: external_input_params in FEG.transferFrom
+Sink: tainted_state_changing_external_call in FEG._transferFromExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [485, 486, 487, 488, 489]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FEG._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [486]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, FEG._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [570]
+    LNE: _transferFromExcluded(sender,recipient,amount)
+
+    IR:  REF_72(uint256) -> _tOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/c371dc7f_Fegex/flattened.sol', Lines [601]
+    LNE: _tOwned[sender] = _tOwned[sender].sub(tAmount)
 
 ----------------------------------------

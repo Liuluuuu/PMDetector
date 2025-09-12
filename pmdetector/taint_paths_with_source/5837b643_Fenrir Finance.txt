@@ -57,17 +57,6 @@ Sink: tainted_erc20_transfer in Comp._delegate
 ----------------------------------------
 
 ## Path #2
-Source: external_input_params in Comp.transferFrom
-Sink: tainted_erc20_transfer in Comp.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/5837b643_Fenrir Finance/flattened.sol', Lines [133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #3
 Source: external_input_params in Comp.transfer
 Sink: tainted_erc20_transfer in Comp.transfer
 
@@ -78,7 +67,7 @@ Sink: tainted_erc20_transfer in Comp.transfer
 
 ----------------------------------------
 
-## Path #4
+## Path #3
 Source: external_input_params in Comp.transferFrom
 Sink: tainted_erc20_transfer in Comp._transferTokens
 
@@ -94,5 +83,16 @@ Sink: tainted_erc20_transfer in Comp._transferTokens
     IR:  REF_43(address) -> delegates[src]
     SRC: File 'pmdetector/flattened_contracts/5837b643_Fenrir Finance/flattened.sol', Lines [246]
     LNE: _moveDelegates(delegates[src],delegates[dst],amount)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in Comp.transferFrom
+Sink: tainted_erc20_transfer in Comp.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/5837b643_Fenrir Finance/flattened.sol', Lines [133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147]
+    LNE: (No direct expression available)
 
 ----------------------------------------

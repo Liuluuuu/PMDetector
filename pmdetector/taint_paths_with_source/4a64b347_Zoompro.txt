@@ -2,23 +2,23 @@
 Found 2 tainted paths.
 
 ## Path #1
-Source: external_input_params in flashloan.jfaij
-Sink: tainted_erc20_transfer in flashloan.jfaij
-
-### Operations with Source Code Mapping:
-    IR:  jfaij
-    SRC: File 'pmdetector/flattened_contracts/4a64b347_Zoompro/flattened.sol', Lines [127, 128, 129, 130, 131, 132]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #2
 Source: external_input_params in flashloan.loan
 Sink: tainted_state_changing_external_call in flashloan.loan
 
 ### Operations with Source Code Mapping:
     IR:  loan
     SRC: File 'pmdetector/flattened_contracts/4a64b347_Zoompro/flattened.sol', Lines [94, 95, 96, 97, 98]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in flashloan.jfaij
+Sink: tainted_erc20_transfer in flashloan.jfaij
+
+### Operations with Source Code Mapping:
+    IR:  jfaij
+    SRC: File 'pmdetector/flattened_contracts/4a64b347_Zoompro/flattened.sol', Lines [127, 128, 129, 130, 131, 132]
     LNE: (No direct expression available)
 
 ----------------------------------------

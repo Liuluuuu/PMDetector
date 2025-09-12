@@ -2,6 +2,17 @@
 Found 18 tainted paths.
 
 ## Path #1
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [573, 574, 575, 576, 577]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
 Source: external_input_params in NeverFallToken.buy
 Sink: tainted_erc20_transfer in NeverFallToken.buySwap
 
@@ -24,17 +35,6 @@ Sink: tainted_erc20_transfer in NeverFallToken.buySwap
 
 ----------------------------------------
 
-## Path #2
-Source: external_input_params in NeverFallToken.withdrawToken
-Sink: tainted_erc20_transfer in NeverFallToken.withdrawToken
-
-### Operations with Source Code Mapping:
-    IR:  withdrawToken
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1191, 1192, 1193]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
 ## Path #3
 Source: external_input_params in Ownable.transferOwnership
 Sink: tainted_erc20_transfer in Ownable.transferOwnership
@@ -47,6 +47,82 @@ Sink: tainted_erc20_transfer in Ownable.transferOwnership
 ----------------------------------------
 
 ## Path #4
+Source: external_input_params in NeverFallToken.sell
+Sink: tainted_erc20_transfer in NeverFallToken.sell
+
+### Operations with Source Code Mapping:
+    IR:  sell
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1138, 1139, 1140, 1141, 1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1155]
+    LNE: (No direct expression available)
+
+    IR:  TMP_309(uint256) = amount (c)* pairTotalSupply
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1143]
+    LNE: needLiquidity = amount * pairTotalSupply / balanceNF
+
+    IR:  TMP_310(uint256) = TMP_309 (c)/ balanceNF
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1143]
+    LNE: needLiquidity = amount * pairTotalSupply / balanceNF
+
+    IR:  needLiquidity(uint256) := TMP_310(uint256)
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1143]
+    LNE: needLiquidity = amount * pairTotalSupply / balanceNF
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in NeverFallToken.setConfAddress
+Sink: tainted_erc20_transfer in NeverFallToken.sell
+
+### Operations with Source Code Mapping:
+    IR:  setConfAddress
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1044, 1045, 1046]
+    LNE: (No direct expression available)
+
+    IR:  marketingAddress(address) := _marketingAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1045]
+    LNE: marketingAddress = _marketingAddress
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in NeverFallToken.updateSellFee
+Sink: tainted_erc20_transfer in NeverFallToken.sell
+
+### Operations with Source Code Mapping:
+    IR:  updateSellFee
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1056, 1057, 1058, 1059]
+    LNE: (No direct expression available)
+
+    IR:  sellFee(uint256) := _sellFee(uint256)
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1057]
+    LNE: sellFee = _sellFee
+
+    IR:  TMP_322(uint256) = outU (c)* sellFee
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1150]
+    LNE: IERC20(usdtAddress).safeTransfer(msg.sender,outU * sellFee / 100)
+
+    IR:  TMP_323(uint256) = TMP_322 (c)/ 100
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1150]
+    LNE: IERC20(usdtAddress).safeTransfer(msg.sender,outU * sellFee / 100)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [622, 623, 624, 625, 626, 627]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [625]
+    LNE: _transfer(from,to,amount)
+
+----------------------------------------
+
+## Path #8
 Source: external_input_params in NeverFallToken.getAmounNfOut
 Sink: tainted_state_changing_external_call in NeverFallToken.getAmounNfOut
 
@@ -57,9 +133,20 @@ Sink: tainted_state_changing_external_call in NeverFallToken.getAmounNfOut
 
 ----------------------------------------
 
-## Path #5
+## Path #9
+Source: external_input_params in NeverFallToken.withdrawToken
+Sink: tainted_erc20_transfer in NeverFallToken.withdrawToken
+
+### Operations with Source Code Mapping:
+    IR:  withdrawToken
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1191, 1192, 1193]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #10
 Source: external_input_params in NeverFallToken.buy
-Sink: tainted_state_changing_external_call in NeverFallToken.buy
+Sink: tainted_erc20_transfer in NeverFallToken.buy
 
 ### Operations with Source Code Mapping:
     IR:  buy
@@ -68,18 +155,7 @@ Sink: tainted_state_changing_external_call in NeverFallToken.buy
 
 ----------------------------------------
 
-## Path #6
-Source: external_input_params in NeverFallToken.sell
-Sink: tainted_erc20_transfer in NeverFallToken.sell
-
-### Operations with Source Code Mapping:
-    IR:  sell
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1138, 1139, 1140, 1141, 1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1155]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #7
+## Path #11
 Source: external_input_params in NeverFallToken.setConfAddress
 Sink: tainted_erc20_transfer in NeverFallToken.buy
 
@@ -94,7 +170,63 @@ Sink: tainted_erc20_transfer in NeverFallToken.buy
 
 ----------------------------------------
 
-## Path #8
+## Path #12
+Source: external_input_params in NeverFallToken.buy
+Sink: tainted_state_changing_external_call in NeverFallToken.buy
+
+### Operations with Source Code Mapping:
+    IR:  buy
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130, 1131, 1132, 1133]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in NeverFallToken.sell
+Sink: tainted_erc20_transfer in NeverFallToken.sell
+
+### Operations with Source Code Mapping:
+    IR:  sell
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1138, 1139, 1140, 1141, 1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1155]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in NeverFallToken.getAmountUsdtOut
+Sink: tainted_state_changing_external_call in NeverFallToken.getAmountUsdtOut
+
+### Operations with Source Code Mapping:
+    IR:  getAmountUsdtOut
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1098, 1099, 1100, 1101, 1102, 1103]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in NeverFallToken.buy
+Sink: tainted_state_changing_external_call in NeverFallToken.addLiquidity
+
+### Operations with Source Code Mapping:
+    IR:  buy
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130, 1131, 1132, 1133]
+    LNE: (No direct expression available)
+
+    IR:  TMP_280(uint256) = amountU (c)* buyAddLiqFee
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1123]
+    LNE: addLiquidity(initSupply,amountU * buyAddLiqFee / 100)
+
+    IR:  TMP_281(uint256) = TMP_280 (c)/ 100
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1123]
+    LNE: addLiquidity(initSupply,amountU * buyAddLiqFee / 100)
+
+    IR:  INTERNAL_CALL, NeverFallToken.addLiquidity(uint256,uint256)(initSupply,TMP_281)
+    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1123]
+    LNE: addLiquidity(initSupply,amountU * buyAddLiqFee / 100)
+
+----------------------------------------
+
+## Path #16
 Source: external_input_params in NeverFallToken.sell
 Sink: tainted_erc20_transfer in NeverFallToken.removeLiquidity
 
@@ -121,82 +253,7 @@ Sink: tainted_erc20_transfer in NeverFallToken.removeLiquidity
 
 ----------------------------------------
 
-## Path #9
-Source: external_input_params in NeverFallToken.sell
-Sink: tainted_erc20_transfer in NeverFallToken.sell
-
-### Operations with Source Code Mapping:
-    IR:  sell
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1138, 1139, 1140, 1141, 1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1155]
-    LNE: (No direct expression available)
-
-    IR:  TMP_309(uint256) = amount (c)* pairTotalSupply
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1143]
-    LNE: needLiquidity = amount * pairTotalSupply / balanceNF
-
-    IR:  TMP_310(uint256) = TMP_309 (c)/ balanceNF
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1143]
-    LNE: needLiquidity = amount * pairTotalSupply / balanceNF
-
-    IR:  needLiquidity(uint256) := TMP_310(uint256)
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1143]
-    LNE: needLiquidity = amount * pairTotalSupply / balanceNF
-
-----------------------------------------
-
-## Path #10
-Source: external_input_params in NeverFallToken.setConfAddress
-Sink: tainted_erc20_transfer in NeverFallToken.sell
-
-### Operations with Source Code Mapping:
-    IR:  setConfAddress
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1044, 1045, 1046]
-    LNE: (No direct expression available)
-
-    IR:  marketingAddress(address) := _marketingAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1045]
-    LNE: marketingAddress = _marketingAddress
-
-----------------------------------------
-
-## Path #11
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [622, 623, 624, 625, 626, 627]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [625]
-    LNE: _transfer(from,to,amount)
-
-----------------------------------------
-
-## Path #12
-Source: external_input_params in NeverFallToken.getAmountUsdtOut
-Sink: tainted_state_changing_external_call in NeverFallToken.getAmountUsdtOut
-
-### Operations with Source Code Mapping:
-    IR:  getAmountUsdtOut
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1098, 1099, 1100, 1101, 1102, 1103]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #13
-Source: external_input_params in NeverFallToken.buy
-Sink: tainted_erc20_transfer in NeverFallToken.buy
-
-### Operations with Source Code Mapping:
-    IR:  buy
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130, 1131, 1132, 1133]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #14
+## Path #17
 Source: external_input_params in ERC20.transferFrom
 Sink: tainted_erc20_transfer in ERC20.transferFrom
 
@@ -204,63 +261,6 @@ Sink: tainted_erc20_transfer in ERC20.transferFrom
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [622, 623, 624, 625, 626, 627]
     LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #15
-Source: external_input_params in ERC20.transfer
-Sink: tainted_erc20_transfer in ERC20.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [573, 574, 575, 576, 577]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #16
-Source: external_input_params in NeverFallToken.buy
-Sink: tainted_state_changing_external_call in NeverFallToken.addLiquidity
-
-### Operations with Source Code Mapping:
-    IR:  buy
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130, 1131, 1132, 1133]
-    LNE: (No direct expression available)
-
-    IR:  TMP_280(uint256) = amountU (c)* buyAddLiqFee
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1123]
-    LNE: addLiquidity(initSupply,amountU * buyAddLiqFee / 100)
-
-    IR:  TMP_281(uint256) = TMP_280 (c)/ 100
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1123]
-    LNE: addLiquidity(initSupply,amountU * buyAddLiqFee / 100)
-
-    IR:  INTERNAL_CALL, NeverFallToken.addLiquidity(uint256,uint256)(initSupply,TMP_281)
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1123]
-    LNE: addLiquidity(initSupply,amountU * buyAddLiqFee / 100)
-
-----------------------------------------
-
-## Path #17
-Source: external_input_params in NeverFallToken.updateSellFee
-Sink: tainted_erc20_transfer in NeverFallToken.sell
-
-### Operations with Source Code Mapping:
-    IR:  updateSellFee
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1056, 1057, 1058, 1059]
-    LNE: (No direct expression available)
-
-    IR:  sellFee(uint256) := _sellFee(uint256)
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1057]
-    LNE: sellFee = _sellFee
-
-    IR:  TMP_322(uint256) = outU (c)* sellFee
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1150]
-    LNE: IERC20(usdtAddress).safeTransfer(msg.sender,outU * sellFee / 100)
-
-    IR:  TMP_323(uint256) = TMP_322 (c)/ 100
-    SRC: File 'pmdetector/flattened_contracts/d7e160c3_NeverFall/flattened.sol', Lines [1150]
-    LNE: IERC20(usdtAddress).safeTransfer(msg.sender,outU * sellFee / 100)
 
 ----------------------------------------
 

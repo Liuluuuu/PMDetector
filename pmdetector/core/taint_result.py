@@ -12,10 +12,6 @@ from pmdetector.core.taint_sink import TaintSink
 
 
 class TaintResult:
-    """
-    Represents the results of a taint analysis.
-
-    """  
     def __init__(
         self,
         sources: List[TaintSource],
@@ -23,22 +19,12 @@ class TaintResult:
         paths: List[Tuple[TaintSource, TaintSink, List[Operation]]],
         unfiltered_path_count: int = 0
     ):
-        """
-        Initialize a TaintResult object.
-        
-        Args:
-            sources: List of taint sources
-            sinks: List of taint sinks
-            paths: List of tainted paths, each containing a source, sink, and list of operations
-            unfiltered_path_count: Total number of paths before filtering (default: 0)
-        """
         self.sources = sources or []
         self.sinks = sinks or []
         self.paths = paths or []
         self.unfiltered_path_count = unfiltered_path_count
     
     def to_dict(self) -> Dict:
-        """Convert to dictionary for serialization."""
         return {
             "sources": [source.to_dict() for source in self.sources],
             "sinks": [sink.to_dict() for sink in self.sinks],
@@ -54,14 +40,11 @@ class TaintResult:
         }
     
     def to_json(self) -> str:
-        """Convert to JSON string."""
         return json.dumps(self.to_dict(), indent=2)
     
     def to_text(self) -> str:
-        """Convert to human-readable text format."""
         result = []
         
-        # Summary
         result.append("=== PMDetector Taint Analysis Results ===")
         result.append(f"Found {len(self.sources)} taint sources")
         result.append(f"Found {len(self.sinks)} taint sinks")
@@ -69,7 +52,6 @@ class TaintResult:
         result.append(f"Path filtering efficiency: {(self.unfiltered_path_count - len(self.paths)) / self.unfiltered_path_count * 100:.2f}% of paths filtered" if self.unfiltered_path_count > 0 else "No paths to filter")
         result.append("")
         
-        # Sources
         if self.sources:
             result.append("=== Taint Sources ===")
             for i, source in enumerate(self.sources, 1):
@@ -82,7 +64,6 @@ class TaintResult:
                 result.append(f"  Tainted Variables: {', '.join(str(v) for v in source.tainted_variables)}")
                 result.append("")
         
-        # Sinks
         if self.sinks:
             result.append("=== Taint Sinks ===")
             for i, sink in enumerate(self.sinks, 1):
@@ -96,7 +77,6 @@ class TaintResult:
                     result.append(f"  Tainted Variable: {sink.tainted_variable}")
                 result.append("")
         
-        # Paths
         if self.paths:
             result.append("=== Tainted Paths ===")
             for i, (source, sink, path) in enumerate(self.paths, 1):
@@ -116,5 +96,4 @@ class TaintResult:
         return "\n".join(result)
     
     def has_vulnerabilities(self) -> bool:
-        """Check if any vulnerabilities were found."""
         return len(self.paths) > 0

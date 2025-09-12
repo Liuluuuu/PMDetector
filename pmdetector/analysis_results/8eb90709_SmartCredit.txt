@@ -236,42 +236,39 @@ Sink #20: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in SMARTCREDIT.constructor
-  Sink: tainted_erc20_transfer in SMARTCREDIT._mint
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
   Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(initialAccount,initialBalance)
+    1. increaseAllowance
+    2. REF_11(uint256) -> REF_10[spender]
 
 Path #2:
-  Source: external_input_params in SMARTCREDIT.constructor
-  Sink: tainted_state_changing_external_call in SMARTCREDIT._mint
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(initialAccount,initialBalance)
-    3. REF_52(uint256) -> _balances[account]
-
-Path #3:
   Source: external_input_params in ERC20.transfer
   Sink: tainted_erc20_transfer in ERC20.transfer
   Path Operations:
     1. transfer
 
-Path #4:
-  Source: external_input_params in SMARTCREDIT.constructor
-  Sink: tainted_state_changing_external_call in SMARTCREDIT._burn
+Path #3:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
   Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(initialAccount,initialBalance)
-    3. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_125(uint256)
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
 
-Path #5:
+Path #4:
   Source: external_input_params in ERC20.transferFrom
   Sink: tainted_state_changing_external_call in ERC20._transfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
     3. REF_17(uint256) -> _balances[sender]
+
+Path #5:
+  Source: external_input_params in SMARTCREDIT.constructor
+  Sink: tainted_erc20_transfer in SMARTCREDIT._mint
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(initialAccount,initialBalance)
 
 Path #6:
   Source: external_input_params in ERC20.decreaseAllowance
@@ -281,13 +278,12 @@ Path #6:
     2. REF_14(uint256) -> REF_13[spender]
 
 Path #7:
-  Source: external_input_params in SMARTCREDIT.constructor
-  Sink: tainted_state_changing_external_call in SMARTCREDIT._mint
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
   Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(initialAccount,initialBalance)
-    3. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_125(uint256)
+    1. transferFrom
+    2. REF_7(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_8(uint256) -> REF_7[TMP_47]
 
 Path #8:
   Source: external_input_params in ERC20.transfer
@@ -298,18 +294,19 @@ Path #8:
     3. REF_20(uint256) -> _balances[recipient]
 
 Path #9:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
+  Source: external_input_params in SMARTCREDIT.constructor
+  Sink: tainted_state_changing_external_call in ERC20._mint
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    1. constructor
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(initialAccount,initialBalance)
+    3. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_125(uint256)
 
 Path #10:
-  Source: external_input_params in ERC20.increaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
   Path Operations:
-    1. increaseAllowance
-    2. REF_11(uint256) -> REF_10[spender]
+    1. transferFrom
 
 Path #11:
   Source: external_input_params in SMARTCREDIT.constructor
@@ -321,22 +318,25 @@ Path #11:
     4. _totalSupply(uint256) := TMP_125(uint256)
 
 Path #12:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ERC20.transferFrom
+  Source: external_input_params in SMARTCREDIT.constructor
+  Sink: tainted_state_changing_external_call in SMARTCREDIT._mint
   Path Operations:
-    1. transferFrom
-    2. REF_7(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_8(uint256) -> REF_7[TMP_47]
+    1. constructor
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(initialAccount,initialBalance)
+    3. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_125(uint256)
 
 Path #13:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Source: external_input_params in SMARTCREDIT.constructor
+  Sink: tainted_state_changing_external_call in SMARTCREDIT._mint
   Path Operations:
-    1. transferFrom
+    1. constructor
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(initialAccount,initialBalance)
+    3. REF_52(uint256) -> _balances[account]
 
 Path #14:
   Source: external_input_params in SMARTCREDIT.constructor
-  Sink: tainted_state_changing_external_call in ERC20._mint
+  Sink: tainted_state_changing_external_call in SMARTCREDIT._burn
   Path Operations:
     1. constructor
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(initialAccount,initialBalance)

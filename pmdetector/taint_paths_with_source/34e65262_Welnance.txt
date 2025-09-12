@@ -3,6 +3,36 @@ Found 4 tainted paths.
 
 ## Path #1
 Source: external_input_params in WEL.transferFrom
+Sink: tainted_erc20_transfer in WEL._transferTokens
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/34e65262_Welnance/flattened.sol', Lines [177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, WEL._transferTokens(address,address,uint96)(src,dst,amount)
+    SRC: File 'pmdetector/flattened_contracts/34e65262_Welnance/flattened.sol', Lines [189]
+    LNE: _transferTokens(src,dst,amount)
+
+    IR:  REF_43(address) -> delegates[src]
+    SRC: File 'pmdetector/flattened_contracts/34e65262_Welnance/flattened.sol', Lines [290]
+    LNE: _moveDelegates(delegates[src],delegates[dst],amount)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in WEL.transfer
+Sink: tainted_erc20_transfer in WEL.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/34e65262_Welnance/flattened.sol', Lines [164, 165, 166, 167, 168]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in WEL.transferFrom
 Sink: tainted_erc20_transfer in WEL.transferFrom
 
 ### Operations with Source Code Mapping:
@@ -12,7 +42,7 @@ Sink: tainted_erc20_transfer in WEL.transferFrom
 
 ----------------------------------------
 
-## Path #2
+## Path #4
 Source: external_input_params in WEL.delegateBySig
 Sink: tainted_erc20_transfer in WEL._delegate
 
@@ -64,35 +94,5 @@ Sink: tainted_erc20_transfer in WEL._delegate
     IR:  currentDelegate(address) := REF_36(address)
     SRC: File 'pmdetector/flattened_contracts/34e65262_Welnance/flattened.sol', Lines [273]
     LNE: currentDelegate = delegates[delegator]
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in WEL.transfer
-Sink: tainted_erc20_transfer in WEL.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/34e65262_Welnance/flattened.sol', Lines [164, 165, 166, 167, 168]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #4
-Source: external_input_params in WEL.transferFrom
-Sink: tainted_erc20_transfer in WEL._transferTokens
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/34e65262_Welnance/flattened.sol', Lines [177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, WEL._transferTokens(address,address,uint96)(src,dst,amount)
-    SRC: File 'pmdetector/flattened_contracts/34e65262_Welnance/flattened.sol', Lines [189]
-    LNE: _transferTokens(src,dst,amount)
-
-    IR:  REF_43(address) -> delegates[src]
-    SRC: File 'pmdetector/flattened_contracts/34e65262_Welnance/flattened.sol', Lines [290]
-    LNE: _moveDelegates(delegates[src],delegates[dst],amount)
 
 ----------------------------------------

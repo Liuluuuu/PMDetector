@@ -235,34 +235,8 @@ Path #1:
   Path Operations:
     1. constructor
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,initialSupply)
-    3. TMP_113(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_113(uint256)
 
 Path #2:
-  Source: external_input_params in UNITRADE.constructor
-  Sink: tainted_state_changing_external_call in ERC20._burn
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,initialSupply)
-    3. TMP_113(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_113(uint256)
-
-Path #3:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_14(uint256) -> _balances[sender]
-
-Path #4:
-  Source: external_input_params in ERC20.decreaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_11(uint256) -> REF_10[spender]
-
-Path #5:
   Source: external_input_params in UNITRADE.constructor
   Sink: tainted_state_changing_external_call in UNITRADE._burn
   Path Operations:
@@ -271,7 +245,39 @@ Path #5:
     3. TMP_113(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_113(uint256)
 
+Path #3:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #4:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_14(uint256) -> _balances[sender]
+
+Path #5:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_29,recipient,amount)
+    3. REF_17(uint256) -> _balances[recipient]
+
 Path #6:
+  Source: external_input_params in UNITRADE.constructor
+  Sink: tainted_state_changing_external_call in ERC20._burn
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,initialSupply)
+    3. TMP_113(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_113(uint256)
+
+Path #7:
   Source: external_input_params in UNITRADE.constructor
   Sink: tainted_state_changing_external_call in ERC20._mint
   Path Operations:
@@ -280,19 +286,33 @@ Path #6:
     3. TMP_113(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_113(uint256)
 
-Path #7:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-
 Path #8:
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_8(uint256) -> REF_7[spender]
+
+Path #9:
   Source: external_input_params in ERC20.transfer
   Sink: tainted_erc20_transfer in ERC20.transfer
   Path Operations:
     1. transfer
 
-Path #9:
+Path #10:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #11:
+  Source: external_input_params in ERC20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_11(uint256) -> REF_10[spender]
+
+Path #12:
   Source: external_input_params in ERC20.transferFrom
   Sink: tainted_state_changing_external_call in ERC20.transferFrom
   Path Operations:
@@ -300,38 +320,18 @@ Path #9:
     2. REF_4(mapping(address => uint256)) -> _allowances[sender]
     3. REF_5(uint256) -> REF_4[TMP_35]
 
-Path #10:
+Path #13:
   Source: external_input_params in UNITRADE.constructor
   Sink: tainted_erc20_transfer in UNITRADE._mint
   Path Operations:
     1. constructor
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,initialSupply)
 
-Path #11:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #12:
+Path #14:
   Source: external_input_params in UNITRADE.constructor
   Sink: tainted_state_changing_external_call in UNITRADE._mint
   Path Operations:
     1. constructor
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,initialSupply)
-
-Path #13:
-  Source: external_input_params in ERC20.increaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_8(uint256) -> REF_7[spender]
-
-Path #14:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_state_changing_external_call in ERC20._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_29,recipient,amount)
-    3. REF_17(uint256) -> _balances[recipient]
+    3. TMP_113(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_113(uint256)

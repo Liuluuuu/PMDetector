@@ -764,6 +764,18 @@ Sink #90: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in Pankuku.balanceOf
+  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
+  Path Operations:
+    1. balanceOf
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
+
+Path #2:
   Source: external_input_params in Pankuku.setTaxFeePercent
   Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
@@ -771,46 +783,25 @@ Path #1:
     2. _taxFee(uint256) := taxFee(uint256)
     3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
     4. ronePart(uint256) := TMP_170(uint256)
-
-Path #2:
-  Source: external_input_params in Pankuku.balanceOf
-  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
-  Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
+    5. TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ronePart', 'teamDivisor'] 
+    6. _rtotransferrteam(uint256) := TMP_172(uint256)
+    7. TMP_174(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rFee', '_rtotransferrteam'] 
+    8. rFee(uint256) := TMP_174(uint256)
 
 Path #3:
-  Source: external_input_params in Pankuku.setTeamAddress
-  Sink: tainted_state_changing_external_call in Pankuku._takefunds
+  Source: external_input_params in Pankuku.transferFrom
+  Sink: tainted_erc20_transfer in Pankuku._tokenTransfer
   Path Operations:
-    1. setTeamAddress
-    2. TMP_364 = CONVERT _teamAddress to address
-    3. teamAddress(address) := TMP_364(address)
-    4. INTERNAL_CALL, Pankuku._takefunds(address,uint256,uint256)(teamAddress,_rtotransferrteam,_ttotransferrteam)
-    5. REF_92(uint256) -> _rOwned[recipient]
+    1. transferFrom
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
 
 Path #4:
-  Source: external_input_params in Pankuku.balanceOf
-  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
+  Source: external_input_params in Pankuku.increaseAllowance
+  Sink: tainted_state_changing_external_call in Pankuku.increaseAllowance
   Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
-    9. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
-    10. toliqudity(uint256) := TMP_283(uint256)
-    11. TMP_288(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['toliqudity', '2'] 
-    12. half(uint256) := TMP_288(uint256)
+    1. increaseAllowance
+    2. REF_18(uint256) -> REF_17[spender]
 
 Path #5:
   Source: external_input_params in Pankuku.setTaxFeePercent
@@ -826,38 +817,42 @@ Path #5:
     8. tFee(uint256) := TMP_175(uint256)
 
 Path #6:
-  Source: external_input_params in Pankuku.transfer
-  Sink: tainted_state_changing_external_call in Pankuku._takeLiquidity
+  Source: external_input_params in Pankuku.balanceOf
+  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
   Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
-    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. TUPLE_10(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    6. tLiquidity(uint256)= UNPACK TUPLE_10 index: 5 
-    7. INTERNAL_CALL, Pankuku._takeLiquidity(uint256)(tLiquidity)
+    1. balanceOf
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
 
 Path #7:
   Source: external_input_params in Pankuku.balanceOf
   Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
   Path Operations:
     1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
-    9. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
-    10. toliqudity(uint256) := TMP_283(uint256)
-    11. TMP_288(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['toliqudity', '2'] 
-    12. half(uint256) := TMP_288(uint256)
-    13. TMP_292(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['half', 'charitypart'] 
-    14. TMP_293(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_292', 'markettingpart'] 
-    15. TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_293', 'ecopart'] 
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
 
 Path #8:
+  Source: external_input_params in Pankuku.balanceOf
+  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
+  Path Operations:
+    1. balanceOf
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
+    8. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
+    9. toliqudity(uint256) := TMP_283(uint256)
+
+Path #9:
   Source: external_input_params in Pankuku.deliver
   Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
@@ -867,23 +862,14 @@ Path #8:
     4. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
     5. _rTotal(uint256) := TMP_125(uint256)
 
-Path #9:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku.calculateTaxFee
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
-    4. TMP_203(uint256) = INTERNAL_CALL, Pankuku.calculateTaxFee(uint256)(tAmount)
-
 Path #10:
   Source: external_input_params in Pankuku.setTaxFeePercent
   Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
     1. setTaxFeePercent
     2. _taxFee(uint256) := taxFee(uint256)
-    3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
-    4. tonePart(uint256) := TMP_171(uint256)
+    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
+    4. ronePart(uint256) := TMP_170(uint256)
 
 Path #11:
   Source: external_input_params in Pankuku.setTaxFeePercent
@@ -893,108 +879,8 @@ Path #11:
     2. _taxFee(uint256) := taxFee(uint256)
     3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
     4. tonePart(uint256) := TMP_171(uint256)
-    5. TMP_173(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tonePart', 'teamDivisor'] 
-    6. _ttotransferrteam(uint256) := TMP_173(uint256)
-    7. TMP_175(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tFee', '_ttotransferrteam'] 
-    8. tFee(uint256) := TMP_175(uint256)
 
 Path #12:
-  Source: external_input_params in Pankuku.transferFrom
-  Sink: tainted_state_changing_external_call in Pankuku.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_14(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_15(uint256) -> REF_14[TMP_110]
-
-Path #13:
-  Source: external_input_params in Pankuku.balanceOf
-  Sink: tainted_erc20_transfer in Pankuku.swapTokensForEth
-  Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
-    9. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
-    10. toliqudity(uint256) := TMP_283(uint256)
-    11. TMP_288(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['toliqudity', '2'] 
-    12. half(uint256) := TMP_288(uint256)
-    13. TMP_292(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['half', 'charitypart'] 
-    14. TMP_293(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_292', 'markettingpart'] 
-    15. TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_293', 'ecopart'] 
-    16. TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_294', 'farmspoolpart'] 
-    17. totalTransBalance(uint256) := TMP_295(uint256)
-    18. INTERNAL_CALL, Pankuku.swapTokensForEth(uint256)(totalTransBalance)
-
-Path #14:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
-  Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-
-Path #15:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku._getRValues
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_202)
-    4. TMP_207(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
-    5. rAmount(uint256) := TMP_207(uint256)
-    6. TMP_210(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rAmount', 'rFee'] 
-
-Path #16:
-  Source: external_input_params in Pankuku.transfer
-  Sink: tainted_state_changing_external_call in Pankuku._takeLiquidity
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
-    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. TUPLE_10(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    6. tLiquidity(uint256)= UNPACK TUPLE_10 index: 5 
-    7. INTERNAL_CALL, Pankuku._takeLiquidity(uint256)(tLiquidity)
-    8. TMP_223(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tLiquidity', 'currentRate'] 
-    9. rLiquidity(uint256) := TMP_223(uint256)
-
-Path #17:
-  Source: external_input_params in Pankuku.transferFrom
-  Sink: tainted_state_changing_external_call in Pankuku._transferFromExcluded
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_187(uint256) -> _rOwned[sender]
-
-Path #18:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
-  Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-
-Path #19:
-  Source: external_input_params in Pankuku.transfer
-  Sink: tainted_state_changing_external_call in Pankuku._transferToExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
-    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_178(uint256) -> _tOwned[recipient]
-
-Path #20:
-  Source: external_input_params in Pankuku.setMaxTxPercent
-  Sink: tainted_state_changing_external_call in Pankuku.setMaxTxPercent
-  Path Operations:
-    1. setMaxTxPercent
-
-Path #21:
   Source: external_input_params in Pankuku.setTaxFeePercent
   Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
@@ -1003,7 +889,17 @@ Path #21:
     3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
     4. tonePart(uint256) := TMP_171(uint256)
 
-Path #22:
+Path #13:
+  Source: external_input_params in Pankuku.transfer
+  Sink: tainted_state_changing_external_call in Pankuku._transferStandard
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
+    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. REF_172(uint256) -> _rOwned[recipient]
+
+Path #14:
   Source: external_input_params in Pankuku.setTaxFeePercent
   Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
@@ -1016,73 +912,46 @@ Path #22:
     7. TMP_174(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rFee', '_rtotransferrteam'] 
     8. rFee(uint256) := TMP_174(uint256)
 
-Path #23:
+Path #15:
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
+  Path Operations:
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+    3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
+    4. tonePart(uint256) := TMP_171(uint256)
+
+Path #16:
   Source: external_input_params in Pankuku.transferFrom
-  Sink: tainted_erc20_transfer in Pankuku._tokenTransfer
+  Sink: tainted_state_changing_external_call in Pankuku._transferFromExcluded
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
     3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_184(uint256) -> _tOwned[sender]
 
-Path #24:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku._getCurrentSupply
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
-    4. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
-    5. _rTotal(uint256) := TMP_125(uint256)
-
-Path #25:
-  Source: external_input_params in Pankuku.transfer
-  Sink: tainted_erc20_transfer in Pankuku.transfer
-  Path Operations:
-    1. transfer
-
-Path #26:
-  Source: external_input_params in Pankuku.transferFrom
-  Sink: tainted_state_changing_external_call in Pankuku._transferToExcluded
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_175(uint256) -> _rOwned[sender]
-
-Path #27:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku.calculateTaxFee
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
-    4. TMP_203(uint256) = INTERNAL_CALL, Pankuku.calculateTaxFee(uint256)(tAmount)
-    5. TMP_231(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_taxFee'] 
-
-Path #28:
+Path #17:
   Source: external_input_params in Pankuku.decreaseAllowance
   Sink: tainted_state_changing_external_call in Pankuku.decreaseAllowance
   Path Operations:
     1. decreaseAllowance
     2. REF_21(uint256) -> REF_20[spender]
 
-Path #29:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku._getTValues
+Path #18:
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
+    4. ronePart(uint256) := TMP_170(uint256)
+    5. TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ronePart', 'teamDivisor'] 
+    6. _rtotransferrteam(uint256) := TMP_172(uint256)
+    7. TMP_174(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rFee', '_rtotransferrteam'] 
+    8. rFee(uint256) := TMP_174(uint256)
 
-Path #30:
-  Source: external_input_params in Pankuku.setMaxTxPercent
-  Sink: tainted_state_changing_external_call in Pankuku.setMaxTxPercent
-  Path Operations:
-    1. setMaxTxPercent
-    2. TMP_161(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_tTotal', 'maxTxPercent'] 
-
-Path #31:
+Path #19:
   Source: external_input_params in Pankuku.transferFrom
   Sink: tainted_erc20_transfer in Pankuku._tokenTransfer
   Path Operations:
@@ -1090,15 +959,104 @@ Path #31:
     2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
     3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
 
-Path #32:
+Path #20:
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._takefunds
+  Path Operations:
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+    3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
+    4. tonePart(uint256) := TMP_171(uint256)
+    5. TMP_173(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tonePart', 'teamDivisor'] 
+    6. _ttotransferrteam(uint256) := TMP_173(uint256)
+    7. INTERNAL_CALL, Pankuku._takefunds(address,uint256,uint256)(teamAddress,_rtotransferrteam,_ttotransferrteam)
+
+Path #21:
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
+  Path Operations:
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+
+Path #22:
+  Source: external_input_params in Pankuku.setMaxTxPercent
+  Sink: tainted_state_changing_external_call in Pankuku.setMaxTxPercent
+  Path Operations:
+    1. setMaxTxPercent
+    2. TMP_161(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_tTotal', 'maxTxPercent'] 
+
+Path #23:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku._getRate
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    4. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
+    5. _rTotal(uint256) := TMP_125(uint256)
+    6. rSupply(uint256) := _rTotal(uint256)
+    7. TUPLE_8(uint256,uint256) = INTERNAL_CALL, Pankuku._getCurrentSupply()()
+    8. rSupply(uint256)= UNPACK TUPLE_8 index: 0 
+
+Path #24:
+  Source: external_input_params in Pankuku.transferFrom
+  Sink: tainted_erc20_transfer in Pankuku._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #25:
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
+  Path Operations:
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
+    4. ronePart(uint256) := TMP_170(uint256)
+
+Path #26:
+  Source: external_input_params in Pankuku.transferFrom
+  Sink: tainted_state_changing_external_call in Pankuku._transferFromExcluded
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_187(uint256) -> _rOwned[sender]
+
+Path #27:
   Source: external_input_params in Pankuku.balanceOf
-  Sink: tainted_state_changing_external_call in Pankuku.tokenFromReflection
+  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
   Path Operations:
     1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
 
-Path #33:
+Path #28:
+  Source: external_input_params in Pankuku.transferFrom
+  Sink: tainted_state_changing_external_call in Pankuku._transferStandard
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. REF_169(uint256) -> _rOwned[sender]
+
+Path #29:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku._getRValues
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    3. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_202)
+    4. TMP_207(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
+    5. rAmount(uint256) := TMP_207(uint256)
+
+Path #30:
   Source: external_input_params in Pankuku.setTaxFeePercent
   Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
@@ -1111,66 +1069,81 @@ Path #33:
     7. TMP_175(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tFee', '_ttotransferrteam'] 
     8. tFee(uint256) := TMP_175(uint256)
 
-Path #34:
-  Source: external_input_params in Pankuku.balanceOf
-  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
+Path #31:
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
-    9. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
-    10. toliqudity(uint256) := TMP_283(uint256)
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+
+Path #32:
+  Source: external_input_params in Pankuku.transfer
+  Sink: tainted_state_changing_external_call in Pankuku._transferToExcluded
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
+    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_181(uint256) -> _rOwned[recipient]
+
+Path #33:
+  Source: external_input_params in Pankuku.transferFrom
+  Sink: tainted_erc20_transfer in Pankuku.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #34:
+  Source: external_input_params in Pankuku.transfer
+  Sink: tainted_state_changing_external_call in Pankuku._transferBothExcluded
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
+    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_61(uint256) -> _rOwned[recipient]
 
 Path #35:
-  Source: external_input_params in Pankuku.balanceOf
-  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
-    9. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
-    10. toliqudity(uint256) := TMP_283(uint256)
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+    3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
+    4. tonePart(uint256) := TMP_171(uint256)
+    5. TMP_173(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tonePart', 'teamDivisor'] 
+    6. _ttotransferrteam(uint256) := TMP_173(uint256)
+    7. TMP_175(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tFee', '_ttotransferrteam'] 
+    8. tFee(uint256) := TMP_175(uint256)
 
 Path #36:
-  Source: external_input_params in Pankuku.balanceOf
-  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
-  Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
-    9. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
-    10. toliqudity(uint256) := TMP_283(uint256)
-    11. TMP_288(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['toliqudity', '2'] 
-    12. half(uint256) := TMP_288(uint256)
-    13. TMP_292(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['half', 'charitypart'] 
-    14. TMP_293(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_292', 'markettingpart'] 
-
-Path #37:
   Source: external_input_params in Pankuku.deliver
   Sink: tainted_state_changing_external_call in Pankuku.deliver
   Path Operations:
     1. deliver
     2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
     3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
-    4. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
-    5. _rTotal(uint256) := TMP_125(uint256)
+
+Path #37:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
+  Path Operations:
+    1. deliver
+    2. TMP_126(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
+    3. _tFeeTotal(uint256) := TMP_126(uint256)
 
 Path #38:
+  Source: external_input_params in Pankuku.balanceOf
+  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
+  Path Operations:
+    1. balanceOf
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
+
+Path #39:
   Source: external_input_params in Pankuku.deliver
   Sink: tainted_state_changing_external_call in Pankuku.calculateLiquidityFee
   Path Operations:
@@ -1179,15 +1152,6 @@ Path #38:
     3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
     4. TMP_204(uint256) = INTERNAL_CALL, Pankuku.calculateLiquidityFee(uint256)(tAmount)
     5. TMP_234(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_liquidityFee'] 
-
-Path #39:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
-  Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-    3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
-    4. tonePart(uint256) := TMP_171(uint256)
 
 Path #40:
   Source: external_input_params in Pankuku.transferFrom
@@ -1200,18 +1164,6 @@ Path #40:
     5. REF_52(uint256) -> _tOwned[sender]
 
 Path #41:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._takefunds
-  Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
-    4. ronePart(uint256) := TMP_170(uint256)
-    5. TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ronePart', 'teamDivisor'] 
-    6. _rtotransferrteam(uint256) := TMP_172(uint256)
-    7. INTERNAL_CALL, Pankuku._takefunds(address,uint256,uint256)(teamAddress,_rtotransferrteam,_ttotransferrteam)
-
-Path #42:
   Source: external_input_params in Pankuku.transferFrom
   Sink: tainted_erc20_transfer in Pankuku._tokenTransfer
   Path Operations:
@@ -1219,39 +1171,41 @@ Path #42:
     2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
     3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
 
-Path #43:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
+Path #42:
+  Source: external_input_params in Pankuku.setTeamAddress
+  Sink: tainted_state_changing_external_call in Pankuku._takefunds
   Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-    3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
-    4. tonePart(uint256) := TMP_171(uint256)
+    1. setTeamAddress
+    2. TMP_364 = CONVERT _teamAddress to address
+    3. teamAddress(address) := TMP_364(address)
+    4. INTERNAL_CALL, Pankuku._takefunds(address,uint256,uint256)(teamAddress,_rtotransferrteam,_ttotransferrteam)
+    5. REF_92(uint256) -> _rOwned[recipient]
+
+Path #43:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku._getRValues
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    3. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_202)
 
 Path #44:
   Source: external_input_params in Pankuku.balanceOf
   Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
   Path Operations:
     1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
+    8. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
+    9. toliqudity(uint256) := TMP_283(uint256)
+    10. TMP_288(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['toliqudity', '2'] 
+    11. half(uint256) := TMP_288(uint256)
 
 Path #45:
-  Source: external_input_params in Pankuku.transfer
-  Sink: tainted_state_changing_external_call in Pankuku._transferBothExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
-    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_58(uint256) -> _tOwned[recipient]
-
-Path #46:
   Source: external_input_params in Pankuku.setTaxFeePercent
   Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
@@ -1259,6 +1213,19 @@ Path #46:
     2. _taxFee(uint256) := taxFee(uint256)
     3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
     4. ronePart(uint256) := TMP_170(uint256)
+    5. TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ronePart', 'teamDivisor'] 
+    6. _rtotransferrteam(uint256) := TMP_172(uint256)
+    7. TMP_174(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rFee', '_rtotransferrteam'] 
+    8. rFee(uint256) := TMP_174(uint256)
+
+Path #46:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku.calculateLiquidityFee
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
+    4. TMP_204(uint256) = INTERNAL_CALL, Pankuku.calculateLiquidityFee(uint256)(tAmount)
 
 Path #47:
   Source: external_input_params in Pankuku.setTaxFeePercent
@@ -1270,33 +1237,34 @@ Path #47:
     4. ronePart(uint256) := TMP_170(uint256)
 
 Path #48:
-  Source: external_input_params in Pankuku.balanceOf
-  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
-  Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
-
-Path #49:
   Source: external_input_params in Pankuku.deliver
   Sink: tainted_state_changing_external_call in Pankuku._getRValues
   Path Operations:
     1. deliver
     2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_202)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
+    4. tFee(uint256)= UNPACK TUPLE_6 index: 1 
+    5. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_202)
 
-Path #50:
+Path #49:
   Source: external_input_params in Pankuku.transferFrom
-  Sink: tainted_erc20_transfer in Pankuku._tokenTransfer
+  Sink: tainted_state_changing_external_call in Pankuku._transferToExcluded
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
     3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_175(uint256) -> _rOwned[sender]
+
+Path #50:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku.calculateTaxFee
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
+    4. TMP_203(uint256) = INTERNAL_CALL, Pankuku.calculateTaxFee(uint256)(tAmount)
+    5. TMP_231(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_taxFee'] 
 
 Path #51:
   Source: external_input_params in Pankuku.setTaxFeePercent
@@ -1312,29 +1280,28 @@ Path #51:
     8. rFee(uint256) := TMP_174(uint256)
 
 Path #52:
-  Source: external_input_params in Pankuku.transferFrom
-  Sink: tainted_state_changing_external_call in Pankuku._transferBothExcluded
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._takefunds
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_55(uint256) -> _rOwned[sender]
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
+    4. ronePart(uint256) := TMP_170(uint256)
+    5. TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ronePart', 'teamDivisor'] 
+    6. _rtotransferrteam(uint256) := TMP_172(uint256)
+    7. INTERNAL_CALL, Pankuku._takefunds(address,uint256,uint256)(teamAddress,_rtotransferrteam,_ttotransferrteam)
 
 Path #53:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku._getCurrentSupply
+  Source: external_input_params in Pankuku.balanceOf
+  Sink: tainted_state_changing_external_call in Pankuku.tokenFromReflection
   Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
-    4. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
-    5. _rTotal(uint256) := TMP_125(uint256)
-    6. rSupply(uint256) := _rTotal(uint256)
+    1. balanceOf
+    2. REF_11(uint256) -> _rOwned[account]
+    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
 
 Path #54:
   Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._takefunds
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
     1. setTaxFeePercent
     2. _taxFee(uint256) := taxFee(uint256)
@@ -1342,209 +1309,87 @@ Path #54:
     4. tonePart(uint256) := TMP_171(uint256)
     5. TMP_173(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tonePart', 'teamDivisor'] 
     6. _ttotransferrteam(uint256) := TMP_173(uint256)
-    7. INTERNAL_CALL, Pankuku._takefunds(address,uint256,uint256)(teamAddress,_rtotransferrteam,_ttotransferrteam)
+    7. TMP_175(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tFee', '_ttotransferrteam'] 
+    8. tFee(uint256) := TMP_175(uint256)
 
 Path #55:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
-  Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
-    4. ronePart(uint256) := TMP_170(uint256)
-
-Path #56:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku._getTValues
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
-    4. TMP_205(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tAmount', 'tFee'] 
-
-Path #57:
   Source: external_input_params in Pankuku.balanceOf
   Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
   Path Operations:
     1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
+    8. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
+    9. toliqudity(uint256) := TMP_283(uint256)
+    10. TMP_288(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['toliqudity', '2'] 
+    11. half(uint256) := TMP_288(uint256)
+    12. TMP_292(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['half', 'charitypart'] 
+
+Path #56:
+  Source: external_input_params in Pankuku.balanceOf
+  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
+  Path Operations:
+    1. balanceOf
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
+    8. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
+    9. toliqudity(uint256) := TMP_283(uint256)
+    10. TMP_288(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['toliqudity', '2'] 
+    11. half(uint256) := TMP_288(uint256)
+    12. TMP_292(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['half', 'charitypart'] 
+    13. TMP_293(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_292', 'markettingpart'] 
+    14. TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_293', 'ecopart'] 
+
+Path #57:
+  Source: external_input_params in Pankuku.transfer
+  Sink: tainted_state_changing_external_call in Pankuku._takeLiquidity
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
+    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. TUPLE_10(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    6. tLiquidity(uint256)= UNPACK TUPLE_10 index: 5 
+    7. INTERNAL_CALL, Pankuku._takeLiquidity(uint256)(tLiquidity)
+    8. TMP_223(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tLiquidity', 'currentRate'] 
+    9. rLiquidity(uint256) := TMP_223(uint256)
 
 Path #58:
-  Source: external_input_params in Pankuku.setTeamAddress
-  Sink: tainted_state_changing_external_call in Pankuku._takefunds
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
-    1. setTeamAddress
-    2. TMP_364 = CONVERT _teamAddress to address
-    3. teamAddress(address) := TMP_364(address)
-    4. INTERNAL_CALL, Pankuku._takefunds(address,uint256,uint256)(teamAddress,_rtotransferrteam,_ttotransferrteam)
-    5. REF_96(uint256) -> _tOwned[recipient]
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
+    4. ronePart(uint256) := TMP_170(uint256)
 
 Path #59:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku.deliver
-  Path Operations:
-    1. deliver
-    2. TMP_126(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
-    3. _tFeeTotal(uint256) := TMP_126(uint256)
-
-Path #60:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku._getRValues
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
-    4. tFee(uint256)= UNPACK TUPLE_6 index: 1 
-    5. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_202)
-
-Path #61:
   Source: external_input_params in Pankuku.transferFrom
-  Sink: tainted_state_changing_external_call in Pankuku._transferFromExcluded
+  Sink: tainted_erc20_transfer in Pankuku._tokenTransfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
     3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_184(uint256) -> _tOwned[sender]
 
-Path #62:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
-  Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
-    4. ronePart(uint256) := TMP_170(uint256)
-    5. TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ronePart', 'teamDivisor'] 
-    6. _rtotransferrteam(uint256) := TMP_172(uint256)
-    7. TMP_174(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rFee', '_rtotransferrteam'] 
-    8. rFee(uint256) := TMP_174(uint256)
-
-Path #63:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku._getRValues
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
-    4. tLiquidity(uint256)= UNPACK TUPLE_6 index: 2 
-    5. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_202)
-
-Path #64:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
-  Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
-    4. ronePart(uint256) := TMP_170(uint256)
-    5. TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ronePart', 'teamDivisor'] 
-    6. _rtotransferrteam(uint256) := TMP_172(uint256)
-    7. TMP_174(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rFee', '_rtotransferrteam'] 
-    8. rFee(uint256) := TMP_174(uint256)
-
-Path #65:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
-  Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
-    4. ronePart(uint256) := TMP_170(uint256)
-    5. TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ronePart', 'teamDivisor'] 
-    6. _rtotransferrteam(uint256) := TMP_172(uint256)
-    7. TMP_174(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rFee', '_rtotransferrteam'] 
-    8. rFee(uint256) := TMP_174(uint256)
-
-Path #66:
+Path #60:
   Source: external_input_params in Pankuku.transfer
-  Sink: tainted_state_changing_external_call in Pankuku._transferBothExcluded
+  Sink: tainted_state_changing_external_call in Pankuku._transferToExcluded
   Path Operations:
     1. transfer
     2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
     3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_61(uint256) -> _rOwned[recipient]
+    4. INTERNAL_CALL, Pankuku._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_178(uint256) -> _tOwned[recipient]
 
-Path #67:
-  Source: external_input_params in Pankuku.transfer
-  Sink: tainted_state_changing_external_call in Pankuku._transferFromExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
-    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_190(uint256) -> _rOwned[recipient]
-
-Path #68:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
-  Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-    3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
-    4. tonePart(uint256) := TMP_171(uint256)
-    5. TMP_173(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tonePart', 'teamDivisor'] 
-    6. _ttotransferrteam(uint256) := TMP_173(uint256)
-    7. TMP_175(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tFee', '_ttotransferrteam'] 
-    8. tFee(uint256) := TMP_175(uint256)
-
-Path #69:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
-  Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-    3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
-    4. tonePart(uint256) := TMP_171(uint256)
-    5. TMP_173(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tonePart', 'teamDivisor'] 
-    6. _ttotransferrteam(uint256) := TMP_173(uint256)
-    7. TMP_175(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tFee', '_ttotransferrteam'] 
-    8. tFee(uint256) := TMP_175(uint256)
-
-Path #70:
-  Source: external_input_params in Pankuku.setTaxFeePercent
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
-  Path Operations:
-    1. setTaxFeePercent
-    2. _taxFee(uint256) := taxFee(uint256)
-    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
-    4. ronePart(uint256) := TMP_170(uint256)
-
-Path #71:
-  Source: external_input_params in Pankuku.balanceOf
-  Sink: tainted_state_changing_external_call in Pankuku.addLiquidity
-  Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
-    9. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
-    10. toliqudity(uint256) := TMP_283(uint256)
-    11. TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['toliqudity', 'half'] 
-    12. otherHalf(uint256) := TMP_289(uint256)
-    13. INTERNAL_CALL, Pankuku.addLiquidity(uint256,uint256)(otherHalf,newBalance)
-
-Path #72:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku.calculateLiquidityFee
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
-    4. TMP_204(uint256) = INTERNAL_CALL, Pankuku.calculateLiquidityFee(uint256)(tAmount)
-
-Path #73:
+Path #61:
   Source: external_input_params in Pankuku.transfer
   Sink: tainted_state_changing_external_call in Pankuku._takeLiquidity
   Path Operations:
@@ -1556,22 +1401,42 @@ Path #73:
     6. tLiquidity(uint256)= UNPACK TUPLE_10 index: 5 
     7. INTERNAL_CALL, Pankuku._takeLiquidity(uint256)(tLiquidity)
 
-Path #74:
-  Source: external_input_params in Pankuku.increaseAllowance
-  Sink: tainted_state_changing_external_call in Pankuku.increaseAllowance
+Path #62:
+  Source: external_input_params in Pankuku.balanceOf
+  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
   Path Operations:
-    1. increaseAllowance
-    2. REF_18(uint256) -> REF_17[spender]
+    1. balanceOf
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
+    8. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
+    9. toliqudity(uint256) := TMP_283(uint256)
+    10. TMP_288(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['toliqudity', '2'] 
+    11. half(uint256) := TMP_288(uint256)
+    12. TMP_292(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['half', 'charitypart'] 
+    13. TMP_293(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_292', 'markettingpart'] 
 
-Path #75:
-  Source: external_input_params in Pankuku.transferFrom
-  Sink: tainted_erc20_transfer in Pankuku._tokenTransfer
+Path #63:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku._getTValues
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
-    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
 
-Path #76:
+Path #64:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku._getTValues
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
+    4. TMP_205(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tAmount', 'tFee'] 
+
+Path #65:
   Source: external_input_params in Pankuku.setTaxFeePercent
   Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
@@ -1579,90 +1444,18 @@ Path #76:
     2. _taxFee(uint256) := taxFee(uint256)
     3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
     4. ronePart(uint256) := TMP_170(uint256)
-    5. TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ronePart', 'teamDivisor'] 
-    6. _rtotransferrteam(uint256) := TMP_172(uint256)
-    7. TMP_174(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rFee', '_rtotransferrteam'] 
-    8. rFee(uint256) := TMP_174(uint256)
 
-Path #77:
-  Source: external_input_params in Pankuku.transferFrom
-  Sink: tainted_erc20_transfer in Pankuku.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #78:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
-  Path Operations:
-    1. deliver
-    2. TMP_126(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
-    3. _tFeeTotal(uint256) := TMP_126(uint256)
-
-Path #79:
-  Source: external_input_params in Pankuku.balanceOf
-  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
-  Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
-    9. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
-    10. toliqudity(uint256) := TMP_283(uint256)
-    11. TMP_288(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['toliqudity', '2'] 
-    12. half(uint256) := TMP_288(uint256)
-    13. TMP_292(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['half', 'charitypart'] 
-
-Path #80:
+Path #66:
   Source: external_input_params in Pankuku.deliver
   Sink: tainted_state_changing_external_call in Pankuku.deliver
   Path Operations:
     1. deliver
     2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
     3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    4. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
+    5. _rTotal(uint256) := TMP_125(uint256)
 
-Path #81:
-  Source: external_input_params in Pankuku.transferFrom
-  Sink: tainted_erc20_transfer in Pankuku._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #82:
-  Source: external_input_params in Pankuku.balanceOf
-  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
-  Path Operations:
-    1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-
-Path #83:
-  Source: external_input_params in Pankuku.transfer
-  Sink: tainted_state_changing_external_call in Pankuku._transferToExcluded
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
-    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferToExcluded(address,address,uint256)(sender,recipient,amount)
-    5. REF_181(uint256) -> _rOwned[recipient]
-
-Path #84:
-  Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku._getRValues
-  Path Operations:
-    1. deliver
-    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
-    3. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_202)
-    4. TMP_207(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
-    5. rAmount(uint256) := TMP_207(uint256)
-
-Path #85:
+Path #67:
   Source: external_input_params in Pankuku.setTaxFeePercent
   Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
@@ -1671,29 +1464,70 @@ Path #85:
     3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
     4. tonePart(uint256) := TMP_171(uint256)
 
-Path #86:
-  Source: external_input_params in Pankuku.transfer
-  Sink: tainted_state_changing_external_call in Pankuku._transferStandard
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
-    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. REF_172(uint256) -> _rOwned[recipient]
-
-Path #87:
+Path #68:
   Source: external_input_params in Pankuku.deliver
-  Sink: tainted_state_changing_external_call in Pankuku._getRate
+  Sink: tainted_state_changing_external_call in Pankuku._getCurrentSupply
   Path Operations:
     1. deliver
     2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
     3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
     4. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
     5. _rTotal(uint256) := TMP_125(uint256)
-    6. TUPLE_8(uint256,uint256) = INTERNAL_CALL, Pankuku._getCurrentSupply()()
-    7. rSupply(uint256)= UNPACK TUPLE_8 index: 0 
 
-Path #88:
+Path #69:
+  Source: external_input_params in Pankuku.transfer
+  Sink: tainted_state_changing_external_call in Pankuku._transferFromExcluded
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
+    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_190(uint256) -> _rOwned[recipient]
+
+Path #70:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku._getRValues
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
+    4. tLiquidity(uint256)= UNPACK TUPLE_6 index: 2 
+    5. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_202)
+
+Path #71:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku._getRValues
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    3. TUPLE_7(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_202)
+    4. TMP_207(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
+    5. rAmount(uint256) := TMP_207(uint256)
+    6. TMP_210(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rAmount', 'rFee'] 
+
+Path #72:
+  Source: external_input_params in Pankuku.balanceOf
+  Sink: tainted_erc20_transfer in Pankuku.swapTokensForEth
+  Path Operations:
+    1. balanceOf
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
+    8. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
+    9. toliqudity(uint256) := TMP_283(uint256)
+    10. TMP_288(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['toliqudity', '2'] 
+    11. half(uint256) := TMP_288(uint256)
+    12. TMP_292(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['half', 'charitypart'] 
+    13. TMP_293(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_292', 'markettingpart'] 
+    14. TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_293', 'ecopart'] 
+    15. TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_294', 'farmspoolpart'] 
+    16. totalTransBalance(uint256) := TMP_295(uint256)
+    17. INTERNAL_CALL, Pankuku.swapTokensForEth(uint256)(totalTransBalance)
+
+Path #73:
   Source: external_input_params in Pankuku.setTaxFeePercent
   Sink: tainted_state_changing_external_call in Pankuku._reflectFee
   Path Operations:
@@ -1706,25 +1540,178 @@ Path #88:
     7. TMP_175(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tFee', '_ttotransferrteam'] 
     8. tFee(uint256) := TMP_175(uint256)
 
-Path #89:
+Path #74:
+  Source: external_input_params in Pankuku.setMaxTxPercent
+  Sink: tainted_state_changing_external_call in Pankuku.setMaxTxPercent
+  Path Operations:
+    1. setMaxTxPercent
+
+Path #75:
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
+  Path Operations:
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['rFee', '_taxFee'] 
+    4. ronePart(uint256) := TMP_170(uint256)
+    5. TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ronePart', 'teamDivisor'] 
+    6. _rtotransferrteam(uint256) := TMP_172(uint256)
+    7. TMP_174(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rFee', '_rtotransferrteam'] 
+    8. rFee(uint256) := TMP_174(uint256)
+
+Path #76:
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
+  Path Operations:
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+    3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
+    4. tonePart(uint256) := TMP_171(uint256)
+
+Path #77:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku._getCurrentSupply
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    3. rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    4. TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rAmount'] 
+    5. _rTotal(uint256) := TMP_125(uint256)
+    6. rSupply(uint256) := _rTotal(uint256)
+
+Path #78:
   Source: external_input_params in Pankuku.transferFrom
-  Sink: tainted_state_changing_external_call in Pankuku._transferStandard
+  Sink: tainted_erc20_transfer in Pankuku._tokenTransfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
     3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
-    4. INTERNAL_CALL, Pankuku._transferStandard(address,address,uint256)(sender,recipient,amount)
-    5. REF_169(uint256) -> _rOwned[sender]
 
-Path #90:
+Path #79:
+  Source: external_input_params in Pankuku.transfer
+  Sink: tainted_state_changing_external_call in Pankuku._takeLiquidity
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
+    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferStandard(address,address,uint256)(sender,recipient,amount)
+    5. TUPLE_10(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    6. tLiquidity(uint256)= UNPACK TUPLE_10 index: 5 
+    7. INTERNAL_CALL, Pankuku._takeLiquidity(uint256)(tLiquidity)
+
+Path #80:
+  Source: external_input_params in Pankuku.balanceOf
+  Sink: tainted_state_changing_external_call in Pankuku.addLiquidity
+  Path Operations:
+    1. balanceOf
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
+    8. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
+    9. toliqudity(uint256) := TMP_283(uint256)
+    10. TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['toliqudity', 'half'] 
+    11. otherHalf(uint256) := TMP_289(uint256)
+    12. INTERNAL_CALL, Pankuku.addLiquidity(uint256,uint256)(otherHalf,newBalance)
+
+Path #81:
+  Source: external_input_params in Pankuku.transfer
+  Sink: tainted_erc20_transfer in Pankuku.transfer
+  Path Operations:
+    1. transfer
+
+Path #82:
+  Source: external_input_params in Pankuku.setTaxFeePercent
+  Sink: tainted_state_changing_external_call in Pankuku._reflectFee
+  Path Operations:
+    1. setTaxFeePercent
+    2. _taxFee(uint256) := taxFee(uint256)
+    3. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tFee', '_taxFee'] 
+    4. tonePart(uint256) := TMP_171(uint256)
+    5. TMP_173(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tonePart', 'teamDivisor'] 
+    6. _ttotransferrteam(uint256) := TMP_173(uint256)
+    7. TMP_175(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tFee', '_ttotransferrteam'] 
+    8. tFee(uint256) := TMP_175(uint256)
+
+Path #83:
+  Source: external_input_params in Pankuku.transferFrom
+  Sink: tainted_state_changing_external_call in Pankuku.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_14(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_15(uint256) -> REF_14[TMP_110]
+
+Path #84:
+  Source: external_input_params in Pankuku.transfer
+  Sink: tainted_state_changing_external_call in Pankuku._transferBothExcluded
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(TMP_104,recipient,amount)
+    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_58(uint256) -> _tOwned[recipient]
+
+Path #85:
+  Source: external_input_params in Pankuku.setTeamAddress
+  Sink: tainted_state_changing_external_call in Pankuku._takefunds
+  Path Operations:
+    1. setTeamAddress
+    2. TMP_364 = CONVERT _teamAddress to address
+    3. teamAddress(address) := TMP_364(address)
+    4. INTERNAL_CALL, Pankuku._takefunds(address,uint256,uint256)(teamAddress,_rtotransferrteam,_ttotransferrteam)
+    5. REF_96(uint256) -> _tOwned[recipient]
+
+Path #86:
+  Source: external_input_params in Pankuku.transferFrom
+  Sink: tainted_state_changing_external_call in Pankuku._transferBothExcluded
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, Pankuku._transfer(address,address,uint256)(sender,recipient,amount)
+    3. INTERNAL_CALL, Pankuku._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    4. INTERNAL_CALL, Pankuku._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    5. REF_55(uint256) -> _rOwned[sender]
+
+Path #87:
   Source: external_input_params in Pankuku.balanceOf
   Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
   Path Operations:
     1. balanceOf
-    2. REF_11(uint256) -> _rOwned[account]
-    3. TMP_103(uint256) = INTERNAL_CALL, Pankuku.tokenFromReflection(uint256)(REF_11)
-    4. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
-    5. contractTokenBalance(uint256) := TMP_263(uint256)
-    6. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
-    7. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
-    8. onepartliqudity(uint256) := TMP_282(uint256)
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
+
+Path #88:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku.calculateTaxFee
+  Path Operations:
+    1. deliver
+    2. TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getValues(uint256)(tAmount)
+    3. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, Pankuku._getTValues(uint256)(tAmount)
+    4. TMP_203(uint256) = INTERNAL_CALL, Pankuku.calculateTaxFee(uint256)(tAmount)
+
+Path #89:
+  Source: external_input_params in Pankuku.balanceOf
+  Sink: tainted_state_changing_external_call in Pankuku.swapAndLiquify
+  Path Operations:
+    1. balanceOf
+    2. REF_10(uint256) -> _tOwned[account]
+    3. TMP_263(uint256) = INTERNAL_CALL, Pankuku.balanceOf(address)(TMP_262)
+    4. contractTokenBalance(uint256) := TMP_263(uint256)
+    5. INTERNAL_CALL, Pankuku.swapAndLiquify(uint256)(contractTokenBalance)
+    6. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['contractTokenBalance', '_liquidityFee'] 
+    7. onepartliqudity(uint256) := TMP_282(uint256)
+    8. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['onepartliqudity', 'sellliquiduty'] 
+    9. toliqudity(uint256) := TMP_283(uint256)
+
+Path #90:
+  Source: external_input_params in Pankuku.deliver
+  Sink: tainted_state_changing_external_call in Pankuku.deliver
+  Path Operations:
+    1. deliver
+    2. TMP_126(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
+    3. _tFeeTotal(uint256) := TMP_126(uint256)

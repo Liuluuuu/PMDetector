@@ -391,6 +391,79 @@ Sink #34: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_44,recipient,amount)
+    3. REF_19(uint256) -> _balances[recipient]
+
+Path #2:
+  Source: external_input_params in PureToken.constructor
+  Sink: tainted_state_changing_external_call in PureToken._mint
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,TMP_246)
+    3. REF_81(uint256) -> _balances[account]
+
+Path #3:
+  Source: external_input_params in PureToken.constructor
+  Sink: tainted_erc20_transfer in PureToken.constructor
+  Path Operations:
+    1. constructor
+    2. REF_89(address) -> _delegates[_to]
+
+Path #4:
+  Source: external_input_params in ERC20.constructor
+  Sink: tainted_erc20_transfer in PureToken._delegate
+  Path Operations:
+    1. constructor
+    2. _name(string) := name(string)
+    3. TMP_257(string) = INTERNAL_CALL, ERC20.name()()
+    4. TMP_258 = CONVERT TMP_257 to bytes
+    5. TMP_259(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_258)
+    6. TMP_262(bytes) = SOLIDITY_CALL abi.encode()(DOMAIN_TYPEHASH,TMP_259,TMP_260,TMP_261)
+    7. TMP_263(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_262)
+    8. domainSeparator(bytes32) := TMP_263(bytes32)
+    9. TMP_266(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
+    10. TMP_267(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_266)
+    11. digest(bytes32) := TMP_267(bytes32)
+    12. TMP_268(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    13. signatory(address) := TMP_268(address)
+    14. INTERNAL_CALL, PureToken._delegate(address,address)(signatory,delegatee)
+    15. REF_117(address) -> _delegates[delegator]
+    16. currentDelegate(address) := REF_117(address)
+
+Path #5:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_6(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_7(uint256) -> REF_6[TMP_50]
+
+Path #6:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_16(uint256) -> _balances[sender]
+
+Path #7:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #8:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #9:
   Source: external_input_params in ERC20.constructor
   Sink: tainted_state_changing_external_call in PureToken._moveDelegates
   Path Operations:
@@ -416,143 +489,29 @@ Path #1:
     20. REF_125(uint256) -> REF_124.votes
     21. srcRepOld(uint256) := REF_125(uint256)
 
-Path #2:
-  Source: external_input_params in ERC20.constructor
-  Sink: tainted_state_changing_external_call in PureToken._moveDelegates
-  Path Operations:
-    1. constructor
-    2. _name(string) := name(string)
-    3. TMP_257(string) = INTERNAL_CALL, ERC20.name()()
-    4. TMP_258 = CONVERT TMP_257 to bytes
-    5. TMP_259(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_258)
-    6. TMP_262(bytes) = SOLIDITY_CALL abi.encode()(DOMAIN_TYPEHASH,TMP_259,TMP_260,TMP_261)
-    7. TMP_263(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_262)
-    8. domainSeparator(bytes32) := TMP_263(bytes32)
-    9. TMP_266(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
-    10. TMP_267(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_266)
-    11. digest(bytes32) := TMP_267(bytes32)
-    12. TMP_268(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-    13. signatory(address) := TMP_268(address)
-    14. INTERNAL_CALL, PureToken._delegate(address,address)(signatory,delegatee)
-    15. TMP_295(uint256) = INTERNAL_CALL, ERC20.balanceOf(address)(delegator)
-    16. delegatorBalance(uint256) := TMP_295(uint256)
-    17. INTERNAL_CALL, PureToken._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
-
-Path #3:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
-  Path Operations:
-    1. transfer
-
-Path #4:
-  Source: external_input_params in PureToken.constructor
-  Sink: tainted_erc20_transfer in PureToken.constructor
-  Path Operations:
-    1. constructor
-    2. REF_89(address) -> _delegates[_to]
-
-Path #5:
-  Source: external_input_params in ERC20.constructor
-  Sink: tainted_state_changing_external_call in PureToken._moveDelegates
-  Path Operations:
-    1. constructor
-    2. _name(string) := name(string)
-    3. TMP_257(string) = INTERNAL_CALL, ERC20.name()()
-    4. TMP_258 = CONVERT TMP_257 to bytes
-    5. TMP_259(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_258)
-    6. TMP_262(bytes) = SOLIDITY_CALL abi.encode()(DOMAIN_TYPEHASH,TMP_259,TMP_260,TMP_261)
-    7. TMP_263(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_262)
-    8. domainSeparator(bytes32) := TMP_263(bytes32)
-    9. TMP_266(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
-    10. TMP_267(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_266)
-    11. digest(bytes32) := TMP_267(bytes32)
-    12. TMP_268(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-    13. signatory(address) := TMP_268(address)
-    14. INTERNAL_CALL, PureToken._delegate(address,address)(signatory,delegatee)
-    15. TMP_295(uint256) = INTERNAL_CALL, ERC20.balanceOf(address)(delegator)
-    16. delegatorBalance(uint256) := TMP_295(uint256)
-    17. INTERNAL_CALL, PureToken._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
-
-Path #6:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_6(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_7(uint256) -> REF_6[TMP_50]
-
-Path #7:
-  Source: external_input_params in ERC20.increaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_10(uint256) -> REF_9[spender]
-
-Path #8:
-  Source: external_input_params in ERC20.decreaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_13(uint256) -> REF_12[spender]
-
-Path #9:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-
 Path #10:
-  Source: external_input_params in PureToken.constructor
-  Sink: tainted_erc20_transfer in PureToken._mint
+  Source: external_input_params in ERC20.constructor
+  Sink: tainted_state_changing_external_call in PureToken._moveDelegates
   Path Operations:
     1. constructor
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,TMP_246)
+    2. _name(string) := name(string)
+    3. TMP_257(string) = INTERNAL_CALL, ERC20.name()()
+    4. TMP_258 = CONVERT TMP_257 to bytes
+    5. TMP_259(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_258)
+    6. TMP_262(bytes) = SOLIDITY_CALL abi.encode()(DOMAIN_TYPEHASH,TMP_259,TMP_260,TMP_261)
+    7. TMP_263(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_262)
+    8. domainSeparator(bytes32) := TMP_263(bytes32)
+    9. TMP_266(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
+    10. TMP_267(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_266)
+    11. digest(bytes32) := TMP_267(bytes32)
+    12. TMP_268(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    13. signatory(address) := TMP_268(address)
+    14. INTERNAL_CALL, PureToken._delegate(address,address)(signatory,delegatee)
+    15. TMP_295(uint256) = INTERNAL_CALL, ERC20.balanceOf(address)(delegator)
+    16. delegatorBalance(uint256) := TMP_295(uint256)
+    17. INTERNAL_CALL, PureToken._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
 
 Path #11:
-  Source: external_input_params in ERC20.constructor
-  Sink: tainted_erc20_transfer in PureToken._delegate
-  Path Operations:
-    1. constructor
-    2. _name(string) := name(string)
-    3. TMP_257(string) = INTERNAL_CALL, ERC20.name()()
-    4. TMP_258 = CONVERT TMP_257 to bytes
-    5. TMP_259(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_258)
-    6. TMP_262(bytes) = SOLIDITY_CALL abi.encode()(DOMAIN_TYPEHASH,TMP_259,TMP_260,TMP_261)
-    7. TMP_263(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_262)
-    8. domainSeparator(bytes32) := TMP_263(bytes32)
-    9. TMP_266(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
-    10. TMP_267(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_266)
-    11. digest(bytes32) := TMP_267(bytes32)
-    12. TMP_268(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-    13. signatory(address) := TMP_268(address)
-    14. INTERNAL_CALL, PureToken._delegate(address,address)(signatory,delegatee)
-    15. REF_117(address) -> _delegates[delegator]
-    16. currentDelegate(address) := REF_117(address)
-
-Path #12:
-  Source: external_input_params in PureToken.constructor
-  Sink: tainted_state_changing_external_call in PureToken._mint
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,TMP_246)
-    3. REF_81(uint256) -> _balances[account]
-
-Path #13:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_state_changing_external_call in ERC20._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_44,recipient,amount)
-    3. REF_19(uint256) -> _balances[recipient]
-
-Path #14:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #15:
   Source: external_input_params in PureToken.constructor
   Sink: tainted_state_changing_external_call in PureToken._moveDelegates
   Path Operations:
@@ -564,10 +523,51 @@ Path #15:
     6. REF_128(uint256) -> REF_127.votes
     7. dstRepOld(uint256) := REF_128(uint256)
 
-Path #16:
+Path #12:
   Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
   Path Operations:
     1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_16(uint256) -> _balances[sender]
+
+Path #13:
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_10(uint256) -> REF_9[spender]
+
+Path #14:
+  Source: external_input_params in ERC20.constructor
+  Sink: tainted_state_changing_external_call in PureToken._moveDelegates
+  Path Operations:
+    1. constructor
+    2. _name(string) := name(string)
+    3. TMP_257(string) = INTERNAL_CALL, ERC20.name()()
+    4. TMP_258 = CONVERT TMP_257 to bytes
+    5. TMP_259(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_258)
+    6. TMP_262(bytes) = SOLIDITY_CALL abi.encode()(DOMAIN_TYPEHASH,TMP_259,TMP_260,TMP_261)
+    7. TMP_263(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_262)
+    8. domainSeparator(bytes32) := TMP_263(bytes32)
+    9. TMP_266(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
+    10. TMP_267(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_266)
+    11. digest(bytes32) := TMP_267(bytes32)
+    12. TMP_268(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    13. signatory(address) := TMP_268(address)
+    14. INTERNAL_CALL, PureToken._delegate(address,address)(signatory,delegatee)
+    15. TMP_295(uint256) = INTERNAL_CALL, ERC20.balanceOf(address)(delegator)
+    16. delegatorBalance(uint256) := TMP_295(uint256)
+    17. INTERNAL_CALL, PureToken._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
+
+Path #15:
+  Source: external_input_params in PureToken.constructor
+  Sink: tainted_erc20_transfer in PureToken._mint
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,TMP_246)
+
+Path #16:
+  Source: external_input_params in ERC20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_13(uint256) -> REF_12[spender]

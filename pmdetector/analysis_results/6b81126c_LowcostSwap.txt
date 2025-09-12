@@ -1002,6 +1002,30 @@ Sink #105: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in MasterChef.updatePool
+  Sink: tainted_state_changing_external_call in MasterChef.updatePool
+  Path Operations:
+    1. updatePool
+    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    4. REF_204(uint256) -> pool.lastRewardSecond
+    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    6. multiplier(uint256) := TMP_498(uint256)
+    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
+    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    9. TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
+    10. lowcostReward(uint256) := TMP_501(uint256)
+
+Path #2:
+  Source: external_input_params in MasterChef.constructor
+  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
+  Path Operations:
+    1. constructor
+    2. lowcost(Lowcost) := _lowcost(Lowcost)
+    3. TMP_478(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:totalSupply, arguments:[]  
+    4. TMP_479(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_478', 'devReward'] 
+
+Path #3:
   Source: external_input_params in MasterChef.deposit
   Sink: tainted_state_changing_external_call in MasterChef.deposit
   Path Operations:
@@ -1009,9 +1033,245 @@ Path #1:
     2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
     3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
     4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
-    5. REF_252(uint256) -> user.amount
+    5. REF_232(uint256) -> user.amount
+    6. TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
 
-Path #2:
+Path #4:
+  Source: external_input_params in MasterChef.updatePool
+  Sink: tainted_state_changing_external_call in MasterChef.updatePool
+  Path Operations:
+    1. updatePool
+    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    4. REF_204(uint256) -> pool.lastRewardSecond
+    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    6. multiplier(uint256) := TMP_498(uint256)
+    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
+    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+
+Path #5:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_state_changing_external_call in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    4. REF_242(IBEP20) -> pool.lpToken
+    5. TMP_535(uint256) = HIGH_LEVEL_CALL, dest:REF_242(IBEP20), function:balanceOf, arguments:['TMP_534']  
+
+Path #6:
+  Source: external_input_params in MasterChef.emergencyWithdraw
+  Sink: tainted_state_changing_external_call in MasterChef.emergencyWithdraw
+  Path Operations:
+    1. emergencyWithdraw
+    2. REF_293(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_293(MasterChef.PoolInfo)
+    4. REF_303(uint256) -> pool.lpSupply
+
+Path #7:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_state_changing_external_call in BEP20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_32(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_33(uint256) -> REF_32[TMP_129]
+
+Path #8:
+  Source: external_input_params in MasterChef.pendingLowcost
+  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
+  Path Operations:
+    1. pendingLowcost
+    2. REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
+    4. REF_176(uint256) -> pool.lastRewardSecond
+    5. TMP_473(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_176,block.timestamp)
+    6. multiplier(uint256) := TMP_473(uint256)
+
+Path #9:
+  Source: external_input_params in MasterChef.constructor
+  Sink: tainted_state_changing_external_call in MasterChef.updatePool
+  Path Operations:
+    1. constructor
+    2. devaddr(address) := _devaddr(address)
+
+Path #10:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in Lowcost.maxTransferAmount
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_158(uint256)
+    5. TMP_341(uint256) = INTERNAL_CALL, BEP20.totalSupply()()
+    6. TMP_342(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_341', 'maxTransferAmountRate'] 
+
+Path #11:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_state_changing_external_call in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    4. REF_256(uint256) -> pool.lpSupply
+
+Path #12:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_state_changing_external_call in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    5. REF_260(uint256) -> user.amount
+
+Path #13:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in Lowcost._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_158(uint256)
+
+Path #14:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_state_changing_external_call in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    4. REF_263(uint256) -> pool.lpSupply
+
+Path #15:
+  Source: external_input_params in MasterChef.updatePool
+  Sink: tainted_state_changing_external_call in MasterChef.updatePool
+  Path Operations:
+    1. updatePool
+    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    4. REF_204(uint256) -> pool.lastRewardSecond
+    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    6. multiplier(uint256) := TMP_498(uint256)
+    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
+    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    9. TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
+    10. lowcostReward(uint256) := TMP_501(uint256)
+
+Path #16:
+  Source: external_input_params in BEP20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_39(uint256) -> REF_38[spender]
+
+Path #17:
+  Source: external_input_params in Lowcost.updateMinAmountToLiquify
+  Sink: tainted_state_changing_external_call in Lowcost.swapAndLiquify
+  Path Operations:
+    1. updateMinAmountToLiquify
+    2. minAmountToLiquify(uint256) := _minAmount(uint256)
+    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
+
+Path #18:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_state_changing_external_call in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. TMP_538(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', 'REF_247'] 
+
+Path #19:
+  Source: external_input_params in MasterChef.constructor
+  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
+  Path Operations:
+    1. constructor
+    2. lowcost(Lowcost) := _lowcost(Lowcost)
+    3. TMP_478(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:totalSupply, arguments:[]  
+
+Path #20:
+  Source: external_input_params in MasterChef.constructor
+  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
+  Path Operations:
+    1. constructor
+    2. lowcost(Lowcost) := _lowcost(Lowcost)
+    3. TMP_483(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:maxSupply, arguments:[]  
+
+Path #21:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_state_changing_external_call in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    5. REF_232(uint256) -> user.amount
+
+Path #22:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_erc20_transfer in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    4. REF_240(IBEP20) -> pool.lpToken
+
+Path #23:
+  Source: external_input_params in Lowcost.updateMinAmountToLiquify
+  Sink: tainted_erc20_transfer in Lowcost.swapTokensForEth
+  Path Operations:
+    1. updateMinAmountToLiquify
+    2. minAmountToLiquify(uint256) := _minAmount(uint256)
+    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    4. TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
+    5. half(uint256) := TMP_311(uint256)
+    6. INTERNAL_CALL, Lowcost.swapTokensForEth(uint256)(half)
+
+Path #24:
+  Source: external_input_params in MasterChef.pendingLowcost
+  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
+  Path Operations:
+    1. pendingLowcost
+    2. REF_171(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_172(MasterChef.UserInfo) -> REF_171[_user]
+    4. user(MasterChef.UserInfo) := REF_172(MasterChef.UserInfo)
+    5. REF_193(uint256) -> user.amount
+
+Path #25:
+  Source: external_input_params in MasterChef.withdraw
+  Sink: tainted_state_changing_external_call in MasterChef.withdraw
+  Path Operations:
+    1. withdraw
+    2. REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
+    4. user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
+    5. REF_274(uint256) -> user.amount
+
+Path #26:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in Lowcost.maxTransferAmount
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_158(uint256)
+    5. TMP_341(uint256) = INTERNAL_CALL, BEP20.totalSupply()()
+
+Path #27:
+  Source: external_input_params in MasterChef.constructor
+  Sink: tainted_state_changing_external_call in MasterChef.updatePool
+  Path Operations:
+    1. constructor
+    2. lowcost(Lowcost) := _lowcost(Lowcost)
+    3. TMP_512(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:maxSupply, arguments:[]  
+
+Path #28:
+  Source: external_input_params in Lowcost.updateMinAmountToLiquify
+  Sink: tainted_state_changing_external_call in Lowcost.swapAndLiquify
+  Path Operations:
+    1. updateMinAmountToLiquify
+    2. minAmountToLiquify(uint256) := _minAmount(uint256)
+    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
+
+Path #29:
   Source: external_input_params in MasterChef.deposit
   Sink: tainted_state_changing_external_call in MasterChef.deposit
   Path Operations:
@@ -1021,15 +1281,108 @@ Path #2:
     4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
     5. REF_266(uint256) -> user.amount
 
-Path #3:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_state_changing_external_call in BEP20._transfer
+Path #30:
+  Source: external_input_params in MasterChef.getMultiplier
+  Sink: tainted_state_changing_external_call in MasterChef.getMultiplier
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_42(uint256) -> _balances[sender]
+    1. getMultiplier
 
-Path #4:
+Path #31:
+  Source: external_input_params in Lowcost.updateSwapRouter
+  Sink: tainted_state_changing_external_call in Lowcost.updateSwapRouter
+  Path Operations:
+    1. updateSwapRouter
+    2. TMP_368 = CONVERT _router to IUniswapV2Router02
+    3. swapRouter(IUniswapV2Router02) := TMP_368(IUniswapV2Router02)
+    4. TMP_372(address) = HIGH_LEVEL_CALL, dest:swapRouter(IUniswapV2Router02), function:WETH, arguments:[]  
+
+Path #32:
+  Source: external_input_params in MasterChef.updatePool
+  Sink: tainted_state_changing_external_call in MasterChef.updatePool
+  Path Operations:
+    1. updatePool
+    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    4. REF_204(uint256) -> pool.lastRewardSecond
+    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    6. multiplier(uint256) := TMP_498(uint256)
+    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
+    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    9. TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
+    10. lowcostReward(uint256) := TMP_501(uint256)
+
+Path #33:
+  Source: external_input_params in Lowcost.updateMinAmountToLiquify
+  Sink: tainted_state_changing_external_call in Lowcost.swapAndLiquify
+  Path Operations:
+    1. updateMinAmountToLiquify
+    2. minAmountToLiquify(uint256) := _minAmount(uint256)
+    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    4. TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
+    5. half(uint256) := TMP_311(uint256)
+
+Path #34:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_erc20_transfer in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    5. REF_232(uint256) -> user.amount
+    6. TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
+    7. TMP_524(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_523', '1000000000000000000'] 
+    8. TMP_525(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_524', 'REF_237'] 
+    9. pending(uint256) := TMP_525(uint256)
+
+Path #35:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in BEP20._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_158(uint256)
+
+Path #36:
+  Source: external_input_params in MasterChef.updatePool
+  Sink: tainted_state_changing_external_call in MasterChef.updatePool
+  Path Operations:
+    1. updatePool
+    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    4. REF_204(uint256) -> pool.lastRewardSecond
+    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    6. multiplier(uint256) := TMP_498(uint256)
+    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
+
+Path #37:
+  Source: external_input_params in MasterChef.add
+  Sink: tainted_state_changing_external_call in MasterChef.add
+  Path Operations:
+    1. add
+    2. TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
+    3. totalAllocPoint(uint256) := TMP_448(uint256)
+
+Path #38:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in BEP20._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_158(uint256)
+
+Path #39:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_erc20_transfer in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    4. REF_249(IBEP20) -> pool.lpToken
+
+Path #40:
   Source: external_input_params in MasterChef.withdraw
   Sink: tainted_state_changing_external_call in MasterChef.withdraw
   Path Operations:
@@ -1037,24 +1390,24 @@ Path #4:
     2. REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
     3. REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
     4. user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
-    5. REF_289(uint256) -> user.amount
+    5. REF_281(uint256) -> user.amount
 
-Path #5:
-  Source: external_input_params in BEP20.decreaseAllowance
-  Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
+Path #41:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_erc20_transfer in MasterChef.safeLowcostTransfer
   Path Operations:
-    1. decreaseAllowance
-    2. REF_39(uint256) -> REF_38[spender]
+    1. deposit
+    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    5. REF_232(uint256) -> user.amount
+    6. TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
+    7. TMP_524(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_523', '1000000000000000000'] 
+    8. TMP_525(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_524', 'REF_237'] 
+    9. pending(uint256) := TMP_525(uint256)
+    10. INTERNAL_CALL, MasterChef.safeLowcostTransfer(address,uint256)(msg.sender,pending)
 
-Path #6:
-  Source: external_input_params in MasterChef.constructor
-  Sink: tainted_state_changing_external_call in MasterChef.updatePool
-  Path Operations:
-    1. constructor
-    2. lowcost(Lowcost) := _lowcost(Lowcost)
-    3. TMP_512(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:maxSupply, arguments:[]  
-
-Path #7:
+Path #42:
   Source: external_input_params in MasterChef.deposit
   Sink: tainted_state_changing_external_call in MasterChef.deposit
   Path Operations:
@@ -1065,24 +1418,57 @@ Path #7:
     5. REF_252(uint256) -> user.amount
     6. TMP_541(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_252', '_amount'] 
 
-Path #8:
+Path #43:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_state_changing_external_call in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    5. REF_252(uint256) -> user.amount
+
+Path #44:
+  Source: external_input_params in MasterChef.emergencyWithdraw
+  Sink: tainted_erc20_transfer in MasterChef.emergencyWithdraw
+  Path Operations:
+    1. emergencyWithdraw
+    2. REF_293(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_293(MasterChef.PoolInfo)
+    4. REF_299(IBEP20) -> pool.lpToken
+
+Path #45:
   Source: external_input_params in MasterChef.add
-  Sink: tainted_state_changing_external_call in MasterChef.add
+  Sink: tainted_state_changing_external_call in MasterChef.set
   Path Operations:
     1. add
     2. TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
     3. totalAllocPoint(uint256) := TMP_448(uint256)
 
-Path #9:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_state_changing_external_call in MasterChef.deposit
+Path #46:
+  Source: external_input_params in MasterChef.constructor
+  Sink: tainted_erc20_transfer in MasterChef.safeLowcostTransfer
   Path Operations:
-    1. deposit
-    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
-    4. REF_256(uint256) -> pool.lpSupply
+    1. constructor
+    2. lowcost(Lowcost) := _lowcost(Lowcost)
+    3. TMP_575(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:balanceOf, arguments:['TMP_574']  
+    4. lowcostBal(uint256) := TMP_575(uint256)
 
-Path #10:
+Path #47:
+  Source: external_input_params in Lowcost.mint
+  Sink: tainted_state_changing_external_call in Lowcost._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(_to,_amount)
+    3. REF_82(uint256) -> _balances[account]
+
+Path #48:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_erc20_transfer in BEP20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #49:
   Source: external_input_params in MasterChef.withdraw
   Sink: tainted_state_changing_external_call in MasterChef.withdraw
   Path Operations:
@@ -1090,9 +1476,112 @@ Path #10:
     2. REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
     3. REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
     4. user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
-    5. REF_281(uint256) -> user.amount
+    5. REF_274(uint256) -> user.amount
+    6. TMP_554(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_274', 'REF_276'] 
 
-Path #11:
+Path #50:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in Lowcost._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_158(uint256)
+
+Path #51:
+  Source: external_input_params in MasterChef.pendingLowcost
+  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
+  Path Operations:
+    1. pendingLowcost
+    2. REF_171(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_172(MasterChef.UserInfo) -> REF_171[_user]
+    4. user(MasterChef.UserInfo) := REF_172(MasterChef.UserInfo)
+    5. REF_193(uint256) -> user.amount
+    6. TMP_489(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_193', 'accLowcostPerShare'] 
+
+Path #52:
+  Source: external_input_params in MasterChef.updatePool
+  Sink: tainted_state_changing_external_call in MasterChef.updatePool
+  Path Operations:
+    1. updatePool
+    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    4. REF_204(uint256) -> pool.lastRewardSecond
+    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    6. multiplier(uint256) := TMP_498(uint256)
+    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
+    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    9. TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
+    10. lowcostReward(uint256) := TMP_501(uint256)
+
+Path #53:
+  Source: external_input_params in Lowcost.updateMinAmountToLiquify
+  Sink: tainted_state_changing_external_call in Lowcost.swapAndLiquify
+  Path Operations:
+    1. updateMinAmountToLiquify
+    2. minAmountToLiquify(uint256) := _minAmount(uint256)
+    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    4. TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
+    5. half(uint256) := TMP_311(uint256)
+    6. TMP_312(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['half', '80'] 
+
+Path #54:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_state_changing_external_call in BEP20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_42(uint256) -> _balances[sender]
+
+Path #55:
+  Source: external_input_params in BEP20.transfer
+  Sink: tainted_state_changing_external_call in BEP20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_123,recipient,amount)
+    3. REF_45(uint256) -> _balances[recipient]
+
+Path #56:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_state_changing_external_call in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    5. REF_266(uint256) -> user.amount
+    6. TMP_547(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_266', 'REF_268'] 
+
+Path #57:
+  Source: external_input_params in MasterChef.withdraw
+  Sink: tainted_state_changing_external_call in MasterChef.withdraw
+  Path Operations:
+    1. withdraw
+    2. REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
+    4. user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
+    5. REF_289(uint256) -> user.amount
+
+Path #58:
+  Source: external_input_params in MasterChef.withdraw
+  Sink: tainted_state_changing_external_call in MasterChef.withdraw
+  Path Operations:
+    1. withdraw
+    2. REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
+    4. user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
+    5. REF_274(uint256) -> user.amount
+    6. TMP_554(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_274', 'REF_276'] 
+    7. TMP_555(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_554', '1000000000000000000'] 
+
+Path #59:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in BEP20._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+
+Path #60:
   Source: external_input_params in MasterChef.pendingLowcost
   Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
   Path Operations:
@@ -1108,73 +1597,50 @@ Path #11:
     10. lowcostReward(uint256) := TMP_476(uint256)
     11. TMP_486(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['lowcostReward', '1000000000000000000'] 
 
-Path #12:
-  Source: external_input_params in MasterChef.withdraw
-  Sink: tainted_state_changing_external_call in MasterChef.withdraw
-  Path Operations:
-    1. withdraw
-    2. REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
-    4. user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
-    5. REF_274(uint256) -> user.amount
-    6. TMP_554(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_274', 'REF_276'] 
-    7. TMP_555(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_554', '1000000000000000000'] 
-
-Path #13:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_state_changing_external_call in BEP20.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_32(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_33(uint256) -> REF_32[TMP_129]
-
-Path #14:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in BEP20._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
-    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_158(uint256)
-
-Path #15:
+Path #61:
   Source: external_input_params in MasterChef.deposit
-  Sink: tainted_erc20_transfer in MasterChef.deposit
+  Sink: tainted_state_changing_external_call in MasterChef.deposit
   Path Operations:
     1. deposit
-    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
-    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
-    5. REF_232(uint256) -> user.amount
-    6. TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
-    7. TMP_524(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_523', '1000000000000000000'] 
-    8. TMP_525(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_524', 'REF_237'] 
-    9. pending(uint256) := TMP_525(uint256)
+    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    4. REF_256(uint256) -> pool.lpSupply
+    5. TMP_543(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_256', '_amount'] 
 
-Path #16:
-  Source: external_input_params in MasterChef.constructor
-  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
+Path #62:
+  Source: external_input_params in MasterChef.add
+  Sink: tainted_state_changing_external_call in MasterChef.set
   Path Operations:
-    1. constructor
-    2. lowcost(Lowcost) := _lowcost(Lowcost)
-    3. TMP_483(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:maxSupply, arguments:[]  
+    1. add
+    2. TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
+    3. totalAllocPoint(uint256) := TMP_448(uint256)
+    4. TMP_462(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalAllocPoint', 'REF_161'] 
 
-Path #17:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_erc20_transfer in BEP20.transferFrom
+Path #63:
+  Source: external_input_params in MasterChef.withdraw
+  Sink: tainted_erc20_transfer in MasterChef.withdraw
   Path Operations:
-    1. transferFrom
+    1. withdraw
+    2. REF_270(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_270(MasterChef.PoolInfo)
+    4. REF_283(IBEP20) -> pool.lpToken
 
-Path #18:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in BEP20._burn
+Path #64:
+  Source: external_input_params in MasterChef.updatePool
+  Sink: tainted_state_changing_external_call in MasterChef.updatePool
   Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
-    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_158(uint256)
+    1. updatePool
+    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    4. REF_222(uint256) -> pool.accLowcostPerShare
 
-Path #19:
+Path #65:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_state_changing_external_call in MasterChef.deposit
+  Path Operations:
+    1. deposit
+
+Path #66:
   Source: external_input_params in MasterChef.pendingLowcost
   Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
   Path Operations:
@@ -1187,132 +1653,23 @@ Path #19:
     7. TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
     8. TMP_475(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_474', 'REF_179'] 
 
-Path #20:
-  Source: external_input_params in MasterChef.pendingLowcost
-  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
-  Path Operations:
-    1. pendingLowcost
-    2. REF_171(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_172(MasterChef.UserInfo) -> REF_171[_user]
-    4. user(MasterChef.UserInfo) := REF_172(MasterChef.UserInfo)
-    5. REF_193(uint256) -> user.amount
-    6. TMP_489(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_193', 'accLowcostPerShare'] 
-    7. TMP_490(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_489', '1000000000000000000'] 
-
-Path #21:
-  Source: external_input_params in MasterChef.constructor
-  Sink: tainted_state_changing_external_call in MasterChef.updatePool
-  Path Operations:
-    1. constructor
-    2. lowcost(Lowcost) := _lowcost(Lowcost)
-    3. TMP_503(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:totalSupply, arguments:[]  
-    4. TMP_504(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_503', 'devReward'] 
-
-Path #22:
-  Source: external_input_params in MasterChef.add
-  Sink: tainted_state_changing_external_call in MasterChef.set
-  Path Operations:
-    1. add
-    2. TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
-    3. totalAllocPoint(uint256) := TMP_448(uint256)
-
-Path #23:
-  Source: external_input_params in MasterChef.constructor
-  Sink: tainted_state_changing_external_call in MasterChef.updatePool
-  Path Operations:
-    1. constructor
-    2. devaddr(address) := _devaddr(address)
-
-Path #24:
-  Source: external_input_params in MasterChef.pendingLowcost
-  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
-  Path Operations:
-    1. pendingLowcost
-    2. REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
-    4. REF_173(uint256) -> pool.accLowcostPerShare
-    5. accLowcostPerShare(uint256) := REF_173(uint256)
-
-Path #25:
-  Source: external_input_params in MasterChef.updatePool
-  Sink: tainted_state_changing_external_call in MasterChef.updatePool
-  Path Operations:
-    1. updatePool
-    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
-    4. REF_204(uint256) -> pool.lastRewardSecond
-    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
-    6. multiplier(uint256) := TMP_498(uint256)
-    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
-    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
-
-Path #26:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_state_changing_external_call in MasterChef.deposit
-  Path Operations:
-    1. deposit
-    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
-    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
-    5. REF_232(uint256) -> user.amount
-
-Path #27:
+Path #67:
   Source: external_input_params in BEP20.increaseAllowance
   Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
   Path Operations:
     1. increaseAllowance
     2. REF_36(uint256) -> REF_35[spender]
 
-Path #28:
-  Source: external_input_params in BEP20.transfer
-  Sink: tainted_state_changing_external_call in BEP20._transfer
+Path #68:
+  Source: external_input_params in MasterChef.withdraw
+  Sink: tainted_state_changing_external_call in MasterChef.withdraw
   Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_123,recipient,amount)
-    3. REF_45(uint256) -> _balances[recipient]
+    1. withdraw
+    2. REF_270(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_270(MasterChef.PoolInfo)
+    4. REF_286(uint256) -> pool.lpSupply
 
-Path #29:
-  Source: external_input_params in MasterChef.add
-  Sink: tainted_state_changing_external_call in MasterChef.set
-  Path Operations:
-    1. add
-    2. TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
-    3. totalAllocPoint(uint256) := TMP_448(uint256)
-    4. TMP_462(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalAllocPoint', 'REF_161'] 
-
-Path #30:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in Lowcost._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
-    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_158(uint256)
-
-Path #31:
-  Source: external_input_params in MasterChef.pendingLowcost
-  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
-  Path Operations:
-    1. pendingLowcost
-    2. REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
-    4. REF_176(uint256) -> pool.lastRewardSecond
-    5. TMP_473(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_176,block.timestamp)
-    6. multiplier(uint256) := TMP_473(uint256)
-    7. TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
-
-Path #32:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_state_changing_external_call in MasterChef.deposit
-  Path Operations:
-    1. deposit
-    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
-    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
-    5. REF_232(uint256) -> user.amount
-    6. TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
-
-Path #33:
+Path #69:
   Source: external_input_params in MasterChef.pendingLowcost
   Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
   Path Operations:
@@ -1327,22 +1684,16 @@ Path #33:
     9. TMP_476(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_475', 'totalAllocPoint'] 
     10. lowcostReward(uint256) := TMP_476(uint256)
 
-Path #34:
-  Source: external_input_params in MasterChef.updatePool
-  Sink: tainted_state_changing_external_call in MasterChef.updatePool
+Path #70:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in BEP20._burn
   Path Operations:
-    1. updatePool
-    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
-    4. REF_204(uint256) -> pool.lastRewardSecond
-    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
-    6. multiplier(uint256) := TMP_498(uint256)
-    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
-    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
-    9. TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
-    10. lowcostReward(uint256) := TMP_501(uint256)
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_158(uint256)
 
-Path #35:
+Path #71:
   Source: external_input_params in Lowcost.updateMinAmountToLiquify
   Sink: tainted_state_changing_external_call in Lowcost.addLiquidity
   Path Operations:
@@ -1353,7 +1704,94 @@ Path #35:
     5. otherHalf(uint256) := TMP_314(uint256)
     6. INTERNAL_CALL, Lowcost.addLiquidity(uint256,uint256)(otherHalf,newBalance)
 
-Path #36:
+Path #72:
+  Source: external_input_params in MasterChef.deposit
+  Sink: tainted_state_changing_external_call in MasterChef.deposit
+  Path Operations:
+    1. deposit
+    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    5. REF_232(uint256) -> user.amount
+    6. TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
+    7. TMP_524(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_523', '1000000000000000000'] 
+
+Path #73:
+  Source: external_input_params in MasterChef.constructor
+  Sink: tainted_state_changing_external_call in MasterChef.updatePool
+  Path Operations:
+    1. constructor
+    2. lowcost(Lowcost) := _lowcost(Lowcost)
+    3. TMP_503(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:totalSupply, arguments:[]  
+
+Path #74:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in BEP20._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+
+Path #75:
+  Source: external_input_params in MasterChef.pendingLowcost
+  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
+  Path Operations:
+    1. pendingLowcost
+    2. REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
+    4. REF_176(uint256) -> pool.lastRewardSecond
+    5. TMP_473(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_176,block.timestamp)
+    6. multiplier(uint256) := TMP_473(uint256)
+    7. TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
+
+Path #76:
+  Source: external_input_params in MasterChef.updatePool
+  Sink: tainted_state_changing_external_call in MasterChef.updatePool
+  Path Operations:
+    1. updatePool
+    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    4. REF_204(uint256) -> pool.lastRewardSecond
+    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    6. multiplier(uint256) := TMP_498(uint256)
+
+Path #77:
+  Source: external_input_params in MasterChef.pendingLowcost
+  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
+  Path Operations:
+    1. pendingLowcost
+    2. REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
+    3. pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
+    4. REF_173(uint256) -> pool.accLowcostPerShare
+    5. accLowcostPerShare(uint256) := REF_173(uint256)
+
+Path #78:
+  Source: external_input_params in MasterChef.pendingLowcost
+  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
+  Path Operations:
+    1. pendingLowcost
+    2. REF_171(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    3. REF_172(MasterChef.UserInfo) -> REF_171[_user]
+    4. user(MasterChef.UserInfo) := REF_172(MasterChef.UserInfo)
+    5. REF_193(uint256) -> user.amount
+    6. TMP_489(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_193', 'accLowcostPerShare'] 
+    7. TMP_490(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_489', '1000000000000000000'] 
+
+Path #79:
+  Source: external_input_params in BEP20.transfer
+  Sink: tainted_erc20_transfer in BEP20.transfer
+  Path Operations:
+    1. transfer
+
+Path #80:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in Lowcost._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_158(uint256)
+
+Path #81:
   Source: external_input_params in MasterChef.withdraw
   Sink: tainted_state_changing_external_call in MasterChef.withdraw
   Path Operations:
@@ -1364,438 +1802,16 @@ Path #36:
     5. REF_289(uint256) -> user.amount
     6. TMP_564(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_289', 'REF_291'] 
 
-Path #37:
-  Source: external_input_params in MasterChef.withdraw
-  Sink: tainted_state_changing_external_call in MasterChef.withdraw
-  Path Operations:
-    1. withdraw
-    2. REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
-    4. user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
-    5. REF_274(uint256) -> user.amount
-
-Path #38:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in Lowcost._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
-    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_158(uint256)
-
-Path #39:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in Lowcost._burn
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
-    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_158(uint256)
-
-Path #40:
-  Source: external_input_params in Lowcost.updateMinAmountToLiquify
-  Sink: tainted_state_changing_external_call in Lowcost.swapAndLiquify
-  Path Operations:
-    1. updateMinAmountToLiquify
-    2. minAmountToLiquify(uint256) := _minAmount(uint256)
-    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
-    4. TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
-    5. half(uint256) := TMP_311(uint256)
-    6. TMP_312(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['half', '80'] 
-
-Path #41:
-  Source: external_input_params in MasterChef.updatePool
-  Sink: tainted_state_changing_external_call in MasterChef.updatePool
-  Path Operations:
-    1. updatePool
-    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
-    4. REF_204(uint256) -> pool.lastRewardSecond
-    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
-    6. multiplier(uint256) := TMP_498(uint256)
-
-Path #42:
-  Source: external_input_params in MasterChef.withdraw
-  Sink: tainted_state_changing_external_call in MasterChef.withdraw
-  Path Operations:
-    1. withdraw
-    2. REF_270(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_270(MasterChef.PoolInfo)
-    4. REF_286(uint256) -> pool.lpSupply
-
-Path #43:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_state_changing_external_call in MasterChef.deposit
-  Path Operations:
-    1. deposit
-    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
-    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
-    5. REF_260(uint256) -> user.amount
-
-Path #44:
-  Source: external_input_params in MasterChef.withdraw
-  Sink: tainted_state_changing_external_call in MasterChef.withdraw
-  Path Operations:
-    1. withdraw
-    2. REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
-    4. user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
-    5. REF_274(uint256) -> user.amount
-    6. TMP_554(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_274', 'REF_276'] 
-
-Path #45:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in Lowcost.maxTransferAmount
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
-    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_158(uint256)
-    5. TMP_341(uint256) = INTERNAL_CALL, BEP20.totalSupply()()
-
-Path #46:
-  Source: external_input_params in MasterChef.constructor
-  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
-  Path Operations:
-    1. constructor
-    2. lowcost(Lowcost) := _lowcost(Lowcost)
-    3. TMP_478(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:totalSupply, arguments:[]  
-
-Path #47:
-  Source: external_input_params in MasterChef.updatePool
-  Sink: tainted_state_changing_external_call in MasterChef.updatePool
-  Path Operations:
-    1. updatePool
-    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
-    4. REF_204(uint256) -> pool.lastRewardSecond
-    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
-    6. multiplier(uint256) := TMP_498(uint256)
-    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
-    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
-    9. TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
-    10. lowcostReward(uint256) := TMP_501(uint256)
-
-Path #48:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_erc20_transfer in MasterChef.deposit
-  Path Operations:
-    1. deposit
-    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
-    4. REF_240(IBEP20) -> pool.lpToken
-
-Path #49:
-  Source: external_input_params in MasterChef.updatePool
-  Sink: tainted_state_changing_external_call in MasterChef.updatePool
-  Path Operations:
-    1. updatePool
-    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
-    4. REF_204(uint256) -> pool.lastRewardSecond
-    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
-    6. multiplier(uint256) := TMP_498(uint256)
-    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
-    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
-    9. TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
-    10. lowcostReward(uint256) := TMP_501(uint256)
-
-Path #50:
+Path #82:
   Source: external_input_params in MasterChef.constructor
   Sink: tainted_state_changing_external_call in MasterChef.updatePool
   Path Operations:
     1. constructor
     2. lowcost(Lowcost) := _lowcost(Lowcost)
     3. TMP_503(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:totalSupply, arguments:[]  
+    4. TMP_504(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_503', 'devReward'] 
 
-Path #51:
-  Source: external_input_params in MasterChef.updatePool
-  Sink: tainted_state_changing_external_call in MasterChef.updatePool
-  Path Operations:
-    1. updatePool
-    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
-    4. REF_204(uint256) -> pool.lastRewardSecond
-    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
-    6. multiplier(uint256) := TMP_498(uint256)
-    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
-    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
-    9. TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
-    10. lowcostReward(uint256) := TMP_501(uint256)
-
-Path #52:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in BEP20._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
-
-Path #53:
-  Source: external_input_params in MasterChef.pendingLowcost
-  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
-  Path Operations:
-    1. pendingLowcost
-    2. REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
-    4. REF_176(uint256) -> pool.lastRewardSecond
-    5. TMP_473(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_176,block.timestamp)
-    6. multiplier(uint256) := TMP_473(uint256)
-
-Path #54:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_erc20_transfer in MasterChef.safeLowcostTransfer
-  Path Operations:
-    1. deposit
-    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
-    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
-    5. REF_232(uint256) -> user.amount
-    6. TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
-    7. TMP_524(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_523', '1000000000000000000'] 
-    8. TMP_525(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_524', 'REF_237'] 
-    9. pending(uint256) := TMP_525(uint256)
-    10. INTERNAL_CALL, MasterChef.safeLowcostTransfer(address,uint256)(msg.sender,pending)
-
-Path #55:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_erc20_transfer in MasterChef.deposit
-  Path Operations:
-    1. deposit
-    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
-    4. REF_249(IBEP20) -> pool.lpToken
-
-Path #56:
-  Source: external_input_params in Lowcost.updateMinAmountToLiquify
-  Sink: tainted_erc20_transfer in Lowcost.swapTokensForEth
-  Path Operations:
-    1. updateMinAmountToLiquify
-    2. minAmountToLiquify(uint256) := _minAmount(uint256)
-    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
-    4. TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
-    5. half(uint256) := TMP_311(uint256)
-    6. INTERNAL_CALL, Lowcost.swapTokensForEth(uint256)(half)
-
-Path #57:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in BEP20._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
-
-Path #58:
-  Source: external_input_params in MasterChef.getMultiplier
-  Sink: tainted_state_changing_external_call in MasterChef.getMultiplier
-  Path Operations:
-    1. getMultiplier
-
-Path #59:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in BEP20._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
-    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_158(uint256)
-
-Path #60:
-  Source: external_input_params in MasterChef.pendingLowcost
-  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
-  Path Operations:
-    1. pendingLowcost
-    2. REF_171(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_172(MasterChef.UserInfo) -> REF_171[_user]
-    4. user(MasterChef.UserInfo) := REF_172(MasterChef.UserInfo)
-    5. REF_193(uint256) -> user.amount
-
-Path #61:
-  Source: external_input_params in MasterChef.pendingLowcost
-  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
-  Path Operations:
-    1. pendingLowcost
-    2. REF_171(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_172(MasterChef.UserInfo) -> REF_171[_user]
-    4. user(MasterChef.UserInfo) := REF_172(MasterChef.UserInfo)
-    5. REF_193(uint256) -> user.amount
-    6. TMP_489(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_193', 'accLowcostPerShare'] 
-
-Path #62:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_state_changing_external_call in MasterChef.deposit
-  Path Operations:
-    1. deposit
-    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
-    4. REF_263(uint256) -> pool.lpSupply
-
-Path #63:
-  Source: external_input_params in MasterChef.emergencyWithdraw
-  Sink: tainted_erc20_transfer in MasterChef.emergencyWithdraw
-  Path Operations:
-    1. emergencyWithdraw
-    2. REF_293(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_293(MasterChef.PoolInfo)
-    4. REF_299(IBEP20) -> pool.lpToken
-
-Path #64:
-  Source: external_input_params in MasterChef.constructor
-  Sink: tainted_erc20_transfer in MasterChef.safeLowcostTransfer
-  Path Operations:
-    1. constructor
-    2. lowcost(Lowcost) := _lowcost(Lowcost)
-    3. TMP_575(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:balanceOf, arguments:['TMP_574']  
-    4. lowcostBal(uint256) := TMP_575(uint256)
-
-Path #65:
-  Source: external_input_params in Lowcost.updateMinAmountToLiquify
-  Sink: tainted_state_changing_external_call in Lowcost.swapAndLiquify
-  Path Operations:
-    1. updateMinAmountToLiquify
-    2. minAmountToLiquify(uint256) := _minAmount(uint256)
-    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
-    4. TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
-    5. half(uint256) := TMP_311(uint256)
-
-Path #66:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_state_changing_external_call in MasterChef.deposit
-  Path Operations:
-    1. deposit
-    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
-    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
-    5. REF_232(uint256) -> user.amount
-    6. TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
-    7. TMP_524(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_523', '1000000000000000000'] 
-
-Path #67:
-  Source: external_input_params in MasterChef.updatePool
-  Sink: tainted_state_changing_external_call in MasterChef.updatePool
-  Path Operations:
-    1. updatePool
-    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
-    4. REF_204(uint256) -> pool.lastRewardSecond
-    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
-    6. multiplier(uint256) := TMP_498(uint256)
-    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
-
-Path #68:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_state_changing_external_call in MasterChef.deposit
-  Path Operations:
-    1. deposit
-    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
-    4. REF_256(uint256) -> pool.lpSupply
-    5. TMP_543(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_256', '_amount'] 
-
-Path #69:
-  Source: external_input_params in MasterChef.withdraw
-  Sink: tainted_erc20_transfer in MasterChef.withdraw
-  Path Operations:
-    1. withdraw
-    2. REF_270(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_270(MasterChef.PoolInfo)
-    4. REF_283(IBEP20) -> pool.lpToken
-
-Path #70:
-  Source: external_input_params in Lowcost.updateSwapRouter
-  Sink: tainted_state_changing_external_call in Lowcost.updateSwapRouter
-  Path Operations:
-    1. updateSwapRouter
-    2. TMP_368 = CONVERT _router to IUniswapV2Router02
-    3. swapRouter(IUniswapV2Router02) := TMP_368(IUniswapV2Router02)
-    4. TMP_372(address) = HIGH_LEVEL_CALL, dest:swapRouter(IUniswapV2Router02), function:WETH, arguments:[]  
-
-Path #71:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_state_changing_external_call in MasterChef.deposit
-  Path Operations:
-    1. deposit
-    2. TMP_538(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', 'REF_247'] 
-
-Path #72:
-  Source: external_input_params in MasterChef.emergencyWithdraw
-  Sink: tainted_state_changing_external_call in MasterChef.emergencyWithdraw
-  Path Operations:
-    1. emergencyWithdraw
-    2. REF_293(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_293(MasterChef.PoolInfo)
-    4. REF_303(uint256) -> pool.lpSupply
-
-Path #73:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_state_changing_external_call in MasterChef.deposit
-  Path Operations:
-    1. deposit
-    2. REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
-    4. REF_242(IBEP20) -> pool.lpToken
-    5. TMP_535(uint256) = HIGH_LEVEL_CALL, dest:REF_242(IBEP20), function:balanceOf, arguments:['TMP_534']  
-
-Path #74:
-  Source: external_input_params in Lowcost.mint
-  Sink: tainted_state_changing_external_call in Lowcost._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(_to,_amount)
-    3. REF_82(uint256) -> _balances[account]
-
-Path #75:
-  Source: external_input_params in MasterChef.updatePool
-  Sink: tainted_state_changing_external_call in MasterChef.updatePool
-  Path Operations:
-    1. updatePool
-    2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
-    3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
-    4. REF_204(uint256) -> pool.lastRewardSecond
-    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
-    6. multiplier(uint256) := TMP_498(uint256)
-    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
-    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
-    9. TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
-    10. lowcostReward(uint256) := TMP_501(uint256)
-
-Path #76:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in Lowcost.maxTransferAmount
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
-    3. TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_158(uint256)
-    5. TMP_341(uint256) = INTERNAL_CALL, BEP20.totalSupply()()
-    6. TMP_342(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_341', 'maxTransferAmountRate'] 
-
-Path #77:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_state_changing_external_call in MasterChef.deposit
-  Path Operations:
-    1. deposit
-    2. REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
-    3. REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
-    4. user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
-    5. REF_266(uint256) -> user.amount
-    6. TMP_547(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_266', 'REF_268'] 
-
-Path #78:
-  Source: external_input_params in BEP20.transfer
-  Sink: tainted_erc20_transfer in BEP20.transfer
-  Path Operations:
-    1. transfer
-
-Path #79:
-  Source: external_input_params in MasterChef.constructor
-  Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
-  Path Operations:
-    1. constructor
-    2. lowcost(Lowcost) := _lowcost(Lowcost)
-    3. TMP_478(uint256) = HIGH_LEVEL_CALL, dest:lowcost(Lowcost), function:totalSupply, arguments:[]  
-    4. TMP_479(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_478', 'devReward'] 
-
-Path #80:
+Path #83:
   Source: external_input_params in MasterChef.updatePool
   Sink: tainted_state_changing_external_call in MasterChef.updatePool
   Path Operations:
@@ -1811,13 +1827,7 @@ Path #80:
     10. lowcostReward(uint256) := TMP_501(uint256)
     11. TMP_518(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['lowcostReward', '1000000000000000000'] 
 
-Path #81:
-  Source: external_input_params in MasterChef.deposit
-  Sink: tainted_state_changing_external_call in MasterChef.deposit
-  Path Operations:
-    1. deposit
-
-Path #82:
+Path #84:
   Source: external_input_params in MasterChef.pendingLowcost
   Sink: tainted_state_changing_external_call in MasterChef.pendingLowcost
   Path Operations:
@@ -1832,27 +1842,17 @@ Path #82:
     9. TMP_476(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_475', 'totalAllocPoint'] 
     10. lowcostReward(uint256) := TMP_476(uint256)
 
-Path #83:
-  Source: external_input_params in Lowcost.updateMinAmountToLiquify
-  Sink: tainted_state_changing_external_call in Lowcost.swapAndLiquify
-  Path Operations:
-    1. updateMinAmountToLiquify
-    2. minAmountToLiquify(uint256) := _minAmount(uint256)
-    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
-
-Path #84:
+Path #85:
   Source: external_input_params in MasterChef.updatePool
   Sink: tainted_state_changing_external_call in MasterChef.updatePool
   Path Operations:
     1. updatePool
     2. REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
     3. pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
-    4. REF_222(uint256) -> pool.accLowcostPerShare
-
-Path #85:
-  Source: external_input_params in Lowcost.updateMinAmountToLiquify
-  Sink: tainted_state_changing_external_call in Lowcost.swapAndLiquify
-  Path Operations:
-    1. updateMinAmountToLiquify
-    2. minAmountToLiquify(uint256) := _minAmount(uint256)
-    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    4. REF_204(uint256) -> pool.lastRewardSecond
+    5. TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    6. multiplier(uint256) := TMP_498(uint256)
+    7. TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'LowcostPerSecond'] 
+    8. TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    9. TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
+    10. lowcostReward(uint256) := TMP_501(uint256)

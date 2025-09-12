@@ -236,10 +236,10 @@ Sink #5: tainted_erc20_transfer
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in Tribe.transfer
-  Sink: tainted_erc20_transfer in Tribe.transfer
+  Source: external_input_params in Tribe.transferFrom
+  Sink: tainted_erc20_transfer in Tribe.transferFrom
   Path Operations:
-    1. transfer
+    1. transferFrom
 
 Path #2:
   Source: external_input_params in Tribe.delegateBySig
@@ -259,22 +259,22 @@ Path #2:
     12. currentDelegate(address) := REF_45(address)
 
 Path #3:
+  Source: external_input_params in Tribe.transfer
+  Sink: tainted_erc20_transfer in Tribe.transfer
+  Path Operations:
+    1. transfer
+
+Path #4:
   Source: external_input_params in Tribe.mint
   Sink: tainted_erc20_transfer in Tribe.mint
   Path Operations:
     1. mint
     2. REF_3(address) -> delegates[dst]
 
-Path #4:
+Path #5:
   Source: external_input_params in Tribe.transferFrom
   Sink: tainted_erc20_transfer in Tribe._transferTokens
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, Tribe._transferTokens(address,address,uint96)(src,dst,amount)
     3. REF_52(address) -> delegates[src]
-
-Path #5:
-  Source: external_input_params in Tribe.transferFrom
-  Sink: tainted_erc20_transfer in Tribe.transferFrom
-  Path Operations:
-    1. transferFrom

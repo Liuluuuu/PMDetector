@@ -165,17 +165,13 @@ Sink #4: tainted_erc20_transfer
 === Tainted Paths ===
 Path #1:
   Source: external_input_params in Cvp.transferFrom
-  Sink: tainted_erc20_transfer in Cvp.transferFrom
+  Sink: tainted_erc20_transfer in Cvp._transferTokens
   Path Operations:
     1. transferFrom
+    2. INTERNAL_CALL, Cvp._transferTokens(address,address,uint96)(src,dst,amount)
+    3. REF_43(address) -> delegates[src]
 
 Path #2:
-  Source: external_input_params in Cvp.transfer
-  Sink: tainted_erc20_transfer in Cvp.transfer
-  Path Operations:
-    1. transfer
-
-Path #3:
   Source: external_input_params in Cvp.delegateBySig
   Sink: tainted_erc20_transfer in Cvp._delegate
   Path Operations:
@@ -192,10 +188,14 @@ Path #3:
     11. REF_36(address) -> delegates[delegator]
     12. currentDelegate(address) := REF_36(address)
 
+Path #3:
+  Source: external_input_params in Cvp.transfer
+  Sink: tainted_erc20_transfer in Cvp.transfer
+  Path Operations:
+    1. transfer
+
 Path #4:
   Source: external_input_params in Cvp.transferFrom
-  Sink: tainted_erc20_transfer in Cvp._transferTokens
+  Sink: tainted_erc20_transfer in Cvp.transferFrom
   Path Operations:
     1. transferFrom
-    2. INTERNAL_CALL, Cvp._transferTokens(address,address,uint96)(src,dst,amount)
-    3. REF_43(address) -> delegates[src]

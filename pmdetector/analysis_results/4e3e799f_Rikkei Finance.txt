@@ -164,18 +164,18 @@ Sink #4: tainted_erc20_transfer
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in Rifi.transfer
-  Sink: tainted_erc20_transfer in Rifi.transfer
-  Path Operations:
-    1. transfer
-
-Path #2:
   Source: external_input_params in Rifi.transferFrom
   Sink: tainted_erc20_transfer in Rifi._transferTokens
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, Rifi._transferTokens(address,address,uint96)(src,dst,amount)
     3. REF_43(address) -> delegates[src]
+
+Path #2:
+  Source: external_input_params in Rifi.transferFrom
+  Sink: tainted_erc20_transfer in Rifi.transferFrom
+  Path Operations:
+    1. transferFrom
 
 Path #3:
   Source: external_input_params in Rifi.delegateBySig
@@ -195,7 +195,7 @@ Path #3:
     12. currentDelegate(address) := REF_36(address)
 
 Path #4:
-  Source: external_input_params in Rifi.transferFrom
-  Sink: tainted_erc20_transfer in Rifi.transferFrom
+  Source: external_input_params in Rifi.transfer
+  Sink: tainted_erc20_transfer in Rifi.transfer
   Path Operations:
-    1. transferFrom
+    1. transfer

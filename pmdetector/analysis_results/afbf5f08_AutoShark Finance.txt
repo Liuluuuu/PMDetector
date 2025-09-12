@@ -703,60 +703,6 @@ Sink #82: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in StrategyCompoundFLIP.earned
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.earned
-  Path Operations:
-    1. earned
-    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
-
-Path #2:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.withdrawAll
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-
-Path #3:
-  Source: external_input_params in Ownable.transferOwnership
-  Sink: tainted_erc20_transfer in Ownable.transferOwnership
-  Path Operations:
-    1. transferOwnership
-
-Path #4:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setMinter
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-
-Path #5:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setFlipToken
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_204 = CONVERT _token to IPantherPair
-    6. TMP_205(address) = HIGH_LEVEL_CALL, dest:TMP_204(IPantherPair), function:token0, arguments:[]  
-    7. _token0(address) := TMP_205(address)
-    8. TMP_215 = CONVERT _token0 to IBEP20
-
-Path #6:
-  Source: external_input_params in StrategyCompoundFLIP.info
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.info
-  Path Operations:
-    1. info
-
-Path #7:
   Source: external_input_params in StrategyCompoundFLIP.constructor
   Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.withdrawAll
   Path Operations:
@@ -766,117 +712,25 @@ Path #7:
     4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
     5. TMP_203 = CONVERT _token to IBEP20
     6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_298(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_297']  
-    8. _after(uint256) := TMP_298(uint256)
-    9. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_after', '_before'] 
-    10. _amount(uint256) := TMP_299(uint256)
-    11. shares(uint256) := _amount(uint256)
-    12. TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalShares', 'shares'] 
-    13. totalShares(uint256) := TMP_314(uint256)
+    7. TMP_262(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_261']  
+    8. TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_262', 'amount'] 
+    9. TMP_265(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balance()()
+    10. TMP_267(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_265', 'TMP_266'] 
+    11. TMP_268(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_267', 'totalShares'] 
+    12. TMP_322(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(msg.sender)
+    13. _withdraw(uint256) := TMP_322(uint256)
+    14. TMP_344(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_withdraw', 'withdrawalFee'] 
 
-Path #8:
-  Source: external_input_params in BEP20.decreaseAllowance
-  Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
+Path #2:
+  Source: external_input_params in StrategyCompoundFLIP.setSharkReferral
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.payReferralCommission
   Path Operations:
-    1. decreaseAllowance
-    2. REF_13(uint256) -> REF_12[spender]
+    1. setSharkReferral
+    2. sharkReferral(ISharkReferral) := _sharkReferral(ISharkReferral)
+    3. TMP_469(address) = HIGH_LEVEL_CALL, dest:sharkReferral(ISharkReferral), function:getReferrer, arguments:['_user']  
+    4. referrer(address) := TMP_469(address)
 
-Path #9:
-  Source: external_input_params in StrategyCompoundFLIP.profitOf
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.profitOf
-  Path Operations:
-    1. profitOf
-    2. TMP_270(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
-    3. _balance(uint256) := TMP_270(uint256)
-
-Path #10:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.adminGenerateFlipToken
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_206 = CONVERT _token to IPantherPair
-    6. TMP_207(address) = HIGH_LEVEL_CALL, dest:TMP_206(IPantherPair), function:token1, arguments:[]  
-    7. _token1(address) := TMP_207(address)
-    8. TMP_428 = CONVERT _token1 to IBEP20
-
-Path #11:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.withdrawAll
-  Path Operations:
-    1. constructor
-    2. poolId(uint256) := _pid(uint256)
-
-Path #12:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.generateFlipToken
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_204 = CONVERT _token to IPantherPair
-    6. TMP_205(address) = HIGH_LEVEL_CALL, dest:TMP_204(IPantherPair), function:token0, arguments:[]  
-    7. _token0(address) := TMP_205(address)
-
-Path #13:
-  Source: external_input_params in StrategyCompoundFLIP.earned
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._withdrawTokenWithCorrection
-  Path Operations:
-    1. earned
-    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
-    3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
-    4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
-    5. amount(uint256) := TMP_443(uint256)
-    6. INTERNAL_CALL, StrategyCompoundFLIP._withdrawTokenWithCorrection(uint256)(amount)
-
-Path #14:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._depositTo
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_298(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_297']  
-    8. _after(uint256) := TMP_298(uint256)
-
-Path #15:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_erc20_transfer in BEP20.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #16:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.adminGenerateFlipToken
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_204 = CONVERT _token to IPantherPair
-    6. TMP_205(address) = HIGH_LEVEL_CALL, dest:TMP_204(IPantherPair), function:token0, arguments:[]  
-    7. _token0(address) := TMP_205(address)
-
-Path #17:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setFlipToken
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_206 = CONVERT _token to IPantherPair
-    6. TMP_207(address) = HIGH_LEVEL_CALL, dest:TMP_206(IPantherPair), function:token1, arguments:[]  
-    7. _token1(address) := TMP_207(address)
-    8. TMP_220 = CONVERT _token1 to IBEP20
-
-Path #18:
+Path #3:
   Source: external_input_params in StrategyCompoundFLIP.constructor
   Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.priceShare
   Path Operations:
@@ -890,63 +744,13 @@ Path #18:
     8. TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_262', 'amount'] 
     9. TMP_282(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balance()()
 
-Path #19:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in BEP20._burn
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
-    3. TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_115(uint256)
-
-Path #20:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_state_changing_external_call in BEP20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_16(uint256) -> _balances[sender]
-
-Path #21:
-  Source: external_input_params in StrategyCompoundFLIP.setMinter
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.payReferralCommission
-  Path Operations:
-    1. setMinter
-    2. minter(ISharkMinter) := _minter(ISharkMinter)
-    3. TMP_342(uint256) = HIGH_LEVEL_CALL, dest:minter(ISharkMinter), function:mintFor, arguments:['TMP_341', 'withdrawalFee', 'performanceFee', 'msg.sender', 'depositTimestamp', 'boostRate']  
-    4. mintedShark(uint256) := TMP_342(uint256)
-    5. INTERNAL_CALL, StrategyCompoundFLIP.payReferralCommission(address,uint256)(msg.sender,mintedShark)
-
-Path #22:
-  Source: external_input_params in StrategyCompoundFLIP.deposit
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._depositTo
-  Path Operations:
-    1. deposit
-    2. INTERNAL_CALL, StrategyCompoundFLIP._depositTo(uint256,address,address)(_amount,msg.sender,_referrer)
-
-Path #23:
+Path #4:
   Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.generateFlipToken
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.constructor
   Path Operations:
     1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_206 = CONVERT _token to IPantherPair
-    6. TMP_207(address) = HIGH_LEVEL_CALL, dest:TMP_206(IPantherPair), function:token1, arguments:[]  
-    7. _token1(address) := TMP_207(address)
-    8. TMP_403 = CONVERT _token1 to IBEP20
 
-Path #24:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in BEP20._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
-    3. TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_115(uint256)
-
-Path #25:
+Path #5:
   Source: external_input_params in StrategyCompoundFLIP.earned
   Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
   Path Operations:
@@ -955,10 +759,63 @@ Path #25:
     3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
     4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
     5. amount(uint256) := TMP_443(uint256)
-    6. TMP_444(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'totalShares'] 
-    7. TMP_446(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_444', 'TMP_445'] 
 
-Path #26:
+Path #6:
+  Source: external_input_params in StrategyCompoundFLIP.earned
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
+  Path Operations:
+    1. earned
+    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
+    3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
+    4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
+    5. amount(uint256) := TMP_443(uint256)
+
+Path #7:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setFlipToken
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_204 = CONVERT _token to IPantherPair
+    6. TMP_205(address) = HIGH_LEVEL_CALL, dest:TMP_204(IPantherPair), function:token0, arguments:[]  
+    7. _token0(address) := TMP_205(address)
+    8. TMP_212 = CONVERT _token0 to IBEP20
+
+Path #8:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.harvest
+  Path Operations:
+    1. constructor
+    2. poolId(uint256) := _pid(uint256)
+
+Path #9:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.harvest
+  Path Operations:
+    1. constructor
+    2. poolId(uint256) := _pid(uint256)
+
+Path #10:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP._withdrawTokenWithCorrection
+  Path Operations:
+    1. constructor
+    2. poolId(uint256) := _pid(uint256)
+
+Path #11:
+  Source: external_input_params in StrategyCompoundFLIP.earned
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._withdrawTokenWithCorrection
+  Path Operations:
+    1. earned
+    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
+    3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
+    4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
+    5. amount(uint256) := TMP_443(uint256)
+    6. INTERNAL_CALL, StrategyCompoundFLIP._withdrawTokenWithCorrection(uint256)(amount)
+
+Path #12:
   Source: external_input_params in StrategyCompoundFLIP.setMinter
   Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.payReferralCommission
   Path Operations:
@@ -971,9 +828,36 @@ Path #26:
     7. TMP_471(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_470', '10000'] 
     8. commissionAmount(uint256) := TMP_471(uint256)
 
-Path #27:
+Path #13:
   Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.tvl
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.balance
+  Path Operations:
+    1. constructor
+    2. poolId(uint256) := _pid(uint256)
+
+Path #14:
+  Source: external_input_params in StrategyCompoundFLIP.setMinter
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.payReferralCommission
+  Path Operations:
+    1. setMinter
+    2. minter(ISharkMinter) := _minter(ISharkMinter)
+    3. TMP_342(uint256) = HIGH_LEVEL_CALL, dest:minter(ISharkMinter), function:mintFor, arguments:['TMP_341', 'withdrawalFee', 'performanceFee', 'msg.sender', 'depositTimestamp', 'boostRate']  
+    4. mintedShark(uint256) := TMP_342(uint256)
+    5. INTERNAL_CALL, StrategyCompoundFLIP.payReferralCommission(address,uint256)(msg.sender,mintedShark)
+
+Path #15:
+  Source: external_input_params in StrategyCompoundFLIP.earned
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
+  Path Operations:
+    1. earned
+    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
+    3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
+    4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
+    5. amount(uint256) := TMP_443(uint256)
+
+Path #16:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.withdrawAll
   Path Operations:
     1. constructor
     2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
@@ -981,11 +865,23 @@ Path #27:
     4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
     5. TMP_203 = CONVERT _token to IBEP20
     6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_275 = CONVERT token to address
+    7. TMP_328(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_327']  
+    8. _after(uint256) := TMP_328(uint256)
 
-Path #28:
+Path #17:
   Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._depositTo
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.withdrawAll
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+
+Path #18:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._cleanupIfDustShares
   Path Operations:
     1. constructor
     2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
@@ -1001,9 +897,19 @@ Path #28:
     12. TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalShares', 'shares'] 
     13. totalShares(uint256) := TMP_314(uint256)
 
-Path #29:
+Path #19:
+  Source: external_input_params in StrategyCompoundFLIP.earned
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.getReward
+  Path Operations:
+    1. earned
+    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
+    3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
+    4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
+    5. amount(uint256) := TMP_443(uint256)
+
+Path #20:
   Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.balance
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setFlipToken
   Path Operations:
     1. constructor
     2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
@@ -1011,30 +917,8 @@ Path #29:
     4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
     5. TMP_203 = CONVERT _token to IBEP20
     6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_262(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_261']  
 
-Path #30:
-  Source: external_input_params in BEP20.mint
-  Sink: tainted_state_changing_external_call in BEP20._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
-
-Path #31:
-  Source: external_input_params in StrategyCompoundFLIP.setMinter
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.profitOf
-  Path Operations:
-    1. setMinter
-    2. minter(ISharkMinter) := _minter(ISharkMinter)
-
-Path #32:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.harvest
-  Path Operations:
-    1. constructor
-    2. poolId(uint256) := _pid(uint256)
-
-Path #33:
+Path #21:
   Source: external_input_params in StrategyCompoundFLIP.constructor
   Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.withdrawAll
   Path Operations:
@@ -1054,9 +938,78 @@ Path #33:
     14. TMP_338(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_withdraw', 'principal'] 
     15. profit(uint256) := TMP_338(uint256)
 
-Path #34:
+Path #22:
   Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.generateFlipToken
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.adminGenerateFlipToken
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_206 = CONVERT _token to IPantherPair
+    6. TMP_207(address) = HIGH_LEVEL_CALL, dest:TMP_206(IPantherPair), function:token1, arguments:[]  
+    7. _token1(address) := TMP_207(address)
+    8. TMP_428 = CONVERT _token1 to IBEP20
+
+Path #23:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_state_changing_external_call in BEP20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_6(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_7(uint256) -> REF_6[TMP_89]
+
+Path #24:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in BEP20._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
+
+Path #25:
+  Source: external_input_params in StrategyCompoundFLIP.earned
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
+  Path Operations:
+    1. earned
+    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
+    3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
+    4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
+    5. amount(uint256) := TMP_443(uint256)
+    6. TMP_444(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'totalShares'] 
+    7. TMP_446(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_444', 'TMP_445'] 
+
+Path #26:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.balanceOf
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_262(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_261']  
+    8. TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_262', 'amount'] 
+    9. TMP_265(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balance()()
+
+Path #27:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.balanceOf
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_262(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_261']  
+    8. TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_262', 'amount'] 
+    9. TMP_265(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balance()()
+    10. TMP_267(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_265', 'TMP_266'] 
+
+Path #28:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.generateFlipToken
   Path Operations:
     1. constructor
     2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
@@ -1065,9 +1018,72 @@ Path #34:
     5. TMP_204 = CONVERT _token to IPantherPair
     6. TMP_205(address) = HIGH_LEVEL_CALL, dest:TMP_204(IPantherPair), function:token0, arguments:[]  
     7. _token0(address) := TMP_205(address)
-    8. TMP_398 = CONVERT _token0 to IBEP20
 
-Path #35:
+Path #29:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_454 = CONVERT token to address
+
+Path #30:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._depositTo
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_298(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_297']  
+    8. _after(uint256) := TMP_298(uint256)
+    9. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_after', '_before'] 
+    10. _amount(uint256) := TMP_299(uint256)
+    11. shares(uint256) := _amount(uint256)
+
+Path #31:
+  Source: external_input_params in StrategyCompoundFLIP.setMinter
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.payReferralCommission
+  Path Operations:
+    1. setMinter
+    2. minter(ISharkMinter) := _minter(ISharkMinter)
+    3. TMP_342(uint256) = HIGH_LEVEL_CALL, dest:minter(ISharkMinter), function:mintFor, arguments:['TMP_341', 'withdrawalFee', 'performanceFee', 'msg.sender', 'depositTimestamp', 'boostRate']  
+    4. mintedShark(uint256) := TMP_342(uint256)
+    5. INTERNAL_CALL, StrategyCompoundFLIP.payReferralCommission(address,uint256)(msg.sender,mintedShark)
+    6. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_pending', 'referralCommissionRate'] 
+    7. TMP_471(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_470', '10000'] 
+    8. commissionAmount(uint256) := TMP_471(uint256)
+
+Path #32:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.priceShare
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_262(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_261']  
+    8. TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_262', 'amount'] 
+    9. TMP_282(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balance()()
+    10. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_282', '1000000000000000000'] 
+
+Path #33:
+  Source: external_input_params in BEP20.transfer
+  Sink: tainted_state_changing_external_call in BEP20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_83,recipient,amount)
+    3. REF_19(uint256) -> _balances[recipient]
+
+Path #34:
   Source: external_input_params in StrategyCompoundFLIP.constructor
   Sink: tainted_erc20_transfer in StrategyCompoundFLIP.adminGenerateFlipToken
   Path Operations:
@@ -1080,20 +1096,29 @@ Path #35:
     7. _token0(address) := TMP_205(address)
     8. TMP_423 = CONVERT _token0 to IBEP20
 
-Path #36:
-  Source: external_input_params in StrategyCompoundFLIP.setMinter
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.payReferralCommission
+Path #35:
+  Source: external_input_params in StrategyCompoundFLIP.earned
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.earned
   Path Operations:
-    1. setMinter
-    2. minter(ISharkMinter) := _minter(ISharkMinter)
-    3. TMP_342(uint256) = HIGH_LEVEL_CALL, dest:minter(ISharkMinter), function:mintFor, arguments:['TMP_341', 'withdrawalFee', 'performanceFee', 'msg.sender', 'depositTimestamp', 'boostRate']  
-    4. mintedShark(uint256) := TMP_342(uint256)
-    5. INTERNAL_CALL, StrategyCompoundFLIP.payReferralCommission(address,uint256)(msg.sender,mintedShark)
-    6. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_pending', 'referralCommissionRate'] 
+    1. earned
+    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
+
+Path #36:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.generateFlipToken
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_206 = CONVERT _token to IPantherPair
+    6. TMP_207(address) = HIGH_LEVEL_CALL, dest:TMP_206(IPantherPair), function:token1, arguments:[]  
+    7. _token1(address) := TMP_207(address)
+    8. TMP_403 = CONVERT _token1 to IBEP20
 
 Path #37:
   Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._cleanupIfDustShares
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.withdrawAll
   Path Operations:
     1. constructor
     2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
@@ -1110,32 +1135,122 @@ Path #37:
     13. totalShares(uint256) := TMP_314(uint256)
 
 Path #38:
-  Source: external_input_params in StrategyCompoundFLIP.earned
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.getReward
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setFlipToken
   Path Operations:
-    1. earned
-    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
-    3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
-    4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
-    5. amount(uint256) := TMP_443(uint256)
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_204 = CONVERT _token to IPantherPair
+    6. TMP_205(address) = HIGH_LEVEL_CALL, dest:TMP_204(IPantherPair), function:token0, arguments:[]  
+    7. _token0(address) := TMP_205(address)
+    8. TMP_215 = CONVERT _token0 to IBEP20
 
 Path #39:
-  Source: external_input_params in StrategyCompoundFLIP.deposit
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.deposit
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.generateFlipToken
   Path Operations:
-    1. deposit
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_204 = CONVERT _token to IPantherPair
+    6. TMP_205(address) = HIGH_LEVEL_CALL, dest:TMP_204(IPantherPair), function:token0, arguments:[]  
+    7. _token0(address) := TMP_205(address)
+    8. TMP_398 = CONVERT _token0 to IBEP20
 
 Path #40:
-  Source: external_input_params in StrategyCompoundFLIP.earned
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
+  Source: external_input_params in BEP20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
   Path Operations:
-    1. earned
-    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
-    3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
-    4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
-    5. amount(uint256) := TMP_443(uint256)
+    1. decreaseAllowance
+    2. REF_13(uint256) -> REF_12[spender]
 
 Path #41:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setMinter
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+
+Path #42:
+  Source: external_input_params in StrategyCompoundFLIP.profitOf
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.profitOf
+  Path Operations:
+    1. profitOf
+    2. TMP_270(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
+    3. _balance(uint256) := TMP_270(uint256)
+
+Path #43:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_erc20_transfer in BEP20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #44:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.withdrawAll
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_341 = CONVERT token to address
+
+Path #45:
+  Source: external_input_params in StrategyCompoundFLIP.setMinter
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.payReferralCommission
+  Path Operations:
+    1. setMinter
+    2. minter(ISharkMinter) := _minter(ISharkMinter)
+    3. TMP_342(uint256) = HIGH_LEVEL_CALL, dest:minter(ISharkMinter), function:mintFor, arguments:['TMP_341', 'withdrawalFee', 'performanceFee', 'msg.sender', 'depositTimestamp', 'boostRate']  
+    4. mintedShark(uint256) := TMP_342(uint256)
+    5. INTERNAL_CALL, StrategyCompoundFLIP.payReferralCommission(address,uint256)(msg.sender,mintedShark)
+    6. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_pending', 'referralCommissionRate'] 
+    7. TMP_471(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_470', '10000'] 
+    8. commissionAmount(uint256) := TMP_471(uint256)
+
+Path #46:
+  Source: external_input_params in StrategyCompoundFLIP.setMinter
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.profitOf
+  Path Operations:
+    1. setMinter
+    2. minter(ISharkMinter) := _minter(ISharkMinter)
+
+Path #47:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.withdrawAll
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+
+Path #48:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._depositTo
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_298(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_297']  
+    8. _after(uint256) := TMP_298(uint256)
+    9. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_after', '_before'] 
+    10. _amount(uint256) := TMP_299(uint256)
+
+Path #49:
   Source: external_input_params in StrategyCompoundFLIP.constructor
   Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.withdrawAll
   Path Operations:
@@ -1153,98 +1268,37 @@ Path #41:
     12. TMP_322(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(msg.sender)
     13. _withdraw(uint256) := TMP_322(uint256)
 
-Path #42:
-  Source: external_input_params in BEP20.transfer
-  Sink: tainted_state_changing_external_call in BEP20._transfer
+Path #50:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._depositTo
   Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_83,recipient,amount)
-    3. REF_19(uint256) -> _balances[recipient]
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_298(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_297']  
+    8. _after(uint256) := TMP_298(uint256)
+    9. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_after', '_before'] 
+    10. _amount(uint256) := TMP_299(uint256)
+    11. TMP_301(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', 'totalShares'] 
 
-Path #43:
+Path #51:
   Source: external_input_params in StrategyCompoundFLIP.constructor
   Sink: tainted_erc20_transfer in StrategyCompoundFLIP.withdrawAll
   Path Operations:
     1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
+    2. poolId(uint256) := _pid(uint256)
 
-Path #44:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
+Path #52:
+  Source: external_input_params in StrategyCompoundFLIP.deposit
   Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._depositTo
   Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_298(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_297']  
-    8. _after(uint256) := TMP_298(uint256)
-    9. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_after', '_before'] 
-    10. _amount(uint256) := TMP_299(uint256)
-    11. shares(uint256) := _amount(uint256)
+    1. deposit
+    2. INTERNAL_CALL, StrategyCompoundFLIP._depositTo(uint256,address,address)(_amount,msg.sender,_referrer)
 
-Path #45:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._depositTo
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_298(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_297']  
-    8. _after(uint256) := TMP_298(uint256)
-    9. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_after', '_before'] 
-    10. _amount(uint256) := TMP_299(uint256)
-
-Path #46:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.depositAll
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_320(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['msg.sender']  
-
-Path #47:
-  Source: external_input_params in BEP20.increaseAllowance
-  Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_10(uint256) -> REF_9[spender]
-
-Path #48:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setFlipToken
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-
-Path #49:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.getReward
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-
-Path #50:
+Path #53:
   Source: external_input_params in StrategyCompoundFLIP.earned
   Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
   Path Operations:
@@ -1253,22 +1307,25 @@ Path #50:
     3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
     4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
     5. amount(uint256) := TMP_443(uint256)
+    6. TMP_444(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'totalShares'] 
+    7. TMP_446(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_444', 'TMP_445'] 
+    8. TMP_447(uint256) = LIBRARY_CALL, dest:Math, function:Math.min(uint256,uint256), arguments:['TMP_446', 'REF_172'] 
+    9. shares(uint256) := TMP_447(uint256)
 
-Path #51:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
+Path #54:
+  Source: external_input_params in StrategyCompoundFLIP.setMinter
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.payReferralCommission
   Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_454 = CONVERT token to address
+    1. setMinter
+    2. minter(ISharkMinter) := _minter(ISharkMinter)
+    3. TMP_342(uint256) = HIGH_LEVEL_CALL, dest:minter(ISharkMinter), function:mintFor, arguments:['TMP_341', 'withdrawalFee', 'performanceFee', 'msg.sender', 'depositTimestamp', 'boostRate']  
+    4. mintedShark(uint256) := TMP_342(uint256)
+    5. INTERNAL_CALL, StrategyCompoundFLIP.payReferralCommission(address,uint256)(msg.sender,mintedShark)
+    6. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_pending', 'referralCommissionRate'] 
 
-Path #52:
+Path #55:
   Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.balanceOf
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.balance
   Path Operations:
     1. constructor
     2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
@@ -1277,56 +1334,19 @@ Path #52:
     5. TMP_203 = CONVERT _token to IBEP20
     6. token(IBEP20) := TMP_203(IBEP20)
     7. TMP_262(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_261']  
-    8. TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_262', 'amount'] 
-    9. TMP_265(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balance()()
 
-Path #53:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.withdrawAll
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_341 = CONVERT token to address
-
-Path #54:
+Path #56:
   Source: external_input_params in StrategyCompoundFLIP.constructor
   Sink: tainted_erc20_transfer in StrategyCompoundFLIP.harvest
   Path Operations:
     1. constructor
     2. poolId(uint256) := _pid(uint256)
 
-Path #55:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP._depositTo
-  Path Operations:
-    1. constructor
-    2. poolId(uint256) := _pid(uint256)
-
-Path #56:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.balanceOf
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_262(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_261']  
-    8. TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_262', 'amount'] 
-    9. TMP_265(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balance()()
-    10. TMP_267(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_265', 'TMP_266'] 
-
 Path #57:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP._withdrawTokenWithCorrection
+  Source: external_input_params in BEP20.transfer
+  Sink: tainted_erc20_transfer in BEP20.transfer
   Path Operations:
-    1. constructor
-    2. poolId(uint256) := _pid(uint256)
+    1. transfer
 
 Path #58:
   Source: external_input_params in StrategyCompoundFLIP.constructor
@@ -1348,7 +1368,7 @@ Path #58:
 
 Path #59:
   Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.priceShare
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.tvl
   Path Operations:
     1. constructor
     2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
@@ -1356,39 +1376,108 @@ Path #59:
     4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
     5. TMP_203 = CONVERT _token to IBEP20
     6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_262(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_261']  
-    8. TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_262', 'amount'] 
-    9. TMP_282(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balance()()
-    10. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_282', '1000000000000000000'] 
+    7. TMP_275 = CONVERT token to address
 
 Path #60:
-  Source: external_input_params in StrategyCompoundFLIP.earned
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.getReward
   Path Operations:
-    1. earned
-    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
-    3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
-    4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
-    5. amount(uint256) := TMP_443(uint256)
-    6. TMP_444(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'totalShares'] 
-    7. TMP_446(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_444', 'TMP_445'] 
-    8. TMP_447(uint256) = LIBRARY_CALL, dest:Math, function:Math.min(uint256,uint256), arguments:['TMP_446', 'REF_172'] 
-    9. shares(uint256) := TMP_447(uint256)
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
 
 Path #61:
-  Source: external_input_params in BEP20.transfer
-  Sink: tainted_erc20_transfer in BEP20.transfer
+  Source: external_input_params in StrategyCompoundFLIP.info
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.info
   Path Operations:
-    1. transfer
+    1. info
 
 Path #62:
-  Source: external_input_params in StrategyCompoundFLIP.setMinter
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.apy
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.adminGenerateFlipToken
   Path Operations:
-    1. setMinter
-    2. minter(ISharkMinter) := _minter(ISharkMinter)
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_204 = CONVERT _token to IPantherPair
+    6. TMP_205(address) = HIGH_LEVEL_CALL, dest:TMP_204(IPantherPair), function:token0, arguments:[]  
+    7. _token0(address) := TMP_205(address)
 
 Path #63:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setFlipToken
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_206 = CONVERT _token to IPantherPair
+    6. TMP_207(address) = HIGH_LEVEL_CALL, dest:TMP_206(IPantherPair), function:token1, arguments:[]  
+    7. _token1(address) := TMP_207(address)
+    8. TMP_220 = CONVERT _token1 to IBEP20
+
+Path #64:
+  Source: external_input_params in StrategyCompoundFLIP.deposit
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.deposit
+  Path Operations:
+    1. deposit
+
+Path #65:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.depositAll
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_320(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['msg.sender']  
+
+Path #66:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._depositTo
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_298(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_297']  
+    8. _after(uint256) := TMP_298(uint256)
+    9. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_after', '_before'] 
+    10. _amount(uint256) := TMP_299(uint256)
+    11. shares(uint256) := _amount(uint256)
+    12. TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalShares', 'shares'] 
+    13. totalShares(uint256) := TMP_314(uint256)
+
+Path #67:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._depositTo
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_298(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_297']  
+    8. _after(uint256) := TMP_298(uint256)
+    9. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_after', '_before'] 
+    10. _amount(uint256) := TMP_299(uint256)
+
+Path #68:
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Path Operations:
+    1. transferOwnership
+
+Path #69:
   Source: external_input_params in StrategyCompoundFLIP.constructor
   Sink: tainted_erc20_transfer in StrategyCompoundFLIP._depositTo
   Path Operations:
@@ -1398,77 +1487,6 @@ Path #63:
     4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
     5. TMP_203 = CONVERT _token to IBEP20
     6. token(IBEP20) := TMP_203(IBEP20)
-
-Path #64:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.withdrawAll
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_262(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_261']  
-    8. TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_262', 'amount'] 
-    9. TMP_265(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balance()()
-    10. TMP_267(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_265', 'TMP_266'] 
-    11. TMP_268(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_267', 'totalShares'] 
-    12. TMP_322(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(msg.sender)
-    13. _withdraw(uint256) := TMP_322(uint256)
-    14. TMP_344(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_withdraw', 'withdrawalFee'] 
-
-Path #65:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.withdrawAll
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_328(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_327']  
-    8. _after(uint256) := TMP_328(uint256)
-
-Path #66:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.balance
-  Path Operations:
-    1. constructor
-    2. poolId(uint256) := _pid(uint256)
-
-Path #67:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setFlipToken
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_204 = CONVERT _token to IPantherPair
-    6. TMP_205(address) = HIGH_LEVEL_CALL, dest:TMP_204(IPantherPair), function:token0, arguments:[]  
-    7. _token0(address) := TMP_205(address)
-    8. TMP_212 = CONVERT _token0 to IBEP20
-
-Path #68:
-  Source: external_input_params in StrategyCompoundFLIP.earned
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
-  Path Operations:
-    1. earned
-    2. TMP_289(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(account)
-    3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
-    4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
-    5. amount(uint256) := TMP_443(uint256)
-    6. TMP_444(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'totalShares'] 
-
-Path #69:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_state_changing_external_call in BEP20.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_6(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_7(uint256) -> REF_6[TMP_89]
 
 Path #70:
   Source: external_input_params in StrategyCompoundFLIP.constructor
@@ -1482,77 +1500,33 @@ Path #70:
     6. token(IBEP20) := TMP_203(IBEP20)
     7. TMP_298(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_297']  
     8. _after(uint256) := TMP_298(uint256)
-    9. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_after', '_before'] 
-    10. _amount(uint256) := TMP_299(uint256)
-    11. TMP_301(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', 'totalShares'] 
 
 Path #71:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.withdrawAll
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in BEP20._burn
   Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_262(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_261']  
-    8. TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_262', 'amount'] 
-    9. TMP_265(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balance()()
-    10. TMP_267(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_265', 'TMP_266'] 
-    11. TMP_268(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_267', 'totalShares'] 
-    12. TMP_322(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(msg.sender)
-    13. _withdraw(uint256) := TMP_322(uint256)
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
+    3. TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_115(uint256)
 
 Path #72:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.harvest
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in BEP20._mint
   Path Operations:
-    1. constructor
-    2. poolId(uint256) := _pid(uint256)
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_100,amount)
+    3. TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_115(uint256)
 
 Path #73:
-  Source: external_input_params in StrategyCompoundFLIP.setSharkReferral
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.payReferralCommission
+  Source: external_input_params in BEP20.increaseAllowance
+  Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
   Path Operations:
-    1. setSharkReferral
-    2. sharkReferral(ISharkReferral) := _sharkReferral(ISharkReferral)
-    3. TMP_469(address) = HIGH_LEVEL_CALL, dest:sharkReferral(ISharkReferral), function:getReferrer, arguments:['_user']  
-    4. referrer(address) := TMP_469(address)
+    1. increaseAllowance
+    2. REF_10(uint256) -> REF_9[spender]
 
 Path #74:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.constructor
-  Path Operations:
-    1. constructor
-
-Path #75:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setFlipToken
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_206 = CONVERT _token to IPantherPair
-    6. TMP_207(address) = HIGH_LEVEL_CALL, dest:TMP_206(IPantherPair), function:token1, arguments:[]  
-    7. _token1(address) := TMP_207(address)
-    8. TMP_223 = CONVERT _token1 to IBEP20
-
-Path #76:
-  Source: external_input_params in StrategyCompoundFLIP.setMinter
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.payReferralCommission
-  Path Operations:
-    1. setMinter
-    2. minter(ISharkMinter) := _minter(ISharkMinter)
-    3. TMP_342(uint256) = HIGH_LEVEL_CALL, dest:minter(ISharkMinter), function:mintFor, arguments:['TMP_341', 'withdrawalFee', 'performanceFee', 'msg.sender', 'depositTimestamp', 'boostRate']  
-    4. mintedShark(uint256) := TMP_342(uint256)
-    5. INTERNAL_CALL, StrategyCompoundFLIP.payReferralCommission(address,uint256)(msg.sender,mintedShark)
-    6. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_pending', 'referralCommissionRate'] 
-    7. TMP_471(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_470', '10000'] 
-    8. commissionAmount(uint256) := TMP_471(uint256)
-
-Path #77:
   Source: external_input_params in StrategyCompoundFLIP.earned
   Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
   Path Operations:
@@ -1561,23 +1535,9 @@ Path #77:
     3. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'TMP_290'] 
     4. TMP_443(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.earned(address)(msg.sender)
     5. amount(uint256) := TMP_443(uint256)
+    6. TMP_444(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'totalShares'] 
 
-Path #78:
-  Source: external_input_params in StrategyCompoundFLIP.constructor
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP._depositTo
-  Path Operations:
-    1. constructor
-    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
-    3. _token(address)= UNPACK TUPLE_2 index: 0 
-    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
-    5. TMP_203 = CONVERT _token to IBEP20
-    6. token(IBEP20) := TMP_203(IBEP20)
-    7. TMP_298(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_297']  
-    8. _after(uint256) := TMP_298(uint256)
-    9. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_after', '_before'] 
-    10. _amount(uint256) := TMP_299(uint256)
-
-Path #79:
+Path #75:
   Source: external_input_params in StrategyCompoundFLIP.constructor
   Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.getReward
   Path Operations:
@@ -1595,20 +1555,20 @@ Path #79:
     12. TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalShares', 'shares'] 
     13. totalShares(uint256) := TMP_314(uint256)
 
-Path #80:
-  Source: external_input_params in StrategyCompoundFLIP.setMinter
-  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.payReferralCommission
+Path #76:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setFlipToken
   Path Operations:
-    1. setMinter
-    2. minter(ISharkMinter) := _minter(ISharkMinter)
-    3. TMP_342(uint256) = HIGH_LEVEL_CALL, dest:minter(ISharkMinter), function:mintFor, arguments:['TMP_341', 'withdrawalFee', 'performanceFee', 'msg.sender', 'depositTimestamp', 'boostRate']  
-    4. mintedShark(uint256) := TMP_342(uint256)
-    5. INTERNAL_CALL, StrategyCompoundFLIP.payReferralCommission(address,uint256)(msg.sender,mintedShark)
-    6. TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_pending', 'referralCommissionRate'] 
-    7. TMP_471(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_470', '10000'] 
-    8. commissionAmount(uint256) := TMP_471(uint256)
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_206 = CONVERT _token to IPantherPair
+    6. TMP_207(address) = HIGH_LEVEL_CALL, dest:TMP_206(IPantherPair), function:token1, arguments:[]  
+    7. _token1(address) := TMP_207(address)
+    8. TMP_223 = CONVERT _token1 to IBEP20
 
-Path #81:
+Path #77:
   Source: external_input_params in StrategyCompoundFLIP.constructor
   Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.setMinter
   Path Operations:
@@ -1618,3 +1578,43 @@ Path #81:
     4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
     5. TMP_203 = CONVERT _token to IBEP20
     6. token(IBEP20) := TMP_203(IBEP20)
+
+Path #78:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP._depositTo
+  Path Operations:
+    1. constructor
+    2. poolId(uint256) := _pid(uint256)
+
+Path #79:
+  Source: external_input_params in StrategyCompoundFLIP.constructor
+  Sink: tainted_erc20_transfer in StrategyCompoundFLIP.withdrawAll
+  Path Operations:
+    1. constructor
+    2. TUPLE_2(address,uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:PANTHER_MASTER_CHEF(IMasterChef), function:poolInfo, arguments:['_pid']  
+    3. _token(address)= UNPACK TUPLE_2 index: 0 
+    4. INTERNAL_CALL, StrategyCompoundFLIP.setFlipToken(address)(_token)
+    5. TMP_203 = CONVERT _token to IBEP20
+    6. token(IBEP20) := TMP_203(IBEP20)
+    7. TMP_262(uint256) = HIGH_LEVEL_CALL, dest:token(IBEP20), function:balanceOf, arguments:['TMP_261']  
+    8. TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_262', 'amount'] 
+    9. TMP_265(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balance()()
+    10. TMP_267(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_265', 'TMP_266'] 
+    11. TMP_268(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_267', 'totalShares'] 
+    12. TMP_322(uint256) = INTERNAL_CALL, StrategyCompoundFLIP.balanceOf(address)(msg.sender)
+    13. _withdraw(uint256) := TMP_322(uint256)
+
+Path #80:
+  Source: external_input_params in StrategyCompoundFLIP.setMinter
+  Sink: tainted_state_changing_external_call in StrategyCompoundFLIP.apy
+  Path Operations:
+    1. setMinter
+    2. minter(ISharkMinter) := _minter(ISharkMinter)
+
+Path #81:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_state_changing_external_call in BEP20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_16(uint256) -> _balances[sender]

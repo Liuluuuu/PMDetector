@@ -406,31 +406,32 @@ Sink #20: tainted_erc20_transfer
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #2:
   Source: external_input_params in Jelly.burnFrom
   Sink: tainted_erc20_transfer in Jelly._burn
   Path Operations:
     1. burnFrom
     2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
 
-Path #3:
-  Source: external_input_params in Jelly.constructor
-  Sink: tainted_erc20_transfer in Jelly._mint
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_vault,_initialSupply)
-
-Path #4:
+Path #2:
   Source: external_input_params in ERC20.transferFrom
   Sink: tainted_erc20_transfer in ERC20._transfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #3:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #4:
+  Source: external_input_params in Jelly.constructor
+  Sink: tainted_erc20_transfer in Jelly._mint
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_vault,_initialSupply)
 
 Path #5:
   Source: external_input_params in ERC20.transfer
@@ -439,18 +440,17 @@ Path #5:
     1. transfer
 
 Path #6:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #7:
   Source: external_input_params in Jelly.constructor
   Sink: tainted_erc20_transfer in Jelly._mint
   Path Operations:
     1. constructor
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(_vault,_initialSupply)
+
+Path #7:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
 
 Path #8:
   Source: external_input_params in Jelly.burnFrom

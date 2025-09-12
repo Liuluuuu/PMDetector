@@ -260,16 +260,16 @@ Sink #4: tainted_erc20_transfer
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in EPNS.transfer
-  Sink: tainted_erc20_transfer in EPNS.transfer
-  Path Operations:
-    1. transfer
-
-Path #2:
   Source: external_input_params in EPNS.transferFrom
   Sink: tainted_erc20_transfer in EPNS.transferFrom
   Path Operations:
     1. transferFrom
+
+Path #2:
+  Source: external_input_params in EPNS.transfer
+  Sink: tainted_erc20_transfer in EPNS.transfer
+  Path Operations:
+    1. transfer
 
 Path #3:
   Source: external_input_params in EPNS.delegateBySig

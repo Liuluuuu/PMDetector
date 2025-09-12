@@ -217,10 +217,10 @@ Path #1:
     2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
 
 Path #2:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
   Path Operations:
-    1. transferFrom
+    1. transfer
 
 Path #3:
   Source: external_input_params in ERC20Snapshot.balanceOfAt
@@ -232,7 +232,7 @@ Path #3:
     4. REF_47(uint256[]) -> snapshots.ids
 
 Path #4:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
   Path Operations:
-    1. transfer
+    1. transferFrom

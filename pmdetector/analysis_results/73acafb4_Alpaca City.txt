@@ -242,34 +242,33 @@ Sink #20: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in AlpaToken.mint
-  Sink: tainted_erc20_transfer in AlpaToken._mint
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
   Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    1. increaseAllowance
+    2. REF_11(uint256) -> REF_10[spender]
 
 Path #2:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #3:
   Source: external_input_params in AlpaToken.mint
-  Sink: tainted_state_changing_external_call in AlpaToken._mint
+  Sink: tainted_state_changing_external_call in AlpaToken._burn
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
     3. TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_152(uint256)
 
-Path #3:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
-  Path Operations:
-    1. transfer
-
 Path #4:
-  Source: external_input_params in AlpaToken.mint
-  Sink: tainted_state_changing_external_call in AlpaToken._mint
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
   Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    3. REF_52(uint256) -> _balances[account]
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
 
 Path #5:
   Source: external_input_params in ERC20.transferFrom
@@ -281,7 +280,7 @@ Path #5:
 
 Path #6:
   Source: external_input_params in AlpaToken.mint
-  Sink: tainted_state_changing_external_call in AlpaToken._burn
+  Sink: tainted_state_changing_external_call in AlpaToken._mint
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
@@ -296,6 +295,21 @@ Path #7:
     2. REF_14(uint256) -> REF_13[spender]
 
 Path #8:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_7(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_8(uint256) -> REF_7[TMP_47]
+
+Path #9:
+  Source: external_input_params in AlpaToken.mint
+  Sink: tainted_erc20_transfer in AlpaToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+
+Path #10:
   Source: external_input_params in ERC20.transfer
   Sink: tainted_state_changing_external_call in ERC20._transfer
   Path Operations:
@@ -303,23 +317,9 @@ Path #8:
     2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_41,recipient,amount)
     3. REF_20(uint256) -> _balances[recipient]
 
-Path #9:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #10:
-  Source: external_input_params in ERC20.increaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_11(uint256) -> REF_10[spender]
-
 Path #11:
   Source: external_input_params in AlpaToken.mint
-  Sink: tainted_state_changing_external_call in ERC20._burn
+  Sink: tainted_state_changing_external_call in ERC20._mint
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
@@ -328,23 +328,23 @@ Path #11:
 
 Path #12:
   Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_7(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_8(uint256) -> REF_7[TMP_47]
-
-Path #13:
-  Source: external_input_params in ERC20.transferFrom
   Sink: tainted_erc20_transfer in ERC20.transferFrom
   Path Operations:
     1. transferFrom
 
-Path #14:
+Path #13:
   Source: external_input_params in AlpaToken.mint
-  Sink: tainted_state_changing_external_call in ERC20._mint
+  Sink: tainted_state_changing_external_call in ERC20._burn
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
     3. TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_152(uint256)
+
+Path #14:
+  Source: external_input_params in AlpaToken.mint
+  Sink: tainted_state_changing_external_call in AlpaToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. REF_52(uint256) -> _balances[account]

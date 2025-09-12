@@ -2,40 +2,24 @@
 Found 8 tainted paths.
 
 ## Path #1
-Source: external_input_params in SynLevToken.transferFrom
-Sink: tainted_state_changing_external_call in SynLevToken._transfer
+Source: external_input_params in SynLevToken.transfer
+Sink: tainted_erc20_transfer in SynLevToken.transfer
 
 ### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [148, 149, 150, 151, 152]
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [134, 135, 136, 137]
     LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, SynLevToken._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [149]
-    LNE: _transfer(sender,recipient,amount)
-
-    IR:  REF_16(uint256) -> _balances[sender]
-    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [170]
-    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
 
 ----------------------------------------
 
 ## Path #2
 Source: external_input_params in SynLevToken.transferFrom
-Sink: tainted_state_changing_external_call in SynLevToken.transferFrom
+Sink: tainted_erc20_transfer in SynLevToken.transferFrom
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [148, 149, 150, 151, 152]
     LNE: (No direct expression available)
-
-    IR:  REF_6(mapping(address => uint256)) -> _allowances[sender]
-    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [150]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
-
-    IR:  REF_7(uint256) -> REF_6[TMP_43]
-    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [150]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
 
 ----------------------------------------
 
@@ -55,13 +39,17 @@ Sink: tainted_state_changing_external_call in SynLevToken.decreaseAllowance
 ----------------------------------------
 
 ## Path #4
-Source: external_input_params in SynLevToken.transfer
-Sink: tainted_erc20_transfer in SynLevToken.transfer
+Source: external_input_params in SynLevToken.transferFrom
+Sink: tainted_erc20_transfer in SynLevToken._transfer
 
 ### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [134, 135, 136, 137]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [148, 149, 150, 151, 152]
     LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, SynLevToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [149]
+    LNE: _transfer(sender,recipient,amount)
 
 ----------------------------------------
 
@@ -85,32 +73,6 @@ Sink: tainted_state_changing_external_call in SynLevToken._transfer
 ----------------------------------------
 
 ## Path #6
-Source: external_input_params in SynLevToken.transferFrom
-Sink: tainted_erc20_transfer in SynLevToken.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [148, 149, 150, 151, 152]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #7
-Source: external_input_params in SynLevToken.transferFrom
-Sink: tainted_erc20_transfer in SynLevToken._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [148, 149, 150, 151, 152]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, SynLevToken._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [149]
-    LNE: _transfer(sender,recipient,amount)
-
-----------------------------------------
-
-## Path #8
 Source: external_input_params in SynLevToken.increaseAllowance
 Sink: tainted_state_changing_external_call in SynLevToken.increaseAllowance
 
@@ -122,5 +84,43 @@ Sink: tainted_state_changing_external_call in SynLevToken.increaseAllowance
     IR:  REF_10(uint256) -> REF_9[spender]
     SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [155]
     LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in SynLevToken.transferFrom
+Sink: tainted_state_changing_external_call in SynLevToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [148, 149, 150, 151, 152]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, SynLevToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [149]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_16(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [170]
+    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in SynLevToken.transferFrom
+Sink: tainted_state_changing_external_call in SynLevToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [148, 149, 150, 151, 152]
+    LNE: (No direct expression available)
+
+    IR:  REF_6(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [150]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_7(uint256) -> REF_6[TMP_43]
+    SRC: File 'pmdetector/flattened_contracts/243d8ca0_SynLev/flattened.sol', Lines [150]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
 
 ----------------------------------------

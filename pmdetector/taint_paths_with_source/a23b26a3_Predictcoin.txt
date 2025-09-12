@@ -2,17 +2,6 @@
 Found 12 tainted paths.
 
 ## Path #1
-Source: external_input_params in Predictcoin.transferFrom
-Sink: tainted_erc20_transfer in Predictcoin.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [436, 437, 438, 439, 440]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #2
 Source: external_input_params in Predictcoin.burn
 Sink: tainted_state_changing_external_call in Predictcoin._burn
 
@@ -25,13 +14,16 @@ Sink: tainted_state_changing_external_call in Predictcoin._burn
     SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [482]
     LNE: _burn(_msgSender(),amount)
 
-    IR:  TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [524]
-    LNE: _totalSupply = _totalSupply.sub(amount)
+----------------------------------------
 
-    IR:  _totalSupply(uint256) := TMP_77(uint256)
-    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [524]
-    LNE: _totalSupply = _totalSupply.sub(amount)
+## Path #2
+Source: external_input_params in Predictcoin.transfer
+Sink: tainted_erc20_transfer in Predictcoin.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [400, 401, 402, 403]
+    LNE: (No direct expression available)
 
 ----------------------------------------
 
@@ -55,21 +47,28 @@ Sink: tainted_state_changing_external_call in Predictcoin.transferFrom
 ----------------------------------------
 
 ## Path #4
-Source: external_input_params in Predictcoin.burn
-Sink: tainted_state_changing_external_call in Predictcoin._burn
+Source: external_input_params in Predictcoin.transferFrom
+Sink: tainted_erc20_transfer in Predictcoin.transferFrom
 
 ### Operations with Source Code Mapping:
-    IR:  burn
-    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [481, 482, 483, 484]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [436, 437, 438, 439, 440]
     LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Predictcoin._burn(address,uint256)(TMP_62,amount)
-    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [482]
-    LNE: _burn(_msgSender(),amount)
 
 ----------------------------------------
 
 ## Path #5
+Source: external_input_params in Ownable.transferOwnership
+Sink: tainted_erc20_transfer in Ownable.transferOwnership
+
+### Operations with Source Code Mapping:
+    IR:  transferOwnership
+    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [314, 315, 316]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #6
 Source: external_input_params in Predictcoin._burnFrom
 Sink: tainted_state_changing_external_call in Predictcoin._burnFrom
 
@@ -88,7 +87,7 @@ Sink: tainted_state_changing_external_call in Predictcoin._burnFrom
 
 ----------------------------------------
 
-## Path #6
+## Path #7
 Source: external_input_params in Predictcoin._burnFrom
 Sink: tainted_state_changing_external_call in Predictcoin._burn
 
@@ -107,7 +106,7 @@ Sink: tainted_state_changing_external_call in Predictcoin._burn
 
 ----------------------------------------
 
-## Path #7
+## Path #8
 Source: external_input_params in Predictcoin.transferFrom
 Sink: tainted_state_changing_external_call in Predictcoin._transfer
 
@@ -126,7 +125,60 @@ Sink: tainted_state_changing_external_call in Predictcoin._transfer
 
 ----------------------------------------
 
-## Path #8
+## Path #9
+Source: external_input_params in Predictcoin.increaseAllowance
+Sink: tainted_state_changing_external_call in Predictcoin.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [454, 455, 456, 457]
+    LNE: (No direct expression available)
+
+    IR:  REF_8(uint256) -> REF_7[spender]
+    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [455]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in Predictcoin.burn
+Sink: tainted_state_changing_external_call in Predictcoin._burn
+
+### Operations with Source Code Mapping:
+    IR:  burn
+    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [481, 482, 483, 484]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Predictcoin._burn(address,uint256)(TMP_62,amount)
+    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [482]
+    LNE: _burn(_msgSender(),amount)
+
+    IR:  TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [524]
+    LNE: _totalSupply = _totalSupply.sub(amount)
+
+    IR:  _totalSupply(uint256) := TMP_77(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [524]
+    LNE: _totalSupply = _totalSupply.sub(amount)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in Predictcoin.decreaseAllowance
+Sink: tainted_state_changing_external_call in Predictcoin.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [473, 474, 475, 476]
+    LNE: (No direct expression available)
+
+    IR:  REF_11(uint256) -> REF_10[spender]
+    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [474]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,BEP20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #12
 Source: external_input_params in Predictcoin.transfer
 Sink: tainted_state_changing_external_call in Predictcoin._transfer
 
@@ -142,57 +194,5 @@ Sink: tainted_state_changing_external_call in Predictcoin._transfer
     IR:  REF_17(uint256) -> _balances[recipient]
     SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [505]
     LNE: _balances[recipient] = _balances[recipient].add(amount)
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in Predictcoin.transfer
-Sink: tainted_erc20_transfer in Predictcoin.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [400, 401, 402, 403]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #10
-Source: external_input_params in Predictcoin.increaseAllowance
-Sink: tainted_state_changing_external_call in Predictcoin.increaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  increaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [454, 455, 456, 457]
-    LNE: (No direct expression available)
-
-    IR:  REF_8(uint256) -> REF_7[spender]
-    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [455]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
-
-----------------------------------------
-
-## Path #11
-Source: external_input_params in Ownable.transferOwnership
-Sink: tainted_erc20_transfer in Ownable.transferOwnership
-
-### Operations with Source Code Mapping:
-    IR:  transferOwnership
-    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [314, 315, 316]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #12
-Source: external_input_params in Predictcoin.decreaseAllowance
-Sink: tainted_state_changing_external_call in Predictcoin.decreaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  decreaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [473, 474, 475, 476]
-    LNE: (No direct expression available)
-
-    IR:  REF_11(uint256) -> REF_10[spender]
-    SRC: File 'pmdetector/flattened_contracts/a23b26a3_Predictcoin/flattened.sol', Lines [474]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,BEP20: decreased allowance below zero))
 
 ----------------------------------------

@@ -200,18 +200,18 @@ Sink #7: tainted_erc20_transfer
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #2:
   Source: external_input_params in TokenCDS.mint
   Sink: tainted_erc20_transfer in TokenCDS._mint
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20Capped._mint(address,uint256)(to,amount)
     3. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
-
-Path #2:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
-  Path Operations:
-    1. transfer
 
 Path #3:
   Source: external_input_params in ERC20.transferFrom
@@ -221,14 +221,14 @@ Path #3:
     2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
 
 Path #4:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #5:
   Source: external_input_params in TokenCDS.burnFrom
   Sink: tainted_erc20_transfer in TokenCDS._burn
   Path Operations:
     1. burnFrom
     2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+
+Path #5:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom

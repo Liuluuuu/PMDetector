@@ -240,26 +240,23 @@ Sink #15: tainted_state_changing_external_call
 === Tainted Paths ===
 Path #1:
   Source: external_input_params in CToken.transferFrom
+  Sink: tainted_erc20_transfer in CToken.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #2:
+  Source: external_input_params in CToken.transferFrom
   Sink: tainted_erc20_transfer in CToken.transferTokens
   Path Operations:
     1. transferFrom
     2. TMP_167(uint256) = INTERNAL_CALL, CToken.transferTokens(address,address,address,uint256)(msg.sender,src,dst,amount)
 
-Path #2:
+Path #3:
   Source: external_input_params in CToken.transferFrom
-  Sink: tainted_erc20_transfer in CToken.transferFrom
+  Sink: tainted_erc20_transfer in CToken.transferTokens
   Path Operations:
     1. transferFrom
-
-Path #3:
-  Source: external_input_params in CToken._reduceReserves
-  Sink: tainted_state_changing_external_call in CToken.supplyRatePerBlock
-  Path Operations:
-    1. _reduceReserves
-    2. TMP_537(uint256) = INTERNAL_CALL, CToken._reduceReservesFresh(uint256)(reduceAmount)
-    3. TMP_549(uint256) = totalReserves - reduceAmount
-    4. totalReservesNew(uint256) := TMP_549(uint256)
-    5. totalReserves(uint256) := totalReservesNew(uint256)
+    2. TMP_167(uint256) = INTERNAL_CALL, CToken.transferTokens(address,address,address,uint256)(msg.sender,src,dst,amount)
 
 Path #4:
   Source: external_input_params in CToken.transfer
@@ -268,22 +265,22 @@ Path #4:
     1. transfer
 
 Path #5:
-  Source: external_input_params in CToken._setComptroller
-  Sink: tainted_state_changing_external_call in CToken.liquidateBorrowFresh
+  Source: external_input_params in CToken._setPendingAdmin
+  Sink: tainted_erc20_transfer in CToken._reduceReservesFresh
   Path Operations:
-    1. _setComptroller
-    2. comptroller(ComptrollerInterface) := newComptroller(ComptrollerInterface)
-    3. TUPLE_84(uint256,uint256) = HIGH_LEVEL_CALL, dest:comptroller(ComptrollerInterface), function:liquidateCalculateSeizeTokens, arguments:['TMP_458', 'TMP_459', 'repayAmount']  
-    4. seizeTokens(uint256)= UNPACK TUPLE_84 index: 1 
+    1. _setPendingAdmin
+    2. pendingAdmin(address) := newPendingAdmin(address)
+    3. admin(address) := pendingAdmin(address)
 
 Path #6:
-  Source: external_input_params in CToken._setComptroller
-  Sink: tainted_state_changing_external_call in CToken.liquidateBorrowFresh
+  Source: external_input_params in CToken._reduceReserves
+  Sink: tainted_state_changing_external_call in CToken.supplyRatePerBlock
   Path Operations:
-    1. _setComptroller
-    2. comptroller(ComptrollerInterface) := newComptroller(ComptrollerInterface)
-    3. TUPLE_84(uint256,uint256) = HIGH_LEVEL_CALL, dest:comptroller(ComptrollerInterface), function:liquidateCalculateSeizeTokens, arguments:['TMP_458', 'TMP_459', 'repayAmount']  
-    4. seizeTokens(uint256)= UNPACK TUPLE_84 index: 1 
+    1. _reduceReserves
+    2. TMP_537(uint256) = INTERNAL_CALL, CToken._reduceReservesFresh(uint256)(reduceAmount)
+    3. TMP_549(uint256) = totalReserves - reduceAmount
+    4. totalReservesNew(uint256) := TMP_549(uint256)
+    5. totalReserves(uint256) := totalReservesNew(uint256)
 
 Path #7:
   Source: external_input_params in CToken._reduceReserves
@@ -296,6 +293,30 @@ Path #7:
     5. totalReserves(uint256) := totalReservesNew(uint256)
 
 Path #8:
+  Source: external_input_params in CToken._setComptroller
+  Sink: tainted_state_changing_external_call in CToken.liquidateBorrowFresh
+  Path Operations:
+    1. _setComptroller
+    2. comptroller(ComptrollerInterface) := newComptroller(ComptrollerInterface)
+    3. TUPLE_84(uint256,uint256) = HIGH_LEVEL_CALL, dest:comptroller(ComptrollerInterface), function:liquidateCalculateSeizeTokens, arguments:['TMP_458', 'TMP_459', 'repayAmount']  
+    4. seizeTokens(uint256)= UNPACK TUPLE_84 index: 1 
+
+Path #9:
+  Source: external_input_params in CToken.seize
+  Sink: tainted_state_changing_external_call in CToken.seize
+  Path Operations:
+    1. seize
+
+Path #10:
+  Source: external_input_params in CToken._setComptroller
+  Sink: tainted_state_changing_external_call in CToken.liquidateBorrowFresh
+  Path Operations:
+    1. _setComptroller
+    2. comptroller(ComptrollerInterface) := newComptroller(ComptrollerInterface)
+    3. TUPLE_84(uint256,uint256) = HIGH_LEVEL_CALL, dest:comptroller(ComptrollerInterface), function:liquidateCalculateSeizeTokens, arguments:['TMP_458', 'TMP_459', 'repayAmount']  
+    4. seizeTokens(uint256)= UNPACK TUPLE_84 index: 1 
+
+Path #11:
   Source: external_input_params in CToken._reduceReserves
   Sink: tainted_state_changing_external_call in CToken.accrueInterest
   Path Operations:
@@ -304,27 +325,6 @@ Path #8:
     3. TMP_549(uint256) = totalReserves - reduceAmount
     4. totalReservesNew(uint256) := TMP_549(uint256)
     5. totalReserves(uint256) := totalReservesNew(uint256)
-
-Path #9:
-  Source: external_input_params in CToken._setPendingAdmin
-  Sink: tainted_erc20_transfer in CToken._reduceReservesFresh
-  Path Operations:
-    1. _setPendingAdmin
-    2. pendingAdmin(address) := newPendingAdmin(address)
-    3. admin(address) := pendingAdmin(address)
-
-Path #10:
-  Source: external_input_params in CToken.transferFrom
-  Sink: tainted_erc20_transfer in CToken.transferTokens
-  Path Operations:
-    1. transferFrom
-    2. TMP_167(uint256) = INTERNAL_CALL, CToken.transferTokens(address,address,address,uint256)(msg.sender,src,dst,amount)
-
-Path #11:
-  Source: external_input_params in CToken.seize
-  Sink: tainted_state_changing_external_call in CToken.seize
-  Path Operations:
-    1. seize
 
 Path #12:
   Source: external_input_params in CToken.seize

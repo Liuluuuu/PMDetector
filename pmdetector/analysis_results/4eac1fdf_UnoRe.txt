@@ -733,32 +733,36 @@ Sink #81: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in MinterRole.isMinter
-  Sink: tainted_state_changing_external_call in MinterRole.isMinter
-  Path Operations:
-    1. isMinter
-
-Path #2:
   Source: external_input_params in ERC20Mintable.mint
-  Sink: tainted_state_changing_external_call in ERC20._burn
+  Sink: tainted_state_changing_external_call in ERC20Burnable._burn
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
     3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_134(uint256)
 
-Path #3:
-  Source: external_input_params in MinterRole.addMinter
-  Sink: tainted_state_changing_external_call in MinterRole._addMinter
+Path #2:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20._transfer
   Path Operations:
-    1. addMinter
-    2. INTERNAL_CALL, MinterRole._addMinter(address)(account)
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_13(uint256) -> _balances[sender]
+
+Path #3:
+  Source: external_input_params in ERC20Mintable.mint
+  Sink: tainted_state_changing_external_call in ERC20Capped._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
+    3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_134(uint256)
 
 Path #4:
-  Source: external_input_params in Ownable.transferOwnership
-  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Source: external_input_params in UnoRe.recoverToken
+  Sink: tainted_erc20_transfer in UnoRe.recoverToken
   Path Operations:
-    1. transferOwnership
+    1. recoverToken
 
 Path #5:
   Source: external_input_params in ERC20Mintable.mint
@@ -771,6 +775,29 @@ Path #5:
 
 Path #6:
   Source: external_input_params in ERC20Mintable.mint
+  Sink: tainted_state_changing_external_call in ERC20Pausable._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
+    3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_134(uint256)
+
+Path #7:
+  Source: external_input_params in ERC20Burnable.burn
+  Sink: tainted_state_changing_external_call in ERC20Burnable._burn
+  Path Operations:
+    1. burn
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(TMP_214,amount)
+
+Path #8:
+  Source: external_input_params in MinterRole.addMinter
+  Sink: tainted_state_changing_external_call in MinterRole._addMinter
+  Path Operations:
+    1. addMinter
+    2. INTERNAL_CALL, MinterRole._addMinter(address)(account)
+
+Path #9:
+  Source: external_input_params in ERC20Mintable.mint
   Sink: tainted_state_changing_external_call in ERC20Capped._mint
   Path Operations:
     1. mint
@@ -779,60 +806,36 @@ Path #6:
     4. _totalSupply(uint256) := TMP_134(uint256)
     5. TMP_427(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
 
-Path #7:
-  Source: external_input_params in ERC20Mintable.mint
-  Sink: tainted_state_changing_external_call in ERC20Mintable._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
-    3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_134(uint256)
-
-Path #8:
-  Source: external_input_params in PauserRole.addPauser
-  Sink: tainted_state_changing_external_call in PauserRole._addPauser
-  Path Operations:
-    1. addPauser
-    2. INTERNAL_CALL, PauserRole._addPauser(address)(account)
-
-Path #9:
-  Source: external_input_params in ERC20Burnable.burnFrom
-  Sink: tainted_state_changing_external_call in ERC20Burnable._burnFrom
-  Path Operations:
-    1. burnFrom
-    2. INTERNAL_CALL, ERC20._burnFrom(address,uint256)(account,amount)
-    3. REF_102(mapping(address => uint256)) -> _allowances[account]
-    4. REF_103(uint256) -> REF_102[TMP_211]
-
 Path #10:
-  Source: external_input_params in ERC20Burnable.burn
-  Sink: tainted_state_changing_external_call in ERC20Burnable._burn
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
   Path Operations:
-    1. burn
-    2. INTERNAL_CALL, ERC20._burn(address,uint256)(TMP_214,amount)
+    1. transferFrom
+    2. REF_3(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_4(uint256) -> REF_3[TMP_26]
 
 Path #11:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_state_changing_external_call in ERC20._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_20,recipient,amount)
-    3. REF_16(uint256) -> _balances[recipient]
-
-Path #12:
   Source: external_input_params in ERC20Mintable.mint
-  Sink: tainted_state_changing_external_call in ERC20Burnable._burn
+  Sink: tainted_state_changing_external_call in ERC20Capped._mint
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
     3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_134(uint256)
 
-Path #13:
-  Source: external_input_params in ERC20Pausable.transfer
-  Sink: tainted_erc20_transfer in ERC20Pausable.transfer
+Path #12:
+  Source: external_input_params in MinterRole.renounceMinter
+  Sink: tainted_erc20_transfer in MinterRole._removeMinter
   Path Operations:
-    1. transfer
+    1. renounceMinter
+    2. INTERNAL_CALL, MinterRole._removeMinter(address)(account)
+
+Path #13:
+  Source: external_input_params in ERC20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_10(uint256) -> REF_9[spender]
 
 Path #14:
   Source: external_input_params in ERC20Mintable.mint
@@ -844,29 +847,76 @@ Path #14:
     4. _totalSupply(uint256) := TMP_134(uint256)
 
 Path #15:
-  Source: external_input_params in UnoRe.recoverToken
-  Sink: tainted_erc20_transfer in UnoRe.recoverToken
-  Path Operations:
-    1. recoverToken
-
-Path #16:
   Source: external_input_params in ERC20Mintable.mint
-  Sink: tainted_state_changing_external_call in ERC20Mintable._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
-    3. REF_63(uint256) -> _balances[account]
-
-Path #17:
-  Source: external_input_params in ERC20Mintable.mint
-  Sink: tainted_state_changing_external_call in ERC20Pausable._mint
+  Sink: tainted_state_changing_external_call in ERC20._burn
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
     3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_134(uint256)
 
+Path #16:
+  Source: external_input_params in ERC20Pausable.transfer
+  Sink: tainted_erc20_transfer in ERC20Pausable.transfer
+  Path Operations:
+    1. transfer
+
+Path #17:
+  Source: external_input_params in MinterRole.isMinter
+  Sink: tainted_state_changing_external_call in MinterRole.isMinter
+  Path Operations:
+    1. isMinter
+
 Path #18:
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_7(uint256) -> REF_6[spender]
+
+Path #19:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #20:
+  Source: external_input_params in PauserRole.isPauser
+  Sink: tainted_state_changing_external_call in PauserRole.isPauser
+  Path Operations:
+    1. isPauser
+
+Path #21:
+  Source: external_input_params in ERC20Mintable.mint
+  Sink: tainted_state_changing_external_call in ERC20Mintable._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
+    3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_134(uint256)
+
+Path #22:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #23:
+  Source: external_input_params in ERC20Pausable.transferFrom
+  Sink: tainted_erc20_transfer in ERC20Pausable.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #24:
+  Source: external_input_params in ERC20Mintable.mint
+  Sink: tainted_state_changing_external_call in ERC20Mintable._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
+    3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_134(uint256)
+
+Path #25:
   Source: external_input_params in ERC20Burnable.burnFrom
   Sink: tainted_state_changing_external_call in ERC20Burnable._burn
   Path Operations:
@@ -875,39 +925,62 @@ Path #18:
     3. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
     4. REF_97(uint256) -> _balances[account]
 
-Path #19:
+Path #26:
   Source: external_input_params in ERC20Mintable.mint
-  Sink: tainted_state_changing_external_call in ERC20Capped._burn
+  Sink: tainted_state_changing_external_call in ERC20Mintable._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
+    3. REF_63(uint256) -> _balances[account]
+
+Path #27:
+  Source: external_input_params in ERC20Mintable.mint
+  Sink: tainted_state_changing_external_call in ERC20Pausable._mint
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
     3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_134(uint256)
 
-Path #20:
+Path #28:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_state_changing_external_call in ERC20Burnable._burnFrom
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burnFrom(address,uint256)(account,amount)
+    3. REF_102(mapping(address => uint256)) -> _allowances[account]
+    4. REF_103(uint256) -> REF_102[TMP_211]
+
+Path #29:
   Source: external_input_params in ERC20Mintable.mint
-  Sink: tainted_state_changing_external_call in UnoRe._burn
+  Sink: tainted_state_changing_external_call in ERC20._mint
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
     3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_134(uint256)
 
-Path #21:
-  Source: external_input_params in ERC20.transferFrom
+Path #30:
+  Source: external_input_params in MinterRole.renounceMinter
+  Sink: tainted_erc20_transfer in MinterRole.renounceMinter
+  Path Operations:
+    1. renounceMinter
+
+Path #31:
+  Source: external_input_params in ERC20.transfer
   Sink: tainted_state_changing_external_call in ERC20._transfer
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_13(uint256) -> _balances[sender]
+    1. transfer
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_20,recipient,amount)
+    3. REF_16(uint256) -> _balances[recipient]
 
-Path #22:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
+Path #32:
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
   Path Operations:
-    1. transferFrom
+    1. transferOwnership
 
-Path #23:
+Path #33:
   Source: external_input_params in ERC20Mintable.mint
   Sink: tainted_state_changing_external_call in UnoRe._mint
   Path Operations:
@@ -917,80 +990,9 @@ Path #23:
     4. _totalSupply(uint256) := TMP_134(uint256)
     5. TMP_437(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
 
-Path #24:
-  Source: external_input_params in ERC20Mintable.mint
-  Sink: tainted_state_changing_external_call in ERC20._mint
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
-    3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_134(uint256)
-
-Path #25:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
-  Path Operations:
-    1. transfer
-
-Path #26:
-  Source: external_input_params in ERC20.increaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_7(uint256) -> REF_6[spender]
-
-Path #27:
-  Source: external_input_params in ERC20Mintable.mint
-  Sink: tainted_state_changing_external_call in ERC20Mintable._burn
-  Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
-    3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_134(uint256)
-
-Path #28:
-  Source: external_input_params in MinterRole.renounceMinter
-  Sink: tainted_erc20_transfer in MinterRole.renounceMinter
-  Path Operations:
-    1. renounceMinter
-
-Path #29:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_3(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_4(uint256) -> REF_3[TMP_26]
-
-Path #30:
-  Source: external_input_params in PauserRole.isPauser
-  Sink: tainted_state_changing_external_call in PauserRole.isPauser
-  Path Operations:
-    1. isPauser
-
-Path #31:
-  Source: external_input_params in ERC20.decreaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_10(uint256) -> REF_9[spender]
-
-Path #32:
-  Source: external_input_params in MinterRole.renounceMinter
-  Sink: tainted_erc20_transfer in MinterRole._removeMinter
-  Path Operations:
-    1. renounceMinter
-    2. INTERNAL_CALL, MinterRole._removeMinter(address)(account)
-
-Path #33:
-  Source: external_input_params in ERC20Pausable.transferFrom
-  Sink: tainted_erc20_transfer in ERC20Pausable.transferFrom
-  Path Operations:
-    1. transferFrom
-
 Path #34:
   Source: external_input_params in ERC20Mintable.mint
-  Sink: tainted_state_changing_external_call in ERC20Pausable._burn
+  Sink: tainted_state_changing_external_call in UnoRe._burn
   Path Operations:
     1. mint
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
@@ -998,10 +1000,8 @@ Path #34:
     4. _totalSupply(uint256) := TMP_134(uint256)
 
 Path #35:
-  Source: external_input_params in ERC20Mintable.mint
-  Sink: tainted_state_changing_external_call in ERC20Capped._mint
+  Source: external_input_params in PauserRole.addPauser
+  Sink: tainted_state_changing_external_call in PauserRole._addPauser
   Path Operations:
-    1. mint
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
-    3. TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_134(uint256)
+    1. addPauser
+    2. INTERNAL_CALL, PauserRole._addPauser(address)(account)

@@ -803,38 +803,15 @@ Sink #97: tainted_erc20_transfer
 === Tainted Paths ===
 Path #1:
   Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSupply
   Path Operations:
     1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-    6. TMP_441(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyBackReserve', '1000000000000000000'] 
+    2. INTERNAL_CALL, LifeProtocolContract.buyFromSupply(address,uint256)(msg.sender,lifeTokenAmount)
+    3. TMP_347(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'currentPrice'] 
 
 Path #2:
-  Source: external_input_params in LifeProtocolContract.sell
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. sell
-    2. TMP_305(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['queueSupply', 'amount'] 
-    3. queueSupply(uint256) := TMP_305(uint256)
-
-Path #3:
-  Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyBack
-  Path Operations:
-    1. cancelSellOrder
-    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
-    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
-    4. REF_135(bytes32) -> order.next
-    5. currentSellOrderId(bytes32) := REF_135(bytes32)
-    6. REF_53(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
-    7. REF_54(uint256) -> REF_53.amount
-
-Path #4:
   Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buy
   Path Operations:
     1. buy
     2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
@@ -842,7 +819,7 @@ Path #4:
     4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
     5. buyBackReserve(uint256) := TMP_239(uint256)
 
-Path #5:
+Path #3:
   Source: external_input_params in LifeProtocolContract.cancelSellOrder
   Sink: tainted_erc20_transfer in LifeProtocolContract.resolveBuyback
   Path Operations:
@@ -855,14 +832,26 @@ Path #5:
     7. order(LifeProtocolContract.SellOrder) := REF_59(LifeProtocolContract.SellOrder)
     8. REF_71(address) -> order.seller
 
-Path #6:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+Path #4:
+  Source: external_input_params in LifeProtocolContract.referredBuy
+  Sink: tainted_erc20_transfer in LifeProtocolContract.buyFromSellOrders
   Path Operations:
-    1. buy
-    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
-    3. deficit(uint256) := TMP_247(uint256)
-    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
+    1. referredBuy
+    2. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(_user,deficit)
+
+Path #5:
+  Source: external_input_params in LifeToken.constructor
+  Sink: tainted_erc20_transfer in LifeToken.constructor
+  Path Operations:
+    1. constructor
+
+Path #6:
+  Source: external_input_params in LifeProtocolContract.sell
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
+  Path Operations:
+    1. sell
+    2. TMP_305(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['queueSupply', 'amount'] 
+    3. queueSupply(uint256) := TMP_305(uint256)
 
 Path #7:
   Source: external_input_params in LifeProtocolContract.buy
@@ -873,16 +862,24 @@ Path #7:
     3. totalUsdtCost(uint256) := TMP_234(uint256)
     4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
     5. buyBackReserve(uint256) := TMP_239(uint256)
+    6. TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyBackReserve', '1000000000000000000'] 
+    7. TMP_432(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_431', 'circulatingSupply'] 
+    8. newPrice(uint256) := TMP_432(uint256)
+    9. currentPrice(uint256) := newPrice(uint256)
 
 Path #8:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_erc20_transfer in LifeProtocolContract.buy
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
   Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    1. transferOwnership
 
 Path #9:
+  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
+  Path Operations:
+    1. calculatePriceIncrease
+
+Path #10:
   Source: external_input_params in LifeProtocolContract.sell
   Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
   Path Operations:
@@ -890,7 +887,166 @@ Path #9:
     2. TMP_305(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['queueSupply', 'amount'] 
     3. queueSupply(uint256) := TMP_305(uint256)
 
-Path #10:
+Path #11:
+  Source: external_input_params in LifeToken.constructor
+  Sink: tainted_erc20_transfer in LifeToken.constructor
+  Path Operations:
+    1. constructor
+
+Path #12:
+  Source: external_input_params in LifeProtocolContract.sell
+  Sink: tainted_erc20_transfer in LifeProtocolContract.sell
+  Path Operations:
+    1. sell
+
+Path #13:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_erc20_transfer in LifeProtocolContract.buy
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+
+Path #14:
+  Source: external_input_params in LifeProtocolContract.constructor
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
+  Path Operations:
+    1. constructor
+    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
+    3. lifeToken(LifeToken) := TMP_229(LifeToken)
+    4. TMP_434(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
+    5. TMP_437(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_434', 'TMP_436'] 
+    6. circulatingSupply(uint256) := TMP_437(uint256)
+    7. TMP_438(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['circulatingSupply', 'currentPrice'] 
+
+Path #15:
+  Source: external_input_params in LifeProtocolContract.constructor
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buy
+  Path Operations:
+    1. constructor
+    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
+    3. lifeToken(LifeToken) := TMP_229(LifeToken)
+    4. TMP_244(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:balanceOf, arguments:['TMP_243']  
+    5. contractTokenBalance(uint256) := TMP_244(uint256)
+
+Path #16:
+  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
+  Path Operations:
+    1. calculatePriceIncrease
+    2. TMP_392(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['transactionValue', '2'] 
+
+Path #17:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buy
+  Path Operations:
+    1. buy
+
+Path #18:
+  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
+  Path Operations:
+    1. calculatePriceIncrease
+    2. TMP_388(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['transactionValue', '2'] 
+
+Path #19:
+  Source: external_input_params in LifeProtocolContract.referredBuy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculateTokenAmount
+  Path Operations:
+    1. referredBuy
+    2. TMP_258(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_usdtAmount', '_usdtDiscount'] 
+    3. totalUsdtAmount(uint256) := TMP_258(uint256)
+    4. TMP_259(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTokenAmount(uint256)(totalUsdtAmount)
+
+Path #20:
+  Source: external_input_params in LifeProtocolContract.constructor
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.handle_Ratio
+  Path Operations:
+    1. constructor
+    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
+    3. lifeToken(LifeToken) := TMP_229(LifeToken)
+    4. TMP_424(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
+    5. TMP_427(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_424', 'TMP_426'] 
+    6. circulatingSupply(uint256) := TMP_427(uint256)
+
+Path #21:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. buy
+    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
+    3. deficit(uint256) := TMP_247(uint256)
+    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
+
+Path #22:
+  Source: external_input_params in LifeProtocolContract.cancelSellOrder
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyBack
+  Path Operations:
+    1. cancelSellOrder
+    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
+    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
+    4. REF_135(bytes32) -> order.next
+    5. currentSellOrderId(bytes32) := REF_135(bytes32)
+    6. REF_53(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
+    7. REF_54(uint256) -> REF_53.amount
+    8. TMP_321(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_54', 'REF_57'] 
+
+Path #23:
+  Source: external_input_params in LifeProtocolContract.cancelSellOrder
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
+  Path Operations:
+    1. cancelSellOrder
+    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
+    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
+    4. REF_135(bytes32) -> order.next
+    5. currentSellOrderId(bytes32) := REF_135(bytes32)
+    6. REF_59(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
+    7. order(LifeProtocolContract.SellOrder) := REF_59(LifeProtocolContract.SellOrder)
+    8. REF_60(uint256) -> order.amount
+    9. amount(uint256) := REF_60(uint256)
+
+Path #24:
+  Source: external_input_params in LifeProtocolContract.constructor
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
+  Path Operations:
+    1. constructor
+    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
+    3. lifeToken(LifeToken) := TMP_229(LifeToken)
+    4. TMP_434(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
+
+Path #25:
+  Source: external_input_params in LifeProtocolContract.sell
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
+  Path Operations:
+    1. sell
+
+Path #26:
+  Source: external_input_params in LifeProtocolContract.constructor
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
+  Path Operations:
+    1. constructor
+    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
+    3. lifeToken(LifeToken) := TMP_229(LifeToken)
+    4. TMP_434(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
+    5. TMP_437(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_434', 'TMP_436'] 
+    6. circulatingSupply(uint256) := TMP_437(uint256)
+
+Path #27:
+  Source: external_input_params in LifeProtocolContract.cancelSellOrder
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. cancelSellOrder
+    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
+    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
+    4. REF_135(bytes32) -> order.next
+    5. currentSellOrderId(bytes32) := REF_135(bytes32)
+    6. REF_83(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
+    7. order(LifeProtocolContract.SellOrder) := REF_83(LifeProtocolContract.SellOrder)
+    8. REF_85(uint256) -> order.amount
+    9. orderAmount(uint256) := REF_85(uint256)
+    10. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['orderAmount', 'REF_90'] 
+
+Path #28:
   Source: external_input_params in LifeProtocolContract.cancelSellOrder
   Sink: tainted_erc20_transfer in LifeProtocolContract.buyFromSellOrders
   Path Operations:
@@ -903,13 +1059,341 @@ Path #10:
     7. order(LifeProtocolContract.SellOrder) := REF_83(LifeProtocolContract.SellOrder)
     8. REF_93(address) -> order.seller
 
-Path #11:
+Path #29:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+
+Path #30:
+  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
+  Path Operations:
+    1. calculatePriceIncrease
+
+Path #31:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.referredBuy
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+
+Path #32:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+    6. TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyBackReserve', '1000000000000000000'] 
+    7. TMP_432(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_431', 'circulatingSupply'] 
+    8. newPrice(uint256) := TMP_432(uint256)
+    9. currentPrice(uint256) := newPrice(uint256)
+
+Path #33:
+  Source: external_input_params in LifeProtocolContract.sell
+  Sink: tainted_erc20_transfer in LifeProtocolContract.sell
+  Path Operations:
+    1. sell
+    2. TMP_284(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['sellPrice', 'amount'] 
+    3. TMP_285(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_284', '1000000000000000000'] 
+    4. requiredUSDT(uint256) := TMP_285(uint256)
+
+Path #34:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+
+Path #35:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. buy
+    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
+    3. deficit(uint256) := TMP_247(uint256)
+    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
+    5. remainingAmount(uint256) := amount(uint256)
+    6. TMP_372(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['remainingAmount', 'REF_106'] 
+
+Path #36:
+  Source: external_input_params in LifeProtocolContract.sell
+  Sink: tainted_erc20_transfer in LifeProtocolContract.sell
+  Path Operations:
+    1. sell
+
+Path #37:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.contributeToBuyBackReserveFromLife
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+
+Path #38:
+  Source: external_input_params in LifeProtocolContract.sell
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
+  Path Operations:
+    1. sell
+    2. TMP_305(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['queueSupply', 'amount'] 
+    3. queueSupply(uint256) := TMP_305(uint256)
+
+Path #39:
+  Source: external_input_params in LifeProtocolContract.referredBuy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.referredBuy
+  Path Operations:
+    1. referredBuy
+    2. TMP_258(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_usdtAmount', '_usdtDiscount'] 
+    3. totalUsdtAmount(uint256) := TMP_258(uint256)
+    4. TMP_259(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTokenAmount(uint256)(totalUsdtAmount)
+    5. totalLifeTokenAmount(uint256) := TMP_259(uint256)
+
+Path #40:
+  Source: external_input_params in LifeProtocolContract.referredBuy
+  Sink: tainted_erc20_transfer in LifeProtocolContract.buyFromSupply
+  Path Operations:
+    1. referredBuy
+    2. INTERNAL_CALL, LifeProtocolContract.buyFromSupply(address,uint256)(_user,totalLifeTokenAmount)
+
+Path #41:
+  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
+  Path Operations:
+    1. calculatePriceIncrease
+
+Path #42:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #43:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSupply
+  Path Operations:
+    1. buy
+    2. INTERNAL_CALL, LifeProtocolContract.buyFromSupply(address,uint256)(msg.sender,lifeTokenAmount)
+
+Path #44:
+  Source: external_input_params in LifeProtocolContract.sell
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. sell
+    2. TMP_305(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['queueSupply', 'amount'] 
+    3. queueSupply(uint256) := TMP_305(uint256)
+
+Path #45:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.contributeToBuyBackReserve
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+
+Path #46:
+  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
+  Path Operations:
+    1. calculatePriceIncrease
+
+Path #47:
+  Source: external_input_params in LifeProtocolContract.constructor
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSupply
+  Path Operations:
+    1. constructor
+    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
+    3. lifeToken(LifeToken) := TMP_229(LifeToken)
+    4. TMP_232(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:balanceOf, arguments:['TMP_231']  
+    5. remainingAmount(uint256) := TMP_232(uint256)
+    6. remainingSupply(uint256) := remainingAmount(uint256)
+
+Path #48:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.handle_Ratio
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+    6. TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyBackReserve', '1000000000000000000'] 
+
+Path #49:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+    6. TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyBackReserve', '1000000000000000000'] 
+    7. TMP_432(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_431', 'circulatingSupply'] 
+    8. newPrice(uint256) := TMP_432(uint256)
+    9. currentPrice(uint256) := newPrice(uint256)
+    10. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['currentPrice', '90'] 
+
+Path #50:
+  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
+  Path Operations:
+    1. calculatePriceIncrease
+    2. TMP_384(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['transactionValue', '1'] 
+
+Path #51:
+  Source: external_input_params in LifeProtocolContract.cancelSellOrder
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. cancelSellOrder
+    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
+    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
+    4. REF_135(bytes32) -> order.next
+    5. currentSellOrderId(bytes32) := REF_135(bytes32)
+    6. REF_83(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
+    7. order(LifeProtocolContract.SellOrder) := REF_83(LifeProtocolContract.SellOrder)
+    8. REF_102(uint256) -> order.amount
+
+Path #52:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #53:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+
+Path #54:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. buy
+    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
+    3. deficit(uint256) := TMP_247(uint256)
+    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
+    5. remainingAmount(uint256) := amount(uint256)
+
+Path #55:
+  Source: external_input_params in LifeProtocolContract.constructor
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.referredBuy
+  Path Operations:
+    1. constructor
+    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
+    3. lifeToken(LifeToken) := TMP_229(LifeToken)
+    4. TMP_266(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:balanceOf, arguments:['TMP_265']  
+    5. contractTokenBalance(uint256) := TMP_266(uint256)
+
+Path #56:
+  Source: external_input_params in LifeProtocolContract.constructor
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.handle_Ratio
+  Path Operations:
+    1. constructor
+    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
+    3. lifeToken(LifeToken) := TMP_229(LifeToken)
+    4. TMP_424(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
+    5. TMP_427(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_424', 'TMP_426'] 
+    6. circulatingSupply(uint256) := TMP_427(uint256)
+    7. TMP_428(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['circulatingSupply', 'currentPrice'] 
+
+Path #57:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculateTotalCost
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. TMP_451(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_lifeAmount', 'currentPrice'] 
+
+Path #58:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+
+Path #59:
   Source: external_input_params in LifeToken.constructor
   Sink: tainted_erc20_transfer in LifeToken.constructor
   Path Operations:
     1. constructor
 
-Path #12:
+Path #60:
+  Source: external_input_params in LifeProtocolContract.referredBuy
+  Sink: tainted_erc20_transfer in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. referredBuy
+    2. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(_user,deficit)
+
+Path #61:
+  Source: external_input_params in LifeProtocolContract.cancelSellOrder
+  Sink: tainted_erc20_transfer in LifeProtocolContract.resolveBuyback
+  Path Operations:
+    1. cancelSellOrder
+    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
+    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
+    4. REF_135(bytes32) -> order.next
+    5. currentSellOrderId(bytes32) := REF_135(bytes32)
+    6. REF_59(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
+    7. order(LifeProtocolContract.SellOrder) := REF_59(LifeProtocolContract.SellOrder)
+    8. REF_68(address) -> order.seller
+
+Path #62:
+  Source: external_input_params in LifeProtocolContract.sell
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.cancelSellOrder
+  Path Operations:
+    1. sell
+    2. TMP_305(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['queueSupply', 'amount'] 
+    3. queueSupply(uint256) := TMP_305(uint256)
+
+Path #63:
+  Source: external_input_params in LifeProtocolContract.cancelSellOrder
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
+  Path Operations:
+    1. cancelSellOrder
+    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
+    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
+    4. REF_135(bytes32) -> order.next
+    5. currentSellOrderId(bytes32) := REF_135(bytes32)
+    6. REF_59(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
+    7. order(LifeProtocolContract.SellOrder) := REF_59(LifeProtocolContract.SellOrder)
+    8. REF_60(uint256) -> order.amount
+    9. amount(uint256) := REF_60(uint256)
+
+Path #64:
+  Source: external_input_params in LifeProtocolContract.cancelSellOrder
+  Sink: tainted_erc20_transfer in LifeProtocolContract.cancelSellOrder
+  Path Operations:
+    1. cancelSellOrder
+    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
+    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
+    4. REF_137(uint256) -> order.amount
+
+Path #65:
   Source: external_input_params in LifeProtocolContract.buy
   Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
   Path Operations:
@@ -926,312 +1410,14 @@ Path #12:
     11. TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_282', '100'] 
     12. sellPrice(uint256) := TMP_283(uint256)
 
-Path #13:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_erc20_transfer in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. buy
-    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
-    3. deficit(uint256) := TMP_247(uint256)
-    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
-    5. remainingAmount(uint256) := amount(uint256)
-    6. TMP_372(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['remainingAmount', 'REF_106'] 
-    7. TMP_373(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_372', '1000000000000000000'] 
-    8. USDTToTransfer_scope_0(uint256) := TMP_373(uint256)
-
-Path #14:
-  Source: external_input_params in LifeProtocolContract.sell
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
-  Path Operations:
-    1. sell
-
-Path #15:
-  Source: external_input_params in LifeProtocolContract.constructor
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
-  Path Operations:
-    1. constructor
-    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
-    3. lifeToken(LifeToken) := TMP_229(LifeToken)
-    4. TMP_232(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:balanceOf, arguments:['TMP_231']  
-    5. remainingAmount(uint256) := TMP_232(uint256)
-    6. remainingSupply(uint256) := remainingAmount(uint256)
-
-Path #16:
-  Source: external_input_params in LifeProtocolContract.referredBuy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.referredBuy
-  Path Operations:
-    1. referredBuy
-    2. TMP_258(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_usdtAmount', '_usdtDiscount'] 
-    3. totalUsdtAmount(uint256) := TMP_258(uint256)
-    4. TMP_259(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTokenAmount(uint256)(totalUsdtAmount)
-    5. totalLifeTokenAmount(uint256) := TMP_259(uint256)
-
-Path #17:
-  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
-  Path Operations:
-    1. calculatePriceIncrease
-    2. TMP_384(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['transactionValue', '1'] 
-
-Path #18:
+Path #66:
   Source: external_input_params in LifeToken.constructor
   Sink: tainted_erc20_transfer in Ownable.constructor
   Path Operations:
     1. constructor
     2. INTERNAL_CALL, Ownable.constructor(address)(initialOwner)
 
-Path #19:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSupply
-  Path Operations:
-    1. buy
-    2. INTERNAL_CALL, LifeProtocolContract.buyFromSupply(address,uint256)(msg.sender,lifeTokenAmount)
-
-Path #20:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculateTotalCost
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-
-Path #21:
-  Source: external_input_params in LifeProtocolContract.constructor
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buy
-  Path Operations:
-    1. constructor
-    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
-    3. lifeToken(LifeToken) := TMP_229(LifeToken)
-    4. TMP_244(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:balanceOf, arguments:['TMP_243']  
-    5. contractTokenBalance(uint256) := TMP_244(uint256)
-
-Path #22:
-  Source: external_input_params in LifeProtocolContract.sell
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.cancelSellOrder
-  Path Operations:
-    1. sell
-    2. TMP_305(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['queueSupply', 'amount'] 
-    3. queueSupply(uint256) := TMP_305(uint256)
-
-Path #23:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
-  Path Operations:
-    1. transfer
-
-Path #24:
-  Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. cancelSellOrder
-    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
-    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
-    4. REF_135(bytes32) -> order.next
-    5. currentSellOrderId(bytes32) := REF_135(bytes32)
-    6. REF_83(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
-    7. order(LifeProtocolContract.SellOrder) := REF_83(LifeProtocolContract.SellOrder)
-    8. REF_102(uint256) -> order.amount
-
-Path #25:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-
-Path #26:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buy
-  Path Operations:
-    1. buy
-
-Path #27:
-  Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_erc20_transfer in LifeProtocolContract.cancelSellOrder
-  Path Operations:
-    1. cancelSellOrder
-    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
-    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
-    4. REF_137(uint256) -> order.amount
-
-Path #28:
-  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
-  Path Operations:
-    1. calculatePriceIncrease
-
-Path #29:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. buy
-    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
-    3. deficit(uint256) := TMP_247(uint256)
-    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
-    5. remainingAmount(uint256) := amount(uint256)
-
-Path #30:
-  Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
-  Path Operations:
-    1. cancelSellOrder
-    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
-    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
-    4. REF_135(bytes32) -> order.next
-    5. currentSellOrderId(bytes32) := REF_135(bytes32)
-    6. REF_59(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
-    7. order(LifeProtocolContract.SellOrder) := REF_59(LifeProtocolContract.SellOrder)
-    8. REF_60(uint256) -> order.amount
-    9. amount(uint256) := REF_60(uint256)
-
-Path #31:
-  Source: external_input_params in LifeProtocolContract.referredBuy
-  Sink: tainted_erc20_transfer in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. referredBuy
-    2. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(_user,deficit)
-
-Path #32:
-  Source: external_input_params in LifeProtocolContract.referredBuy
-  Sink: tainted_erc20_transfer in LifeProtocolContract.buyFromSupply
-  Path Operations:
-    1. referredBuy
-    2. INTERNAL_CALL, LifeProtocolContract.buyFromSupply(address,uint256)(_user,totalLifeTokenAmount)
-
-Path #33:
-  Source: external_input_params in LifeProtocolContract.sell
-  Sink: tainted_erc20_transfer in LifeProtocolContract.sell
-  Path Operations:
-    1. sell
-
-Path #34:
-  Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyBack
-  Path Operations:
-    1. cancelSellOrder
-    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
-    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
-    4. REF_135(bytes32) -> order.next
-    5. currentSellOrderId(bytes32) := REF_135(bytes32)
-    6. REF_53(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
-    7. REF_54(uint256) -> REF_53.amount
-    8. TMP_321(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_54', 'REF_57'] 
-
-Path #35:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSupply
-  Path Operations:
-    1. buy
-    2. INTERNAL_CALL, LifeProtocolContract.buyFromSupply(address,uint256)(msg.sender,lifeTokenAmount)
-    3. TMP_347(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'currentPrice'] 
-
-Path #36:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.referredBuy
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-
-Path #37:
-  Source: external_input_params in LifeProtocolContract.constructor
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.handle_Ratio
-  Path Operations:
-    1. constructor
-    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
-    3. lifeToken(LifeToken) := TMP_229(LifeToken)
-    4. TMP_424(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
-    5. TMP_427(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_424', 'TMP_426'] 
-    6. circulatingSupply(uint256) := TMP_427(uint256)
-    7. TMP_428(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['circulatingSupply', 'currentPrice'] 
-
-Path #38:
-  Source: external_input_params in LifeProtocolContract.constructor
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.referredBuy
-  Path Operations:
-    1. constructor
-    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
-    3. lifeToken(LifeToken) := TMP_229(LifeToken)
-    4. TMP_266(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:balanceOf, arguments:['TMP_265']  
-    5. contractTokenBalance(uint256) := TMP_266(uint256)
-
-Path #39:
-  Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
-  Path Operations:
-    1. cancelSellOrder
-    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
-    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
-    4. REF_135(bytes32) -> order.next
-    5. currentSellOrderId(bytes32) := REF_135(bytes32)
-    6. REF_59(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
-    7. order(LifeProtocolContract.SellOrder) := REF_59(LifeProtocolContract.SellOrder)
-    8. REF_60(uint256) -> order.amount
-    9. amount(uint256) := REF_60(uint256)
-    10. TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'price'] 
-
-Path #40:
-  Source: external_input_params in LifeProtocolContract.sell
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
-  Path Operations:
-    1. sell
-    2. TMP_305(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['queueSupply', 'amount'] 
-    3. queueSupply(uint256) := TMP_305(uint256)
-
-Path #41:
-  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
-  Path Operations:
-    1. calculatePriceIncrease
-    2. TMP_388(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['transactionValue', '2'] 
-
-Path #42:
-  Source: external_input_params in LifeProtocolContract.constructor
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
-  Path Operations:
-    1. constructor
-    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
-    3. lifeToken(LifeToken) := TMP_229(LifeToken)
-    4. TMP_434(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
-    5. TMP_437(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_434', 'TMP_436'] 
-    6. circulatingSupply(uint256) := TMP_437(uint256)
-    7. TMP_438(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['circulatingSupply', 'currentPrice'] 
-
-Path #43:
-  Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_erc20_transfer in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. cancelSellOrder
-    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
-    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
-    4. REF_135(bytes32) -> order.next
-    5. currentSellOrderId(bytes32) := REF_135(bytes32)
-    6. REF_83(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
-    7. order(LifeProtocolContract.SellOrder) := REF_83(LifeProtocolContract.SellOrder)
-    8. REF_109(address) -> order.seller
-
-Path #44:
-  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
-  Path Operations:
-    1. calculatePriceIncrease
-    2. TMP_392(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['transactionValue', '2'] 
-
-Path #45:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. buy
-    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
-    3. deficit(uint256) := TMP_247(uint256)
-    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
-    5. remainingAmount(uint256) := amount(uint256)
-
-Path #46:
+Path #67:
   Source: external_input_params in LifeProtocolContract.cancelSellOrder
   Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
   Path Operations:
@@ -1246,64 +1432,66 @@ Path #46:
     9. amount(uint256) := REF_60(uint256)
     10. TMP_326(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'price'] 
 
-Path #47:
-  Source: external_input_params in LifeProtocolContract.constructor
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
-  Path Operations:
-    1. constructor
-    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
-    3. lifeToken(LifeToken) := TMP_229(LifeToken)
-    4. TMP_434(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
-    5. TMP_437(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_434', 'TMP_436'] 
-    6. circulatingSupply(uint256) := TMP_437(uint256)
-
-Path #48:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.handle_Ratio
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-
-Path #49:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.contributeToBuyBackReserve
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-
-Path #50:
-  Source: external_input_params in LifeProtocolContract.constructor
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSupply
-  Path Operations:
-    1. constructor
-    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
-    3. lifeToken(LifeToken) := TMP_229(LifeToken)
-    4. TMP_232(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:balanceOf, arguments:['TMP_231']  
-    5. remainingAmount(uint256) := TMP_232(uint256)
-    6. remainingSupply(uint256) := remainingAmount(uint256)
-
-Path #51:
+Path #68:
   Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
   Path Operations:
     1. cancelSellOrder
     2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
     3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
     4. REF_135(bytes32) -> order.next
     5. currentSellOrderId(bytes32) := REF_135(bytes32)
-    6. REF_83(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
-    7. order(LifeProtocolContract.SellOrder) := REF_83(LifeProtocolContract.SellOrder)
-    8. REF_85(uint256) -> order.amount
-    9. orderAmount(uint256) := REF_85(uint256)
-    10. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['orderAmount', 'REF_90'] 
+    6. REF_59(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
+    7. order(LifeProtocolContract.SellOrder) := REF_59(LifeProtocolContract.SellOrder)
+    8. REF_60(uint256) -> order.amount
+    9. amount(uint256) := REF_60(uint256)
 
-Path #52:
+Path #69:
+  Source: external_input_params in LifeProtocolContract.cancelSellOrder
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
+  Path Operations:
+    1. cancelSellOrder
+    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
+    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
+    4. REF_135(bytes32) -> order.next
+    5. currentSellOrderId(bytes32) := REF_135(bytes32)
+    6. REF_59(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
+    7. order(LifeProtocolContract.SellOrder) := REF_59(LifeProtocolContract.SellOrder)
+    8. REF_60(uint256) -> order.amount
+    9. amount(uint256) := REF_60(uint256)
+    10. TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'price'] 
+
+Path #70:
+  Source: external_input_params in LifeProtocolContract.constructor
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.handle_Ratio
+  Path Operations:
+    1. constructor
+    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
+    3. lifeToken(LifeToken) := TMP_229(LifeToken)
+    4. TMP_424(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
+
+Path #71:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+    6. TMP_441(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyBackReserve', '1000000000000000000'] 
+
+Path #72:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+    3. totalUsdtCost(uint256) := TMP_234(uint256)
+    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
+    5. buyBackReserve(uint256) := TMP_239(uint256)
+
+Path #73:
   Source: external_input_params in LifeProtocolContract.referredBuy
   Sink: tainted_state_changing_external_call in LifeProtocolContract.calculateTokenAmount
   Path Operations:
@@ -1313,263 +1501,9 @@ Path #52:
     4. TMP_259(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTokenAmount(uint256)(totalUsdtAmount)
     5. TMP_453(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_usdtAmount', '1000000000000000000'] 
 
-Path #53:
-  Source: external_input_params in LifeProtocolContract.referredBuy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculateTokenAmount
-  Path Operations:
-    1. referredBuy
-    2. TMP_258(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_usdtAmount', '_usdtDiscount'] 
-    3. totalUsdtAmount(uint256) := TMP_258(uint256)
-    4. TMP_259(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTokenAmount(uint256)(totalUsdtAmount)
-
-Path #54:
-  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
-  Path Operations:
-    1. calculatePriceIncrease
-
-Path #55:
-  Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_erc20_transfer in LifeProtocolContract.resolveBuyback
-  Path Operations:
-    1. cancelSellOrder
-    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
-    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
-    4. REF_135(bytes32) -> order.next
-    5. currentSellOrderId(bytes32) := REF_135(bytes32)
-    6. REF_59(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
-    7. order(LifeProtocolContract.SellOrder) := REF_59(LifeProtocolContract.SellOrder)
-    8. REF_68(address) -> order.seller
-
-Path #56:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-
-Path #57:
-  Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
-  Path Operations:
-    1. cancelSellOrder
-    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
-    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
-    4. REF_135(bytes32) -> order.next
-    5. currentSellOrderId(bytes32) := REF_135(bytes32)
-    6. REF_59(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
-    7. order(LifeProtocolContract.SellOrder) := REF_59(LifeProtocolContract.SellOrder)
-    8. REF_60(uint256) -> order.amount
-    9. amount(uint256) := REF_60(uint256)
-
-Path #58:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.handle_Ratio
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-    6. TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyBackReserve', '1000000000000000000'] 
-
-Path #59:
-  Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
-  Path Operations:
-    1. cancelSellOrder
-    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
-    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
-    4. REF_135(bytes32) -> order.next
-    5. currentSellOrderId(bytes32) := REF_135(bytes32)
-    6. REF_59(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
-    7. order(LifeProtocolContract.SellOrder) := REF_59(LifeProtocolContract.SellOrder)
-    8. REF_60(uint256) -> order.amount
-    9. amount(uint256) := REF_60(uint256)
-
-Path #60:
-  Source: external_input_params in LifeProtocolContract.referredBuy
-  Sink: tainted_erc20_transfer in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. referredBuy
-    2. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(_user,deficit)
-
-Path #61:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. buy
-    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
-    3. deficit(uint256) := TMP_247(uint256)
-    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
-    5. remainingAmount(uint256) := amount(uint256)
-    6. TMP_372(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['remainingAmount', 'REF_106'] 
-
-Path #62:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. buy
-    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
-    3. deficit(uint256) := TMP_247(uint256)
-    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
-    5. remainingAmount(uint256) := amount(uint256)
-
-Path #63:
-  Source: external_input_params in LifeProtocolContract.sell
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
-  Path Operations:
-    1. sell
-    2. TMP_305(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['queueSupply', 'amount'] 
-    3. queueSupply(uint256) := TMP_305(uint256)
-
-Path #64:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-    6. TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyBackReserve', '1000000000000000000'] 
-    7. TMP_432(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_431', 'circulatingSupply'] 
-    8. newPrice(uint256) := TMP_432(uint256)
-    9. currentPrice(uint256) := newPrice(uint256)
-    10. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['currentPrice', '90'] 
-
-Path #65:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-    6. TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyBackReserve', '1000000000000000000'] 
-    7. TMP_432(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_431', 'circulatingSupply'] 
-    8. newPrice(uint256) := TMP_432(uint256)
-    9. currentPrice(uint256) := newPrice(uint256)
-
-Path #66:
-  Source: external_input_params in LifeProtocolContract.constructor
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.handle_Ratio
-  Path Operations:
-    1. constructor
-    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
-    3. lifeToken(LifeToken) := TMP_229(LifeToken)
-    4. TMP_424(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
-    5. TMP_427(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_424', 'TMP_426'] 
-    6. circulatingSupply(uint256) := TMP_427(uint256)
-
-Path #67:
-  Source: external_input_params in LifeToken.constructor
-  Sink: tainted_erc20_transfer in LifeToken.constructor
-  Path Operations:
-    1. constructor
-
-Path #68:
-  Source: external_input_params in LifeProtocolContract.sell
-  Sink: tainted_erc20_transfer in LifeProtocolContract.sell
-  Path Operations:
-    1. sell
-    2. TMP_284(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['sellPrice', 'amount'] 
-    3. TMP_285(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_284', '1000000000000000000'] 
-    4. requiredUSDT(uint256) := TMP_285(uint256)
-
-Path #69:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
-  Path Operations:
-    1. buy
-    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
-    3. deficit(uint256) := TMP_247(uint256)
-    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
-    5. TMP_379(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'currentPrice'] 
-
-Path #70:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculateTotalCost
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. TMP_451(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_lifeAmount', 'currentPrice'] 
-
-Path #71:
-  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
-  Path Operations:
-    1. calculatePriceIncrease
-
-Path #72:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #73:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-    6. TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['buyBackReserve', '1000000000000000000'] 
-    7. TMP_432(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_431', 'circulatingSupply'] 
-    8. newPrice(uint256) := TMP_432(uint256)
-    9. currentPrice(uint256) := newPrice(uint256)
-
 Path #74:
-  Source: external_input_params in Ownable.transferOwnership
-  Sink: tainted_erc20_transfer in Ownable.transferOwnership
-  Path Operations:
-    1. transferOwnership
-
-Path #75:
-  Source: external_input_params in LifeProtocolContract.constructor
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
-  Path Operations:
-    1. constructor
-    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
-    3. lifeToken(LifeToken) := TMP_229(LifeToken)
-    4. TMP_434(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
-
-Path #76:
-  Source: external_input_params in LifeProtocolContract.referredBuy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.referredBuy
-  Path Operations:
-    1. referredBuy
-
-Path #77:
-  Source: external_input_params in LifeProtocolContract.sell
-  Sink: tainted_erc20_transfer in LifeProtocolContract.sell
-  Path Operations:
-    1. sell
-
-Path #78:
-  Source: external_input_params in LifeProtocolContract.constructor
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.handle_Ratio
-  Path Operations:
-    1. constructor
-    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
-    3. lifeToken(LifeToken) := TMP_229(LifeToken)
-    4. TMP_424(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:totalSupply, arguments:[]  
-
-Path #79:
-  Source: external_input_params in LifeToken.constructor
-  Sink: tainted_erc20_transfer in LifeToken.constructor
-  Path Operations:
-    1. constructor
-
-Path #80:
   Source: external_input_params in LifeProtocolContract.cancelSellOrder
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Sink: tainted_erc20_transfer in LifeProtocolContract.buyFromSellOrders
   Path Operations:
     1. cancelSellOrder
     2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
@@ -1578,49 +1512,9 @@ Path #80:
     5. currentSellOrderId(bytes32) := REF_135(bytes32)
     6. REF_83(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
     7. order(LifeProtocolContract.SellOrder) := REF_83(LifeProtocolContract.SellOrder)
-    8. REF_85(uint256) -> order.amount
-    9. orderAmount(uint256) := REF_85(uint256)
+    8. REF_109(address) -> order.seller
 
-Path #81:
-  Source: external_input_params in LifeProtocolContract.sell
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
-  Path Operations:
-    1. sell
-    2. TMP_284(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['sellPrice', 'amount'] 
-
-Path #82:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.buy
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-
-Path #83:
-  Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.handleRatio
-  Path Operations:
-    1. buy
-    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
-    3. totalUsdtCost(uint256) := TMP_234(uint256)
-    4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
-    5. buyBackReserve(uint256) := TMP_239(uint256)
-
-Path #84:
-  Source: external_input_params in LifeProtocolContract.calculatePriceIncrease
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculatePriceIncrease
-  Path Operations:
-    1. calculatePriceIncrease
-
-Path #85:
-  Source: external_input_params in LifeProtocolContract.contributeToBuyBackReserveFromLife
-  Sink: tainted_erc20_transfer in LifeProtocolContract.contributeToBuyBackReserveFromLife
-  Path Operations:
-    1. contributeToBuyBackReserveFromLife
-
-Path #86:
+Path #75:
   Source: external_input_params in LifeProtocolContract.cancelSellOrder
   Sink: tainted_state_changing_external_call in LifeProtocolContract.resolveBuyback
   Path Operations:
@@ -1635,12 +1529,118 @@ Path #86:
     9. amount(uint256) := REF_60(uint256)
     10. TMP_336(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'price'] 
 
-Path #87:
+Path #76:
   Source: external_input_params in LifeProtocolContract.buy
-  Sink: tainted_state_changing_external_call in LifeProtocolContract.contributeToBuyBackReserveFromLife
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.handle_Ratio
   Path Operations:
     1. buy
     2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
     3. totalUsdtCost(uint256) := TMP_234(uint256)
     4. TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buyBackReserve', 'totalUsdtCost'] 
     5. buyBackReserve(uint256) := TMP_239(uint256)
+
+Path #77:
+  Source: external_input_params in LifeProtocolContract.contributeToBuyBackReserveFromLife
+  Sink: tainted_erc20_transfer in LifeProtocolContract.contributeToBuyBackReserveFromLife
+  Path Operations:
+    1. contributeToBuyBackReserveFromLife
+
+Path #78:
+  Source: external_input_params in LifeProtocolContract.sell
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
+  Path Operations:
+    1. sell
+    2. TMP_284(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['sellPrice', 'amount'] 
+
+Path #79:
+  Source: external_input_params in LifeProtocolContract.cancelSellOrder
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. cancelSellOrder
+    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
+    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
+    4. REF_135(bytes32) -> order.next
+    5. currentSellOrderId(bytes32) := REF_135(bytes32)
+    6. REF_83(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
+    7. order(LifeProtocolContract.SellOrder) := REF_83(LifeProtocolContract.SellOrder)
+    8. REF_85(uint256) -> order.amount
+    9. orderAmount(uint256) := REF_85(uint256)
+
+Path #80:
+  Source: external_input_params in LifeProtocolContract.constructor
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.sell
+  Path Operations:
+    1. constructor
+    2. TMP_229(LifeToken) = new LifeToken(LIFE,LIFE,_deployer,TMP_228,treasuryProtocol,teamAddress) 
+    3. lifeToken(LifeToken) := TMP_229(LifeToken)
+    4. TMP_232(uint256) = HIGH_LEVEL_CALL, dest:lifeToken(LifeToken), function:balanceOf, arguments:['TMP_231']  
+    5. remainingAmount(uint256) := TMP_232(uint256)
+    6. remainingSupply(uint256) := remainingAmount(uint256)
+
+Path #81:
+  Source: external_input_params in LifeProtocolContract.cancelSellOrder
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyBack
+  Path Operations:
+    1. cancelSellOrder
+    2. REF_121(LifeProtocolContract.SellOrder) -> sellOrders[sellOrderId]
+    3. order(LifeProtocolContract.SellOrder) := REF_121(LifeProtocolContract.SellOrder)
+    4. REF_135(bytes32) -> order.next
+    5. currentSellOrderId(bytes32) := REF_135(bytes32)
+    6. REF_53(LifeProtocolContract.SellOrder) -> sellOrders[currentSellOrderId]
+    7. REF_54(uint256) -> REF_53.amount
+
+Path #82:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. buy
+    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
+    3. deficit(uint256) := TMP_247(uint256)
+    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
+    5. remainingAmount(uint256) := amount(uint256)
+
+Path #83:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_erc20_transfer in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. buy
+    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
+    3. deficit(uint256) := TMP_247(uint256)
+    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
+    5. remainingAmount(uint256) := amount(uint256)
+    6. TMP_372(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['remainingAmount', 'REF_106'] 
+    7. TMP_373(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_372', '1000000000000000000'] 
+    8. USDTToTransfer_scope_0(uint256) := TMP_373(uint256)
+
+Path #84:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. buy
+    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
+    3. deficit(uint256) := TMP_247(uint256)
+    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
+    5. TMP_379(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'currentPrice'] 
+
+Path #85:
+  Source: external_input_params in LifeProtocolContract.referredBuy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.referredBuy
+  Path Operations:
+    1. referredBuy
+
+Path #86:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.calculateTotalCost
+  Path Operations:
+    1. buy
+    2. TMP_234(uint256) = INTERNAL_CALL, LifeProtocolContract.calculateTotalCost(uint256)(lifeTokenAmount)
+
+Path #87:
+  Source: external_input_params in LifeProtocolContract.buy
+  Sink: tainted_state_changing_external_call in LifeProtocolContract.buyFromSellOrders
+  Path Operations:
+    1. buy
+    2. TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['lifeTokenAmount', 'availableSupply'] 
+    3. deficit(uint256) := TMP_247(uint256)
+    4. INTERNAL_CALL, LifeProtocolContract.buyFromSellOrders(address,uint256)(msg.sender,deficit)
+    5. remainingAmount(uint256) := amount(uint256)

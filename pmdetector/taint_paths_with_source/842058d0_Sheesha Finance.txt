@@ -2,17 +2,191 @@
 Found 33 tainted paths.
 
 ## Path #1
-Source: external_input_params in SHEESHA.transferVaultLPRewards
-Sink: tainted_erc20_transfer in SHEESHA.transferVaultLPRewards
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20.transferFrom
 
 ### Operations with Source Code Mapping:
-    IR:  transferVaultLPRewards
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1122, 1123, 1124, 1125, 1126]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [809, 810, 811, 812, 813]
     LNE: (No direct expression available)
+
+    IR:  REF_8(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [811]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_9(uint256) -> REF_8[TMP_51]
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [811]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
 
 ----------------------------------------
 
 ## Path #2
+Source: external_input_params in ERC20.decreaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [846, 847, 848, 849]
+    LNE: (No direct expression available)
+
+    IR:  REF_15(uint256) -> REF_14[spender]
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [847]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in LGE.constructor
+Sink: tainted_state_changing_external_call in LGE.addLiquidityToUniswapSHEESHAxWETHPair
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
+    LNE: (No direct expression available)
+
+    IR:  TMP_393 = CONVERT factory to IUniswapV2Factory
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
+    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  SHEESHAxWETHPair(address) := TMP_407(address)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
+    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
+    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
+
+    IR:  pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
+    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
+
+    IR:  TMP_431(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_430']  
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
+    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
+
+    IR:  totalLPTokensMinted(uint256) := TMP_431(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
+    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
+
+    IR:  TMP_434(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalLPTokensMinted', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1258]
+    LNE: LPperETHUnit = totalLPTokensMinted.mul(1e18).div(totalETHContributed)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_state_changing_external_call in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [999, 1000, 1001, 1002, 1003, 1004]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1003]
+    LNE: _burn(account,amount)
+
+    IR:  REF_56(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [911]
+    LNE: _balances[account] = _balances[account].sub(amount,ERC20: burn amount exceeds balance)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in SHEESHA.constructor
+Sink: tainted_erc20_transfer in LGE.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112]
+    LNE: (No direct expression available)
+
+    IR:  devAddress(address) := _devAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1103]
+    LNE: devAddress = _devAddress
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in SHEESHA.constructor
+Sink: tainted_erc20_transfer in SHEESHA.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112]
+    LNE: (No direct expression available)
+
+    IR:  reserveAddress(address) := _reserveAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1106]
+    LNE: reserveAddress = _reserveAddress
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in LGE.constructor
+Sink: tainted_state_changing_external_call in LGE._claimLPTokens
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
+    LNE: (No direct expression available)
+
+    IR:  TMP_393 = CONVERT factory to IUniswapV2Factory
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
+    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  SHEESHAxWETHPair(address) := TMP_407(address)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
+    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
+    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
+
+    IR:  pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
+    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
+
+    IR:  TMP_431(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_430']  
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
+    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
+
+    IR:  totalLPTokensMinted(uint256) := TMP_431(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
+    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
+
+    IR:  TMP_434(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalLPTokensMinted', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1258]
+    LNE: LPperETHUnit = totalLPTokensMinted.mul(1e18).div(totalETHContributed)
+
+    IR:  TMP_435(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_434', 'totalETHContributed'] 
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1258]
+    LNE: LPperETHUnit = totalLPTokensMinted.mul(1e18).div(totalETHContributed)
+
+    IR:  LPperETHUnit(uint256) := TMP_435(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1258]
+    LNE: LPperETHUnit = totalLPTokensMinted.mul(1e18).div(totalETHContributed)
+
+----------------------------------------
+
+## Path #8
 Source: external_input_params in LGE.constructor
 Sink: tainted_state_changing_external_call in LGE._claimLPTokens
 
@@ -71,7 +245,78 @@ Sink: tainted_state_changing_external_call in LGE._claimLPTokens
 
 ----------------------------------------
 
-## Path #3
+## Path #9
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [809, 810, 811, 812, 813]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [810]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_state_changing_external_call in ERC20Burnable.burnFrom
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [999, 1000, 1001, 1002, 1003, 1004]
+    LNE: (No direct expression available)
+
+    IR:  TMP_152(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account,TMP_151)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1000]
+    LNE: decreasedAllowance = allowance(account,_msgSender()).sub(amount,ERC20: burn amount exceeds allowance)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [772, 773, 774, 775]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in SHEESHA.constructor
+Sink: tainted_erc20_transfer in SHEESHA.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112]
+    LNE: (No direct expression available)
+
+    IR:  teamAddress(address) := _teamAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1105]
+    LNE: teamAddress = _teamAddress
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_erc20_transfer in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [999, 1000, 1001, 1002, 1003, 1004]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1003]
+    LNE: _burn(account,amount)
+
+----------------------------------------
+
+## Path #14
 Source: external_input_params in SHEESHA.constructor
 Sink: tainted_erc20_transfer in LGE.constructor
 
@@ -80,15 +325,15 @@ Sink: tainted_erc20_transfer in LGE.constructor
     SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112]
     LNE: (No direct expression available)
 
-    IR:  devAddress(address) := _devAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1103]
-    LNE: devAddress = _devAddress
+    IR:  marketingAddress(address) := _marketingAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1104]
+    LNE: marketingAddress = _marketingAddress
 
 ----------------------------------------
 
-## Path #4
+## Path #15
 Source: external_input_params in SHEESHA.constructor
-Sink: tainted_erc20_transfer in SHEESHA.constructor
+Sink: tainted_state_changing_external_call in LGE._transfer
 
 ### Operations with Source Code Mapping:
     IR:  constructor
@@ -99,58 +344,17 @@ Sink: tainted_erc20_transfer in SHEESHA.constructor
     SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1103]
     LNE: devAddress = _devAddress
 
-----------------------------------------
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_282,devAddress,TMP_284)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1108]
+    LNE: _transfer(address(this),devAddress,initialSupply.mul(10).div(100))
 
-## Path #5
-Source: external_input_params in SHEESHA.constructor
-Sink: tainted_erc20_transfer in SHEESHA.constructor
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112]
-    LNE: (No direct expression available)
-
-    IR:  reserveAddress(address) := _reserveAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1106]
-    LNE: reserveAddress = _reserveAddress
+    IR:  REF_132(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [872]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
 
 ----------------------------------------
 
-## Path #6
-Source: external_input_params in LGE.constructor
-Sink: tainted_state_changing_external_call in LGE.claimAndStakeLP
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
-    LNE: (No direct expression available)
-
-    IR:  sheeshaGlobals(ISHEESHAGlobals) := _sheeshaGlobals(ISHEESHAGlobals)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1204]
-    LNE: sheeshaGlobals = _sheeshaGlobals
-
-    IR:  TMP_454(address) = HIGH_LEVEL_CALL, dest:sheeshaGlobals(ISHEESHAGlobals), function:SHEESHAVaultLPAddress, arguments:[]  
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1303]
-    LNE: vault = sheeshaGlobals.SHEESHAVaultLPAddress()
-
-    IR:  vault(address) := TMP_454(address)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1303]
-    LNE: vault = sheeshaGlobals.SHEESHAVaultLPAddress()
-
-----------------------------------------
-
-## Path #7
-Source: external_input_params in LGE.claimAndStakeLP
-Sink: tainted_erc20_transfer in LGE.claimAndStakeLP
-
-### Operations with Source Code Mapping:
-    IR:  claimAndStakeLP
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #8
+## Path #16
 Source: external_input_params in ERC20.transferFrom
 Sink: tainted_state_changing_external_call in ERC20._transfer
 
@@ -169,193 +373,7 @@ Sink: tainted_state_changing_external_call in ERC20._transfer
 
 ----------------------------------------
 
-## Path #9
-Source: external_input_params in LGE.constructor
-Sink: tainted_erc20_transfer in LGE.addLiquidityToUniswapSHEESHAxWETHPair
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
-    LNE: (No direct expression available)
-
-    IR:  TMP_393 = CONVERT factory to IUniswapV2Factory
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
-    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  SHEESHAxWETHPair(address) := TMP_407(address)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
-    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
-    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
-
-    IR:  pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
-    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
-
-    IR:  TMP_424 = CONVERT pair to address
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1253]
-    LNE: IWETH(WETH).transfer(address(pair),totalETHContributed)
-
-----------------------------------------
-
-## Path #10
-Source: external_input_params in LGE.constructor
-Sink: tainted_state_changing_external_call in LGE._claimLPTokens
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
-    LNE: (No direct expression available)
-
-    IR:  TMP_393 = CONVERT factory to IUniswapV2Factory
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
-    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  SHEESHAxWETHPair(address) := TMP_407(address)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
-    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
-    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
-
-    IR:  pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
-    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
-
-    IR:  TMP_431(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_430']  
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
-    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
-
-    IR:  totalLPTokensMinted(uint256) := TMP_431(uint256)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
-    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
-
-    IR:  TMP_434(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalLPTokensMinted', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1258]
-    LNE: LPperETHUnit = totalLPTokensMinted.mul(1e18).div(totalETHContributed)
-
-    IR:  TMP_435(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_434', 'totalETHContributed'] 
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1258]
-    LNE: LPperETHUnit = totalLPTokensMinted.mul(1e18).div(totalETHContributed)
-
-    IR:  LPperETHUnit(uint256) := TMP_435(uint256)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1258]
-    LNE: LPperETHUnit = totalLPTokensMinted.mul(1e18).div(totalETHContributed)
-
-----------------------------------------
-
-## Path #11
-Source: external_input_params in LGE.getLPTokens
-Sink: tainted_state_changing_external_call in LGE.getLPTokens
-
-### Operations with Source Code Mapping:
-    IR:  getLPTokens
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1312, 1313, 1314]
-    LNE: (No direct expression available)
-
-    IR:  REF_170(uint256) -> ethContributed[_who]
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1313]
-    LNE: ethContributed[_who].mul(LPperETHUnit).div(1e18)
-
-----------------------------------------
-
-## Path #12
-Source: external_input_params in SHEESHA.constructor
-Sink: tainted_erc20_transfer in LGE.constructor
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112]
-    LNE: (No direct expression available)
-
-    IR:  reserveAddress(address) := _reserveAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1106]
-    LNE: reserveAddress = _reserveAddress
-
-----------------------------------------
-
-## Path #13
-Source: external_input_params in LGE.constructor
-Sink: tainted_state_changing_external_call in LGE.addLiquidityToUniswapSHEESHAxWETHPair
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
-    LNE: (No direct expression available)
-
-    IR:  TMP_393 = CONVERT factory to IUniswapV2Factory
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
-    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  SHEESHAxWETHPair(address) := TMP_407(address)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
-    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
-    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
-
-    IR:  pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
-    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
-
-    IR:  TMP_431(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_430']  
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
-    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
-
-    IR:  totalLPTokensMinted(uint256) := TMP_431(uint256)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
-    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
-
-    IR:  TMP_434(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalLPTokensMinted', '1000000000000000000'] 
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1258]
-    LNE: LPperETHUnit = totalLPTokensMinted.mul(1e18).div(totalETHContributed)
-
-----------------------------------------
-
-## Path #14
-Source: external_input_params in ERC20.decreaseAllowance
-Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  decreaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [846, 847, 848, 849]
-    LNE: (No direct expression available)
-
-    IR:  REF_15(uint256) -> REF_14[spender]
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [847]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
-
-----------------------------------------
-
-## Path #15
+## Path #17
 Source: external_input_params in SHEESHA.constructor
 Sink: tainted_erc20_transfer in SHEESHA.constructor
 
@@ -370,102 +388,7 @@ Sink: tainted_erc20_transfer in SHEESHA.constructor
 
 ----------------------------------------
 
-## Path #16
-Source: external_input_params in ERC20.transfer
-Sink: tainted_state_changing_external_call in ERC20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [772, 773, 774, 775]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_45,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [773]
-    LNE: _transfer(_msgSender(),recipient,amount)
-
-    IR:  REF_21(uint256) -> _balances[recipient]
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [872]
-    LNE: _balances[recipient] = _balances[recipient].add(amount)
-
-----------------------------------------
-
-## Path #17
-Source: external_input_params in ERC20Burnable.burnFrom
-Sink: tainted_state_changing_external_call in ERC20Burnable.burnFrom
-
-### Operations with Source Code Mapping:
-    IR:  burnFrom
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [999, 1000, 1001, 1002, 1003, 1004]
-    LNE: (No direct expression available)
-
-    IR:  TMP_152(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account,TMP_151)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1000]
-    LNE: decreasedAllowance = allowance(account,_msgSender()).sub(amount,ERC20: burn amount exceeds allowance)
-
-----------------------------------------
-
 ## Path #18
-Source: external_input_params in SHEESHA.constructor
-Sink: tainted_erc20_transfer in SHEESHA.constructor
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112]
-    LNE: (No direct expression available)
-
-    IR:  teamAddress(address) := _teamAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1105]
-    LNE: teamAddress = _teamAddress
-
-----------------------------------------
-
-## Path #19
-Source: external_input_params in LGE.constructor
-Sink: tainted_state_changing_external_call in LGE.createUniswapPairMainnet
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
-    LNE: (No direct expression available)
-
-    IR:  TMP_389 = CONVERT router to IUniswapV2Router02
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1192, 1193, 1194, 1195, 1196]
-    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
-
-    IR:  uniswapRouterV2(IUniswapV2Router02) := TMP_389(IUniswapV2Router02)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1192, 1193, 1194, 1195, 1196]
-    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
-
-    IR:  TMP_404(address) = HIGH_LEVEL_CALL, dest:uniswapRouterV2(IUniswapV2Router02), function:WETH, arguments:[]  
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
-    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  TMP_405 = CONVERT TMP_404 to address
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
-    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-----------------------------------------
-
-## Path #20
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_state_changing_external_call in ERC20.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [809, 810, 811, 812, 813]
-    LNE: (No direct expression available)
-
-    IR:  REF_8(mapping(address => uint256)) -> _allowances[sender]
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [811]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
-
-    IR:  REF_9(uint256) -> REF_8[TMP_51]
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [811]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
-
-----------------------------------------
-
-## Path #21
 Source: external_input_params in SHEESHA.transferVaultRewards
 Sink: tainted_erc20_transfer in SHEESHA.transferVaultRewards
 
@@ -476,129 +399,7 @@ Sink: tainted_erc20_transfer in SHEESHA.transferVaultRewards
 
 ----------------------------------------
 
-## Path #22
-Source: external_input_params in ERC20.increaseAllowance
-Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  increaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [827, 828, 829, 830]
-    LNE: (No direct expression available)
-
-    IR:  REF_12(uint256) -> REF_11[spender]
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [828]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
-
-----------------------------------------
-
-## Path #23
-Source: external_input_params in LGE.constructor
-Sink: tainted_state_changing_external_call in LGE.addLiquidityToUniswapSHEESHAxWETHPair
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
-    LNE: (No direct expression available)
-
-    IR:  TMP_393 = CONVERT factory to IUniswapV2Factory
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
-    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  SHEESHAxWETHPair(address) := TMP_407(address)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
-    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
-    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
-
-    IR:  pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
-    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
-
-    IR:  TMP_431(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_430']  
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
-    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
-
-    IR:  totalLPTokensMinted(uint256) := TMP_431(uint256)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
-    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
-
-----------------------------------------
-
-## Path #24
-Source: external_input_params in ERC20Burnable.burnFrom
-Sink: tainted_state_changing_external_call in ERC20Burnable._burn
-
-### Operations with Source Code Mapping:
-    IR:  burnFrom
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [999, 1000, 1001, 1002, 1003, 1004]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1003]
-    LNE: _burn(account,amount)
-
-    IR:  REF_56(uint256) -> _balances[account]
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [911]
-    LNE: _balances[account] = _balances[account].sub(amount,ERC20: burn amount exceeds balance)
-
-----------------------------------------
-
-## Path #25
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [809, 810, 811, 812, 813]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [810]
-    LNE: _transfer(sender,recipient,amount)
-
-----------------------------------------
-
-## Path #26
-Source: external_input_params in SHEESHA.constructor
-Sink: tainted_erc20_transfer in LGE.constructor
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112]
-    LNE: (No direct expression available)
-
-    IR:  marketingAddress(address) := _marketingAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1104]
-    LNE: marketingAddress = _marketingAddress
-
-----------------------------------------
-
-## Path #27
-Source: external_input_params in SHEESHA.constructor
-Sink: tainted_erc20_transfer in LGE.constructor
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112]
-    LNE: (No direct expression available)
-
-    IR:  teamAddress(address) := _teamAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1105]
-    LNE: teamAddress = _teamAddress
-
-----------------------------------------
-
-## Path #28
+## Path #19
 Source: external_input_params in LGE.constructor
 Sink: tainted_erc20_transfer in LGE.addLiquidityToUniswapSHEESHAxWETHPair
 
@@ -637,7 +438,106 @@ Sink: tainted_erc20_transfer in LGE.addLiquidityToUniswapSHEESHAxWETHPair
 
 ----------------------------------------
 
-## Path #29
+## Path #20
+Source: external_input_params in SHEESHA.constructor
+Sink: tainted_erc20_transfer in LGE.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112]
+    LNE: (No direct expression available)
+
+    IR:  reserveAddress(address) := _reserveAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1106]
+    LNE: reserveAddress = _reserveAddress
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in ERC20.transfer
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [772, 773, 774, 775]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_45,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [773]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_21(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [872]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in LGE.claimAndStakeLP
+Sink: tainted_erc20_transfer in LGE.claimAndStakeLP
+
+### Operations with Source Code Mapping:
+    IR:  claimAndStakeLP
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [809, 810, 811, 812, 813]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in LGE.constructor
+Sink: tainted_state_changing_external_call in LGE.addLiquidityToUniswapSHEESHAxWETHPair
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
+    LNE: (No direct expression available)
+
+    IR:  TMP_393 = CONVERT factory to IUniswapV2Factory
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
+    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  SHEESHAxWETHPair(address) := TMP_407(address)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
+    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
+    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
+
+    IR:  pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
+    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
+
+    IR:  TMP_431(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_430']  
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
+    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
+
+    IR:  totalLPTokensMinted(uint256) := TMP_431(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1256]
+    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
+
+----------------------------------------
+
+## Path #25
 Source: external_input_params in LGE.getLPTokens
 Sink: tainted_state_changing_external_call in LGE.getLPTokens
 
@@ -656,24 +556,9 @@ Sink: tainted_state_changing_external_call in LGE.getLPTokens
 
 ----------------------------------------
 
-## Path #30
-Source: external_input_params in ERC20Burnable.burnFrom
-Sink: tainted_erc20_transfer in ERC20Burnable._burn
-
-### Operations with Source Code Mapping:
-    IR:  burnFrom
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [999, 1000, 1001, 1002, 1003, 1004]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1003]
-    LNE: _burn(account,amount)
-
-----------------------------------------
-
-## Path #31
+## Path #26
 Source: external_input_params in SHEESHA.constructor
-Sink: tainted_state_changing_external_call in LGE._transfer
+Sink: tainted_erc20_transfer in SHEESHA.constructor
 
 ### Operations with Source Code Mapping:
     IR:  constructor
@@ -684,34 +569,149 @@ Sink: tainted_state_changing_external_call in LGE._transfer
     SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1103]
     LNE: devAddress = _devAddress
 
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_282,devAddress,TMP_284)
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1108]
-    LNE: _transfer(address(this),devAddress,initialSupply.mul(10).div(100))
+----------------------------------------
 
-    IR:  REF_132(uint256) -> _balances[recipient]
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [872]
-    LNE: _balances[recipient] = _balances[recipient].add(amount)
+## Path #27
+Source: external_input_params in LGE.constructor
+Sink: tainted_erc20_transfer in LGE.addLiquidityToUniswapSHEESHAxWETHPair
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
+    LNE: (No direct expression available)
+
+    IR:  TMP_393 = CONVERT factory to IUniswapV2Factory
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1197, 1198, 1199, 1200, 1201]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
+    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  SHEESHAxWETHPair(address) := TMP_407(address)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
+    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
+    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
+
+    IR:  pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1248]
+    LNE: pair = IUniswapV2Pair(SHEESHAxWETHPair)
+
+    IR:  TMP_424 = CONVERT pair to address
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1253]
+    LNE: IWETH(WETH).transfer(address(pair),totalETHContributed)
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in LGE.constructor
+Sink: tainted_state_changing_external_call in LGE.claimAndStakeLP
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
+    LNE: (No direct expression available)
+
+    IR:  sheeshaGlobals(ISHEESHAGlobals) := _sheeshaGlobals(ISHEESHAGlobals)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1204]
+    LNE: sheeshaGlobals = _sheeshaGlobals
+
+    IR:  TMP_454(address) = HIGH_LEVEL_CALL, dest:sheeshaGlobals(ISHEESHAGlobals), function:SHEESHAVaultLPAddress, arguments:[]  
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1303]
+    LNE: vault = sheeshaGlobals.SHEESHAVaultLPAddress()
+
+    IR:  vault(address) := TMP_454(address)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1303]
+    LNE: vault = sheeshaGlobals.SHEESHAVaultLPAddress()
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in LGE.getLPTokens
+Sink: tainted_state_changing_external_call in LGE.getLPTokens
+
+### Operations with Source Code Mapping:
+    IR:  getLPTokens
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1312, 1313, 1314]
+    LNE: (No direct expression available)
+
+    IR:  REF_170(uint256) -> ethContributed[_who]
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1313]
+    LNE: ethContributed[_who].mul(LPperETHUnit).div(1e18)
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in LGE.constructor
+Sink: tainted_state_changing_external_call in LGE.createUniswapPairMainnet
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205]
+    LNE: (No direct expression available)
+
+    IR:  TMP_389 = CONVERT router to IUniswapV2Router02
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1192, 1193, 1194, 1195, 1196]
+    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
+
+    IR:  uniswapRouterV2(IUniswapV2Router02) := TMP_389(IUniswapV2Router02)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1192, 1193, 1194, 1195, 1196]
+    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
+
+    IR:  TMP_404(address) = HIGH_LEVEL_CALL, dest:uniswapRouterV2(IUniswapV2Router02), function:WETH, arguments:[]  
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
+    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  TMP_405 = CONVERT TMP_404 to address
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1223, 1224, 1225, 1226]
+    LNE: SHEESHAxWETHPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+----------------------------------------
+
+## Path #31
+Source: external_input_params in ERC20.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [827, 828, 829, 830]
+    LNE: (No direct expression available)
+
+    IR:  REF_12(uint256) -> REF_11[spender]
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [828]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
 
 ----------------------------------------
 
 ## Path #32
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20.transferFrom
+Source: external_input_params in SHEESHA.constructor
+Sink: tainted_erc20_transfer in LGE.constructor
 
 ### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [809, 810, 811, 812, 813]
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112]
     LNE: (No direct expression available)
+
+    IR:  teamAddress(address) := _teamAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1105]
+    LNE: teamAddress = _teamAddress
 
 ----------------------------------------
 
 ## Path #33
-Source: external_input_params in ERC20.transfer
-Sink: tainted_erc20_transfer in ERC20.transfer
+Source: external_input_params in SHEESHA.transferVaultLPRewards
+Sink: tainted_erc20_transfer in SHEESHA.transferVaultLPRewards
 
 ### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [772, 773, 774, 775]
+    IR:  transferVaultLPRewards
+    SRC: File 'pmdetector/flattened_contracts/842058d0_Sheesha Finance/flattened.sol', Lines [1122, 1123, 1124, 1125, 1126]
     LNE: (No direct expression available)
 
 ----------------------------------------

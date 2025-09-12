@@ -765,31 +765,29 @@ Path #1:
     8. TMP_338 = CONVERT TMP_337 to uint224
     9. TMP_339(FixedPoint.uq112x112) = new uq112x112(TMP_338)
     10. priceAverage(FixedPoint.uq112x112) := TMP_339(FixedPoint.uq112x112)
-    11. TMP_340(FixedPoint.uq144x112) = LIBRARY_CALL, dest:FixedPoint, function:FixedPoint.mul(FixedPoint.uq112x112,uint256), arguments:['priceAverage', '1000000000000000000'] 
 
 Path #2:
-  Source: external_input_params in HyperBurn.constructor
-  Sink: tainted_state_changing_external_call in HyperBurn._transfer
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_state_changing_external_call in BEP20._transfer
   Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, HyperBurn._createBurnReservesVault(address)(_burnReservesAddress)
-    3. TMP_307(TokenTimelock) = new TokenTimelock(_burnReservesAddress,TMP_306) 
-    4. burnReservesVault(TokenTimelock) := TMP_307(TokenTimelock)
-    5. TMP_412 = CONVERT burnReservesVault to address
-    6. REF_180(uint256) -> _tOwned[TMP_412]
+    1. transferFrom
+    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_40(uint256) -> _balances[sender]
 
 Path #3:
-  Source: external_input_params in HyperBurn.constructor
-  Sink: tainted_state_changing_external_call in HyperBurn._transfer
+  Source: external_input_params in BEP20.increaseAllowance
+  Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
   Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, HyperBurn._createBurnReservesVault(address)(_burnReservesAddress)
-    3. TMP_307(TokenTimelock) = new TokenTimelock(_burnReservesAddress,TMP_306) 
-    4. burnReservesVault(TokenTimelock) := TMP_307(TokenTimelock)
-    5. TMP_373 = CONVERT burnReservesVault to address
-    6. REF_148(uint256) -> _tOwned[TMP_373]
+    1. increaseAllowance
+    2. REF_34(uint256) -> REF_33[spender]
 
 Path #4:
+  Source: external_input_params in TokenTimelock.release
+  Sink: tainted_erc20_transfer in TokenTimelock.release
+  Path Operations:
+    1. release
+
+Path #5:
   Source: external_input_params in HyperBurn.constructor
   Sink: tainted_erc20_transfer in HyperBurn._createBurnReservesVault
   Path Operations:
@@ -799,78 +797,43 @@ Path #4:
     4. burnReservesVault(TokenTimelock) := TMP_307(TokenTimelock)
     5. TMP_308 = CONVERT burnReservesVault to address
 
-Path #5:
-  Source: external_input_params in BEP20.transfer
-  Sink: tainted_state_changing_external_call in BEP20._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_104,recipient,amount)
-    3. REF_43(uint256) -> _balances[recipient]
-
 Path #6:
-  Source: external_input_params in HyperBurn.balanceOf
-  Sink: tainted_erc20_transfer in HyperBurn.balanceOf
-  Path Operations:
-    1. balanceOf
-
-Path #7:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_erc20_transfer in BEP20.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #8:
   Source: external_input_params in HyperBurn.constructor
   Sink: tainted_erc20_transfer in HyperBurn._distributeTokens
   Path Operations:
     1. constructor
     2. INTERNAL_CALL, HyperBurn._distributeTokens(address)(_initialDistributionAddress)
 
-Path #9:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_state_changing_external_call in BEP20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_40(uint256) -> _balances[sender]
-
-Path #10:
-  Source: external_input_params in HyperBurn.setPairAddr
-  Sink: tainted_state_changing_external_call in HyperBurn.getCurrentTwap
-  Path Operations:
-    1. setPairAddr
-    2. thugSwapPair(address) := pairaddr(address)
-
-Path #11:
-  Source: external_input_params in HyperBurn.setPairAddr
-  Sink: tainted_state_changing_external_call in HyperBurn.initializeTwap
-  Path Operations:
-    1. setPairAddr
-    2. thugSwapPair(address) := pairaddr(address)
-
-Path #12:
-  Source: external_input_params in HyperBurn.setPairAddr
-  Sink: tainted_state_changing_external_call in HyperBurn._updateTwap
-  Path Operations:
-    1. setPairAddr
-    2. thugSwapPair(address) := pairaddr(address)
-
-Path #13:
-  Source: external_input_params in BEP20.transferFrom
-  Sink: tainted_state_changing_external_call in BEP20.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_30(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_31(uint256) -> REF_30[TMP_110]
-
-Path #14:
+Path #7:
   Source: external_input_params in HyperBurn.setPairAddr
   Sink: tainted_erc20_transfer in HyperBurn.setPairAddr
   Path Operations:
     1. setPairAddr
     2. thugSwapPair(address) := pairaddr(address)
 
-Path #15:
+Path #8:
+  Source: external_input_params in HyperBurn.setPairAddr
+  Sink: tainted_state_changing_external_call in HyperBurn.getCurrentTwap
+  Path Operations:
+    1. setPairAddr
+    2. thugSwapPair(address) := pairaddr(address)
+    3. TUPLE_9(uint256,uint256,uint32) = LIBRARY_CALL, dest:ThugSwapOracleLibrary, function:ThugSwapOracleLibrary.currentCumulativePrices(address), arguments:['thugSwapPair'] 
+    4. blockTimestamp(uint32)= UNPACK TUPLE_9 index: 2 
+    5. TMP_463(uint32) = blockTimestamp - blockTimestampLast
+    6. timeElapsed(uint32) := TMP_463(uint32)
+    7. TMP_465(uint256) = TMP_464 / timeElapsed
+    8. TMP_466 = CONVERT TMP_465 to uint224
+    9. TMP_467(FixedPoint.uq112x112) = new uq112x112(TMP_466)
+    10. priceAverage(FixedPoint.uq112x112) := TMP_467(FixedPoint.uq112x112)
+
+Path #9:
+  Source: external_input_params in HyperBurn.setPairAddr
+  Sink: tainted_erc20_transfer in HyperBurn._initializePair
+  Path Operations:
+    1. setPairAddr
+    2. thugSwapPair(address) := pairaddr(address)
+
+Path #10:
   Source: external_input_params in HyperBurn.balanceOf
   Sink: tainted_state_changing_external_call in HyperBurn._tokenFromReflection
   Path Operations:
@@ -878,7 +841,23 @@ Path #15:
     2. REF_89(uint256) -> _rOwned[account]
     3. TMP_278(uint256) = INTERNAL_CALL, HyperBurn._tokenFromReflection(uint256)(REF_89)
 
-Path #16:
+Path #11:
+  Source: external_input_params in HyperBurn.setPairAddr
+  Sink: tainted_state_changing_external_call in HyperBurn._updateTwap
+  Path Operations:
+    1. setPairAddr
+    2. thugSwapPair(address) := pairaddr(address)
+    3. TUPLE_7(uint256,uint256,uint32) = LIBRARY_CALL, dest:ThugSwapOracleLibrary, function:ThugSwapOracleLibrary.currentCumulativePrices(address), arguments:['thugSwapPair'] 
+    4. blockTimestamp(uint32)= UNPACK TUPLE_7 index: 2 
+    5. TMP_334(uint32) = blockTimestamp - blockTimestampLast
+    6. timeElapsed(uint32) := TMP_334(uint32)
+    7. TMP_337(uint256) = TMP_336 / timeElapsed
+    8. TMP_338 = CONVERT TMP_337 to uint224
+    9. TMP_339(FixedPoint.uq112x112) = new uq112x112(TMP_338)
+    10. priceAverage(FixedPoint.uq112x112) := TMP_339(FixedPoint.uq112x112)
+    11. TMP_340(FixedPoint.uq144x112) = LIBRARY_CALL, dest:FixedPoint, function:FixedPoint.mul(FixedPoint.uq112x112,uint256), arguments:['priceAverage', '1000000000000000000'] 
+
+Path #12:
   Source: external_input_params in HyperBurn.setPairAddr
   Sink: tainted_state_changing_external_call in HyperBurn.getCurrentTwap
   Path Operations:
@@ -894,31 +873,69 @@ Path #16:
     10. priceAverage(FixedPoint.uq112x112) := TMP_467(FixedPoint.uq112x112)
     11. TMP_468(FixedPoint.uq144x112) = LIBRARY_CALL, dest:FixedPoint, function:FixedPoint.mul(FixedPoint.uq112x112,uint256), arguments:['priceAverage', '1000000000000000000'] 
 
-Path #17:
-  Source: external_input_params in TokenTimelock.release
-  Sink: tainted_erc20_transfer in TokenTimelock.release
+Path #13:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_state_changing_external_call in BEP20.transferFrom
   Path Operations:
-    1. release
+    1. transferFrom
+    2. REF_30(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_31(uint256) -> REF_30[TMP_110]
+
+Path #14:
+  Source: external_input_params in HyperBurn.constructor
+  Sink: tainted_state_changing_external_call in HyperBurn._transfer
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, HyperBurn._createBurnReservesVault(address)(_burnReservesAddress)
+    3. TMP_307(TokenTimelock) = new TokenTimelock(_burnReservesAddress,TMP_306) 
+    4. burnReservesVault(TokenTimelock) := TMP_307(TokenTimelock)
+    5. TMP_373 = CONVERT burnReservesVault to address
+    6. REF_148(uint256) -> _tOwned[TMP_373]
+
+Path #15:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_erc20_transfer in BEP20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #16:
+  Source: external_input_params in HyperBurn.constructor
+  Sink: tainted_state_changing_external_call in HyperBurn._transfer
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, HyperBurn._createBurnReservesVault(address)(_burnReservesAddress)
+    3. TMP_307(TokenTimelock) = new TokenTimelock(_burnReservesAddress,TMP_306) 
+    4. burnReservesVault(TokenTimelock) := TMP_307(TokenTimelock)
+    5. TMP_412 = CONVERT burnReservesVault to address
+    6. REF_180(uint256) -> _tOwned[TMP_412]
+
+Path #17:
+  Source: external_input_params in HyperBurn.setPairAddr
+  Sink: tainted_state_changing_external_call in HyperBurn.initializeTwap
+  Path Operations:
+    1. setPairAddr
+    2. thugSwapPair(address) := pairaddr(address)
 
 Path #18:
-  Source: external_input_params in BEP20.increaseAllowance
-  Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
+  Source: external_input_params in BEP20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
   Path Operations:
-    1. increaseAllowance
-    2. REF_34(uint256) -> REF_33[spender]
+    1. decreaseAllowance
+    2. REF_37(uint256) -> REF_36[spender]
 
 Path #19:
-  Source: external_input_params in BEP20.transfer
-  Sink: tainted_erc20_transfer in BEP20.transfer
-  Path Operations:
-    1. transfer
-
-Path #20:
   Source: external_input_params in BEP20.transferFrom
   Sink: tainted_erc20_transfer in BEP20._transfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #20:
+  Source: external_input_params in HyperBurn.setPairAddr
+  Sink: tainted_state_changing_external_call in HyperBurn.getCurrentTwap
+  Path Operations:
+    1. setPairAddr
+    2. thugSwapPair(address) := pairaddr(address)
 
 Path #21:
   Source: external_input_params in HyperBurn.setPairAddr
@@ -926,30 +943,8 @@ Path #21:
   Path Operations:
     1. setPairAddr
     2. thugSwapPair(address) := pairaddr(address)
-    3. TUPLE_7(uint256,uint256,uint32) = LIBRARY_CALL, dest:ThugSwapOracleLibrary, function:ThugSwapOracleLibrary.currentCumulativePrices(address), arguments:['thugSwapPair'] 
-    4. blockTimestamp(uint32)= UNPACK TUPLE_7 index: 2 
-    5. TMP_334(uint32) = blockTimestamp - blockTimestampLast
-    6. timeElapsed(uint32) := TMP_334(uint32)
-    7. TMP_337(uint256) = TMP_336 / timeElapsed
-    8. TMP_338 = CONVERT TMP_337 to uint224
-    9. TMP_339(FixedPoint.uq112x112) = new uq112x112(TMP_338)
-    10. priceAverage(FixedPoint.uq112x112) := TMP_339(FixedPoint.uq112x112)
 
 Path #22:
-  Source: external_input_params in HyperBurn.setPairAddr
-  Sink: tainted_erc20_transfer in HyperBurn._initializePair
-  Path Operations:
-    1. setPairAddr
-    2. thugSwapPair(address) := pairaddr(address)
-
-Path #23:
-  Source: external_input_params in BEP20.decreaseAllowance
-  Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_37(uint256) -> REF_36[spender]
-
-Path #24:
   Source: external_input_params in HyperBurn.constructor
   Sink: tainted_state_changing_external_call in HyperBurn._transfer
   Path Operations:
@@ -960,20 +955,25 @@ Path #24:
     5. TMP_376 = CONVERT burnReservesVault to address
     6. REF_151(uint256) -> _rOwned[TMP_376]
 
-Path #25:
-  Source: external_input_params in HyperBurn.setPairAddr
-  Sink: tainted_state_changing_external_call in HyperBurn.getCurrentTwap
+Path #23:
+  Source: external_input_params in BEP20.transfer
+  Sink: tainted_erc20_transfer in BEP20.transfer
   Path Operations:
-    1. setPairAddr
-    2. thugSwapPair(address) := pairaddr(address)
-    3. TUPLE_9(uint256,uint256,uint32) = LIBRARY_CALL, dest:ThugSwapOracleLibrary, function:ThugSwapOracleLibrary.currentCumulativePrices(address), arguments:['thugSwapPair'] 
-    4. blockTimestamp(uint32)= UNPACK TUPLE_9 index: 2 
-    5. TMP_463(uint32) = blockTimestamp - blockTimestampLast
-    6. timeElapsed(uint32) := TMP_463(uint32)
-    7. TMP_465(uint256) = TMP_464 / timeElapsed
-    8. TMP_466 = CONVERT TMP_465 to uint224
-    9. TMP_467(FixedPoint.uq112x112) = new uq112x112(TMP_466)
-    10. priceAverage(FixedPoint.uq112x112) := TMP_467(FixedPoint.uq112x112)
+    1. transfer
+
+Path #24:
+  Source: external_input_params in HyperBurn.balanceOf
+  Sink: tainted_erc20_transfer in HyperBurn.balanceOf
+  Path Operations:
+    1. balanceOf
+
+Path #25:
+  Source: external_input_params in BEP20.transfer
+  Sink: tainted_state_changing_external_call in BEP20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_104,recipient,amount)
+    3. REF_43(uint256) -> _balances[recipient]
 
 Path #26:
   Source: external_input_params in HyperBurn.constructor

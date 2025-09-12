@@ -2,6 +2,21 @@
 Found 40 tainted paths.
 
 ## Path #1
+Source: external_input_params in NerdBaseToken.transfer
+Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6665, 6666, 6667, 6668]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(TMP_981,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6666]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+----------------------------------------
+
+## Path #2
 Source: external_input_params in NerdBaseToken.transferFrom
 Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
 
@@ -13,29 +28,6 @@ Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
     IR:  INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(sender,recipient,amount)
     SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6695]
     LNE: _transfer(sender,recipient,amount)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in NerdBaseToken.setDevFundReciever
-Sink: tainted_erc20_transfer in NerdBaseToken._mint
-
-### Operations with Source Code Mapping:
-    IR:  setDevFundReciever
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6616, 6617, 6618, 6619]
-    LNE: (No direct expression available)
-
-    IR:  tentativeDevAddress(address) := _devaddr(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6618]
-    LNE: tentativeDevAddress = _devaddr
-
-    IR:  devFundAddress(address) := tentativeDevAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6623]
-    LNE: devFundAddress = tentativeDevAddress
-
-    IR:  INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6454]
-    LNE: _mint(devFundAddress,tobeReleasedAmount)
 
 ----------------------------------------
 
@@ -55,97 +47,30 @@ Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
 ----------------------------------------
 
 ## Path #4
-Source: external_input_params in Nerd.constructor
-Sink: tainted_erc20_transfer in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
+Source: external_input_params in NerdBaseToken.transferFrom
+Sink: tainted_erc20_transfer in NerdBaseToken.transferFrom
 
 ### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6694, 6695, 6696, 6697, 6698, 6699, 6700, 6701, 6702, 6703, 6704, 6705]
     LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
-    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
-
-    IR:  TMP_1077 = CONVERT factory to IUniswapV2Factory
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
-    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  tokenUniswapPair(address) := TMP_1124(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
-    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  TMP_925 = CONVERT tokenUniswapPair to IUniswapV2Pair
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
-    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
-
-    IR:  pair(IUniswapV2Pair) := TMP_925(IUniswapV2Pair)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
-    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
-
-    IR:  TMP_936 = CONVERT pair to address
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6561]
-    LNE: IWETH(WETH).transfer(address(pair),totalETHContributed)
 
 ----------------------------------------
 
 ## Path #5
-Source: external_input_params in NerdBaseToken.transfer
-Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
+Source: external_input_params in NerdBaseToken.setFeeDistributor
+Sink: tainted_state_changing_external_call in NerdBaseToken.setFeeDistributor
 
 ### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6665, 6666, 6667, 6668]
+    IR:  setFeeDistributor
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6745, 6746, 6747, 6748, 6749, 6750, 6751, 6752, 6753, 6754, 6755, 6756, 6757]
     LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(TMP_981,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6666]
-    LNE: _transfer(_msgSender(),recipient,amount)
-
-    IR:  REF_471(uint256) -> _balances[recipient]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6792]
-    LNE: _balances[recipient] = _balances[recipient].add(transferToAmount)
 
 ----------------------------------------
 
 ## Path #6
-Source: external_input_params in NerdBaseToken.getAllocatedLP
-Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
-
-### Operations with Source Code Mapping:
-    IR:  getAllocatedLP
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6398, 6399, 6400, 6401, 6402, 6403, 6404, 6405]
-    LNE: (No direct expression available)
-
-    IR:  REF_395(uint256) -> ethContributed[_user]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
-    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
-
-    IR:  TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
-    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
-
-    IR:  TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_860', 'TMP_862'] 
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
-    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
-
-    IR:  TMP_864(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_863', '100'] 
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
-    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
-
-----------------------------------------
-
-## Path #7
 Source: external_input_params in NerdBaseToken.transferFrom
-Sink: tainted_erc20_transfer in NerdBaseToken._transfer
+Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
@@ -156,109 +81,72 @@ Sink: tainted_erc20_transfer in NerdBaseToken._transfer
     SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6695]
     LNE: _transfer(sender,recipient,amount)
 
+    IR:  REF_464(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6771, 6772, 6773, 6774]
+    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in Nerd.delegateBySig
+Sink: tainted_state_changing_external_call in Nerd._moveDelegates
+
+### Operations with Source Code Mapping:
+    IR:  delegateBySig
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6971, 6972, 6973, 6974, 6975, 6976, 6977, 6978, 6979, 6980, 6981, 6982, 6983, 6984, 6985, 6986, 6987, 6988, 6989, 6990, 6991, 6992, 6993, 6994, 6995, 6996, 6997, 6998, 6999, 7000]
+    LNE: (No direct expression available)
+
+    IR:  TMP_1303(bytes) = SOLIDITY_CALL abi.encode()(DELEGATION_TYPEHASH,delegatee,nonce,expiry)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
+    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
+
+    IR:  TMP_1304(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1303)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
+    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
+
+    IR:  structHash(bytes32) := TMP_1304(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
+    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
+
+    IR:  TMP_1305(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  TMP_1306(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1305)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  digest(bytes32) := TMP_1306(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  TMP_1307(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6989]
+    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  signatory(address) := TMP_1307(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6989]
+    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  INTERNAL_CALL, Nerd._delegate(address,address)(signatory,delegatee)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6999]
+    LNE: _delegate(signatory,delegatee)
+
+    IR:  TMP_1334(uint256) = INTERNAL_CALL, NerdBaseToken.balanceOf(address)(delegator)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7063]
+    LNE: delegatorBalance = balanceOf(delegator)
+
+    IR:  delegatorBalance(uint256) := TMP_1334(uint256)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7063]
+    LNE: delegatorBalance = balanceOf(delegator)
+
+    IR:  INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7068]
+    LNE: _moveDelegates(currentDelegate,delegatee,delegatorBalance)
+
 ----------------------------------------
 
 ## Path #8
-Source: external_input_params in NerdBaseToken.transfer
-Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6665, 6666, 6667, 6668]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(TMP_981,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6666]
-    LNE: _transfer(_msgSender(),recipient,amount)
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in NerdBaseToken.decreaseAllowance
-Sink: tainted_state_changing_external_call in NerdBaseToken.decreaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  decreaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6724, 6725, 6726, 6727, 6728, 6729, 6730, 6731, 6732, 6733, 6734]
-    LNE: (No direct expression available)
-
-    IR:  REF_460(uint256) -> REF_459[spender]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6725, 6726, 6727, 6728, 6729, 6730, 6731, 6732]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
-
-----------------------------------------
-
-## Path #10
-Source: external_input_params in Nerd.constructor
-Sink: tainted_erc20_transfer in Nerd.addLiquidityToUniswapNERDxWETHPair
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
-    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
-
-    IR:  TMP_1077 = CONVERT factory to IUniswapV2Factory
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
-    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  tokenUniswapPair(address) := TMP_1124(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
-    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  TMP_1154 = CONVERT tokenUniswapPair to IUniswapV2Pair
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
-    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
-
-    IR:  pair(IUniswapV2Pair) := TMP_1154(IUniswapV2Pair)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
-    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
-
-    IR:  TMP_1165 = CONVERT pair to address
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6561]
-    LNE: IWETH(WETH).transfer(address(pair),totalETHContributed)
-
-----------------------------------------
-
-## Path #11
-Source: external_input_params in Nerd.constructor
-Sink: tainted_state_changing_external_call in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
-    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
-
-    IR:  TMP_1073 = CONVERT router to IUniswapV2Router02
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
-    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
-
-    IR:  uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
-    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
-
-    IR:  TMP_954 = CONVERT uniswapRouterV2 to address
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6575]
-    LNE: IWETH(WETH).approve(address(uniswapRouterV2),uint256(- 1))
-
-----------------------------------------
-
-## Path #12
 Source: external_input_params in Nerd.constructor
 Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWETHPair
 
@@ -309,41 +197,88 @@ Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWET
 
 ----------------------------------------
 
-## Path #13
-Source: external_input_params in NerdBaseToken.setDevFundReciever
-Sink: tainted_erc20_transfer in Nerd._mint
+## Path #9
+Source: external_input_params in NerdBaseToken.getAllocatedLP
+Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
 
 ### Operations with Source Code Mapping:
-    IR:  setDevFundReciever
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6616, 6617, 6618, 6619]
+    IR:  getAllocatedLP
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6398, 6399, 6400, 6401, 6402, 6403, 6404, 6405]
     LNE: (No direct expression available)
 
-    IR:  tentativeDevAddress(address) := _devaddr(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6618]
-    LNE: tentativeDevAddress = _devaddr
+    IR:  REF_395(uint256) -> ethContributed[_user]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
+    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
 
-    IR:  devFundAddress(address) := tentativeDevAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6623]
-    LNE: devFundAddress = tentativeDevAddress
-
-    IR:  INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6454]
-    LNE: _mint(devFundAddress,tobeReleasedAmount)
+    IR:  TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
+    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
 
 ----------------------------------------
 
-## Path #14
-Source: external_input_params in NerdBaseToken.transfer
-Sink: tainted_erc20_transfer in NerdBaseToken.transfer
+## Path #10
+Source: external_input_params in Nerd.delegate
+Sink: tainted_state_changing_external_call in Nerd._moveDelegates
 
 ### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6665, 6666, 6667, 6668]
+    IR:  delegate
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6951, 6952, 6953]
     LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Nerd._delegate(address,address)(msg.sender,delegatee)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6952]
+    LNE: _delegate(msg.sender,delegatee)
+
+    IR:  INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7068]
+    LNE: _moveDelegates(currentDelegate,delegatee,delegatorBalance)
+
+    IR:  REF_625(mapping(uint32 => Nerd.Checkpoint)) -> checkpoints[dstRep]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7090, 7091, 7092]
+    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
+
+    IR:  REF_626(Nerd.Checkpoint) -> REF_625[TMP_1351]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7090, 7091, 7092]
+    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
+
+    IR:  REF_627(uint256) -> REF_626.votes
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7090, 7091, 7092]
+    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
+
+    IR:  dstRepOld(uint256) := REF_627(uint256)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7090, 7091, 7092]
+    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
 
 ----------------------------------------
 
-## Path #15
+## Path #11
+Source: external_input_params in Nerd.constructor
+Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWETHPair
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
+    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
+
+    IR:  TMP_1073 = CONVERT router to IUniswapV2Router02
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
+    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
+
+    IR:  uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
+    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
+
+    IR:  TMP_1183 = CONVERT uniswapRouterV2 to address
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6575]
+    LNE: IWETH(WETH).approve(address(uniswapRouterV2),uint256(- 1))
+
+----------------------------------------
+
+## Path #12
 Source: external_input_params in Nerd.constructor
 Sink: tainted_state_changing_external_call in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
 
@@ -394,7 +329,240 @@ Sink: tainted_state_changing_external_call in NerdBaseToken.addLiquidityToUniswa
 
 ----------------------------------------
 
+## Path #13
+Source: external_input_params in Nerd.constructor
+Sink: tainted_erc20_transfer in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
+    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
+
+    IR:  TMP_1077 = CONVERT factory to IUniswapV2Factory
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
+    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  tokenUniswapPair(address) := TMP_1124(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
+    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  TMP_925 = CONVERT tokenUniswapPair to IUniswapV2Pair
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
+    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
+
+    IR:  pair(IUniswapV2Pair) := TMP_925(IUniswapV2Pair)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
+    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
+
+    IR:  TMP_936 = CONVERT pair to address
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6561]
+    LNE: IWETH(WETH).transfer(address(pair),totalETHContributed)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in NerdBaseToken.getAllocatedLP
+Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
+
+### Operations with Source Code Mapping:
+    IR:  getAllocatedLP
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6398, 6399, 6400, 6401, 6402, 6403, 6404, 6405]
+    LNE: (No direct expression available)
+
+    IR:  REF_395(uint256) -> ethContributed[_user]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
+    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
+
+    IR:  TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
+    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
+
+    IR:  TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_860', 'TMP_862'] 
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
+    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
+
+    IR:  TMP_864(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_863', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
+    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in Nerd.constructor
+Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWETHPair
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
+    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
+
+    IR:  TMP_1077 = CONVERT factory to IUniswapV2Factory
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
+    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  tokenUniswapPair(address) := TMP_1124(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
+    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  TMP_1154 = CONVERT tokenUniswapPair to IUniswapV2Pair
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
+    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
+
+    IR:  pair(IUniswapV2Pair) := TMP_1154(IUniswapV2Pair)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
+    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
+
+    IR:  TMP_1173(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_1172']  
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6565]
+    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
+
+    IR:  totalLPTokensMinted(uint256) := TMP_1173(uint256)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6565]
+    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
+
+----------------------------------------
+
 ## Path #16
+Source: external_input_params in NerdBaseToken.setShouldTransferChecker
+Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  setShouldTransferChecker
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6739, 6740, 6741]
+    LNE: (No direct expression available)
+
+    IR:  transferCheckerAddress(address) := _transferCheckerAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6740]
+    LNE: transferCheckerAddress = _transferCheckerAddress
+
+    IR:  TMP_1012 = CONVERT transferCheckerAddress to IFeeApprover
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6776, 6777, 6778, 6779, 6780, 6781, 6782, 6783]
+    LNE: (transferToAmount,transferToFeeDistributorAmount) = IFeeApprover(transferCheckerAddress).calculateAmountsAfterFee(sender,recipient,amount)
+
+    IR:  TUPLE_3(uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_1012(IFeeApprover), function:calculateAmountsAfterFee, arguments:['sender', 'recipient', 'amount']  
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6776, 6777, 6778, 6779, 6780, 6781, 6782, 6783]
+    LNE: (transferToAmount,transferToFeeDistributorAmount) = IFeeApprover(transferCheckerAddress).calculateAmountsAfterFee(sender,recipient,amount)
+
+    IR:  transferToAmount(uint256)= UNPACK TUPLE_3 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6776, 6777, 6778, 6779, 6780, 6781, 6782, 6783]
+    LNE: (transferToAmount,transferToFeeDistributorAmount) = IFeeApprover(transferCheckerAddress).calculateAmountsAfterFee(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in NerdBaseToken.setDevFundReciever
+Sink: tainted_erc20_transfer in NerdBaseToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  setDevFundReciever
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6616, 6617, 6618, 6619]
+    LNE: (No direct expression available)
+
+    IR:  tentativeDevAddress(address) := _devaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6618]
+    LNE: tentativeDevAddress = _devaddr
+
+    IR:  devFundAddress(address) := tentativeDevAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6623]
+    LNE: devFundAddress = tentativeDevAddress
+
+    IR:  INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6454]
+    LNE: _mint(devFundAddress,tobeReleasedAmount)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in Nerd.constructor
+Sink: tainted_erc20_transfer in Nerd.addLiquidityToUniswapNERDxWETHPair
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
+    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
+
+    IR:  TMP_1077 = CONVERT factory to IUniswapV2Factory
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
+    LNE: uniswapFactory = IUniswapV2Factory(factory)
+
+    IR:  TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
+    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  tokenUniswapPair(address) := TMP_1124(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
+    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  TMP_1154 = CONVERT tokenUniswapPair to IUniswapV2Pair
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
+    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
+
+    IR:  pair(IUniswapV2Pair) := TMP_1154(IUniswapV2Pair)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
+    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
+
+    IR:  TMP_1165 = CONVERT pair to address
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6561]
+    LNE: IWETH(WETH).transfer(address(pair),totalETHContributed)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in NerdBaseToken.setDevFundReciever
+Sink: tainted_erc20_transfer in Nerd._mint
+
+### Operations with Source Code Mapping:
+    IR:  setDevFundReciever
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6616, 6617, 6618, 6619]
+    LNE: (No direct expression available)
+
+    IR:  tentativeDevAddress(address) := _devaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6618]
+    LNE: tentativeDevAddress = _devaddr
+
+    IR:  devFundAddress(address) := tentativeDevAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6623]
+    LNE: devFundAddress = tentativeDevAddress
+
+    IR:  INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6454]
+    LNE: _mint(devFundAddress,tobeReleasedAmount)
+
+----------------------------------------
+
+## Path #20
 Source: external_input_params in NerdBaseToken.setFeeDistributor
 Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
 
@@ -413,7 +581,7 @@ Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
 
 ----------------------------------------
 
-## Path #17
+## Path #21
 Source: external_input_params in Nerd.delegateBySig
 Sink: tainted_erc20_transfer in Nerd._delegate
 
@@ -468,7 +636,177 @@ Sink: tainted_erc20_transfer in Nerd._delegate
 
 ----------------------------------------
 
-## Path #18
+## Path #22
+Source: external_input_params in Nerd.constructor
+Sink: tainted_state_changing_external_call in Nerd.createUniswapPairMainnet
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
+    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
+
+    IR:  TMP_1073 = CONVERT router to IUniswapV2Router02
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
+    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
+
+    IR:  uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
+    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
+
+    IR:  TMP_1121(address) = HIGH_LEVEL_CALL, dest:uniswapRouterV2(IUniswapV2Router02), function:WETH, arguments:[]  
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
+    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+    IR:  TMP_1122 = CONVERT TMP_1121 to address
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
+    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in Nerd.delegateBySig
+Sink: tainted_state_changing_external_call in Nerd._moveDelegates
+
+### Operations with Source Code Mapping:
+    IR:  delegateBySig
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6971, 6972, 6973, 6974, 6975, 6976, 6977, 6978, 6979, 6980, 6981, 6982, 6983, 6984, 6985, 6986, 6987, 6988, 6989, 6990, 6991, 6992, 6993, 6994, 6995, 6996, 6997, 6998, 6999, 7000]
+    LNE: (No direct expression available)
+
+    IR:  TMP_1303(bytes) = SOLIDITY_CALL abi.encode()(DELEGATION_TYPEHASH,delegatee,nonce,expiry)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
+    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
+
+    IR:  TMP_1304(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1303)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
+    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
+
+    IR:  structHash(bytes32) := TMP_1304(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
+    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
+
+    IR:  TMP_1305(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  TMP_1306(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1305)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  digest(bytes32) := TMP_1306(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  TMP_1307(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6989]
+    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  signatory(address) := TMP_1307(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6989]
+    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  INTERNAL_CALL, Nerd._delegate(address,address)(signatory,delegatee)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6999]
+    LNE: _delegate(signatory,delegatee)
+
+    IR:  TMP_1334(uint256) = INTERNAL_CALL, NerdBaseToken.balanceOf(address)(delegator)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7063]
+    LNE: delegatorBalance = balanceOf(delegator)
+
+    IR:  delegatorBalance(uint256) := TMP_1334(uint256)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7063]
+    LNE: delegatorBalance = balanceOf(delegator)
+
+    IR:  INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7068]
+    LNE: _moveDelegates(currentDelegate,delegatee,delegatorBalance)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in NerdBaseToken.transferFrom
+Sink: tainted_erc20_transfer in NerdBaseToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6694, 6695, 6696, 6697, 6698, 6699, 6700, 6701, 6702, 6703, 6704, 6705]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6695]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in NerdBaseToken.increaseAllowance
+Sink: tainted_state_changing_external_call in NerdBaseToken.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6711, 6712, 6713, 6714, 6715, 6716, 6717, 6718]
+    LNE: (No direct expression available)
+
+    IR:  REF_457(uint256) -> REF_456[spender]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6712, 6713, 6714, 6715, 6716]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in NerdBaseToken.getAllocatedLP
+Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
+
+### Operations with Source Code Mapping:
+    IR:  getAllocatedLP
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6398, 6399, 6400, 6401, 6402, 6403, 6404, 6405]
+    LNE: (No direct expression available)
+
+    IR:  REF_395(uint256) -> ethContributed[_user]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
+    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
+
+    IR:  TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
+    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
+
+    IR:  TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_860', 'TMP_862'] 
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
+    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in NerdBaseToken.setDevFundReciever
+Sink: tainted_state_changing_external_call in NerdBaseToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  setDevFundReciever
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6616, 6617, 6618, 6619]
+    LNE: (No direct expression available)
+
+    IR:  tentativeDevAddress(address) := _devaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6618]
+    LNE: tentativeDevAddress = _devaddr
+
+    IR:  devFundAddress(address) := tentativeDevAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6623]
+    LNE: devFundAddress = tentativeDevAddress
+
+    IR:  INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6454]
+    LNE: _mint(devFundAddress,tobeReleasedAmount)
+
+    IR:  REF_479(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6817]
+    LNE: _balances[account] = _balances[account].add(amount)
+
+----------------------------------------
+
+## Path #28
 Source: external_input_params in Nerd.delegateBySig
 Sink: tainted_state_changing_external_call in Nerd._moveDelegates
 
@@ -543,467 +881,7 @@ Sink: tainted_state_changing_external_call in Nerd._moveDelegates
 
 ----------------------------------------
 
-## Path #19
-Source: external_input_params in NerdBaseToken.getAllocatedLP
-Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
-
-### Operations with Source Code Mapping:
-    IR:  getAllocatedLP
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6398, 6399, 6400, 6401, 6402, 6403, 6404, 6405]
-    LNE: (No direct expression available)
-
-    IR:  REF_395(uint256) -> ethContributed[_user]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
-    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
-
-    IR:  TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
-    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
-
-----------------------------------------
-
-## Path #20
-Source: external_input_params in Nerd.delegateBySig
-Sink: tainted_state_changing_external_call in Nerd._moveDelegates
-
-### Operations with Source Code Mapping:
-    IR:  delegateBySig
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6971, 6972, 6973, 6974, 6975, 6976, 6977, 6978, 6979, 6980, 6981, 6982, 6983, 6984, 6985, 6986, 6987, 6988, 6989, 6990, 6991, 6992, 6993, 6994, 6995, 6996, 6997, 6998, 6999, 7000]
-    LNE: (No direct expression available)
-
-    IR:  TMP_1303(bytes) = SOLIDITY_CALL abi.encode()(DELEGATION_TYPEHASH,delegatee,nonce,expiry)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
-    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
-
-    IR:  TMP_1304(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1303)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
-    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
-
-    IR:  structHash(bytes32) := TMP_1304(bytes32)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
-    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
-
-    IR:  TMP_1305(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
-    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
-
-    IR:  TMP_1306(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1305)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
-    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
-
-    IR:  digest(bytes32) := TMP_1306(bytes32)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
-    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
-
-    IR:  TMP_1307(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6989]
-    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-
-    IR:  signatory(address) := TMP_1307(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6989]
-    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-
-    IR:  INTERNAL_CALL, Nerd._delegate(address,address)(signatory,delegatee)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6999]
-    LNE: _delegate(signatory,delegatee)
-
-    IR:  TMP_1334(uint256) = INTERNAL_CALL, NerdBaseToken.balanceOf(address)(delegator)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7063]
-    LNE: delegatorBalance = balanceOf(delegator)
-
-    IR:  delegatorBalance(uint256) := TMP_1334(uint256)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7063]
-    LNE: delegatorBalance = balanceOf(delegator)
-
-    IR:  INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7068]
-    LNE: _moveDelegates(currentDelegate,delegatee,delegatorBalance)
-
-----------------------------------------
-
-## Path #21
-Source: external_input_params in NerdBaseToken.setShouldTransferChecker
-Sink: tainted_state_changing_external_call in Nerd._transfer
-
-### Operations with Source Code Mapping:
-    IR:  setShouldTransferChecker
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6739, 6740, 6741]
-    LNE: (No direct expression available)
-
-    IR:  transferCheckerAddress(address) := _transferCheckerAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6740]
-    LNE: transferCheckerAddress = _transferCheckerAddress
-
-    IR:  TMP_1241 = CONVERT transferCheckerAddress to IFeeApprover
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6776, 6777, 6778, 6779, 6780, 6781, 6782, 6783]
-    LNE: (transferToAmount,transferToFeeDistributorAmount) = IFeeApprover(transferCheckerAddress).calculateAmountsAfterFee(sender,recipient,amount)
-
-    IR:  TUPLE_5(uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_1241(IFeeApprover), function:calculateAmountsAfterFee, arguments:['sender', 'recipient', 'amount']  
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6776, 6777, 6778, 6779, 6780, 6781, 6782, 6783]
-    LNE: (transferToAmount,transferToFeeDistributorAmount) = IFeeApprover(transferCheckerAddress).calculateAmountsAfterFee(sender,recipient,amount)
-
-    IR:  transferToAmount(uint256)= UNPACK TUPLE_5 index: 0 
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6776, 6777, 6778, 6779, 6780, 6781, 6782, 6783]
-    LNE: (transferToAmount,transferToFeeDistributorAmount) = IFeeApprover(transferCheckerAddress).calculateAmountsAfterFee(sender,recipient,amount)
-
-----------------------------------------
-
-## Path #22
-Source: external_input_params in Nerd.delegate
-Sink: tainted_state_changing_external_call in Nerd._moveDelegates
-
-### Operations with Source Code Mapping:
-    IR:  delegate
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6951, 6952, 6953]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Nerd._delegate(address,address)(msg.sender,delegatee)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6952]
-    LNE: _delegate(msg.sender,delegatee)
-
-    IR:  INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7068]
-    LNE: _moveDelegates(currentDelegate,delegatee,delegatorBalance)
-
-    IR:  REF_625(mapping(uint32 => Nerd.Checkpoint)) -> checkpoints[dstRep]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7090, 7091, 7092]
-    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
-
-    IR:  REF_626(Nerd.Checkpoint) -> REF_625[TMP_1351]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7090, 7091, 7092]
-    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
-
-    IR:  REF_627(uint256) -> REF_626.votes
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7090, 7091, 7092]
-    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
-
-    IR:  dstRepOld(uint256) := REF_627(uint256)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7090, 7091, 7092]
-    LNE: dstRepOld = checkpoints[dstRep][dstRepNum - 1].votes
-
-----------------------------------------
-
-## Path #23
-Source: external_input_params in NerdBaseToken.getAllocatedLP
-Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
-
-### Operations with Source Code Mapping:
-    IR:  getAllocatedLP
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6398, 6399, 6400, 6401, 6402, 6403, 6404, 6405]
-    LNE: (No direct expression available)
-
-    IR:  REF_395(uint256) -> ethContributed[_user]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
-    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
-
-    IR:  TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
-    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
-
-    IR:  TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_860', 'TMP_862'] 
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
-    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
-
-----------------------------------------
-
-## Path #24
-Source: external_input_params in NerdBaseToken.setDevFundReciever
-Sink: tainted_state_changing_external_call in Nerd._mint
-
-### Operations with Source Code Mapping:
-    IR:  setDevFundReciever
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6616, 6617, 6618, 6619]
-    LNE: (No direct expression available)
-
-    IR:  tentativeDevAddress(address) := _devaddr(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6618]
-    LNE: tentativeDevAddress = _devaddr
-
-    IR:  devFundAddress(address) := tentativeDevAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6623]
-    LNE: devFundAddress = tentativeDevAddress
-
-    IR:  INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6454]
-    LNE: _mint(devFundAddress,tobeReleasedAmount)
-
-    IR:  REF_581(uint256) -> _balances[account]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6817]
-    LNE: _balances[account] = _balances[account].add(amount)
-
-----------------------------------------
-
-## Path #25
-Source: external_input_params in NerdBaseToken.getAllocatedLP
-Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
-
-### Operations with Source Code Mapping:
-    IR:  getAllocatedLP
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6398, 6399, 6400, 6401, 6402, 6403, 6404, 6405]
-    LNE: (No direct expression available)
-
-    IR:  REF_395(uint256) -> ethContributed[_user]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
-    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
-
-----------------------------------------
-
-## Path #26
-Source: external_input_params in Nerd.constructor
-Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWETHPair
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
-    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
-
-    IR:  TMP_1077 = CONVERT factory to IUniswapV2Factory
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6350, 6351, 6352, 6353, 6354]
-    LNE: uniswapFactory = IUniswapV2Factory(factory)
-
-    IR:  TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
-    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  tokenUniswapPair(address) := TMP_1124(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
-    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  TMP_1154 = CONVERT tokenUniswapPair to IUniswapV2Pair
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
-    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
-
-    IR:  pair(IUniswapV2Pair) := TMP_1154(IUniswapV2Pair)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6556]
-    LNE: pair = IUniswapV2Pair(tokenUniswapPair)
-
-    IR:  TMP_1173(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_1172']  
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6565]
-    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
-
-    IR:  totalLPTokensMinted(uint256) := TMP_1173(uint256)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6565]
-    LNE: totalLPTokensMinted = pair.balanceOf(address(this))
-
-----------------------------------------
-
-## Path #27
-Source: external_input_params in Nerd.constructor
-Sink: tainted_state_changing_external_call in Nerd.createUniswapPairMainnet
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
-    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
-
-    IR:  TMP_1073 = CONVERT router to IUniswapV2Router02
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
-    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
-
-    IR:  uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
-    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
-
-    IR:  TMP_1121(address) = HIGH_LEVEL_CALL, dest:uniswapRouterV2(IUniswapV2Router02), function:WETH, arguments:[]  
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
-    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-    IR:  TMP_1122 = CONVERT TMP_1121 to address
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6487, 6488, 6489, 6490]
-    LNE: tokenUniswapPair = uniswapFactory.createPair(address(uniswapRouterV2.WETH()),address(this))
-
-----------------------------------------
-
-## Path #28
-Source: external_input_params in Nerd.delegateBySig
-Sink: tainted_state_changing_external_call in Nerd._moveDelegates
-
-### Operations with Source Code Mapping:
-    IR:  delegateBySig
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6971, 6972, 6973, 6974, 6975, 6976, 6977, 6978, 6979, 6980, 6981, 6982, 6983, 6984, 6985, 6986, 6987, 6988, 6989, 6990, 6991, 6992, 6993, 6994, 6995, 6996, 6997, 6998, 6999, 7000]
-    LNE: (No direct expression available)
-
-    IR:  TMP_1303(bytes) = SOLIDITY_CALL abi.encode()(DELEGATION_TYPEHASH,delegatee,nonce,expiry)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
-    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
-
-    IR:  TMP_1304(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1303)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
-    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
-
-    IR:  structHash(bytes32) := TMP_1304(bytes32)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6981, 6982, 6983]
-    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
-
-    IR:  TMP_1305(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
-    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
-
-    IR:  TMP_1306(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1305)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
-    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
-
-    IR:  digest(bytes32) := TMP_1306(bytes32)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6985, 6986, 6987]
-    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
-
-    IR:  TMP_1307(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6989]
-    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-
-    IR:  signatory(address) := TMP_1307(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6989]
-    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-
-    IR:  INTERNAL_CALL, Nerd._delegate(address,address)(signatory,delegatee)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6999]
-    LNE: _delegate(signatory,delegatee)
-
-    IR:  TMP_1334(uint256) = INTERNAL_CALL, NerdBaseToken.balanceOf(address)(delegator)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7063]
-    LNE: delegatorBalance = balanceOf(delegator)
-
-    IR:  delegatorBalance(uint256) := TMP_1334(uint256)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7063]
-    LNE: delegatorBalance = balanceOf(delegator)
-
-    IR:  INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [7068]
-    LNE: _moveDelegates(currentDelegate,delegatee,delegatorBalance)
-
-----------------------------------------
-
 ## Path #29
-Source: external_input_params in NerdBaseToken.increaseAllowance
-Sink: tainted_state_changing_external_call in NerdBaseToken.increaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  increaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6711, 6712, 6713, 6714, 6715, 6716, 6717, 6718]
-    LNE: (No direct expression available)
-
-    IR:  REF_457(uint256) -> REF_456[spender]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6712, 6713, 6714, 6715, 6716]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
-
-----------------------------------------
-
-## Path #30
-Source: external_input_params in NerdBaseToken.transferFrom
-Sink: tainted_erc20_transfer in NerdBaseToken.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6694, 6695, 6696, 6697, 6698, 6699, 6700, 6701, 6702, 6703, 6704, 6705]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #31
-Source: external_input_params in NerdBaseToken.setFeeDistributor
-Sink: tainted_state_changing_external_call in Nerd._transfer
-
-### Operations with Source Code Mapping:
-    IR:  setFeeDistributor
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6745, 6746, 6747, 6748, 6749, 6750, 6751, 6752, 6753, 6754, 6755, 6756, 6757]
-    LNE: (No direct expression available)
-
-    IR:  feeDistributor(address) := _feeDistributor(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6746]
-    LNE: feeDistributor = _feeDistributor
-
-    IR:  REF_576(uint256) -> _balances[feeDistributor]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6799, 6800, 6801]
-    LNE: _balances[feeDistributor] = _balances[feeDistributor].add(transferToFeeDistributorAmount)
-
-----------------------------------------
-
-## Path #32
-Source: external_input_params in Nerd.constructor
-Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWETHPair
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
-    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
-
-    IR:  TMP_1073 = CONVERT router to IUniswapV2Router02
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
-    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
-
-    IR:  uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
-    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
-
-    IR:  TMP_1183 = CONVERT uniswapRouterV2 to address
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6575]
-    LNE: IWETH(WETH).approve(address(uniswapRouterV2),uint256(- 1))
-
-----------------------------------------
-
-## Path #33
-Source: external_input_params in NerdBaseToken.setDevFundReciever
-Sink: tainted_state_changing_external_call in NerdBaseToken._mint
-
-### Operations with Source Code Mapping:
-    IR:  setDevFundReciever
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6616, 6617, 6618, 6619]
-    LNE: (No direct expression available)
-
-    IR:  tentativeDevAddress(address) := _devaddr(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6618]
-    LNE: tentativeDevAddress = _devaddr
-
-    IR:  devFundAddress(address) := tentativeDevAddress(address)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6623]
-    LNE: devFundAddress = tentativeDevAddress
-
-    IR:  INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6454]
-    LNE: _mint(devFundAddress,tobeReleasedAmount)
-
-    IR:  REF_479(uint256) -> _balances[account]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6817]
-    LNE: _balances[account] = _balances[account].add(amount)
-
-----------------------------------------
-
-## Path #34
-Source: external_input_params in NerdBaseToken.transferFrom
-Sink: tainted_state_changing_external_call in NerdBaseToken.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6694, 6695, 6696, 6697, 6698, 6699, 6700, 6701, 6702, 6703, 6704, 6705]
-    LNE: (No direct expression available)
-
-    IR:  REF_453(mapping(address => uint256)) -> _allowances[sender]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6696, 6697, 6698, 6699, 6700, 6701, 6702, 6703]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
-
-    IR:  REF_454(uint256) -> REF_453[TMP_987]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6696, 6697, 6698, 6699, 6700, 6701, 6702, 6703]
-    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
-
-----------------------------------------
-
-## Path #35
 Source: external_input_params in Nerd.constructor
 Sink: tainted_state_changing_external_call in NerdBaseToken.createUniswapPairMainnet
 
@@ -1034,7 +912,7 @@ Sink: tainted_state_changing_external_call in NerdBaseToken.createUniswapPairMai
 
 ----------------------------------------
 
-## Path #36
+## Path #30
 Source: external_input_params in Nerd.constructor
 Sink: tainted_state_changing_external_call in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
 
@@ -1081,9 +959,85 @@ Sink: tainted_state_changing_external_call in NerdBaseToken.addLiquidityToUniswa
 
 ----------------------------------------
 
-## Path #37
-Source: external_input_params in NerdBaseToken.setShouldTransferChecker
+## Path #31
+Source: external_input_params in Nerd.constructor
+Sink: tainted_state_changing_external_call in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6878, 6879, 6880, 6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6879]
+    LNE: initialSetup(router,factory,_devFund,_lgePeriod,_lgeApprover)
+
+    IR:  TMP_1073 = CONVERT router to IUniswapV2Router02
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
+    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
+
+    IR:  uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6345, 6346, 6347, 6348, 6349]
+    LNE: uniswapRouterV2 = IUniswapV2Router02(router)
+
+    IR:  TMP_954 = CONVERT uniswapRouterV2 to address
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6575]
+    LNE: IWETH(WETH).approve(address(uniswapRouterV2),uint256(- 1))
+
+----------------------------------------
+
+## Path #32
+Source: external_input_params in NerdBaseToken.setFeeDistributor
+Sink: tainted_state_changing_external_call in Nerd._transfer
+
+### Operations with Source Code Mapping:
+    IR:  setFeeDistributor
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6745, 6746, 6747, 6748, 6749, 6750, 6751, 6752, 6753, 6754, 6755, 6756, 6757]
+    LNE: (No direct expression available)
+
+    IR:  feeDistributor(address) := _feeDistributor(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6746]
+    LNE: feeDistributor = _feeDistributor
+
+    IR:  REF_576(uint256) -> _balances[feeDistributor]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6799, 6800, 6801]
+    LNE: _balances[feeDistributor] = _balances[feeDistributor].add(transferToFeeDistributorAmount)
+
+----------------------------------------
+
+## Path #33
+Source: external_input_params in NerdBaseToken.transfer
 Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6665, 6666, 6667, 6668]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(TMP_981,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6666]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_471(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6792]
+    LNE: _balances[recipient] = _balances[recipient].add(transferToAmount)
+
+----------------------------------------
+
+## Path #34
+Source: external_input_params in NerdBaseToken.transfer
+Sink: tainted_erc20_transfer in NerdBaseToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6665, 6666, 6667, 6668]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #35
+Source: external_input_params in NerdBaseToken.setShouldTransferChecker
+Sink: tainted_state_changing_external_call in Nerd._transfer
 
 ### Operations with Source Code Mapping:
     IR:  setShouldTransferChecker
@@ -1094,17 +1048,59 @@ Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
     SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6740]
     LNE: transferCheckerAddress = _transferCheckerAddress
 
-    IR:  TMP_1012 = CONVERT transferCheckerAddress to IFeeApprover
+    IR:  TMP_1241 = CONVERT transferCheckerAddress to IFeeApprover
     SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6776, 6777, 6778, 6779, 6780, 6781, 6782, 6783]
     LNE: (transferToAmount,transferToFeeDistributorAmount) = IFeeApprover(transferCheckerAddress).calculateAmountsAfterFee(sender,recipient,amount)
 
-    IR:  TUPLE_3(uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_1012(IFeeApprover), function:calculateAmountsAfterFee, arguments:['sender', 'recipient', 'amount']  
+    IR:  TUPLE_5(uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_1241(IFeeApprover), function:calculateAmountsAfterFee, arguments:['sender', 'recipient', 'amount']  
     SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6776, 6777, 6778, 6779, 6780, 6781, 6782, 6783]
     LNE: (transferToAmount,transferToFeeDistributorAmount) = IFeeApprover(transferCheckerAddress).calculateAmountsAfterFee(sender,recipient,amount)
 
-    IR:  transferToAmount(uint256)= UNPACK TUPLE_3 index: 0 
+    IR:  transferToAmount(uint256)= UNPACK TUPLE_5 index: 0 
     SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6776, 6777, 6778, 6779, 6780, 6781, 6782, 6783]
     LNE: (transferToAmount,transferToFeeDistributorAmount) = IFeeApprover(transferCheckerAddress).calculateAmountsAfterFee(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #36
+Source: external_input_params in NerdBaseToken.decreaseAllowance
+Sink: tainted_state_changing_external_call in NerdBaseToken.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6724, 6725, 6726, 6727, 6728, 6729, 6730, 6731, 6732, 6733, 6734]
+    LNE: (No direct expression available)
+
+    IR:  REF_460(uint256) -> REF_459[spender]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6725, 6726, 6727, 6728, 6729, 6730, 6731, 6732]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #37
+Source: external_input_params in NerdBaseToken.setDevFundReciever
+Sink: tainted_state_changing_external_call in Nerd._mint
+
+### Operations with Source Code Mapping:
+    IR:  setDevFundReciever
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6616, 6617, 6618, 6619]
+    LNE: (No direct expression available)
+
+    IR:  tentativeDevAddress(address) := _devaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6618]
+    LNE: tentativeDevAddress = _devaddr
+
+    IR:  devFundAddress(address) := tentativeDevAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6623]
+    LNE: devFundAddress = tentativeDevAddress
+
+    IR:  INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6454]
+    LNE: _mint(devFundAddress,tobeReleasedAmount)
+
+    IR:  REF_581(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6817]
+    LNE: _balances[account] = _balances[account].add(amount)
 
 ----------------------------------------
 
@@ -1156,31 +1152,35 @@ Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWET
 ----------------------------------------
 
 ## Path #39
-Source: external_input_params in NerdBaseToken.setFeeDistributor
-Sink: tainted_state_changing_external_call in NerdBaseToken.setFeeDistributor
-
-### Operations with Source Code Mapping:
-    IR:  setFeeDistributor
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6745, 6746, 6747, 6748, 6749, 6750, 6751, 6752, 6753, 6754, 6755, 6756, 6757]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #40
 Source: external_input_params in NerdBaseToken.transferFrom
-Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
+Sink: tainted_state_changing_external_call in NerdBaseToken.transferFrom
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6694, 6695, 6696, 6697, 6698, 6699, 6700, 6701, 6702, 6703, 6704, 6705]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6695]
-    LNE: _transfer(sender,recipient,amount)
+    IR:  REF_453(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6696, 6697, 6698, 6699, 6700, 6701, 6702, 6703]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
 
-    IR:  REF_464(uint256) -> _balances[sender]
-    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6771, 6772, 6773, 6774]
-    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
+    IR:  REF_454(uint256) -> REF_453[TMP_987]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6696, 6697, 6698, 6699, 6700, 6701, 6702, 6703]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #40
+Source: external_input_params in NerdBaseToken.getAllocatedLP
+Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
+
+### Operations with Source Code Mapping:
+    IR:  getAllocatedLP
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6398, 6399, 6400, 6401, 6402, 6403, 6404, 6405]
+    LNE: (No direct expression available)
+
+    IR:  REF_395(uint256) -> ethContributed[_user]
+    SRC: File 'pmdetector/flattened_contracts/12a0dc07_N3RD Finance/flattened.sol', Lines [6399, 6400, 6401, 6402, 6403, 6404]
+    LNE: ethContributed[_user].mul(LPperETHUnit).mul(uint256(100).sub(LP_LOCK_FOREVER_PERCENT)).div(100).div(1e18)
 
 ----------------------------------------

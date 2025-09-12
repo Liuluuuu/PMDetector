@@ -219,9 +219,10 @@ Sink #21: tainted_state_changing_external_call
 === Tainted Paths ===
 Path #1:
   Source: external_input_params in FireToken.transfer
-  Sink: tainted_erc20_transfer in FireToken.transfer
+  Sink: tainted_state_changing_external_call in FireToken._transfer
   Path Operations:
     1. transfer
+    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
 
 Path #2:
   Source: external_input_params in FireToken.transfer
@@ -229,6 +230,9 @@ Path #2:
   Path Operations:
     1. transfer
     2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    3. TMP_144(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_finalBuyTax'] 
+    4. TMP_145(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_144', '100'] 
+    5. taxAmount(uint256) := TMP_145(uint256)
 
 Path #3:
   Source: external_input_params in FireToken.transfer
@@ -236,20 +240,21 @@ Path #3:
   Path Operations:
     1. transfer
     2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    3. TMP_149(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_finalSellTax'] 
 
 Path #4:
   Source: external_input_params in FireToken.transfer
-  Sink: tainted_state_changing_external_call in FireToken._transfer
+  Sink: tainted_erc20_transfer in FireToken.transfer
   Path Operations:
     1. transfer
-    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
 
 Path #5:
-  Source: external_input_params in FireToken.transfer
+  Source: external_input_params in FireToken.transferFrom
   Sink: tainted_state_changing_external_call in FireToken._transfer
   Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    1. transferFrom
+    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_29(uint256) -> _balances[from]
 
 Path #6:
   Source: external_input_params in FireToken.transfer
@@ -257,23 +262,23 @@ Path #6:
   Path Operations:
     1. transfer
     2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    3. TMP_151(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_initialSellTax'] 
 
 Path #7:
-  Source: external_input_params in FireToken.transfer
-  Sink: tainted_erc20_transfer in FireToken.swapTokensForEth
+  Source: external_input_params in FireToken.balanceOf
+  Sink: tainted_state_changing_external_call in FireToken.openTrading
   Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
-    3. TMP_124(uint256) = INTERNAL_CALL, FireToken.min(uint256,uint256)(amount,TMP_123)
-    4. INTERNAL_CALL, FireToken.swapTokensForEth(uint256)(TMP_124)
+    1. balanceOf
+    2. REF_4(uint256) -> _balances[account]
+    3. TMP_187(uint256) = INTERNAL_CALL, FireToken.balanceOf(address)(TMP_186)
 
 Path #8:
-  Source: external_input_params in FireToken.transfer
-  Sink: tainted_state_changing_external_call in FireToken._transfer
+  Source: external_input_params in FireToken.transferFrom
+  Sink: tainted_state_changing_external_call in FireToken.transferFrom
   Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
-    3. REF_32(uint256) -> _balances[to]
+    1. transferFrom
+    2. REF_7(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_8(uint256) -> REF_7[TMP_47]
 
 Path #9:
   Source: external_input_params in FireToken.transfer
@@ -281,7 +286,8 @@ Path #9:
   Path Operations:
     1. transfer
     2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
-    3. TMP_146(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_initialBuyTax'] 
+    3. TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'taxAmount'] 
+    4. sellAmount(uint256) := TMP_104(uint256)
 
 Path #10:
   Source: external_input_params in FireToken.transfer
@@ -296,6 +302,7 @@ Path #11:
   Path Operations:
     1. transfer
     2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    3. REF_32(uint256) -> _balances[to]
 
 Path #12:
   Source: external_input_params in FireToken.transfer
@@ -303,8 +310,6 @@ Path #12:
   Path Operations:
     1. transfer
     2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
-    3. TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'taxAmount'] 
-    4. sellAmount(uint256) := TMP_104(uint256)
 
 Path #13:
   Source: external_input_params in FireToken.transfer
@@ -312,15 +317,14 @@ Path #13:
   Path Operations:
     1. transfer
     2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
-    3. TMP_144(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_finalBuyTax'] 
 
 Path #14:
-  Source: external_input_params in FireToken.balanceOf
-  Sink: tainted_state_changing_external_call in FireToken.openTrading
+  Source: external_input_params in FireToken.transfer
+  Sink: tainted_state_changing_external_call in FireToken._transfer
   Path Operations:
-    1. balanceOf
-    2. REF_4(uint256) -> _balances[account]
-    3. TMP_187(uint256) = INTERNAL_CALL, FireToken.balanceOf(address)(TMP_186)
+    1. transfer
+    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    3. TMP_146(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_initialBuyTax'] 
 
 Path #15:
   Source: external_input_params in FireToken.transfer
@@ -328,23 +332,31 @@ Path #15:
   Path Operations:
     1. transfer
     2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
-    3. TMP_151(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_initialSellTax'] 
 
 Path #16:
-  Source: external_input_params in FireToken.transferFrom
+  Source: external_input_params in FireToken.transfer
   Sink: tainted_state_changing_external_call in FireToken._transfer
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_29(uint256) -> _balances[from]
+    1. transfer
+    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
 
 Path #17:
-  Source: external_input_params in FireToken.transferFrom
-  Sink: tainted_erc20_transfer in FireToken.transferFrom
+  Source: external_input_params in FireToken.transfer
+  Sink: tainted_erc20_transfer in FireToken.swapTokensForEth
   Path Operations:
-    1. transferFrom
+    1. transfer
+    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    3. TMP_124(uint256) = INTERNAL_CALL, FireToken.min(uint256,uint256)(amount,TMP_123)
+    4. INTERNAL_CALL, FireToken.swapTokensForEth(uint256)(TMP_124)
 
 Path #18:
+  Source: external_input_params in FireToken.transfer
+  Sink: tainted_state_changing_external_call in FireToken._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+
+Path #19:
   Source: external_input_params in FireToken.transfer
   Sink: tainted_state_changing_external_call in FireToken._transfer
   Path Operations:
@@ -353,28 +365,16 @@ Path #18:
     3. TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'taxAmount'] 
     4. sellAmount(uint256) := TMP_104(uint256)
 
-Path #19:
-  Source: external_input_params in FireToken.transfer
-  Sink: tainted_state_changing_external_call in FireToken._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
-    3. TMP_144(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_finalBuyTax'] 
-    4. TMP_145(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_144', '100'] 
-    5. taxAmount(uint256) := TMP_145(uint256)
-
 Path #20:
   Source: external_input_params in FireToken.transfer
   Sink: tainted_state_changing_external_call in FireToken._transfer
   Path Operations:
     1. transfer
     2. INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
-    3. TMP_149(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_finalSellTax'] 
+    3. TMP_144(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_finalBuyTax'] 
 
 Path #21:
   Source: external_input_params in FireToken.transferFrom
-  Sink: tainted_state_changing_external_call in FireToken.transferFrom
+  Sink: tainted_erc20_transfer in FireToken.transferFrom
   Path Operations:
     1. transferFrom
-    2. REF_7(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_8(uint256) -> REF_7[TMP_47]

@@ -2,12 +2,12 @@
 Found 5 tainted paths.
 
 ## Path #1
-Source: external_input_params in Tribe.transfer
-Sink: tainted_erc20_transfer in Tribe.transfer
+Source: external_input_params in Tribe.transferFrom
+Sink: tainted_erc20_transfer in Tribe.transferFrom
 
 ### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [203, 204, 205, 206, 207]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230]
     LNE: (No direct expression available)
 
 ----------------------------------------
@@ -68,6 +68,17 @@ Sink: tainted_erc20_transfer in Tribe._delegate
 ----------------------------------------
 
 ## Path #3
+Source: external_input_params in Tribe.transfer
+Sink: tainted_erc20_transfer in Tribe.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [203, 204, 205, 206, 207]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #4
 Source: external_input_params in Tribe.mint
 Sink: tainted_erc20_transfer in Tribe.mint
 
@@ -82,7 +93,7 @@ Sink: tainted_erc20_transfer in Tribe.mint
 
 ----------------------------------------
 
-## Path #4
+## Path #5
 Source: external_input_params in Tribe.transferFrom
 Sink: tainted_erc20_transfer in Tribe._transferTokens
 
@@ -98,16 +109,5 @@ Sink: tainted_erc20_transfer in Tribe._transferTokens
     IR:  REF_52(address) -> delegates[src]
     SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [330]
     LNE: _moveDelegates(delegates[src],delegates[dst],amount)
-
-----------------------------------------
-
-## Path #5
-Source: external_input_params in Tribe.transferFrom
-Sink: tainted_erc20_transfer in Tribe.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230]
-    LNE: (No direct expression available)
 
 ----------------------------------------

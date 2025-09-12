@@ -290,50 +290,6 @@ Sink #25: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in ERC20.increaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_10(uint256) -> REF_9[spender]
-
-Path #2:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_state_changing_external_call in ERC20._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_59,recipient,amount)
-    3. REF_19(uint256) -> _balances[recipient]
-
-Path #3:
-  Source: external_input_params in ERC20.decreaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_13(uint256) -> REF_12[spender]
-
-Path #4:
-  Source: external_input_params in Token.constructor
-  Sink: tainted_erc20_transfer in Token.constructor
-  Path Operations:
-    1. constructor
-
-Path #5:
-  Source: external_input_params in Token.constructor
-  Sink: tainted_state_changing_external_call in Token._mint
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(farmingAddress,450000000000000000000000000)
-    3. REF_102(uint256) -> _balances[account]
-
-Path #6:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_6(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_7(uint256) -> REF_6[TMP_65]
-
-Path #7:
   Source: external_input_params in ERC20.transferFrom
   Sink: tainted_state_changing_external_call in ERC20._transfer
   Path Operations:
@@ -341,28 +297,72 @@ Path #7:
     2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
     3. REF_16(uint256) -> _balances[sender]
 
-Path #8:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
+Path #2:
+  Source: external_input_params in Token.constructor
+  Sink: tainted_erc20_transfer in Token.constructor
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    1. constructor
 
-Path #9:
+Path #3:
+  Source: external_input_params in Token.constructor
+  Sink: tainted_state_changing_external_call in Token._mint
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(farmingAddress,450000000000000000000000000)
+    3. REF_102(uint256) -> _balances[account]
+
+Path #4:
   Source: external_input_params in Token.constructor
   Sink: tainted_erc20_transfer in Token._mint
   Path Operations:
     1. constructor
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(farmingAddress,450000000000000000000000000)
 
-Path #10:
+Path #5:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #6:
+  Source: external_input_params in ERC20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_13(uint256) -> REF_12[spender]
+
+Path #7:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_6(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_7(uint256) -> REF_6[TMP_65]
+
+Path #8:
   Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
+  Sink: tainted_state_changing_external_call in ERC20._transfer
   Path Operations:
     1. transfer
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_59,recipient,amount)
+    3. REF_19(uint256) -> _balances[recipient]
 
-Path #11:
+Path #9:
   Source: external_input_params in ERC20.transferFrom
   Sink: tainted_erc20_transfer in ERC20.transferFrom
   Path Operations:
     1. transferFrom
+
+Path #10:
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_10(uint256) -> REF_9[spender]
+
+Path #11:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer

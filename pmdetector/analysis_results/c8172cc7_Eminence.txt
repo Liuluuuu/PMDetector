@@ -446,6 +446,33 @@ Sink #41: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in ERC20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_10(uint256) -> REF_9[spender]
+
+Path #2:
+  Source: external_input_params in EminenceCurrency.award
+  Sink: tainted_state_changing_external_call in EminenceCurrency._mint
+  Path Operations:
+    1. award
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_143(uint256)
+
+Path #3:
+  Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
+  Sink: tainted_state_changing_external_call in EminenceCurrency.calculateContinuousMintReturn
+  Path Operations:
+    1. calculateContinuousBurnReturn
+    2. TMP_101(uint256) = HIGH_LEVEL_CALL, dest:CURVE(BondingCurve), function:calculateSaleReturn, arguments:['TMP_99', 'reserveBalance', 'TMP_100', '_amount']  
+    3. TMP_104(uint256) = INTERNAL_CALL, ContinuousToken.calculateContinuousBurnReturn(uint256)(_amount)
+    4. reimburseAmount(uint256) := TMP_104(uint256)
+    5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
+    6. reserveBalance(uint256) := TMP_105(uint256)
+
+Path #4:
   Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
   Sink: tainted_state_changing_external_call in EminenceCurrency._continuousBurn
   Path Operations:
@@ -456,94 +483,17 @@ Path #1:
     5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
     6. reserveBalance(uint256) := TMP_105(uint256)
 
-Path #2:
-  Source: external_input_params in EminenceCurrency.award
-  Sink: tainted_state_changing_external_call in ERC20._mint
-  Path Operations:
-    1. award
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_143(uint256)
-
-Path #3:
-  Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
-  Sink: tainted_state_changing_external_call in ContinuousToken.calculateContinuousBurnReturn
-  Path Operations:
-    1. calculateContinuousBurnReturn
-
-Path #4:
-  Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
-  Sink: tainted_state_changing_external_call in ContinuousToken._continuousMint
-  Path Operations:
-    1. calculateContinuousBurnReturn
-    2. TMP_101(uint256) = HIGH_LEVEL_CALL, dest:CURVE(BondingCurve), function:calculateSaleReturn, arguments:['TMP_99', 'reserveBalance', 'TMP_100', '_amount']  
-    3. TMP_104(uint256) = INTERNAL_CALL, ContinuousToken.calculateContinuousBurnReturn(uint256)(_amount)
-    4. reimburseAmount(uint256) := TMP_104(uint256)
-    5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
-    6. reserveBalance(uint256) := TMP_105(uint256)
-
 Path #5:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ERC20.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_3(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_4(uint256) -> REF_3[msg.sender]
-
-Path #6:
-  Source: external_input_params in EminenceCurrency.claim
-  Sink: tainted_state_changing_external_call in EminenceCurrency._burn
-  Path Operations:
-    1. claim
-    2. INTERNAL_CALL, ERC20._burn(address,uint256)(_from,_amount)
-    3. REF_87(uint256) -> _balances[account]
-
-Path #7:
-  Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
-  Sink: tainted_state_changing_external_call in ContinuousToken.calculateContinuousMintReturn
-  Path Operations:
-    1. calculateContinuousBurnReturn
-    2. TMP_101(uint256) = HIGH_LEVEL_CALL, dest:CURVE(BondingCurve), function:calculateSaleReturn, arguments:['TMP_99', 'reserveBalance', 'TMP_100', '_amount']  
-    3. TMP_104(uint256) = INTERNAL_CALL, ContinuousToken.calculateContinuousBurnReturn(uint256)(_amount)
-    4. reimburseAmount(uint256) := TMP_104(uint256)
-    5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
-    6. reserveBalance(uint256) := TMP_105(uint256)
-
-Path #8:
   Source: external_input_params in EminenceCurrency.award
-  Sink: tainted_state_changing_external_call in ContinuousToken._mint
-  Path Operations:
-    1. award
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_143(uint256)
-
-Path #9:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
-  Path Operations:
-    1. transfer
-
-Path #10:
-  Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
   Sink: tainted_state_changing_external_call in EminenceCurrency.calculateContinuousMintReturn
   Path Operations:
-    1. calculateContinuousBurnReturn
-    2. TMP_101(uint256) = HIGH_LEVEL_CALL, dest:CURVE(BondingCurve), function:calculateSaleReturn, arguments:['TMP_99', 'reserveBalance', 'TMP_100', '_amount']  
-    3. TMP_104(uint256) = INTERNAL_CALL, ContinuousToken.calculateContinuousBurnReturn(uint256)(_amount)
-    4. reimburseAmount(uint256) := TMP_104(uint256)
-    5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
-    6. reserveBalance(uint256) := TMP_105(uint256)
+    1. award
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_143(uint256)
+    5. TMP_112(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
 
-Path #11:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_state_changing_external_call in ERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_13(uint256) -> _balances[sender]
-
-Path #12:
+Path #6:
   Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
   Sink: tainted_state_changing_external_call in EminenceCurrency.calculateContinuousBurnReturn
   Path Operations:
@@ -554,15 +504,79 @@ Path #12:
     5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
     6. reserveBalance(uint256) := TMP_105(uint256)
 
-Path #13:
+Path #7:
+  Source: external_input_params in EminenceCurrency.claim
+  Sink: tainted_state_changing_external_call in EminenceCurrency._burn
+  Path Operations:
+    1. claim
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(_from,_amount)
+    3. REF_87(uint256) -> _balances[account]
+
+Path #8:
+  Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
+  Sink: tainted_state_changing_external_call in ContinuousToken.calculateContinuousMintReturn
+  Path Operations:
+    1. calculateContinuousBurnReturn
+    2. TMP_101(uint256) = HIGH_LEVEL_CALL, dest:CURVE(BondingCurve), function:calculateSaleReturn, arguments:['TMP_99', 'reserveBalance', 'TMP_100', '_amount']  
+    3. TMP_104(uint256) = INTERNAL_CALL, ContinuousToken.calculateContinuousBurnReturn(uint256)(_amount)
+    4. reimburseAmount(uint256) := TMP_104(uint256)
+    5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
+    6. reserveBalance(uint256) := TMP_105(uint256)
+
+Path #9:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_13(uint256) -> _balances[sender]
+
+Path #10:
+  Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
+  Sink: tainted_state_changing_external_call in ContinuousToken.calculateContinuousBurnReturn
+  Path Operations:
+    1. calculateContinuousBurnReturn
+    2. TMP_101(uint256) = HIGH_LEVEL_CALL, dest:CURVE(BondingCurve), function:calculateSaleReturn, arguments:['TMP_99', 'reserveBalance', 'TMP_100', '_amount']  
+    3. TMP_104(uint256) = INTERNAL_CALL, ContinuousToken.calculateContinuousBurnReturn(uint256)(_amount)
+    4. reimburseAmount(uint256) := TMP_104(uint256)
+    5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
+    6. reserveBalance(uint256) := TMP_105(uint256)
+
+Path #11:
   Source: external_input_params in EminenceCurrency.award
-  Sink: tainted_state_changing_external_call in EminenceCurrency._mint
+  Sink: tainted_state_changing_external_call in EminenceCurrency._burn
   Path Operations:
     1. award
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    3. REF_84(uint256) -> _balances[account]
+    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_143(uint256)
+
+Path #12:
+  Source: external_input_params in EminenceCurrency.award
+  Sink: tainted_state_changing_external_call in ContinuousToken._mint
+  Path Operations:
+    1. award
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_143(uint256)
+
+Path #13:
+  Source: external_input_params in ContinuousToken.calculateContinuousMintReturn
+  Sink: tainted_state_changing_external_call in ContinuousToken.calculateContinuousMintReturn
+  Path Operations:
+    1. calculateContinuousMintReturn
 
 Path #14:
+  Source: external_input_params in EminenceCurrency.award
+  Sink: tainted_state_changing_external_call in EminenceCurrency.calculateContinuousBurnReturn
+  Path Operations:
+    1. award
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_143(uint256)
+    5. TMP_115(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
+
+Path #15:
   Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
   Sink: tainted_state_changing_external_call in ContinuousToken._continuousBurn
   Path Operations:
@@ -573,7 +587,42 @@ Path #14:
     5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
     6. reserveBalance(uint256) := TMP_105(uint256)
 
-Path #15:
+Path #16:
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_7(uint256) -> REF_6[spender]
+
+Path #17:
+  Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
+  Sink: tainted_state_changing_external_call in ContinuousToken.calculateContinuousBurnReturn
+  Path Operations:
+    1. calculateContinuousBurnReturn
+
+Path #18:
+  Source: external_input_params in EminenceCurrency.award
+  Sink: tainted_state_changing_external_call in ContinuousToken.calculateContinuousMintReturn
+  Path Operations:
+    1. award
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_143(uint256)
+    5. TMP_96(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
+
+Path #19:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #20:
+  Source: external_input_params in EminenceCurrency.buy
+  Sink: tainted_erc20_transfer in EminenceCurrency.buy
+  Path Operations:
+    1. buy
+
+Path #21:
   Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
   Sink: tainted_state_changing_external_call in EminenceCurrency._continuousMint
   Path Operations:
@@ -584,41 +633,23 @@ Path #15:
     5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
     6. reserveBalance(uint256) := TMP_105(uint256)
 
-Path #16:
-  Source: external_input_params in EminenceCurrency.award
-  Sink: tainted_state_changing_external_call in EminenceCurrency._mint
+Path #22:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_state_changing_external_call in ERC20._transfer
   Path Operations:
-    1. award
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_143(uint256)
+    1. transfer
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,recipient,amount)
+    3. REF_16(uint256) -> _balances[recipient]
 
-Path #17:
-  Source: external_input_params in ERC20.decreaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+Path #23:
+  Source: external_input_params in EminenceCurrency.sell
+  Sink: tainted_erc20_transfer in EminenceCurrency.sell
   Path Operations:
-    1. decreaseAllowance
-    2. REF_10(uint256) -> REF_9[spender]
+    1. sell
+    2. TMP_185(uint256) = INTERNAL_CALL, ContinuousToken._sell(uint256)(_amount)
+    3. _bought(uint256) := TMP_185(uint256)
 
-Path #18:
-  Source: external_input_params in ERC20.increaseAllowance
-  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_7(uint256) -> REF_6[spender]
-
-Path #19:
-  Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
-  Sink: tainted_state_changing_external_call in ContinuousToken.calculateContinuousBurnReturn
-  Path Operations:
-    1. calculateContinuousBurnReturn
-    2. TMP_101(uint256) = HIGH_LEVEL_CALL, dest:CURVE(BondingCurve), function:calculateSaleReturn, arguments:['TMP_99', 'reserveBalance', 'TMP_100', '_amount']  
-    3. TMP_104(uint256) = INTERNAL_CALL, ContinuousToken.calculateContinuousBurnReturn(uint256)(_amount)
-    4. reimburseAmount(uint256) := TMP_104(uint256)
-    5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
-    6. reserveBalance(uint256) := TMP_105(uint256)
-
-Path #20:
+Path #24:
   Source: external_input_params in EminenceCurrency.award
   Sink: tainted_state_changing_external_call in ContinuousToken.calculateContinuousBurnReturn
   Path Operations:
@@ -628,50 +659,15 @@ Path #20:
     4. _totalSupply(uint256) := TMP_143(uint256)
     5. TMP_99(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
 
-Path #21:
-  Source: external_input_params in EminenceCurrency.award
-  Sink: tainted_state_changing_external_call in EminenceCurrency._burn
-  Path Operations:
-    1. award
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_143(uint256)
-
-Path #22:
-  Source: external_input_params in EminenceCurrency.award
-  Sink: tainted_state_changing_external_call in EminenceCurrency.calculateContinuousMintReturn
-  Path Operations:
-    1. award
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_143(uint256)
-    5. TMP_112(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
-
-Path #23:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_state_changing_external_call in ERC20._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,recipient,amount)
-    3. REF_16(uint256) -> _balances[recipient]
-
-Path #24:
-  Source: external_input_params in ContinuousToken.calculateContinuousMintReturn
-  Sink: tainted_state_changing_external_call in ContinuousToken.calculateContinuousMintReturn
-  Path Operations:
-    1. calculateContinuousMintReturn
-
 Path #25:
-  Source: external_input_params in EminenceCurrency.sell
-  Sink: tainted_erc20_transfer in EminenceCurrency.sell
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
   Path Operations:
-    1. sell
-    2. TMP_185(uint256) = INTERNAL_CALL, ContinuousToken._sell(uint256)(_amount)
-    3. _bought(uint256) := TMP_185(uint256)
+    1. transferFrom
 
 Path #26:
   Source: external_input_params in EminenceCurrency.award
-  Sink: tainted_state_changing_external_call in ERC20._burn
+  Sink: tainted_state_changing_external_call in ERC20._mint
   Path Operations:
     1. award
     2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
@@ -679,26 +675,17 @@ Path #26:
     4. _totalSupply(uint256) := TMP_143(uint256)
 
 Path #27:
-  Source: external_input_params in EminenceCurrency.award
-  Sink: tainted_state_changing_external_call in EminenceCurrency.calculateContinuousBurnReturn
+  Source: external_input_params in ContinuousToken.calculateContinuousBurnReturn
+  Sink: tainted_state_changing_external_call in ContinuousToken._continuousMint
   Path Operations:
-    1. award
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_143(uint256)
-    5. TMP_115(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
+    1. calculateContinuousBurnReturn
+    2. TMP_101(uint256) = HIGH_LEVEL_CALL, dest:CURVE(BondingCurve), function:calculateSaleReturn, arguments:['TMP_99', 'reserveBalance', 'TMP_100', '_amount']  
+    3. TMP_104(uint256) = INTERNAL_CALL, ContinuousToken.calculateContinuousBurnReturn(uint256)(_amount)
+    4. reimburseAmount(uint256) := TMP_104(uint256)
+    5. TMP_105(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['reserveBalance', 'reimburseAmount'] 
+    6. reserveBalance(uint256) := TMP_105(uint256)
 
 Path #28:
-  Source: external_input_params in EminenceCurrency.award
-  Sink: tainted_state_changing_external_call in ContinuousToken.calculateContinuousMintReturn
-  Path Operations:
-    1. award
-    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_143(uint256)
-    5. TMP_96(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
-
-Path #29:
   Source: external_input_params in EminenceCurrency.award
   Sink: tainted_state_changing_external_call in ContinuousToken._burn
   Path Operations:
@@ -707,14 +694,27 @@ Path #29:
     3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
     4. _totalSupply(uint256) := TMP_143(uint256)
 
-Path #30:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
+Path #29:
+  Source: external_input_params in EminenceCurrency.award
+  Sink: tainted_state_changing_external_call in ERC20._burn
   Path Operations:
-    1. transferFrom
+    1. award
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_143(uint256)
+
+Path #30:
+  Source: external_input_params in EminenceCurrency.award
+  Sink: tainted_state_changing_external_call in EminenceCurrency._mint
+  Path Operations:
+    1. award
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. REF_84(uint256) -> _balances[account]
 
 Path #31:
-  Source: external_input_params in EminenceCurrency.buy
-  Sink: tainted_erc20_transfer in EminenceCurrency.buy
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
   Path Operations:
-    1. buy
+    1. transferFrom
+    2. REF_3(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_4(uint256) -> REF_3[msg.sender]

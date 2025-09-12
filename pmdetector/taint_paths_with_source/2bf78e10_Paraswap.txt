@@ -21,6 +21,63 @@ Sink: tainted_erc20_transfer in PSP._transferTokens
 ----------------------------------------
 
 ## Path #2
+Source: external_input_params in PSP.mint
+Sink: tainted_state_changing_external_call in PSP.mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312]
+    LNE: (No direct expression available)
+
+    IR:  TMP_46(uint96) = INTERNAL_CALL, PSP.safe96(uint256,string)(rawAmount,PSP::mint: amount exceeds 96 bits)
+    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [302]
+    LNE: amount = safe96(rawAmount,PSP::mint: amount exceeds 96 bits)
+
+    IR:  amount(uint96) := TMP_46(uint96)
+    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [302]
+    LNE: amount = safe96(rawAmount,PSP::mint: amount exceeds 96 bits)
+
+    IR:  TMP_51(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [304]
+    LNE: totalSupply = safe96(SafeMath.add(totalSupply,amount),PSP::mint: totalSupply exceeds 96 bits)
+
+    IR:  TMP_52(uint96) = INTERNAL_CALL, PSP.safe96(uint256,string)(TMP_51,PSP::mint: totalSupply exceeds 96 bits)
+    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [304]
+    LNE: totalSupply = safe96(SafeMath.add(totalSupply,amount),PSP::mint: totalSupply exceeds 96 bits)
+
+    IR:  totalSupply(uint256) := TMP_52(uint96)
+    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [304]
+    LNE: totalSupply = safe96(SafeMath.add(totalSupply,amount),PSP::mint: totalSupply exceeds 96 bits)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in PSP.transfer
+Sink: tainted_erc20_transfer in PSP.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [392, 393, 394, 395, 396]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in PSP.mint
+Sink: tainted_erc20_transfer in PSP.mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312]
+    LNE: (No direct expression available)
+
+    IR:  REF_7(address) -> delegates[dst]
+    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [311]
+    LNE: _moveDelegates(address(0),delegates[dst],amount)
+
+----------------------------------------
+
+## Path #5
 Source: external_input_params in PSP.transferFrom
 Sink: tainted_erc20_transfer in PSP.transferFrom
 
@@ -31,7 +88,7 @@ Sink: tainted_erc20_transfer in PSP.transferFrom
 
 ----------------------------------------
 
-## Path #3
+## Path #6
 Source: external_input_params in PSP.mint
 Sink: tainted_state_changing_external_call in PSP.mint
 
@@ -62,38 +119,7 @@ Sink: tainted_state_changing_external_call in PSP.mint
 
 ----------------------------------------
 
-## Path #4
-Source: external_input_params in PSP.mint
-Sink: tainted_state_changing_external_call in PSP.mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312]
-    LNE: (No direct expression available)
-
-    IR:  TMP_46(uint96) = INTERNAL_CALL, PSP.safe96(uint256,string)(rawAmount,PSP::mint: amount exceeds 96 bits)
-    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [302]
-    LNE: amount = safe96(rawAmount,PSP::mint: amount exceeds 96 bits)
-
-    IR:  amount(uint96) := TMP_46(uint96)
-    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [302]
-    LNE: amount = safe96(rawAmount,PSP::mint: amount exceeds 96 bits)
-
-    IR:  TMP_51(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'amount'] 
-    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [304]
-    LNE: totalSupply = safe96(SafeMath.add(totalSupply,amount),PSP::mint: totalSupply exceeds 96 bits)
-
-    IR:  TMP_52(uint96) = INTERNAL_CALL, PSP.safe96(uint256,string)(TMP_51,PSP::mint: totalSupply exceeds 96 bits)
-    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [304]
-    LNE: totalSupply = safe96(SafeMath.add(totalSupply,amount),PSP::mint: totalSupply exceeds 96 bits)
-
-    IR:  totalSupply(uint256) := TMP_52(uint96)
-    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [304]
-    LNE: totalSupply = safe96(SafeMath.add(totalSupply,amount),PSP::mint: totalSupply exceeds 96 bits)
-
-----------------------------------------
-
-## Path #5
+## Path #7
 Source: external_input_params in PSP.delegateBySig
 Sink: tainted_erc20_transfer in PSP._delegate
 
@@ -145,32 +171,6 @@ Sink: tainted_erc20_transfer in PSP._delegate
     IR:  currentDelegate(address) := REF_49(address)
     SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [501]
     LNE: currentDelegate = delegates[delegator]
-
-----------------------------------------
-
-## Path #6
-Source: external_input_params in PSP.transfer
-Sink: tainted_erc20_transfer in PSP.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [392, 393, 394, 395, 396]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #7
-Source: external_input_params in PSP.mint
-Sink: tainted_erc20_transfer in PSP.mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312]
-    LNE: (No direct expression available)
-
-    IR:  REF_7(address) -> delegates[dst]
-    SRC: File 'pmdetector/flattened_contracts/2bf78e10_Paraswap/flattened.sol', Lines [311]
-    LNE: _moveDelegates(address(0),delegates[dst],amount)
 
 ----------------------------------------
 

@@ -188,19 +188,17 @@ Sink #12: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in Predictcoin.transferFrom
-  Sink: tainted_erc20_transfer in Predictcoin.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #2:
   Source: external_input_params in Predictcoin.burn
   Sink: tainted_state_changing_external_call in Predictcoin._burn
   Path Operations:
     1. burn
     2. INTERNAL_CALL, Predictcoin._burn(address,uint256)(TMP_62,amount)
-    3. TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
-    4. _totalSupply(uint256) := TMP_77(uint256)
+
+Path #2:
+  Source: external_input_params in Predictcoin.transfer
+  Sink: tainted_erc20_transfer in Predictcoin.transfer
+  Path Operations:
+    1. transfer
 
 Path #3:
   Source: external_input_params in Predictcoin.transferFrom
@@ -211,13 +209,18 @@ Path #3:
     3. REF_5(uint256) -> REF_4[TMP_51]
 
 Path #4:
-  Source: external_input_params in Predictcoin.burn
-  Sink: tainted_state_changing_external_call in Predictcoin._burn
+  Source: external_input_params in Predictcoin.transferFrom
+  Sink: tainted_erc20_transfer in Predictcoin.transferFrom
   Path Operations:
-    1. burn
-    2. INTERNAL_CALL, Predictcoin._burn(address,uint256)(TMP_62,amount)
+    1. transferFrom
 
 Path #5:
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Path Operations:
+    1. transferOwnership
+
+Path #6:
   Source: external_input_params in Predictcoin._burnFrom
   Sink: tainted_state_changing_external_call in Predictcoin._burnFrom
   Path Operations:
@@ -225,7 +228,7 @@ Path #5:
     2. REF_25(mapping(address => uint256)) -> _allowances[account]
     3. REF_26(uint256) -> REF_25[TMP_89]
 
-Path #6:
+Path #7:
   Source: external_input_params in Predictcoin._burnFrom
   Sink: tainted_state_changing_external_call in Predictcoin._burn
   Path Operations:
@@ -233,7 +236,7 @@ Path #6:
     2. INTERNAL_CALL, Predictcoin._burn(address,uint256)(account,amount)
     3. REF_20(uint256) -> _balances[account]
 
-Path #7:
+Path #8:
   Source: external_input_params in Predictcoin.transferFrom
   Sink: tainted_state_changing_external_call in Predictcoin._transfer
   Path Operations:
@@ -241,36 +244,33 @@ Path #7:
     2. INTERNAL_CALL, Predictcoin._transfer(address,address,uint256)(sender,recipient,amount)
     3. REF_14(uint256) -> _balances[sender]
 
-Path #8:
-  Source: external_input_params in Predictcoin.transfer
-  Sink: tainted_state_changing_external_call in Predictcoin._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, Predictcoin._transfer(address,address,uint256)(TMP_45,recipient,amount)
-    3. REF_17(uint256) -> _balances[recipient]
-
 Path #9:
-  Source: external_input_params in Predictcoin.transfer
-  Sink: tainted_erc20_transfer in Predictcoin.transfer
-  Path Operations:
-    1. transfer
-
-Path #10:
   Source: external_input_params in Predictcoin.increaseAllowance
   Sink: tainted_state_changing_external_call in Predictcoin.increaseAllowance
   Path Operations:
     1. increaseAllowance
     2. REF_8(uint256) -> REF_7[spender]
 
-Path #11:
-  Source: external_input_params in Ownable.transferOwnership
-  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+Path #10:
+  Source: external_input_params in Predictcoin.burn
+  Sink: tainted_state_changing_external_call in Predictcoin._burn
   Path Operations:
-    1. transferOwnership
+    1. burn
+    2. INTERNAL_CALL, Predictcoin._burn(address,uint256)(TMP_62,amount)
+    3. TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_77(uint256)
 
-Path #12:
+Path #11:
   Source: external_input_params in Predictcoin.decreaseAllowance
   Sink: tainted_state_changing_external_call in Predictcoin.decreaseAllowance
   Path Operations:
     1. decreaseAllowance
     2. REF_11(uint256) -> REF_10[spender]
+
+Path #12:
+  Source: external_input_params in Predictcoin.transfer
+  Sink: tainted_state_changing_external_call in Predictcoin._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, Predictcoin._transfer(address,address,uint256)(TMP_45,recipient,amount)
+    3. REF_17(uint256) -> _balances[recipient]

@@ -158,20 +158,16 @@ Sink #9: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in SynLevToken.transferFrom
-  Sink: tainted_state_changing_external_call in SynLevToken._transfer
+  Source: external_input_params in SynLevToken.transfer
+  Sink: tainted_erc20_transfer in SynLevToken.transfer
   Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, SynLevToken._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_16(uint256) -> _balances[sender]
+    1. transfer
 
 Path #2:
   Source: external_input_params in SynLevToken.transferFrom
-  Sink: tainted_state_changing_external_call in SynLevToken.transferFrom
+  Sink: tainted_erc20_transfer in SynLevToken.transferFrom
   Path Operations:
     1. transferFrom
-    2. REF_6(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_7(uint256) -> REF_6[TMP_43]
 
 Path #3:
   Source: external_input_params in SynLevToken.decreaseAllowance
@@ -181,10 +177,11 @@ Path #3:
     2. REF_13(uint256) -> REF_12[spender]
 
 Path #4:
-  Source: external_input_params in SynLevToken.transfer
-  Sink: tainted_erc20_transfer in SynLevToken.transfer
+  Source: external_input_params in SynLevToken.transferFrom
+  Sink: tainted_erc20_transfer in SynLevToken._transfer
   Path Operations:
-    1. transfer
+    1. transferFrom
+    2. INTERNAL_CALL, SynLevToken._transfer(address,address,uint256)(sender,recipient,amount)
 
 Path #5:
   Source: external_input_params in SynLevToken.transfer
@@ -195,21 +192,24 @@ Path #5:
     3. REF_19(uint256) -> _balances[recipient]
 
 Path #6:
-  Source: external_input_params in SynLevToken.transferFrom
-  Sink: tainted_erc20_transfer in SynLevToken.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #7:
-  Source: external_input_params in SynLevToken.transferFrom
-  Sink: tainted_erc20_transfer in SynLevToken._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, SynLevToken._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #8:
   Source: external_input_params in SynLevToken.increaseAllowance
   Sink: tainted_state_changing_external_call in SynLevToken.increaseAllowance
   Path Operations:
     1. increaseAllowance
     2. REF_10(uint256) -> REF_9[spender]
+
+Path #7:
+  Source: external_input_params in SynLevToken.transferFrom
+  Sink: tainted_state_changing_external_call in SynLevToken._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, SynLevToken._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_16(uint256) -> _balances[sender]
+
+Path #8:
+  Source: external_input_params in SynLevToken.transferFrom
+  Sink: tainted_state_changing_external_call in SynLevToken.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_6(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_7(uint256) -> REF_6[TMP_43]

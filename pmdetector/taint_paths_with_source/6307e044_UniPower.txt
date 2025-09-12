@@ -2,6 +2,32 @@
 Found 11 tainted paths.
 
 ## Path #1
+Source: external_input_params in UniPower.approveAndCall
+Sink: tainted_state_changing_external_call in UniPower.approveAndCall
+
+### Operations with Source Code Mapping:
+    IR:  approveAndCall
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [79, 80, 81, 82, 83, 84]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in UniPower.multiTransfer
+Sink: tainted_erc20_transfer in UniPower.multiTransfer
+
+### Operations with Source Code Mapping:
+    IR:  multiTransfer
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [66, 67, 68, 69, 70]
+    LNE: (No direct expression available)
+
+    IR:  REF_12(address) -> receivers[i]
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [68]
+    LNE: transfer(receivers[i],amounts[i])
+
+----------------------------------------
+
+## Path #3
 Source: external_input_params in UniPower.transferFrom
 Sink: tainted_state_changing_external_call in UniPower.transferFrom
 
@@ -10,46 +36,24 @@ Sink: tainted_state_changing_external_call in UniPower.transferFrom
     SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98]
     LNE: (No direct expression available)
 
-    IR:  REF_26(uint256) -> balances[to]
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [92]
-    LNE: balances[to] = balances[to].add(value)
-
-----------------------------------------
-
-## Path #2
-Source: external_input_params in UniPower.transfer
-Sink: tainted_state_changing_external_call in UniPower.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [55, 56, 57, 58, 59, 60, 61, 62, 63, 64]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in UniPower.increaseAllowance
-Sink: tainted_state_changing_external_call in UniPower.increaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  increaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [100, 101, 102, 103, 104, 105]
-    LNE: (No direct expression available)
-
-    IR:  REF_36(uint256) -> REF_35[spender]
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [102]
-    LNE: allowed[msg.sender][spender] = allowed[msg.sender][spender].add(addedValue)
+    IR:  REF_23(uint256) -> balances[from]
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [91]
+    LNE: balances[from] = balances[from].sub(value)
 
 ----------------------------------------
 
 ## Path #4
-Source: external_input_params in UniPower.burn
-Sink: tainted_state_changing_external_call in UniPower.burn
+Source: external_input_params in UniPower.decreaseAllowance
+Sink: tainted_state_changing_external_call in UniPower.decreaseAllowance
 
 ### Operations with Source Code Mapping:
-    IR:  burn
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [114, 115, 116, 117, 118, 119, 120]
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [107, 108, 109, 110, 111, 112]
     LNE: (No direct expression available)
+
+    IR:  REF_43(uint256) -> REF_42[spender]
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [109]
+    LNE: allowed[msg.sender][spender] = allowed[msg.sender][spender].sub(subtractedValue)
 
 ----------------------------------------
 
@@ -73,17 +77,17 @@ Sink: tainted_state_changing_external_call in UniPower.burn
 ----------------------------------------
 
 ## Path #6
-Source: external_input_params in UniPower.decreaseAllowance
-Sink: tainted_state_changing_external_call in UniPower.decreaseAllowance
+Source: external_input_params in UniPower.transferFrom
+Sink: tainted_state_changing_external_call in UniPower.transferFrom
 
 ### Operations with Source Code Mapping:
-    IR:  decreaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [107, 108, 109, 110, 111, 112]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98]
     LNE: (No direct expression available)
 
-    IR:  REF_43(uint256) -> REF_42[spender]
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [109]
-    LNE: allowed[msg.sender][spender] = allowed[msg.sender][spender].sub(subtractedValue)
+    IR:  REF_26(uint256) -> balances[to]
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [92]
+    LNE: balances[to] = balances[to].add(value)
 
 ----------------------------------------
 
@@ -103,6 +107,43 @@ Sink: tainted_state_changing_external_call in UniPower.transfer
 ----------------------------------------
 
 ## Path #8
+Source: external_input_params in UniPower.burn
+Sink: tainted_state_changing_external_call in UniPower.burn
+
+### Operations with Source Code Mapping:
+    IR:  burn
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [114, 115, 116, 117, 118, 119, 120]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in UniPower.transfer
+Sink: tainted_state_changing_external_call in UniPower.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [55, 56, 57, 58, 59, 60, 61, 62, 63, 64]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in UniPower.increaseAllowance
+Sink: tainted_state_changing_external_call in UniPower.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [100, 101, 102, 103, 104, 105]
+    LNE: (No direct expression available)
+
+    IR:  REF_36(uint256) -> REF_35[spender]
+    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [102]
+    LNE: allowed[msg.sender][spender] = allowed[msg.sender][spender].add(addedValue)
+
+----------------------------------------
+
+## Path #11
 Source: external_input_params in UniPower.transferFrom
 Sink: tainted_state_changing_external_call in UniPower.transferFrom
 
@@ -118,46 +159,5 @@ Sink: tainted_state_changing_external_call in UniPower.transferFrom
     IR:  REF_31(uint256) -> REF_30[msg.sender]
     SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [94]
     LNE: allowed[from][msg.sender] = allowed[from][msg.sender].sub(value)
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in UniPower.transferFrom
-Sink: tainted_state_changing_external_call in UniPower.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98]
-    LNE: (No direct expression available)
-
-    IR:  REF_23(uint256) -> balances[from]
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [91]
-    LNE: balances[from] = balances[from].sub(value)
-
-----------------------------------------
-
-## Path #10
-Source: external_input_params in UniPower.multiTransfer
-Sink: tainted_erc20_transfer in UniPower.multiTransfer
-
-### Operations with Source Code Mapping:
-    IR:  multiTransfer
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [66, 67, 68, 69, 70]
-    LNE: (No direct expression available)
-
-    IR:  REF_12(address) -> receivers[i]
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [68]
-    LNE: transfer(receivers[i],amounts[i])
-
-----------------------------------------
-
-## Path #11
-Source: external_input_params in UniPower.approveAndCall
-Sink: tainted_state_changing_external_call in UniPower.approveAndCall
-
-### Operations with Source Code Mapping:
-    IR:  approveAndCall
-    SRC: File 'pmdetector/flattened_contracts/6307e044_UniPower/flattened.sol', Lines [79, 80, 81, 82, 83, 84]
-    LNE: (No direct expression available)
 
 ----------------------------------------

@@ -3,27 +3,24 @@ Found 4 tainted paths.
 
 ## Path #1
 Source: external_input_params in Cvp.transferFrom
-Sink: tainted_erc20_transfer in Cvp.transferFrom
+Sink: tainted_erc20_transfer in Cvp._transferTokens
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/c5726ecd_PowerPool/flattened.sol', Lines [143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157]
     LNE: (No direct expression available)
 
+    IR:  INTERNAL_CALL, Cvp._transferTokens(address,address,uint96)(src,dst,amount)
+    SRC: File 'pmdetector/flattened_contracts/c5726ecd_PowerPool/flattened.sol', Lines [155]
+    LNE: _transferTokens(src,dst,amount)
+
+    IR:  REF_43(address) -> delegates[src]
+    SRC: File 'pmdetector/flattened_contracts/c5726ecd_PowerPool/flattened.sol', Lines [256]
+    LNE: _moveDelegates(delegates[src],delegates[dst],amount)
+
 ----------------------------------------
 
 ## Path #2
-Source: external_input_params in Cvp.transfer
-Sink: tainted_erc20_transfer in Cvp.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/c5726ecd_PowerPool/flattened.sol', Lines [130, 131, 132, 133, 134]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #3
 Source: external_input_params in Cvp.delegateBySig
 Sink: tainted_erc20_transfer in Cvp._delegate
 
@@ -78,21 +75,24 @@ Sink: tainted_erc20_transfer in Cvp._delegate
 
 ----------------------------------------
 
+## Path #3
+Source: external_input_params in Cvp.transfer
+Sink: tainted_erc20_transfer in Cvp.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/c5726ecd_PowerPool/flattened.sol', Lines [130, 131, 132, 133, 134]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
 ## Path #4
 Source: external_input_params in Cvp.transferFrom
-Sink: tainted_erc20_transfer in Cvp._transferTokens
+Sink: tainted_erc20_transfer in Cvp.transferFrom
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/c5726ecd_PowerPool/flattened.sol', Lines [143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157]
     LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, Cvp._transferTokens(address,address,uint96)(src,dst,amount)
-    SRC: File 'pmdetector/flattened_contracts/c5726ecd_PowerPool/flattened.sol', Lines [155]
-    LNE: _transferTokens(src,dst,amount)
-
-    IR:  REF_43(address) -> delegates[src]
-    SRC: File 'pmdetector/flattened_contracts/c5726ecd_PowerPool/flattened.sol', Lines [256]
-    LNE: _moveDelegates(delegates[src],delegates[dst],amount)
 
 ----------------------------------------

@@ -596,25 +596,6 @@ Sink #60: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in Memestake.pendingRewards
-  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
-  Path Operations:
-    1. pendingRewards
-    2. REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
-    3. pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
-    4. REF_147(uint256) -> pool.lastRewardBlock
-    5. TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
-    6. multiplier(uint256) := TMP_258(uint256)
-
-Path #2:
-  Source: external_input_params in Memestake.add
-  Sink: tainted_state_changing_external_call in Memestake.set
-  Path Operations:
-    1. add
-    2. TMP_236(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
-    3. totalAllocPoint(uint256) := TMP_236(uint256)
-
-Path #3:
   Source: external_input_params in Memestake.withdraw
   Sink: tainted_state_changing_external_call in Memestake.withdraw
   Path Operations:
@@ -625,128 +606,7 @@ Path #3:
     5. REF_216(uint256) -> user.amount
     6. TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_216', 'REF_218'] 
 
-Path #4:
-  Source: external_input_params in Memestake.add
-  Sink: tainted_state_changing_external_call in Memestake.add
-  Path Operations:
-    1. add
-    2. TMP_236(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
-    3. totalAllocPoint(uint256) := TMP_236(uint256)
-
-Path #5:
-  Source: external_input_params in Memestake.claimRewards
-  Sink: tainted_state_changing_external_call in Memestake.claimRewards
-  Path Operations:
-    1. claimRewards
-    2. REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
-    4. user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
-    5. REF_170(uint256) -> user.amount
-
-Path #6:
-  Source: external_input_params in Memestake.pendingRewards
-  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
-  Path Operations:
-    1. pendingRewards
-    2. REF_141(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_142(Memestake.UserInfo) -> REF_141[_user]
-    4. user(Memestake.UserInfo) := REF_142(Memestake.UserInfo)
-    5. REF_155(uint256) -> user.amount
-    6. TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_155', 'accMfundPerShare'] 
-
-Path #7:
-  Source: external_input_params in Memestake.claimRewards
-  Sink: tainted_state_changing_external_call in Memestake.updatePool
-  Path Operations:
-    1. claimRewards
-    2. INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
-    3. REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
-    4. pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
-    5. REF_181(uint256) -> pool.lastRewardBlock
-    6. TMP_287(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_181,maxEndBlock)
-    7. multiplier(uint256) := TMP_287(uint256)
-
-Path #8:
-  Source: external_input_params in Memestake.claimRewards
-  Sink: tainted_state_changing_external_call in Memestake.updatePool
-  Path Operations:
-    1. claimRewards
-    2. INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
-    3. REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
-    4. pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
-    5. REF_181(uint256) -> pool.lastRewardBlock
-    6. TMP_287(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_181,maxEndBlock)
-    7. multiplier(uint256) := TMP_287(uint256)
-    8. TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
-
-Path #9:
-  Source: external_input_params in Memestake.deposit
-  Sink: tainted_state_changing_external_call in Memestake.deposit
-  Path Operations:
-    1. deposit
-    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
-    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
-    5. REF_196(uint256) -> user.amount
-
-Path #10:
-  Source: external_input_params in Memestake.constructor
-  Sink: tainted_state_changing_external_call in Memestake.constructor
-  Path Operations:
-    1. constructor
-    2. totalMfund(uint256) := _totalMfund(uint256)
-
-Path #11:
-  Source: external_input_params in Memestake.constructor
-  Sink: tainted_state_changing_external_call in Memestake.getMultiplier
-  Path Operations:
-    1. constructor
-    2. endBlock(uint256) := _endBlock(uint256)
-    3. maxBlock(uint256) := endBlock(uint256)
-    4. TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
-
-Path #12:
-  Source: external_input_params in Memefund.transferFrom
-  Sink: tainted_state_changing_external_call in Memefund.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_26(uint256) -> atomBalances[to]
-
-Path #13:
-  Source: external_input_params in Memefund.decreaseAllowance
-  Sink: tainted_state_changing_external_call in Memefund.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_38(uint256) -> REF_37[spender]
-    3. oldValue(uint256) := REF_38(uint256)
-
-Path #14:
-  Source: external_input_params in Memefund.transfer
-  Sink: tainted_state_changing_external_call in Memefund.transfer
-  Path Operations:
-    1. transfer
-    2. REF_12(uint256) -> atomBalances[to]
-
-Path #15:
-  Source: external_input_params in Memestake.deposit
-  Sink: tainted_state_changing_external_call in Memestake.deposit
-  Path Operations:
-    1. deposit
-    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
-    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
-    5. REF_196(uint256) -> user.amount
-    6. TMP_298(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_196', 'REF_198'] 
-    7. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_298', '1000000000000000000'] 
-
-Path #16:
-  Source: external_input_params in Memestake.constructor
-  Sink: tainted_state_changing_external_call in Memestake.constructor
-  Path Operations:
-    1. constructor
-    2. endBlock(uint256) := _endBlock(uint256)
-
-Path #17:
+Path #2:
   Source: external_input_params in Memestake.pendingRewards
   Sink: tainted_state_changing_external_call in Memestake.pendingRewards
   Path Operations:
@@ -758,14 +618,40 @@ Path #17:
     6. multiplier(uint256) := TMP_258(uint256)
     7. TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
 
-Path #18:
-  Source: external_input_params in Memefund.transferFrom
-  Sink: tainted_state_changing_external_call in Memefund.transferFrom
+Path #3:
+  Source: external_input_params in Memestake.pendingRewards
+  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
   Path Operations:
-    1. transferFrom
-    2. REF_23(uint256) -> atomBalances[from]
+    1. pendingRewards
+    2. REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    3. pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    4. REF_143(uint256) -> pool.accMfundPerShare
+    5. accMfundPerShare(uint256) := REF_143(uint256)
 
-Path #19:
+Path #4:
+  Source: external_input_params in Memestake.deposit
+  Sink: tainted_state_changing_external_call in Memestake.deposit
+  Path Operations:
+    1. deposit
+    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    5. REF_208(uint256) -> user.amount
+
+Path #5:
+  Source: external_input_params in Memefund.transfer
+  Sink: tainted_state_changing_external_call in Memefund.transfer
+  Path Operations:
+    1. transfer
+
+Path #6:
+  Source: external_input_params in Memefund.transfer
+  Sink: tainted_state_changing_external_call in Memefund.transfer
+  Path Operations:
+    1. transfer
+    2. REF_12(uint256) -> atomBalances[to]
+
+Path #7:
   Source: external_input_params in Memestake.withdraw
   Sink: tainted_state_changing_external_call in Memestake.withdraw
   Path Operations:
@@ -777,16 +663,37 @@ Path #19:
     6. TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_216', 'REF_218'] 
     7. TMP_315(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_314', '1000000000000000000'] 
 
-Path #20:
-  Source: external_input_params in Memestake.constructor
+Path #8:
+  Source: external_input_params in Memestake.pendingRewards
+  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+  Path Operations:
+    1. pendingRewards
+    2. REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    3. pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    4. REF_147(uint256) -> pool.lastRewardBlock
+    5. TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+    6. multiplier(uint256) := TMP_258(uint256)
+    7. TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+    8. TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_259', 'REF_150'] 
+    9. TMP_261(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_260', 'totalAllocPoint'] 
+    10. mFundReward(uint256) := TMP_261(uint256)
+
+Path #9:
+  Source: external_input_params in Memestake.claimRewards
   Sink: tainted_erc20_transfer in Memestake.safeMfundTransfer
   Path Operations:
-    1. constructor
-    2. mFundToken(Memefund) := _mFundToken(Memefund)
-    3. TMP_332(uint256) = HIGH_LEVEL_CALL, dest:mFundToken(Memefund), function:balanceOf, arguments:['TMP_331']  
-    4. mFundBal(uint256) := TMP_332(uint256)
+    1. claimRewards
+    2. REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
+    4. user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
+    5. REF_163(uint256) -> user.amount
+    6. TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_163', 'REF_165'] 
+    7. TMP_271(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_270', '1000000000000000000000000'] 
+    8. TMP_272(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_271', 'REF_168'] 
+    9. pending(uint256) := TMP_272(uint256)
+    10. INTERNAL_CALL, Memestake.safeMfundTransfer(address,uint256)(msg.sender,pending)
 
-Path #21:
+Path #10:
   Source: external_input_params in Memestake.pendingRewards
   Sink: tainted_state_changing_external_call in Memestake.pendingRewards
   Path Operations:
@@ -802,7 +709,7 @@ Path #21:
     10. mFundReward(uint256) := TMP_261(uint256)
     11. TMP_262(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mFundReward', '1000000000000000000'] 
 
-Path #22:
+Path #11:
   Source: external_input_params in Memestake.claimRewards
   Sink: tainted_state_changing_external_call in Memestake.updatePool
   Path Operations:
@@ -812,43 +719,7 @@ Path #22:
     4. pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
     5. REF_187(uint256) -> pool.accMfundPerShare
 
-Path #23:
-  Source: external_input_params in Memestake.claimRewards
-  Sink: tainted_state_changing_external_call in Memestake.updatePool
-  Path Operations:
-    1. claimRewards
-    2. INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
-    3. REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
-    4. pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
-    5. REF_181(uint256) -> pool.lastRewardBlock
-    6. TMP_287(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_181,maxEndBlock)
-    7. multiplier(uint256) := TMP_287(uint256)
-    8. TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
-    9. TMP_290(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_289', 'REF_184'] 
-
-Path #24:
-  Source: external_input_params in Memestake.pendingRewards
-  Sink: tainted_state_changing_external_call in Memestake.getMultiplier
-  Path Operations:
-    1. pendingRewards
-    2. REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
-    3. pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
-    4. REF_147(uint256) -> pool.lastRewardBlock
-    5. TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
-
-Path #25:
-  Source: external_input_params in Memestake.claimRewards
-  Sink: tainted_state_changing_external_call in Memestake.claimRewards
-  Path Operations:
-    1. claimRewards
-    2. REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
-    4. user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
-    5. REF_163(uint256) -> user.amount
-    6. TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_163', 'REF_165'] 
-    7. TMP_271(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_270', '1000000000000000000000000'] 
-
-Path #26:
+Path #12:
   Source: external_input_params in Memestake.withdraw
   Sink: tainted_state_changing_external_call in Memestake.withdraw
   Path Operations:
@@ -857,74 +728,10 @@ Path #26:
     3. REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
     4. user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
     5. REF_228(uint256) -> user.amount
-    6. TMP_323(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_228', 'REF_230'] 
 
-Path #27:
-  Source: external_input_params in Memestake.claimRewards
-  Sink: tainted_erc20_transfer in Memestake.safeMfundTransfer
-  Path Operations:
-    1. claimRewards
-    2. REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
-    4. user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
-    5. REF_163(uint256) -> user.amount
-    6. TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_163', 'REF_165'] 
-    7. TMP_271(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_270', '1000000000000000000000000'] 
-    8. TMP_272(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_271', 'REF_168'] 
-    9. pending(uint256) := TMP_272(uint256)
-    10. INTERNAL_CALL, Memestake.safeMfundTransfer(address,uint256)(msg.sender,pending)
-
-Path #28:
-  Source: external_input_params in Memefund.transfer
-  Sink: tainted_state_changing_external_call in Memefund.transfer
-  Path Operations:
-    1. transfer
-    2. TMP_50(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.mul(uint256,uint256), arguments:['value', 'atomsPerMolecule'] 
-    3. atomValue(uint256) := TMP_50(uint256)
-
-Path #29:
-  Source: external_input_params in Memestake.deposit
-  Sink: tainted_erc20_transfer in Memestake.deposit
-  Path Operations:
-    1. deposit
-    2. REF_192(Memestake.PoolInfo) -> poolInfo[_pid]
-    3. pool(Memestake.PoolInfo) := REF_192(Memestake.PoolInfo)
-    4. REF_202(IERC20) -> pool.tokenContract
-
-Path #30:
-  Source: external_input_params in Memestake.pendingRewards
-  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
-  Path Operations:
-    1. pendingRewards
-    2. REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
-    3. pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
-    4. REF_147(uint256) -> pool.lastRewardBlock
-    5. TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
-    6. multiplier(uint256) := TMP_258(uint256)
-    7. TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
-    8. TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_259', 'REF_150'] 
-
-Path #31:
+Path #13:
   Source: external_input_params in Memefund.rebase
   Sink: tainted_state_changing_external_call in Memefund.rebase
-  Path Operations:
-    1. rebase
-    2. TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
-    3. totalSupply(uint256) := TMP_38(uint256)
-
-Path #32:
-  Source: external_input_params in Memestake.withdraw
-  Sink: tainted_state_changing_external_call in Memestake.withdraw
-  Path Operations:
-    1. withdraw
-    2. REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
-    4. user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
-    5. REF_228(uint256) -> user.amount
-
-Path #33:
-  Source: external_input_params in Memefund.rebase
-  Sink: tainted_state_changing_external_call in Memefund.constructor
   Path Operations:
     1. rebase
     2. TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
@@ -933,7 +740,16 @@ Path #33:
     5. TMP_17(uint256) = MAX_UINT256 - TMP_16
     6. totalAtoms(uint256) := TMP_17(uint256)
 
-Path #34:
+Path #14:
+  Source: external_input_params in Memestake.constructor
+  Sink: tainted_state_changing_external_call in Memestake.getMultiplier
+  Path Operations:
+    1. constructor
+    2. endBlock(uint256) := _endBlock(uint256)
+    3. maxBlock(uint256) := endBlock(uint256)
+    4. TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+
+Path #15:
   Source: external_input_params in Memestake.claimRewards
   Sink: tainted_state_changing_external_call in Memestake.claimRewards
   Path Operations:
@@ -944,82 +760,35 @@ Path #34:
     5. REF_163(uint256) -> user.amount
     6. TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_163', 'REF_165'] 
 
-Path #35:
-  Source: external_input_params in Memefund.increaseAllowance
-  Sink: tainted_state_changing_external_call in Memefund.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_33(uint256) -> REF_32[spender]
-
-Path #36:
-  Source: external_input_params in Memestake.pendingRewards
-  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
-  Path Operations:
-    1. pendingRewards
-    2. REF_141(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_142(Memestake.UserInfo) -> REF_141[_user]
-    4. user(Memestake.UserInfo) := REF_142(Memestake.UserInfo)
-    5. REF_155(uint256) -> user.amount
-    6. TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_155', 'accMfundPerShare'] 
-    7. TMP_266(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_265', '1000000000000000000'] 
-
-Path #37:
-  Source: external_input_params in Memestake.claimRewards
-  Sink: tainted_erc20_transfer in Memestake.claimRewards
-  Path Operations:
-    1. claimRewards
-    2. REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
-    4. user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
-    5. REF_163(uint256) -> user.amount
-    6. TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_163', 'REF_165'] 
-    7. TMP_271(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_270', '1000000000000000000000000'] 
-    8. TMP_272(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_271', 'REF_168'] 
-    9. pending(uint256) := TMP_272(uint256)
-
-Path #38:
+Path #16:
   Source: external_input_params in Memefund.transfer
   Sink: tainted_state_changing_external_call in Memefund.transfer
   Path Operations:
     1. transfer
+    2. TMP_50(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.mul(uint256,uint256), arguments:['value', 'atomsPerMolecule'] 
+    3. atomValue(uint256) := TMP_50(uint256)
 
-Path #39:
-  Source: external_input_params in Memestake.deposit
-  Sink: tainted_state_changing_external_call in Memestake.deposit
+Path #17:
+  Source: external_input_params in Memefund.transferFrom
+  Sink: tainted_state_changing_external_call in Memefund.transferFrom
   Path Operations:
-    1. deposit
-    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
-    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
-    5. REF_208(uint256) -> user.amount
-    6. TMP_308(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_208', 'REF_210'] 
+    1. transferFrom
+    2. REF_26(uint256) -> atomBalances[to]
 
-Path #40:
+Path #18:
   Source: external_input_params in Memefund.balanceOf
   Sink: tainted_state_changing_external_call in Memefund.balanceOf
   Path Operations:
     1. balanceOf
     2. REF_5(uint256) -> atomBalances[who]
 
-Path #41:
-  Source: external_input_params in Memestake.pendingRewards
-  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+Path #19:
+  Source: external_input_params in Memefund.transferFrom
+  Sink: tainted_state_changing_external_call in Memefund.transferFrom
   Path Operations:
-    1. pendingRewards
-    2. REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
-    3. pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
-    4. REF_143(uint256) -> pool.accMfundPerShare
-    5. accMfundPerShare(uint256) := REF_143(uint256)
+    1. transferFrom
 
-Path #42:
-  Source: external_input_params in Memefund.rebase
-  Sink: tainted_state_changing_external_call in Memefund.rebase
-  Path Operations:
-    1. rebase
-    2. TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
-    3. totalSupply(uint256) := TMP_38(uint256)
-
-Path #43:
+Path #20:
   Source: external_input_params in Memestake.claimRewards
   Sink: tainted_state_changing_external_call in Memestake.claimRewards
   Path Operations:
@@ -1030,50 +799,14 @@ Path #43:
     5. REF_170(uint256) -> user.amount
     6. TMP_275(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_170', 'REF_172'] 
 
-Path #44:
-  Source: external_input_params in Memestake.deposit
-  Sink: tainted_state_changing_external_call in Memestake.deposit
+Path #21:
+  Source: external_input_params in Memestake.constructor
+  Sink: tainted_state_changing_external_call in Memestake.constructor
   Path Operations:
-    1. deposit
-    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
-    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
-    5. REF_208(uint256) -> user.amount
+    1. constructor
+    2. totalMfund(uint256) := _totalMfund(uint256)
 
-Path #45:
-  Source: external_input_params in Memestake.withdraw
-  Sink: tainted_state_changing_external_call in Memestake.withdraw
-  Path Operations:
-    1. withdraw
-    2. REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
-    4. user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
-    5. REF_216(uint256) -> user.amount
-
-Path #46:
-  Source: external_input_params in Memestake.pendingRewards
-  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
-  Path Operations:
-    1. pendingRewards
-    2. REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
-    3. pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
-    4. REF_147(uint256) -> pool.lastRewardBlock
-    5. TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
-    6. multiplier(uint256) := TMP_258(uint256)
-    7. TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
-    8. TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_259', 'REF_150'] 
-    9. TMP_261(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_260', 'totalAllocPoint'] 
-    10. mFundReward(uint256) := TMP_261(uint256)
-
-Path #47:
-  Source: external_input_params in Memefund.transferFrom
-  Sink: tainted_state_changing_external_call in Memefund.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_18(mapping(address => uint256)) -> allowedMolecules[from]
-    3. REF_19(uint256) -> REF_18[msg.sender]
-
-Path #48:
+Path #22:
   Source: external_input_params in Memestake.claimRewards
   Sink: tainted_state_changing_external_call in Memestake.updatePool
   Path Operations:
@@ -1090,7 +823,238 @@ Path #48:
     11. mFundReward(uint256) := TMP_291(uint256)
     12. TMP_292(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mFundReward', '1000000000000000000'] 
 
-Path #49:
+Path #23:
+  Source: external_input_params in Memestake.claimRewards
+  Sink: tainted_state_changing_external_call in Memestake.updatePool
+  Path Operations:
+    1. claimRewards
+    2. INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
+    3. REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
+    4. pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
+    5. REF_181(uint256) -> pool.lastRewardBlock
+    6. TMP_287(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_181,maxEndBlock)
+    7. multiplier(uint256) := TMP_287(uint256)
+    8. TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+    9. TMP_290(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_289', 'REF_184'] 
+
+Path #24:
+  Source: external_input_params in Memestake.add
+  Sink: tainted_state_changing_external_call in Memestake.set
+  Path Operations:
+    1. add
+    2. TMP_236(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
+    3. totalAllocPoint(uint256) := TMP_236(uint256)
+
+Path #25:
+  Source: external_input_params in Memestake.pendingRewards
+  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+  Path Operations:
+    1. pendingRewards
+    2. REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    3. pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    4. REF_147(uint256) -> pool.lastRewardBlock
+    5. TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+    6. multiplier(uint256) := TMP_258(uint256)
+    7. TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+    8. TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_259', 'REF_150'] 
+
+Path #26:
+  Source: external_input_params in Memestake.withdraw
+  Sink: tainted_state_changing_external_call in Memestake.withdraw
+  Path Operations:
+    1. withdraw
+    2. REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
+    4. user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
+    5. REF_228(uint256) -> user.amount
+    6. TMP_323(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_228', 'REF_230'] 
+
+Path #27:
+  Source: external_input_params in Memefund.rebase
+  Sink: tainted_state_changing_external_call in Memefund.constructor
+  Path Operations:
+    1. rebase
+    2. TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
+    3. totalSupply(uint256) := TMP_38(uint256)
+    4. TMP_16(uint256) = MAX_UINT256 % totalSupply
+    5. TMP_17(uint256) = MAX_UINT256 - TMP_16
+    6. totalAtoms(uint256) := TMP_17(uint256)
+
+Path #28:
+  Source: external_input_params in Memestake.constructor
+  Sink: tainted_state_changing_external_call in Memestake.constructor
+  Path Operations:
+    1. constructor
+    2. endBlock(uint256) := _endBlock(uint256)
+
+Path #29:
+  Source: external_input_params in Memestake.withdraw
+  Sink: tainted_state_changing_external_call in Memestake.withdraw
+  Path Operations:
+    1. withdraw
+    2. REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
+    4. user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
+    5. REF_216(uint256) -> user.amount
+
+Path #30:
+  Source: external_input_params in Memestake.deposit
+  Sink: tainted_state_changing_external_call in Memestake.deposit
+  Path Operations:
+    1. deposit
+    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    5. REF_208(uint256) -> user.amount
+    6. TMP_308(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_208', 'REF_210'] 
+
+Path #31:
+  Source: external_input_params in Memestake.emergencyWithdraw
+  Sink: tainted_erc20_transfer in Memestake.emergencyWithdraw
+  Path Operations:
+    1. emergencyWithdraw
+    2. REF_233(Memestake.PoolInfo) -> poolInfo[_pid]
+    3. pool(Memestake.PoolInfo) := REF_233(Memestake.PoolInfo)
+    4. REF_239(IERC20) -> pool.tokenContract
+
+Path #32:
+  Source: external_input_params in Memestake.pendingRewards
+  Sink: tainted_state_changing_external_call in Memestake.getMultiplier
+  Path Operations:
+    1. pendingRewards
+    2. REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    3. pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    4. REF_147(uint256) -> pool.lastRewardBlock
+    5. TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+
+Path #33:
+  Source: external_input_params in Memestake.claimRewards
+  Sink: tainted_state_changing_external_call in Memestake.claimRewards
+  Path Operations:
+    1. claimRewards
+    2. REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
+    4. user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
+    5. REF_170(uint256) -> user.amount
+
+Path #34:
+  Source: external_input_params in Memestake.deposit
+  Sink: tainted_erc20_transfer in Memestake.deposit
+  Path Operations:
+    1. deposit
+    2. REF_192(Memestake.PoolInfo) -> poolInfo[_pid]
+    3. pool(Memestake.PoolInfo) := REF_192(Memestake.PoolInfo)
+    4. REF_202(IERC20) -> pool.tokenContract
+
+Path #35:
+  Source: external_input_params in Memestake.deposit
+  Sink: tainted_state_changing_external_call in Memestake.deposit
+  Path Operations:
+    1. deposit
+    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    5. REF_196(uint256) -> user.amount
+
+Path #36:
+  Source: external_input_params in Memefund.rebase
+  Sink: tainted_state_changing_external_call in Memefund.rebase
+  Path Operations:
+    1. rebase
+    2. TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
+    3. totalSupply(uint256) := TMP_38(uint256)
+
+Path #37:
+  Source: external_input_params in Memefund.transferFrom
+  Sink: tainted_state_changing_external_call in Memefund.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_23(uint256) -> atomBalances[from]
+
+Path #38:
+  Source: external_input_params in Memefund.decreaseAllowance
+  Sink: tainted_state_changing_external_call in Memefund.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_38(uint256) -> REF_37[spender]
+    3. oldValue(uint256) := REF_38(uint256)
+
+Path #39:
+  Source: external_input_params in Memestake.withdraw
+  Sink: tainted_erc20_transfer in Memestake.withdraw
+  Path Operations:
+    1. withdraw
+    2. REF_212(Memestake.PoolInfo) -> poolInfo[_pid]
+    3. pool(Memestake.PoolInfo) := REF_212(Memestake.PoolInfo)
+    4. REF_225(IERC20) -> pool.tokenContract
+
+Path #40:
+  Source: external_input_params in Memestake.pendingRewards
+  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+  Path Operations:
+    1. pendingRewards
+    2. REF_141(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_142(Memestake.UserInfo) -> REF_141[_user]
+    4. user(Memestake.UserInfo) := REF_142(Memestake.UserInfo)
+    5. REF_155(uint256) -> user.amount
+
+Path #41:
+  Source: external_input_params in Memefund.increaseAllowance
+  Sink: tainted_state_changing_external_call in Memefund.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_33(uint256) -> REF_32[spender]
+
+Path #42:
+  Source: external_input_params in Memestake.pendingRewards
+  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+  Path Operations:
+    1. pendingRewards
+    2. REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    3. pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    4. REF_147(uint256) -> pool.lastRewardBlock
+    5. TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+    6. multiplier(uint256) := TMP_258(uint256)
+
+Path #43:
+  Source: external_input_params in Memestake.constructor
+  Sink: tainted_erc20_transfer in Memestake.safeMfundTransfer
+  Path Operations:
+    1. constructor
+    2. mFundToken(Memefund) := _mFundToken(Memefund)
+    3. TMP_332(uint256) = HIGH_LEVEL_CALL, dest:mFundToken(Memefund), function:balanceOf, arguments:['TMP_331']  
+    4. mFundBal(uint256) := TMP_332(uint256)
+
+Path #44:
+  Source: external_input_params in Memestake.claimRewards
+  Sink: tainted_state_changing_external_call in Memestake.updatePool
+  Path Operations:
+    1. claimRewards
+    2. INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
+    3. REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
+    4. pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
+    5. REF_181(uint256) -> pool.lastRewardBlock
+    6. TMP_287(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_181,maxEndBlock)
+    7. multiplier(uint256) := TMP_287(uint256)
+    8. TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+
+Path #45:
+  Source: external_input_params in Memefund.transferFrom
+  Sink: tainted_state_changing_external_call in Memefund.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_18(mapping(address => uint256)) -> allowedMolecules[from]
+    3. REF_19(uint256) -> REF_18[msg.sender]
+
+Path #46:
+  Source: external_input_params in Memestake.add
+  Sink: tainted_state_changing_external_call in Memestake.add
+  Path Operations:
+    1. add
+    2. TMP_236(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
+    3. totalAllocPoint(uint256) := TMP_236(uint256)
+
+Path #47:
   Source: external_input_params in Memestake.add
   Sink: tainted_state_changing_external_call in Memestake.set
   Path Operations:
@@ -1099,7 +1063,96 @@ Path #49:
     3. totalAllocPoint(uint256) := TMP_236(uint256)
     4. TMP_248(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalAllocPoint', 'REF_135'] 
 
+Path #48:
+  Source: external_input_params in Memestake.claimRewards
+  Sink: tainted_erc20_transfer in Memestake.claimRewards
+  Path Operations:
+    1. claimRewards
+    2. REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
+    4. user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
+    5. REF_163(uint256) -> user.amount
+    6. TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_163', 'REF_165'] 
+    7. TMP_271(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_270', '1000000000000000000000000'] 
+    8. TMP_272(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_271', 'REF_168'] 
+    9. pending(uint256) := TMP_272(uint256)
+
+Path #49:
+  Source: external_input_params in Memestake.deposit
+  Sink: tainted_state_changing_external_call in Memestake.deposit
+  Path Operations:
+    1. deposit
+    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    5. REF_205(uint256) -> user.amount
+
 Path #50:
+  Source: external_input_params in Memestake.deposit
+  Sink: tainted_state_changing_external_call in Memestake.deposit
+  Path Operations:
+    1. deposit
+    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    5. REF_196(uint256) -> user.amount
+    6. TMP_298(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_196', 'REF_198'] 
+
+Path #51:
+  Source: external_input_params in Memestake.claimRewards
+  Sink: tainted_state_changing_external_call in Memestake.updatePool
+  Path Operations:
+    1. claimRewards
+    2. INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
+    3. REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
+    4. pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
+    5. REF_181(uint256) -> pool.lastRewardBlock
+    6. TMP_287(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_181,maxEndBlock)
+    7. multiplier(uint256) := TMP_287(uint256)
+
+Path #52:
+  Source: external_input_params in Memestake.withdraw
+  Sink: tainted_state_changing_external_call in Memestake.withdraw
+  Path Operations:
+    1. withdraw
+    2. REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
+    4. user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
+    5. REF_223(uint256) -> user.amount
+
+Path #53:
+  Source: external_input_params in Memefund.rebase
+  Sink: tainted_state_changing_external_call in Memefund.rebase
+  Path Operations:
+    1. rebase
+    2. TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
+    3. totalSupply(uint256) := TMP_38(uint256)
+
+Path #54:
+  Source: external_input_params in Memestake.deposit
+  Sink: tainted_state_changing_external_call in Memestake.deposit
+  Path Operations:
+    1. deposit
+    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    5. REF_196(uint256) -> user.amount
+    6. TMP_298(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_196', 'REF_198'] 
+    7. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_298', '1000000000000000000'] 
+
+Path #55:
+  Source: external_input_params in Memestake.pendingRewards
+  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+  Path Operations:
+    1. pendingRewards
+    2. REF_141(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_142(Memestake.UserInfo) -> REF_141[_user]
+    4. user(Memestake.UserInfo) := REF_142(Memestake.UserInfo)
+    5. REF_155(uint256) -> user.amount
+    6. TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_155', 'accMfundPerShare'] 
+    7. TMP_266(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_265', '1000000000000000000'] 
+
+Path #56:
   Source: external_input_params in Memestake.claimRewards
   Sink: tainted_state_changing_external_call in Memestake.updatePool
   Path Operations:
@@ -1115,74 +1168,7 @@ Path #50:
     10. TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_290', 'totalAllocPoint'] 
     11. mFundReward(uint256) := TMP_291(uint256)
 
-Path #51:
-  Source: external_input_params in Memestake.deposit
-  Sink: tainted_state_changing_external_call in Memestake.deposit
-  Path Operations:
-    1. deposit
-    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
-    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
-    5. REF_196(uint256) -> user.amount
-    6. TMP_298(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_196', 'REF_198'] 
-
-Path #52:
-  Source: external_input_params in Memestake.withdraw
-  Sink: tainted_state_changing_external_call in Memestake.withdraw
-  Path Operations:
-    1. withdraw
-    2. REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
-    4. user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
-    5. REF_223(uint256) -> user.amount
-
-Path #53:
-  Source: external_input_params in Memestake.deposit
-  Sink: tainted_state_changing_external_call in Memestake.deposit
-  Path Operations:
-    1. deposit
-    2. REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
-    4. user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
-    5. REF_205(uint256) -> user.amount
-
-Path #54:
-  Source: external_input_params in Memestake.emergencyWithdraw
-  Sink: tainted_erc20_transfer in Memestake.emergencyWithdraw
-  Path Operations:
-    1. emergencyWithdraw
-    2. REF_233(Memestake.PoolInfo) -> poolInfo[_pid]
-    3. pool(Memestake.PoolInfo) := REF_233(Memestake.PoolInfo)
-    4. REF_239(IERC20) -> pool.tokenContract
-
-Path #55:
-  Source: external_input_params in Memestake.pendingRewards
-  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
-  Path Operations:
-    1. pendingRewards
-    2. REF_141(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
-    3. REF_142(Memestake.UserInfo) -> REF_141[_user]
-    4. user(Memestake.UserInfo) := REF_142(Memestake.UserInfo)
-    5. REF_155(uint256) -> user.amount
-
-Path #56:
-  Source: external_input_params in Memefund.transferFrom
-  Sink: tainted_state_changing_external_call in Memefund.transferFrom
-  Path Operations:
-    1. transferFrom
-
 Path #57:
-  Source: external_input_params in Memefund.rebase
-  Sink: tainted_state_changing_external_call in Memefund.rebase
-  Path Operations:
-    1. rebase
-    2. TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
-    3. totalSupply(uint256) := TMP_38(uint256)
-    4. TMP_16(uint256) = MAX_UINT256 % totalSupply
-    5. TMP_17(uint256) = MAX_UINT256 - TMP_16
-    6. totalAtoms(uint256) := TMP_17(uint256)
-
-Path #58:
   Source: external_input_params in Memestake.claimRewards
   Sink: tainted_state_changing_external_call in Memestake.claimRewards
   Path Operations:
@@ -1191,8 +1177,10 @@ Path #58:
     3. REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
     4. user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
     5. REF_163(uint256) -> user.amount
+    6. TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_163', 'REF_165'] 
+    7. TMP_271(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_270', '1000000000000000000000000'] 
 
-Path #59:
+Path #58:
   Source: external_input_params in Memefund.rebase
   Sink: tainted_state_changing_external_call in Memefund.rebase
   Path Operations:
@@ -1200,11 +1188,23 @@ Path #59:
     2. TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
     3. totalSupply(uint256) := TMP_38(uint256)
 
-Path #60:
-  Source: external_input_params in Memestake.withdraw
-  Sink: tainted_erc20_transfer in Memestake.withdraw
+Path #59:
+  Source: external_input_params in Memestake.pendingRewards
+  Sink: tainted_state_changing_external_call in Memestake.pendingRewards
   Path Operations:
-    1. withdraw
-    2. REF_212(Memestake.PoolInfo) -> poolInfo[_pid]
-    3. pool(Memestake.PoolInfo) := REF_212(Memestake.PoolInfo)
-    4. REF_225(IERC20) -> pool.tokenContract
+    1. pendingRewards
+    2. REF_141(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_142(Memestake.UserInfo) -> REF_141[_user]
+    4. user(Memestake.UserInfo) := REF_142(Memestake.UserInfo)
+    5. REF_155(uint256) -> user.amount
+    6. TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_155', 'accMfundPerShare'] 
+
+Path #60:
+  Source: external_input_params in Memestake.claimRewards
+  Sink: tainted_state_changing_external_call in Memestake.claimRewards
+  Path Operations:
+    1. claimRewards
+    2. REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    3. REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
+    4. user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
+    5. REF_163(uint256) -> user.amount

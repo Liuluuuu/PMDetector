@@ -2,40 +2,21 @@
 Found 10 tainted paths.
 
 ## Path #1
-Source: external_input_params in ERC20.transfer
-Sink: tainted_state_changing_external_call in ERC20._transfer
+Source: external_input_params in ERC20.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
 
 ### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [447, 448, 449, 450]
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [510, 511, 512, 513]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_38,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [448]
-    LNE: _transfer(_msgSender(),recipient,amount)
-
-    IR:  REF_16(uint256) -> _balances[recipient]
-    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [563]
-    LNE: _balances[recipient] = _balances[recipient].add(amount)
+    IR:  REF_7(uint256) -> REF_6[spender]
+    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [511]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
 
 ----------------------------------------
 
 ## Path #2
-Source: external_input_params in ERC20.decreaseAllowance
-Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
-
-### Operations with Source Code Mapping:
-    IR:  decreaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [529, 530, 531, 532, 533, 534, 535, 536]
-    LNE: (No direct expression available)
-
-    IR:  REF_10(uint256) -> REF_9[spender]
-    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [530, 531, 532, 533, 534]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
-
-----------------------------------------
-
-## Path #3
 Source: external_input_params in ConvergenceToken.constructor
 Sink: tainted_state_changing_external_call in ConvergenceToken._mint
 
@@ -54,22 +35,26 @@ Sink: tainted_state_changing_external_call in ConvergenceToken._mint
 
 ----------------------------------------
 
-## Path #4
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20._transfer
+## Path #3
+Source: external_input_params in ERC20.transfer
+Sink: tainted_state_changing_external_call in ERC20._transfer
 
 ### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [488, 489, 490, 491, 492, 493, 494, 495, 496]
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [447, 448, 449, 450]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [489]
-    LNE: _transfer(sender,recipient,amount)
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_38,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [448]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_16(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [563]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
 
 ----------------------------------------
 
-## Path #5
+## Path #4
 Source: external_input_params in ERC20.transferFrom
 Sink: tainted_state_changing_external_call in ERC20.transferFrom
 
@@ -88,29 +73,22 @@ Sink: tainted_state_changing_external_call in ERC20.transferFrom
 
 ----------------------------------------
 
-## Path #6
-Source: external_input_params in ERC20.transfer
-Sink: tainted_erc20_transfer in ERC20.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [447, 448, 449, 450]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #7
+## Path #5
 Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
 
 ### Operations with Source Code Mapping:
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [488, 489, 490, 491, 492, 493, 494, 495, 496]
     LNE: (No direct expression available)
 
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [489]
+    LNE: _transfer(sender,recipient,amount)
+
 ----------------------------------------
 
-## Path #8
+## Path #6
 Source: external_input_params in ERC20.transferFrom
 Sink: tainted_state_changing_external_call in ERC20._transfer
 
@@ -129,22 +107,18 @@ Sink: tainted_state_changing_external_call in ERC20._transfer
 
 ----------------------------------------
 
-## Path #9
-Source: external_input_params in ERC20.increaseAllowance
-Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+## Path #7
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
 
 ### Operations with Source Code Mapping:
-    IR:  increaseAllowance
-    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [510, 511, 512, 513]
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [447, 448, 449, 450]
     LNE: (No direct expression available)
-
-    IR:  REF_7(uint256) -> REF_6[spender]
-    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [511]
-    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
 
 ----------------------------------------
 
-## Path #10
+## Path #8
 Source: external_input_params in ConvergenceToken.constructor
 Sink: tainted_erc20_transfer in ConvergenceToken._mint
 
@@ -156,5 +130,31 @@ Sink: tainted_erc20_transfer in ConvergenceToken._mint
     IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(genesis_holder,TOTAL_SUPPLY)
     SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [678]
     LNE: _mint(genesis_holder,TOTAL_SUPPLY)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in ERC20.decreaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [529, 530, 531, 532, 533, 534, 535, 536]
+    LNE: (No direct expression available)
+
+    IR:  REF_10(uint256) -> REF_9[spender]
+    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [530, 531, 532, 533, 534]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/b11851fa_Convergence/flattened.sol', Lines [488, 489, 490, 491, 492, 493, 494, 495, 496]
+    LNE: (No direct expression available)
 
 ----------------------------------------

@@ -2,6 +2,36 @@
 Found 24 tainted paths.
 
 ## Path #1
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3201, 3202, 3203, 3204, 3205]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in ERC20FlashMint.flashLoan
+Sink: tainted_erc20_transfer in ERC20FlashMint._burn
+
+### Operations with Source Code Mapping:
+    IR:  flashLoan
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3546, 3547, 3548, 3549, 3550, 3551, 3552, 3553, 3554, 3555, 3556, 3557, 3558, 3559, 3560, 3561, 3562, 3563]
+    LNE: (No direct expression available)
+
+    IR:  TMP_778 = CONVERT receiver to address
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3557]
+    LNE: _burn(address(receiver),amount + fee)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(TMP_778,TMP_779)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3557]
+    LNE: _burn(address(receiver),amount + fee)
+
+----------------------------------------
+
+## Path #3
 Source: external_input_params in ERC20Permit.nonces
 Sink: tainted_state_changing_external_call in ERC20Permit.nonces
 
@@ -16,7 +46,60 @@ Sink: tainted_state_changing_external_call in ERC20Permit.nonces
 
 ----------------------------------------
 
-## Path #2
+## Path #4
+Source: external_input_params in ERC20FlashMint.flashLoan
+Sink: tainted_erc20_transfer in ERC20FlashMint.flashLoan
+
+### Operations with Source Code Mapping:
+    IR:  flashLoan
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3546, 3547, 3548, 3549, 3550, 3551, 3552, 3553, 3554, 3555, 3556, 3557, 3558, 3559, 3560, 3561, 3562, 3563]
+    LNE: (No direct expression available)
+
+    IR:  TMP_783 = CONVERT receiver to address
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3560]
+    LNE: _transfer(address(receiver),flashFeeReceiver,fee)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in ERC20Votes.numCheckpoints
+Sink: tainted_state_changing_external_call in ERC20Votes.numCheckpoints
+
+### Operations with Source Code Mapping:
+    IR:  numCheckpoints
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3730, 3731, 3732]
+    LNE: (No direct expression available)
+
+    IR:  REF_140(ERC20Votes.Checkpoint[]) -> _checkpoints[account]
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3731]
+    LNE: SafeCast.toUint32(_checkpoints[account].length)
+
+    IR:  REF_141 -> LENGTH REF_140
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3731]
+    LNE: SafeCast.toUint32(_checkpoints[account].length)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in ERC20FlashMint.flashLoan
+Sink: tainted_erc20_transfer in ERC20FlashMint._mint
+
+### Operations with Source Code Mapping:
+    IR:  flashLoan
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3546, 3547, 3548, 3549, 3550, 3551, 3552, 3553, 3554, 3555, 3556, 3557, 3558, 3559, 3560, 3561, 3562, 3563]
+    LNE: (No direct expression available)
+
+    IR:  TMP_764 = CONVERT receiver to address
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3549]
+    LNE: _mint(address(receiver),amount)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(TMP_764,amount)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3549]
+    LNE: _mint(address(receiver),amount)
+
+----------------------------------------
+
+## Path #7
 Source: external_input_params in ERC20Permit.permit
 Sink: tainted_state_changing_external_call in ERC20Permit._hashTypedDataV4
 
@@ -43,7 +126,95 @@ Sink: tainted_state_changing_external_call in ERC20Permit._hashTypedDataV4
 
 ----------------------------------------
 
-## Path #3
+## Path #8
+Source: external_input_params in ERC20Permit.permit
+Sink: tainted_state_changing_external_call in ERC20Permit.permit
+
+### Operations with Source Code Mapping:
+    IR:  permit
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3623, 3624, 3625, 3626, 3627, 3628, 3629, 3630, 3631, 3632, 3633, 3634]
+    LNE: (No direct expression available)
+
+    IR:  TMP_879(bytes) = SOLIDITY_CALL abi.encode()(_PERMIT_TYPEHASH,owner,spender,value,TMP_878,deadline)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3626]
+    LNE: structHash = keccak256(bytes)(abi.encode(_PERMIT_TYPEHASH,owner,spender,value,_useNonce(owner),deadline))
+
+    IR:  TMP_880(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_879)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3626]
+    LNE: structHash = keccak256(bytes)(abi.encode(_PERMIT_TYPEHASH,owner,spender,value,_useNonce(owner),deadline))
+
+    IR:  structHash(bytes32) := TMP_880(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3626]
+    LNE: structHash = keccak256(bytes)(abi.encode(_PERMIT_TYPEHASH,owner,spender,value,_useNonce(owner),deadline))
+
+    IR:  TMP_881(bytes32) = INTERNAL_CALL, EIP712._hashTypedDataV4(bytes32)(structHash)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3628]
+    LNE: hash = _hashTypedDataV4(structHash)
+
+    IR:  hash(bytes32) := TMP_881(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3628]
+    LNE: hash = _hashTypedDataV4(structHash)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in ERC20Permit.permit
+Sink: tainted_state_changing_external_call in ERC20Permit._useNonce
+
+### Operations with Source Code Mapping:
+    IR:  permit
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3623, 3624, 3625, 3626, 3627, 3628, 3629, 3630, 3631, 3632, 3633, 3634]
+    LNE: (No direct expression available)
+
+    IR:  TMP_878(uint256) = INTERNAL_CALL, ERC20Permit._useNonce(address)(owner)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3626]
+    LNE: structHash = keccak256(bytes)(abi.encode(_PERMIT_TYPEHASH,owner,spender,value,_useNonce(owner),deadline))
+
+    IR:  REF_109(Counters.Counter) -> _nonces[owner]
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3657]
+    LNE: nonce = _nonces[owner]
+
+    IR:  nonce(Counters.Counter) := REF_109(Counters.Counter)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3657]
+    LNE: nonce = _nonces[owner]
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in ERC20FlashMint.flashLoan
+Sink: tainted_erc20_transfer in ERC20FlashMint._mint
+
+### Operations with Source Code Mapping:
+    IR:  flashLoan
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3546, 3547, 3548, 3549, 3550, 3551, 3552, 3553, 3554, 3555, 3556, 3557, 3558, 3559, 3560, 3561, 3562, 3563]
+    LNE: (No direct expression available)
+
+    IR:  TMP_764 = CONVERT receiver to address
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3549]
+    LNE: _mint(address(receiver),amount)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(TMP_764,amount)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3549]
+    LNE: _mint(address(receiver),amount)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_erc20_transfer in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [4000, 4001, 4002, 4003]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [4002]
+    LNE: _burn(account,amount)
+
+----------------------------------------
+
+## Path #12
 Source: external_input_params in ERC20Votes.delegateBySig
 Sink: tainted_erc20_transfer in ERC20Votes._delegate
 
@@ -86,18 +257,7 @@ Sink: tainted_erc20_transfer in ERC20Votes._delegate
 
 ----------------------------------------
 
-## Path #4
-Source: external_input_params in VistaFinance.transfer
-Sink: tainted_erc20_transfer in VistaFinance.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [4059, 4060, 4061, 4062, 4063, 4064, 4065]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #5
+## Path #13
 Source: external_input_params in ERC20Burnable.burnFrom
 Sink: tainted_erc20_transfer in ERC20Burnable._burn
 
@@ -112,106 +272,49 @@ Sink: tainted_erc20_transfer in ERC20Burnable._burn
 
 ----------------------------------------
 
-## Path #6
-Source: external_input_params in ERC20FlashMint.flashLoan
-Sink: tainted_erc20_transfer in ERC20FlashMint._mint
+## Path #14
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
 
 ### Operations with Source Code Mapping:
-    IR:  flashLoan
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3546, 3547, 3548, 3549, 3550, 3551, 3552, 3553, 3554, 3555, 3556, 3557, 3558, 3559, 3560, 3561, 3562, 3563]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3246, 3247, 3248, 3249, 3250, 3251]
     LNE: (No direct expression available)
 
-    IR:  TMP_764 = CONVERT receiver to address
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3549]
-    LNE: _mint(address(receiver),amount)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(TMP_764,amount)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3549]
-    LNE: _mint(address(receiver),amount)
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3249]
+    LNE: _transfer(from,to,amount)
 
 ----------------------------------------
 
-## Path #7
-Source: external_input_params in ERC20Permit.permit
-Sink: tainted_state_changing_external_call in ERC20Permit._useNonce
+## Path #15
+Source: external_input_params in ERC20Votes.getPastVotes
+Sink: tainted_state_changing_external_call in ERC20Votes._checkpointsLookup
 
 ### Operations with Source Code Mapping:
-    IR:  permit
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3623, 3624, 3625, 3626, 3627, 3628, 3629, 3630, 3631, 3632, 3633, 3634]
+    IR:  getPastVotes
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3758, 3759, 3760, 3761]
     LNE: (No direct expression available)
 
-    IR:  TMP_878(uint256) = INTERNAL_CALL, ERC20Permit._useNonce(address)(owner)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3626]
-    LNE: structHash = keccak256(bytes)(abi.encode(_PERMIT_TYPEHASH,owner,spender,value,_useNonce(owner),deadline))
+    IR:  REF_148(ERC20Votes.Checkpoint[]) -> _checkpoints[account]
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3760]
+    LNE: _checkpointsLookup(_checkpoints[account],timepoint)
 
-    IR:  REF_109(Counters.Counter) -> _nonces[owner]
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3657]
-    LNE: nonce = _nonces[owner]
+    IR:  TMP_1005(uint256) = INTERNAL_CALL, ERC20Votes._checkpointsLookup(ERC20Votes.Checkpoint[],uint256)(REF_148,timepoint)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3760]
+    LNE: _checkpointsLookup(_checkpoints[account],timepoint)
 
-    IR:  nonce(Counters.Counter) := REF_109(Counters.Counter)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3657]
-    LNE: nonce = _nonces[owner]
+    IR:  REF_149 -> LENGTH ckpts
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3792]
+    LNE: length = ckpts.length
+
+    IR:  length(uint256) := REF_149(uint256)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3792]
+    LNE: length = ckpts.length
 
 ----------------------------------------
 
-## Path #8
-Source: external_input_params in ERC20Votes.numCheckpoints
-Sink: tainted_state_changing_external_call in ERC20Votes.numCheckpoints
-
-### Operations with Source Code Mapping:
-    IR:  numCheckpoints
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3730, 3731, 3732]
-    LNE: (No direct expression available)
-
-    IR:  REF_140(ERC20Votes.Checkpoint[]) -> _checkpoints[account]
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3731]
-    LNE: SafeCast.toUint32(_checkpoints[account].length)
-
-    IR:  REF_141 -> LENGTH REF_140
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3731]
-    LNE: SafeCast.toUint32(_checkpoints[account].length)
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in ERC20FlashMint.flashLoan
-Sink: tainted_erc20_transfer in ERC20FlashMint._burn
-
-### Operations with Source Code Mapping:
-    IR:  flashLoan
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3546, 3547, 3548, 3549, 3550, 3551, 3552, 3553, 3554, 3555, 3556, 3557, 3558, 3559, 3560, 3561, 3562, 3563]
-    LNE: (No direct expression available)
-
-    IR:  TMP_778 = CONVERT receiver to address
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3557]
-    LNE: _burn(address(receiver),amount + fee)
-
-    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(TMP_778,TMP_779)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3557]
-    LNE: _burn(address(receiver),amount + fee)
-
-----------------------------------------
-
-## Path #10
-Source: external_input_params in ERC20FlashMint.flashLoan
-Sink: tainted_erc20_transfer in ERC20FlashMint._burn
-
-### Operations with Source Code Mapping:
-    IR:  flashLoan
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3546, 3547, 3548, 3549, 3550, 3551, 3552, 3553, 3554, 3555, 3556, 3557, 3558, 3559, 3560, 3561, 3562, 3563]
-    LNE: (No direct expression available)
-
-    IR:  TMP_778 = CONVERT receiver to address
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3557]
-    LNE: _burn(address(receiver),amount + fee)
-
-    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(TMP_778,TMP_779)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3557]
-    LNE: _burn(address(receiver),amount + fee)
-
-----------------------------------------
-
-## Path #11
+## Path #16
 Source: external_input_params in ERC20Votes.getPastVotes
 Sink: tainted_state_changing_external_call in ERC20Votes._checkpointsLookup
 
@@ -254,56 +357,26 @@ Sink: tainted_state_changing_external_call in ERC20Votes._checkpointsLookup
 
 ----------------------------------------
 
-## Path #12
-Source: external_input_params in ERC20Burnable.burnFrom
-Sink: tainted_erc20_transfer in ERC20Burnable._burn
+## Path #17
+Source: external_input_params in ERC20FlashMint.flashLoan
+Sink: tainted_erc20_transfer in ERC20FlashMint._burn
 
 ### Operations with Source Code Mapping:
-    IR:  burnFrom
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [4000, 4001, 4002, 4003]
+    IR:  flashLoan
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3546, 3547, 3548, 3549, 3550, 3551, 3552, 3553, 3554, 3555, 3556, 3557, 3558, 3559, 3560, 3561, 3562, 3563]
     LNE: (No direct expression available)
 
-    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [4002]
-    LNE: _burn(account,amount)
+    IR:  TMP_778 = CONVERT receiver to address
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3557]
+    LNE: _burn(address(receiver),amount + fee)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(TMP_778,TMP_779)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3557]
+    LNE: _burn(address(receiver),amount + fee)
 
 ----------------------------------------
 
-## Path #13
-Source: external_input_params in VistaFinance.transferFrom
-Sink: tainted_erc20_transfer in VistaFinance.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [4067, 4068, 4069, 4070, 4071, 4072, 4073]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #14
-Source: external_input_params in ERC20Votes.delegateBySig
-Sink: tainted_state_changing_external_call in ERC20Votes.delegateBySig
-
-### Operations with Source Code Mapping:
-    IR:  delegateBySig
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3837, 3838, 3839, 3840, 3841, 3842, 3843, 3844, 3845, 3846, 3847]
-    LNE: (No direct expression available)
-
-    IR:  TMP_1028(bytes) = SOLIDITY_CALL abi.encode()(_DELEGATION_TYPEHASH,delegatee,nonce,expiry)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3839, 3840, 3841, 3842, 3843, 3844]
-    LNE: signer = ECDSA.recover(_hashTypedDataV4(keccak256(bytes)(abi.encode(_DELEGATION_TYPEHASH,delegatee,nonce,expiry))),v,r,s)
-
-    IR:  TMP_1029(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1028)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3839, 3840, 3841, 3842, 3843, 3844]
-    LNE: signer = ECDSA.recover(_hashTypedDataV4(keccak256(bytes)(abi.encode(_DELEGATION_TYPEHASH,delegatee,nonce,expiry))),v,r,s)
-
-    IR:  TMP_1030(bytes32) = INTERNAL_CALL, EIP712._hashTypedDataV4(bytes32)(TMP_1029)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3839, 3840, 3841, 3842, 3843, 3844]
-    LNE: signer = ECDSA.recover(_hashTypedDataV4(keccak256(bytes)(abi.encode(_DELEGATION_TYPEHASH,delegatee,nonce,expiry))),v,r,s)
-
-----------------------------------------
-
-## Path #15
+## Path #18
 Source: external_input_params in ERC20FlashMint.flashLoan
 Sink: tainted_state_changing_external_call in ERC20FlashMint.flashLoan
 
@@ -314,63 +387,7 @@ Sink: tainted_state_changing_external_call in ERC20FlashMint.flashLoan
 
 ----------------------------------------
 
-## Path #16
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3246, 3247, 3248, 3249, 3250, 3251]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3249]
-    LNE: _transfer(from,to,amount)
-
-----------------------------------------
-
-## Path #17
-Source: external_input_params in ERC20FlashMint.flashLoan
-Sink: tainted_erc20_transfer in ERC20FlashMint._mint
-
-### Operations with Source Code Mapping:
-    IR:  flashLoan
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3546, 3547, 3548, 3549, 3550, 3551, 3552, 3553, 3554, 3555, 3556, 3557, 3558, 3559, 3560, 3561, 3562, 3563]
-    LNE: (No direct expression available)
-
-    IR:  TMP_764 = CONVERT receiver to address
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3549]
-    LNE: _mint(address(receiver),amount)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(TMP_764,amount)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3549]
-    LNE: _mint(address(receiver),amount)
-
-----------------------------------------
-
-## Path #18
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3246, 3247, 3248, 3249, 3250, 3251]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
 ## Path #19
-Source: external_input_params in ERC20.transfer
-Sink: tainted_erc20_transfer in ERC20.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3201, 3202, 3203, 3204, 3205]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #20
 Source: external_input_params in ERC20Permit.permit
 Sink: tainted_state_changing_external_call in ERC20Permit._useNonce
 
@@ -393,76 +410,59 @@ Sink: tainted_state_changing_external_call in ERC20Permit._useNonce
 
 ----------------------------------------
 
-## Path #21
-Source: external_input_params in ERC20Votes.getPastVotes
-Sink: tainted_state_changing_external_call in ERC20Votes._checkpointsLookup
+## Path #20
+Source: external_input_params in ERC20Votes.delegateBySig
+Sink: tainted_state_changing_external_call in ERC20Votes.delegateBySig
 
 ### Operations with Source Code Mapping:
-    IR:  getPastVotes
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3758, 3759, 3760, 3761]
+    IR:  delegateBySig
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3837, 3838, 3839, 3840, 3841, 3842, 3843, 3844, 3845, 3846, 3847]
     LNE: (No direct expression available)
 
-    IR:  REF_148(ERC20Votes.Checkpoint[]) -> _checkpoints[account]
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3760]
-    LNE: _checkpointsLookup(_checkpoints[account],timepoint)
+    IR:  TMP_1028(bytes) = SOLIDITY_CALL abi.encode()(_DELEGATION_TYPEHASH,delegatee,nonce,expiry)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3839, 3840, 3841, 3842, 3843, 3844]
+    LNE: signer = ECDSA.recover(_hashTypedDataV4(keccak256(bytes)(abi.encode(_DELEGATION_TYPEHASH,delegatee,nonce,expiry))),v,r,s)
 
-    IR:  TMP_1005(uint256) = INTERNAL_CALL, ERC20Votes._checkpointsLookup(ERC20Votes.Checkpoint[],uint256)(REF_148,timepoint)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3760]
-    LNE: _checkpointsLookup(_checkpoints[account],timepoint)
+    IR:  TMP_1029(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1028)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3839, 3840, 3841, 3842, 3843, 3844]
+    LNE: signer = ECDSA.recover(_hashTypedDataV4(keccak256(bytes)(abi.encode(_DELEGATION_TYPEHASH,delegatee,nonce,expiry))),v,r,s)
 
-    IR:  REF_149 -> LENGTH ckpts
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3792]
-    LNE: length = ckpts.length
+    IR:  TMP_1030(bytes32) = INTERNAL_CALL, EIP712._hashTypedDataV4(bytes32)(TMP_1029)
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3839, 3840, 3841, 3842, 3843, 3844]
+    LNE: signer = ECDSA.recover(_hashTypedDataV4(keccak256(bytes)(abi.encode(_DELEGATION_TYPEHASH,delegatee,nonce,expiry))),v,r,s)
 
-    IR:  length(uint256) := REF_149(uint256)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3792]
-    LNE: length = ckpts.length
+----------------------------------------
+
+## Path #21
+Source: external_input_params in VistaFinance.transfer
+Sink: tainted_erc20_transfer in VistaFinance.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [4059, 4060, 4061, 4062, 4063, 4064, 4065]
+    LNE: (No direct expression available)
 
 ----------------------------------------
 
 ## Path #22
-Source: external_input_params in ERC20Permit.permit
-Sink: tainted_state_changing_external_call in ERC20Permit.permit
+Source: external_input_params in VistaFinance.transferFrom
+Sink: tainted_erc20_transfer in VistaFinance.transferFrom
 
 ### Operations with Source Code Mapping:
-    IR:  permit
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3623, 3624, 3625, 3626, 3627, 3628, 3629, 3630, 3631, 3632, 3633, 3634]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [4067, 4068, 4069, 4070, 4071, 4072, 4073]
     LNE: (No direct expression available)
-
-    IR:  TMP_879(bytes) = SOLIDITY_CALL abi.encode()(_PERMIT_TYPEHASH,owner,spender,value,TMP_878,deadline)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3626]
-    LNE: structHash = keccak256(bytes)(abi.encode(_PERMIT_TYPEHASH,owner,spender,value,_useNonce(owner),deadline))
-
-    IR:  TMP_880(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_879)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3626]
-    LNE: structHash = keccak256(bytes)(abi.encode(_PERMIT_TYPEHASH,owner,spender,value,_useNonce(owner),deadline))
-
-    IR:  structHash(bytes32) := TMP_880(bytes32)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3626]
-    LNE: structHash = keccak256(bytes)(abi.encode(_PERMIT_TYPEHASH,owner,spender,value,_useNonce(owner),deadline))
-
-    IR:  TMP_881(bytes32) = INTERNAL_CALL, EIP712._hashTypedDataV4(bytes32)(structHash)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3628]
-    LNE: hash = _hashTypedDataV4(structHash)
-
-    IR:  hash(bytes32) := TMP_881(bytes32)
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3628]
-    LNE: hash = _hashTypedDataV4(structHash)
 
 ----------------------------------------
 
 ## Path #23
-Source: external_input_params in ERC20FlashMint.flashLoan
-Sink: tainted_erc20_transfer in ERC20FlashMint.flashLoan
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
 
 ### Operations with Source Code Mapping:
-    IR:  flashLoan
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3546, 3547, 3548, 3549, 3550, 3551, 3552, 3553, 3554, 3555, 3556, 3557, 3558, 3559, 3560, 3561, 3562, 3563]
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3246, 3247, 3248, 3249, 3250, 3251]
     LNE: (No direct expression available)
-
-    IR:  TMP_783 = CONVERT receiver to address
-    SRC: File 'pmdetector/flattened_contracts/edeb65cf_Vista/flattened.sol', Lines [3560]
-    LNE: _transfer(address(receiver),flashFeeReceiver,fee)
 
 ----------------------------------------
 

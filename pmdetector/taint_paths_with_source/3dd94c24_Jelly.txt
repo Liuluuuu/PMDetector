@@ -2,17 +2,6 @@
 Found 8 tainted paths.
 
 ## Path #1
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [754, 755, 756, 757, 758, 759, 760, 761, 762, 763, 764]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #2
 Source: external_input_params in Jelly.burnFrom
 Sink: tainted_erc20_transfer in Jelly._burn
 
@@ -27,22 +16,7 @@ Sink: tainted_erc20_transfer in Jelly._burn
 
 ----------------------------------------
 
-## Path #3
-Source: external_input_params in Jelly.constructor
-Sink: tainted_erc20_transfer in Jelly._mint
-
-### Operations with Source Code Mapping:
-    IR:  constructor
-    SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_vault,_initialSupply)
-    SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [1178]
-    LNE: _mint(_vault,_initialSupply)
-
-----------------------------------------
-
-## Path #4
+## Path #2
 Source: external_input_params in ERC20.transferFrom
 Sink: tainted_erc20_transfer in ERC20._transfer
 
@@ -54,6 +28,36 @@ Sink: tainted_erc20_transfer in ERC20._transfer
     IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
     SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [755]
     LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [754, 755, 756, 757, 758, 759, 760, 761, 762, 763, 764]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [755]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in Jelly.constructor
+Sink: tainted_erc20_transfer in Jelly._mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_vault,_initialSupply)
+    SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [1178]
+    LNE: _mint(_vault,_initialSupply)
 
 ----------------------------------------
 
@@ -69,21 +73,6 @@ Sink: tainted_erc20_transfer in ERC20.transfer
 ----------------------------------------
 
 ## Path #6
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [754, 755, 756, 757, 758, 759, 760, 761, 762, 763, 764]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [755]
-    LNE: _transfer(sender,recipient,amount)
-
-----------------------------------------
-
-## Path #7
 Source: external_input_params in Jelly.constructor
 Sink: tainted_erc20_transfer in Jelly._mint
 
@@ -95,6 +84,17 @@ Sink: tainted_erc20_transfer in Jelly._mint
     IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_vault,_initialSupply)
     SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [1178]
     LNE: _mint(_vault,_initialSupply)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/3dd94c24_Jelly/flattened.sol', Lines [754, 755, 756, 757, 758, 759, 760, 761, 762, 763, 764]
+    LNE: (No direct expression available)
 
 ----------------------------------------
 

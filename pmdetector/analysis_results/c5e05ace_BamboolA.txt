@@ -636,179 +636,32 @@ Sink #56: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in BambooAI.transfer
-  Sink: tainted_state_changing_external_call in BambooAI._basicTransfer
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
   Path Operations:
     1. transfer
-    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
-    3. TMP_232(bool) = INTERNAL_CALL, BambooAI._basicTransfer(address,address,uint256)(sender,recipient,amount)
-    4. REF_92(uint256) -> _balances[recipient]
 
 Path #2:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
-  Path Operations:
-    1. setDistributionSettings
-    2. _teamShare(uint256) := newLotteryShare(uint256)
-
-Path #3:
-  Source: external_input_params in BambooAI.transferFrom
-  Sink: tainted_erc20_transfer in BambooAI._transfer
-  Path Operations:
-    1. transferFrom
-    2. TMP_215(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #4:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.setDistributionSettings
-  Path Operations:
-    1. setDistributionSettings
-    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
-    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityShare', '_marketingShare'] 
-
-Path #5:
   Source: external_input_params in BambooAI.setSellTaxes
   Sink: tainted_state_changing_external_call in BambooAI.setSellTaxes
   Path Operations:
     1. setSellTaxes
     2. _sellLiquidityFee(uint256) := newLiquidityTax(uint256)
 
-Path #6:
-  Source: external_input_params in BambooAI.setMarketingWalletAddress
-  Sink: tainted_erc20_transfer in BambooAI.swapAndLiquify
-  Path Operations:
-    1. setMarketingWalletAddress
-    2. TMP_183 = CONVERT newAddress to address
-    3. marketingWalletAddress(address) := TMP_183(address)
-
-Path #7:
-  Source: external_input_params in BambooAI.transferFrom
-  Sink: tainted_erc20_transfer in BambooAI.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #8:
-  Source: external_input_params in BambooAI.changeRouterVersion
-  Sink: tainted_state_changing_external_call in BambooAI.changeRouterVersion
-  Path Operations:
-    1. changeRouterVersion
-    2. TMP_197 = CONVERT newRouterAddress to IUniswapV2Router02
-    3. _uniswapV2Router(IUniswapV2Router02) := TMP_197(IUniswapV2Router02)
-    4. TMP_201(address) = HIGH_LEVEL_CALL, dest:_uniswapV2Router(IUniswapV2Router02), function:WETH, arguments:[]  
-
-Path #9:
+Path #3:
   Source: external_input_params in BambooAI.setDistributionSettings
   Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
   Path Operations:
     1. setDistributionSettings
     2. _marketingShare(uint256) := newMarketingShare(uint256)
 
-Path #10:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
-  Path Operations:
-    1. setDistributionSettings
-    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
-    3. TMP_296(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountReceived', '_liquidityShare'] 
-    4. TMP_297(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_296', 'totalBNBFee'] 
-
-Path #11:
-  Source: external_input_params in BambooAI.setBuyTaxes
-  Sink: tainted_state_changing_external_call in BambooAI.setBuyTaxes
-  Path Operations:
-    1. setBuyTaxes
-    2. _buyLiquidityFee(uint256) := newLiquidityTax(uint256)
-
-Path #12:
-  Source: external_input_params in BambooAI.setSellTaxes
-  Sink: tainted_state_changing_external_call in BambooAI.constructor
-  Path Operations:
-    1. setSellTaxes
-    2. _sellLiquidityFee(uint256) := newLiquidityTax(uint256)
-
-Path #13:
+Path #4:
   Source: external_input_params in BambooAI.transfer
-  Sink: tainted_state_changing_external_call in BambooAI._transfer
+  Sink: tainted_erc20_transfer in BambooAI.transfer
   Path Operations:
     1. transfer
-    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
-    3. REF_77(uint256) -> _balances[recipient]
 
-Path #14:
-  Source: external_input_params in BambooAI.transfer
-  Sink: tainted_state_changing_external_call in BambooAI.updatePool
-  Path Operations:
-    1. transfer
-    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
-    3. INTERNAL_CALL, BambooAI.updatePool(uint256)(amount)
-    4. TMP_275(uint256) = amount (c)/ 100
-    5. fA(uint256) := TMP_275(uint256)
-
-Path #15:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
-  Path Operations:
-    1. setDistributionSettings
-    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
-
-Path #16:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
-  Path Operations:
-    1. setDistributionSettings
-    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
-    3. TMP_296(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountReceived', '_liquidityShare'] 
-
-Path #17:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.constructor
-  Path Operations:
-    1. setDistributionSettings
-    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
-    3. TMP_130(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityShare', '_marketingShare'] 
-
-Path #18:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.constructor
-  Path Operations:
-    1. setDistributionSettings
-    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
-    3. TMP_130(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityShare', '_marketingShare'] 
-    4. TMP_131(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_130', '_teamShare'] 
-
-Path #19:
-  Source: external_input_params in BambooAI.transferFrom
-  Sink: tainted_state_changing_external_call in BambooAI._transfer
-  Path Operations:
-    1. transferFrom
-    2. TMP_215(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_72(uint256) -> _balances[sender]
-
-Path #20:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
-  Path Operations:
-    1. setDistributionSettings
-    2. _marketingShare(uint256) := newMarketingShare(uint256)
-    3. TMP_301(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountReceived', '_marketingShare'] 
-
-Path #21:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
-  Path Operations:
-    1. setDistributionSettings
-    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
-
-Path #22:
-  Source: external_input_params in BambooAI.changeRouterVersion
-  Sink: tainted_state_changing_external_call in BambooAI.changeRouterVersion
-  Path Operations:
-    1. changeRouterVersion
-    2. TMP_197 = CONVERT newRouterAddress to IUniswapV2Router02
-    3. _uniswapV2Router(IUniswapV2Router02) := TMP_197(IUniswapV2Router02)
-    4. TMP_208(address) = HIGH_LEVEL_CALL, dest:_uniswapV2Router(IUniswapV2Router02), function:WETH, arguments:[]  
-
-Path #23:
+Path #5:
   Source: external_input_params in BambooAI.setDistributionSettings
   Sink: tainted_erc20_transfer in BambooAI.swapAndLiquify
   Path Operations:
@@ -818,80 +671,13 @@ Path #23:
     4. TMP_300(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_299', 'totalBNBFee'] 
     5. amountBNBLottery(uint256) := TMP_300(uint256)
 
-Path #24:
-  Source: external_input_params in BambooAI.transfer
-  Sink: tainted_state_changing_external_call in BambooAI.takeFee
-  Path Operations:
-    1. transfer
-    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
-    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
-    4. TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_totalTaxIfSelling'] 
-
-Path #25:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.constructor
-  Path Operations:
-    1. setDistributionSettings
-    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
-
-Path #26:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
-  Path Operations:
-    1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
-
-Path #27:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
-  Path Operations:
-    1. setDistributionSettings
-    2. _teamShare(uint256) := newLotteryShare(uint256)
-    3. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountReceived', '_teamShare'] 
-
-Path #28:
-  Source: external_input_params in BambooAI.transfer
-  Sink: tainted_erc20_transfer in BambooAI.transfer
-  Path Operations:
-    1. transfer
-
-Path #29:
-  Source: external_input_params in BambooAI.transfer
-  Sink: tainted_state_changing_external_call in BambooAI.takeFee
-  Path Operations:
-    1. transfer
-    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
-    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
-
-Path #30:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.setDistributionSettings
-  Path Operations:
-    1. setDistributionSettings
-    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
-
-Path #31:
-  Source: external_input_params in BambooAI.transfer
-  Sink: tainted_state_changing_external_call in BambooAI.takeFee
-  Path Operations:
-    1. transfer
-    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
-    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
-    4. TMP_328(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_totalTaxIfBuying'] 
-
-Path #32:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20.transferFrom
+Path #6:
+  Source: external_input_params in BambooAI.transferFrom
+  Sink: tainted_erc20_transfer in BambooAI.transferFrom
   Path Operations:
     1. transferFrom
 
-Path #33:
-  Source: external_input_params in ERC20.transfer
-  Sink: tainted_erc20_transfer in ERC20.transfer
-  Path Operations:
-    1. transfer
-
-Path #34:
+Path #7:
   Source: external_input_params in BambooAI.transferFrom
   Sink: tainted_state_changing_external_call in BambooAI.transferFrom
   Path Operations:
@@ -899,39 +685,7 @@ Path #34:
     2. REF_65(mapping(address => uint256)) -> _allowances[sender]
     3. REF_66(uint256) -> REF_65[TMP_217]
 
-Path #35:
-  Source: external_input_params in BambooAI.setDistributionSettings
-  Sink: tainted_state_changing_external_call in BambooAI.setDistributionSettings
-  Path Operations:
-    1. setDistributionSettings
-    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
-    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityShare', '_marketingShare'] 
-    4. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_170', '_teamShare'] 
-
-Path #36:
-  Source: external_input_params in BambooAI.setBuyTaxes
-  Sink: tainted_state_changing_external_call in BambooAI.constructor
-  Path Operations:
-    1. setBuyTaxes
-    2. _buyLiquidityFee(uint256) := newLiquidityTax(uint256)
-
-Path #37:
-  Source: external_input_params in BambooAI.transfer
-  Sink: tainted_state_changing_external_call in BambooAI.takeFee
-  Path Operations:
-    1. transfer
-    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
-    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
-
-Path #38:
-  Source: external_input_params in BambooAI.transfer
-  Sink: tainted_state_changing_external_call in BambooAI._transfer
-  Path Operations:
-    1. transfer
-    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
-    3. TMP_263(uint256) = INTERNAL_CALL, BambooAI.balanceOf(address)(recipient)
-
-Path #39:
+Path #8:
   Source: external_input_params in BambooAI.transferFrom
   Sink: tainted_state_changing_external_call in BambooAI._basicTransfer
   Path Operations:
@@ -940,33 +694,31 @@ Path #39:
     3. TMP_232(bool) = INTERNAL_CALL, BambooAI._basicTransfer(address,address,uint256)(sender,recipient,amount)
     4. REF_89(uint256) -> _balances[sender]
 
-Path #40:
-  Source: external_input_params in ERC20.transferFrom
-  Sink: tainted_erc20_transfer in ERC20._transfer
+Path #9:
+  Source: external_input_params in BambooAI.setBuyTaxes
+  Sink: tainted_state_changing_external_call in BambooAI.setBuyTaxes
+  Path Operations:
+    1. setBuyTaxes
+    2. _buyLiquidityFee(uint256) := newLiquidityTax(uint256)
+
+Path #10:
+  Source: external_input_params in BambooAI.changeRouterVersion
+  Sink: tainted_state_changing_external_call in BambooAI.changeRouterVersion
+  Path Operations:
+    1. changeRouterVersion
+    2. TMP_197 = CONVERT newRouterAddress to IUniswapV2Router02
+    3. _uniswapV2Router(IUniswapV2Router02) := TMP_197(IUniswapV2Router02)
+    4. TMP_208(address) = HIGH_LEVEL_CALL, dest:_uniswapV2Router(IUniswapV2Router02), function:WETH, arguments:[]  
+
+Path #11:
+  Source: external_input_params in BambooAI.transferFrom
+  Sink: tainted_state_changing_external_call in BambooAI._transfer
   Path Operations:
     1. transferFrom
-    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+    2. TMP_215(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_72(uint256) -> _balances[sender]
 
-Path #41:
-  Source: external_input_params in BambooAI.transfer
-  Sink: tainted_state_changing_external_call in BambooAI.takeFee
-  Path Operations:
-    1. transfer
-    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
-    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
-    4. TMP_328(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_totalTaxIfBuying'] 
-    5. TMP_329(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_328', '100'] 
-    6. feeAmount(uint256) := TMP_329(uint256)
-
-Path #42:
-  Source: external_input_params in BambooAI.transfer
-  Sink: tainted_state_changing_external_call in BambooAI.takeFee
-  Path Operations:
-    1. transfer
-    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
-    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
-
-Path #43:
+Path #12:
   Source: external_input_params in BambooAI.setDistributionSettings
   Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
   Path Operations:
@@ -977,7 +729,194 @@ Path #43:
     5. TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_171', '1'] 
     6. _totalDistributionShares(uint256) := TMP_172(uint256)
 
-Path #44:
+Path #13:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.setDistributionSettings
+  Path Operations:
+    1. setDistributionSettings
+    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
+    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityShare', '_marketingShare'] 
+
+Path #14:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
+  Path Operations:
+    1. setDistributionSettings
+    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
+
+Path #15:
+  Source: external_input_params in BambooAI.transfer
+  Sink: tainted_state_changing_external_call in BambooAI.takeFee
+  Path Operations:
+    1. transfer
+    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
+    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
+    4. TMP_328(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_totalTaxIfBuying'] 
+
+Path #16:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.constructor
+  Path Operations:
+    1. setDistributionSettings
+    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
+
+Path #17:
+  Source: external_input_params in BambooAI.transfer
+  Sink: tainted_state_changing_external_call in BambooAI._basicTransfer
+  Path Operations:
+    1. transfer
+    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
+    3. TMP_232(bool) = INTERNAL_CALL, BambooAI._basicTransfer(address,address,uint256)(sender,recipient,amount)
+    4. REF_92(uint256) -> _balances[recipient]
+
+Path #18:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
+  Path Operations:
+    1. setDistributionSettings
+    2. _teamShare(uint256) := newLotteryShare(uint256)
+
+Path #19:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.constructor
+  Path Operations:
+    1. setDistributionSettings
+    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
+    3. TMP_130(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityShare', '_marketingShare'] 
+    4. TMP_131(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_130', '_teamShare'] 
+
+Path #20:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
+  Path Operations:
+    1. setDistributionSettings
+    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
+    3. TMP_296(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountReceived', '_liquidityShare'] 
+    4. TMP_297(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_296', 'totalBNBFee'] 
+
+Path #21:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.constructor
+  Path Operations:
+    1. setDistributionSettings
+    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
+    3. TMP_130(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityShare', '_marketingShare'] 
+
+Path #22:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
+  Path Operations:
+    1. setDistributionSettings
+    2. _teamShare(uint256) := newLotteryShare(uint256)
+    3. TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountReceived', '_teamShare'] 
+
+Path #23:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.setDistributionSettings
+  Path Operations:
+    1. setDistributionSettings
+    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
+
+Path #24:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
+  Path Operations:
+    1. setDistributionSettings
+    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
+
+Path #25:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
+  Path Operations:
+    1. setDistributionSettings
+    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
+    3. TMP_296(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountReceived', '_liquidityShare'] 
+
+Path #26:
+  Source: external_input_params in BambooAI.transfer
+  Sink: tainted_state_changing_external_call in BambooAI._transfer
+  Path Operations:
+    1. transfer
+    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
+    3. TMP_263(uint256) = INTERNAL_CALL, BambooAI.balanceOf(address)(recipient)
+
+Path #27:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
+  Path Operations:
+    1. setDistributionSettings
+    2. _marketingShare(uint256) := newMarketingShare(uint256)
+    3. TMP_301(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountReceived', '_marketingShare'] 
+
+Path #28:
+  Source: external_input_params in BambooAI.transfer
+  Sink: tainted_state_changing_external_call in BambooAI.takeFee
+  Path Operations:
+    1. transfer
+    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
+    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
+
+Path #29:
+  Source: external_input_params in BambooAI.transferFrom
+  Sink: tainted_erc20_transfer in BambooAI._transfer
+  Path Operations:
+    1. transferFrom
+    2. TMP_215(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #30:
+  Source: external_input_params in BambooAI.transfer
+  Sink: tainted_state_changing_external_call in BambooAI.takeFee
+  Path Operations:
+    1. transfer
+    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
+    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
+    4. TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_totalTaxIfSelling'] 
+
+Path #31:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+
+Path #32:
+  Source: external_input_params in BambooAI.transfer
+  Sink: tainted_state_changing_external_call in BambooAI.takeFee
+  Path Operations:
+    1. transfer
+    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
+    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
+    4. TMP_328(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_totalTaxIfBuying'] 
+    5. TMP_329(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_328', '100'] 
+    6. feeAmount(uint256) := TMP_329(uint256)
+
+Path #33:
+  Source: external_input_params in BambooAI.setMarketingWalletAddress
+  Sink: tainted_erc20_transfer in BambooAI.swapAndLiquify
+  Path Operations:
+    1. setMarketingWalletAddress
+    2. TMP_183 = CONVERT newAddress to address
+    3. marketingWalletAddress(address) := TMP_183(address)
+
+Path #34:
+  Source: external_input_params in BambooAI.transfer
+  Sink: tainted_state_changing_external_call in BambooAI.updatePool
+  Path Operations:
+    1. transfer
+    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
+    3. INTERNAL_CALL, BambooAI.updatePool(uint256)(amount)
+    4. TMP_275(uint256) = amount (c)/ 100
+    5. fA(uint256) := TMP_275(uint256)
+
+Path #35:
+  Source: external_input_params in BambooAI.transfer
+  Sink: tainted_state_changing_external_call in BambooAI._transfer
+  Path Operations:
+    1. transfer
+    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
+    3. REF_77(uint256) -> _balances[recipient]
+
+Path #36:
   Source: external_input_params in BambooAI.changeRouterVersion
   Sink: tainted_state_changing_external_call in BambooAI.updatePool
   Path Operations:
@@ -991,7 +930,7 @@ Path #44:
     8. uniswapPair(address) := newPairAddress(address)
     9. REF_82(uint256) -> _balances[uniswapPair]
 
-Path #45:
+Path #37:
   Source: external_input_params in BambooAI.changeRouterVersion
   Sink: tainted_state_changing_external_call in BambooAI.swapAndLiquify
   Path Operations:
@@ -1000,3 +939,64 @@ Path #45:
     3. _uniswapV2Router(IUniswapV2Router02) := TMP_197(IUniswapV2Router02)
     4. uniswapV2Router(IUniswapV2Router02) := _uniswapV2Router(IUniswapV2Router02)
     5. TMP_289 = CONVERT uniswapV2Router to address
+
+Path #38:
+  Source: external_input_params in BambooAI.changeRouterVersion
+  Sink: tainted_state_changing_external_call in BambooAI.changeRouterVersion
+  Path Operations:
+    1. changeRouterVersion
+    2. TMP_197 = CONVERT newRouterAddress to IUniswapV2Router02
+    3. _uniswapV2Router(IUniswapV2Router02) := TMP_197(IUniswapV2Router02)
+    4. TMP_201(address) = HIGH_LEVEL_CALL, dest:_uniswapV2Router(IUniswapV2Router02), function:WETH, arguments:[]  
+
+Path #39:
+  Source: external_input_params in BambooAI.setSellTaxes
+  Sink: tainted_state_changing_external_call in BambooAI.constructor
+  Path Operations:
+    1. setSellTaxes
+    2. _sellLiquidityFee(uint256) := newLiquidityTax(uint256)
+
+Path #40:
+  Source: external_input_params in BambooAI.transfer
+  Sink: tainted_state_changing_external_call in BambooAI.takeFee
+  Path Operations:
+    1. transfer
+    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
+    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
+
+Path #41:
+  Source: external_input_params in BambooAI.setDistributionSettings
+  Sink: tainted_state_changing_external_call in BambooAI.setDistributionSettings
+  Path Operations:
+    1. setDistributionSettings
+    2. _liquidityShare(uint256) := newLiquidityShare(uint256)
+    3. TMP_170(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityShare', '_marketingShare'] 
+    4. TMP_171(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_170', '_teamShare'] 
+
+Path #42:
+  Source: external_input_params in BambooAI.setBuyTaxes
+  Sink: tainted_state_changing_external_call in BambooAI.constructor
+  Path Operations:
+    1. setBuyTaxes
+    2. _buyLiquidityFee(uint256) := newLiquidityTax(uint256)
+
+Path #43:
+  Source: external_input_params in BambooAI.transfer
+  Sink: tainted_state_changing_external_call in BambooAI.takeFee
+  Path Operations:
+    1. transfer
+    2. TMP_214(bool) = INTERNAL_CALL, BambooAI._transfer(address,address,uint256)(TMP_213,recipient,amount)
+    3. TMP_270(uint256) = INTERNAL_CALL, BambooAI.takeFee(address,address,uint256)(sender,recipient,amount)
+
+Path #44:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #45:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)

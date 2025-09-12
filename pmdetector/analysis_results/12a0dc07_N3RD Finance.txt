@@ -878,20 +878,18 @@ Sink #97: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
+  Source: external_input_params in NerdBaseToken.transfer
+  Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(TMP_981,recipient,amount)
+
+Path #2:
   Source: external_input_params in NerdBaseToken.transferFrom
   Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(sender,recipient,amount)
-
-Path #2:
-  Source: external_input_params in NerdBaseToken.setDevFundReciever
-  Sink: tainted_erc20_transfer in NerdBaseToken._mint
-  Path Operations:
-    1. setDevFundReciever
-    2. tentativeDevAddress(address) := _devaddr(address)
-    3. devFundAddress(address) := tentativeDevAddress(address)
-    4. INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
 
 Path #3:
   Source: external_input_params in NerdBaseToken.transferFrom
@@ -901,83 +899,44 @@ Path #3:
     2. INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(sender,recipient,amount)
 
 Path #4:
-  Source: external_input_params in Nerd.constructor
-  Sink: tainted_erc20_transfer in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
+  Source: external_input_params in NerdBaseToken.transferFrom
+  Sink: tainted_erc20_transfer in NerdBaseToken.transferFrom
   Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    3. TMP_1077 = CONVERT factory to IUniswapV2Factory
-    4. uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
-    5. TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
-    6. tokenUniswapPair(address) := TMP_1124(address)
-    7. TMP_925 = CONVERT tokenUniswapPair to IUniswapV2Pair
-    8. pair(IUniswapV2Pair) := TMP_925(IUniswapV2Pair)
-    9. TMP_936 = CONVERT pair to address
+    1. transferFrom
 
 Path #5:
-  Source: external_input_params in NerdBaseToken.transfer
-  Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
+  Source: external_input_params in NerdBaseToken.setFeeDistributor
+  Sink: tainted_state_changing_external_call in NerdBaseToken.setFeeDistributor
   Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(TMP_981,recipient,amount)
-    3. REF_471(uint256) -> _balances[recipient]
+    1. setFeeDistributor
 
 Path #6:
-  Source: external_input_params in NerdBaseToken.getAllocatedLP
-  Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
-  Path Operations:
-    1. getAllocatedLP
-    2. REF_395(uint256) -> ethContributed[_user]
-    3. TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
-    4. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_860', 'TMP_862'] 
-    5. TMP_864(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_863', '100'] 
-
-Path #7:
   Source: external_input_params in NerdBaseToken.transferFrom
-  Sink: tainted_erc20_transfer in NerdBaseToken._transfer
+  Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
   Path Operations:
     1. transferFrom
     2. INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_464(uint256) -> _balances[sender]
+
+Path #7:
+  Source: external_input_params in Nerd.delegateBySig
+  Sink: tainted_state_changing_external_call in Nerd._moveDelegates
+  Path Operations:
+    1. delegateBySig
+    2. TMP_1303(bytes) = SOLIDITY_CALL abi.encode()(DELEGATION_TYPEHASH,delegatee,nonce,expiry)
+    3. TMP_1304(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1303)
+    4. structHash(bytes32) := TMP_1304(bytes32)
+    5. TMP_1305(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
+    6. TMP_1306(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1305)
+    7. digest(bytes32) := TMP_1306(bytes32)
+    8. TMP_1307(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    9. signatory(address) := TMP_1307(address)
+    10. INTERNAL_CALL, Nerd._delegate(address,address)(signatory,delegatee)
+    11. TMP_1334(uint256) = INTERNAL_CALL, NerdBaseToken.balanceOf(address)(delegator)
+    12. delegatorBalance(uint256) := TMP_1334(uint256)
+    13. INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
 
 Path #8:
-  Source: external_input_params in NerdBaseToken.transfer
-  Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
-  Path Operations:
-    1. transfer
-    2. INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(TMP_981,recipient,amount)
-
-Path #9:
-  Source: external_input_params in NerdBaseToken.decreaseAllowance
-  Sink: tainted_state_changing_external_call in NerdBaseToken.decreaseAllowance
-  Path Operations:
-    1. decreaseAllowance
-    2. REF_460(uint256) -> REF_459[spender]
-
-Path #10:
-  Source: external_input_params in Nerd.constructor
-  Sink: tainted_erc20_transfer in Nerd.addLiquidityToUniswapNERDxWETHPair
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    3. TMP_1077 = CONVERT factory to IUniswapV2Factory
-    4. uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
-    5. TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
-    6. tokenUniswapPair(address) := TMP_1124(address)
-    7. TMP_1154 = CONVERT tokenUniswapPair to IUniswapV2Pair
-    8. pair(IUniswapV2Pair) := TMP_1154(IUniswapV2Pair)
-    9. TMP_1165 = CONVERT pair to address
-
-Path #11:
-  Source: external_input_params in Nerd.constructor
-  Sink: tainted_state_changing_external_call in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    3. TMP_1073 = CONVERT router to IUniswapV2Router02
-    4. uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
-    5. TMP_954 = CONVERT uniswapRouterV2 to address
-
-Path #12:
   Source: external_input_params in Nerd.constructor
   Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWETHPair
   Path Operations:
@@ -993,22 +952,37 @@ Path #12:
     10. totalLPTokensMinted(uint256) := TMP_1173(uint256)
     11. TMP_1177(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalLPTokensMinted', '1000000000000000000'] 
 
-Path #13:
-  Source: external_input_params in NerdBaseToken.setDevFundReciever
-  Sink: tainted_erc20_transfer in Nerd._mint
+Path #9:
+  Source: external_input_params in NerdBaseToken.getAllocatedLP
+  Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
   Path Operations:
-    1. setDevFundReciever
-    2. tentativeDevAddress(address) := _devaddr(address)
-    3. devFundAddress(address) := tentativeDevAddress(address)
-    4. INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
+    1. getAllocatedLP
+    2. REF_395(uint256) -> ethContributed[_user]
+    3. TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
 
-Path #14:
-  Source: external_input_params in NerdBaseToken.transfer
-  Sink: tainted_erc20_transfer in NerdBaseToken.transfer
+Path #10:
+  Source: external_input_params in Nerd.delegate
+  Sink: tainted_state_changing_external_call in Nerd._moveDelegates
   Path Operations:
-    1. transfer
+    1. delegate
+    2. INTERNAL_CALL, Nerd._delegate(address,address)(msg.sender,delegatee)
+    3. INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
+    4. REF_625(mapping(uint32 => Nerd.Checkpoint)) -> checkpoints[dstRep]
+    5. REF_626(Nerd.Checkpoint) -> REF_625[TMP_1351]
+    6. REF_627(uint256) -> REF_626.votes
+    7. dstRepOld(uint256) := REF_627(uint256)
 
-Path #15:
+Path #11:
+  Source: external_input_params in Nerd.constructor
+  Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWETHPair
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    3. TMP_1073 = CONVERT router to IUniswapV2Router02
+    4. uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
+    5. TMP_1183 = CONVERT uniswapRouterV2 to address
+
+Path #12:
   Source: external_input_params in Nerd.constructor
   Sink: tainted_state_changing_external_call in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
   Path Operations:
@@ -1024,7 +998,88 @@ Path #15:
     10. totalLPTokensMinted(uint256) := TMP_1173(uint256)
     11. TMP_948(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalLPTokensMinted', '1000000000000000000'] 
 
+Path #13:
+  Source: external_input_params in Nerd.constructor
+  Sink: tainted_erc20_transfer in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    3. TMP_1077 = CONVERT factory to IUniswapV2Factory
+    4. uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
+    5. TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
+    6. tokenUniswapPair(address) := TMP_1124(address)
+    7. TMP_925 = CONVERT tokenUniswapPair to IUniswapV2Pair
+    8. pair(IUniswapV2Pair) := TMP_925(IUniswapV2Pair)
+    9. TMP_936 = CONVERT pair to address
+
+Path #14:
+  Source: external_input_params in NerdBaseToken.getAllocatedLP
+  Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
+  Path Operations:
+    1. getAllocatedLP
+    2. REF_395(uint256) -> ethContributed[_user]
+    3. TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
+    4. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_860', 'TMP_862'] 
+    5. TMP_864(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_863', '100'] 
+
+Path #15:
+  Source: external_input_params in Nerd.constructor
+  Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWETHPair
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    3. TMP_1077 = CONVERT factory to IUniswapV2Factory
+    4. uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
+    5. TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
+    6. tokenUniswapPair(address) := TMP_1124(address)
+    7. TMP_1154 = CONVERT tokenUniswapPair to IUniswapV2Pair
+    8. pair(IUniswapV2Pair) := TMP_1154(IUniswapV2Pair)
+    9. TMP_1173(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_1172']  
+    10. totalLPTokensMinted(uint256) := TMP_1173(uint256)
+
 Path #16:
+  Source: external_input_params in NerdBaseToken.setShouldTransferChecker
+  Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
+  Path Operations:
+    1. setShouldTransferChecker
+    2. transferCheckerAddress(address) := _transferCheckerAddress(address)
+    3. TMP_1012 = CONVERT transferCheckerAddress to IFeeApprover
+    4. TUPLE_3(uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_1012(IFeeApprover), function:calculateAmountsAfterFee, arguments:['sender', 'recipient', 'amount']  
+    5. transferToAmount(uint256)= UNPACK TUPLE_3 index: 0 
+
+Path #17:
+  Source: external_input_params in NerdBaseToken.setDevFundReciever
+  Sink: tainted_erc20_transfer in NerdBaseToken._mint
+  Path Operations:
+    1. setDevFundReciever
+    2. tentativeDevAddress(address) := _devaddr(address)
+    3. devFundAddress(address) := tentativeDevAddress(address)
+    4. INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
+
+Path #18:
+  Source: external_input_params in Nerd.constructor
+  Sink: tainted_erc20_transfer in Nerd.addLiquidityToUniswapNERDxWETHPair
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    3. TMP_1077 = CONVERT factory to IUniswapV2Factory
+    4. uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
+    5. TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
+    6. tokenUniswapPair(address) := TMP_1124(address)
+    7. TMP_1154 = CONVERT tokenUniswapPair to IUniswapV2Pair
+    8. pair(IUniswapV2Pair) := TMP_1154(IUniswapV2Pair)
+    9. TMP_1165 = CONVERT pair to address
+
+Path #19:
+  Source: external_input_params in NerdBaseToken.setDevFundReciever
+  Sink: tainted_erc20_transfer in Nerd._mint
+  Path Operations:
+    1. setDevFundReciever
+    2. tentativeDevAddress(address) := _devaddr(address)
+    3. devFundAddress(address) := tentativeDevAddress(address)
+    4. INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
+
+Path #20:
   Source: external_input_params in NerdBaseToken.setFeeDistributor
   Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
   Path Operations:
@@ -1032,7 +1087,7 @@ Path #16:
     2. feeDistributor(address) := _feeDistributor(address)
     3. REF_474(uint256) -> _balances[feeDistributor]
 
-Path #17:
+Path #21:
   Source: external_input_params in Nerd.delegateBySig
   Sink: tainted_erc20_transfer in Nerd._delegate
   Path Operations:
@@ -1049,7 +1104,69 @@ Path #17:
     11. REF_616(address) -> _delegates[delegator]
     12. currentDelegate(address) := REF_616(address)
 
-Path #18:
+Path #22:
+  Source: external_input_params in Nerd.constructor
+  Sink: tainted_state_changing_external_call in Nerd.createUniswapPairMainnet
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    3. TMP_1073 = CONVERT router to IUniswapV2Router02
+    4. uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
+    5. TMP_1121(address) = HIGH_LEVEL_CALL, dest:uniswapRouterV2(IUniswapV2Router02), function:WETH, arguments:[]  
+    6. TMP_1122 = CONVERT TMP_1121 to address
+
+Path #23:
+  Source: external_input_params in Nerd.delegateBySig
+  Sink: tainted_state_changing_external_call in Nerd._moveDelegates
+  Path Operations:
+    1. delegateBySig
+    2. TMP_1303(bytes) = SOLIDITY_CALL abi.encode()(DELEGATION_TYPEHASH,delegatee,nonce,expiry)
+    3. TMP_1304(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1303)
+    4. structHash(bytes32) := TMP_1304(bytes32)
+    5. TMP_1305(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
+    6. TMP_1306(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1305)
+    7. digest(bytes32) := TMP_1306(bytes32)
+    8. TMP_1307(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    9. signatory(address) := TMP_1307(address)
+    10. INTERNAL_CALL, Nerd._delegate(address,address)(signatory,delegatee)
+    11. TMP_1334(uint256) = INTERNAL_CALL, NerdBaseToken.balanceOf(address)(delegator)
+    12. delegatorBalance(uint256) := TMP_1334(uint256)
+    13. INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
+
+Path #24:
+  Source: external_input_params in NerdBaseToken.transferFrom
+  Sink: tainted_erc20_transfer in NerdBaseToken._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #25:
+  Source: external_input_params in NerdBaseToken.increaseAllowance
+  Sink: tainted_state_changing_external_call in NerdBaseToken.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_457(uint256) -> REF_456[spender]
+
+Path #26:
+  Source: external_input_params in NerdBaseToken.getAllocatedLP
+  Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
+  Path Operations:
+    1. getAllocatedLP
+    2. REF_395(uint256) -> ethContributed[_user]
+    3. TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
+    4. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_860', 'TMP_862'] 
+
+Path #27:
+  Source: external_input_params in NerdBaseToken.setDevFundReciever
+  Sink: tainted_state_changing_external_call in NerdBaseToken._mint
+  Path Operations:
+    1. setDevFundReciever
+    2. tentativeDevAddress(address) := _devaddr(address)
+    3. devFundAddress(address) := tentativeDevAddress(address)
+    4. INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
+    5. REF_479(uint256) -> _balances[account]
+
+Path #28:
   Source: external_input_params in Nerd.delegateBySig
   Sink: tainted_state_changing_external_call in Nerd._moveDelegates
   Path Operations:
@@ -1071,174 +1188,7 @@ Path #18:
     16. REF_624(uint256) -> REF_623.votes
     17. srcRepOld(uint256) := REF_624(uint256)
 
-Path #19:
-  Source: external_input_params in NerdBaseToken.getAllocatedLP
-  Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
-  Path Operations:
-    1. getAllocatedLP
-    2. REF_395(uint256) -> ethContributed[_user]
-    3. TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
-
-Path #20:
-  Source: external_input_params in Nerd.delegateBySig
-  Sink: tainted_state_changing_external_call in Nerd._moveDelegates
-  Path Operations:
-    1. delegateBySig
-    2. TMP_1303(bytes) = SOLIDITY_CALL abi.encode()(DELEGATION_TYPEHASH,delegatee,nonce,expiry)
-    3. TMP_1304(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1303)
-    4. structHash(bytes32) := TMP_1304(bytes32)
-    5. TMP_1305(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
-    6. TMP_1306(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1305)
-    7. digest(bytes32) := TMP_1306(bytes32)
-    8. TMP_1307(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-    9. signatory(address) := TMP_1307(address)
-    10. INTERNAL_CALL, Nerd._delegate(address,address)(signatory,delegatee)
-    11. TMP_1334(uint256) = INTERNAL_CALL, NerdBaseToken.balanceOf(address)(delegator)
-    12. delegatorBalance(uint256) := TMP_1334(uint256)
-    13. INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
-
-Path #21:
-  Source: external_input_params in NerdBaseToken.setShouldTransferChecker
-  Sink: tainted_state_changing_external_call in Nerd._transfer
-  Path Operations:
-    1. setShouldTransferChecker
-    2. transferCheckerAddress(address) := _transferCheckerAddress(address)
-    3. TMP_1241 = CONVERT transferCheckerAddress to IFeeApprover
-    4. TUPLE_5(uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_1241(IFeeApprover), function:calculateAmountsAfterFee, arguments:['sender', 'recipient', 'amount']  
-    5. transferToAmount(uint256)= UNPACK TUPLE_5 index: 0 
-
-Path #22:
-  Source: external_input_params in Nerd.delegate
-  Sink: tainted_state_changing_external_call in Nerd._moveDelegates
-  Path Operations:
-    1. delegate
-    2. INTERNAL_CALL, Nerd._delegate(address,address)(msg.sender,delegatee)
-    3. INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
-    4. REF_625(mapping(uint32 => Nerd.Checkpoint)) -> checkpoints[dstRep]
-    5. REF_626(Nerd.Checkpoint) -> REF_625[TMP_1351]
-    6. REF_627(uint256) -> REF_626.votes
-    7. dstRepOld(uint256) := REF_627(uint256)
-
-Path #23:
-  Source: external_input_params in NerdBaseToken.getAllocatedLP
-  Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
-  Path Operations:
-    1. getAllocatedLP
-    2. REF_395(uint256) -> ethContributed[_user]
-    3. TMP_860(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_395', 'LPperETHUnit'] 
-    4. TMP_863(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_860', 'TMP_862'] 
-
-Path #24:
-  Source: external_input_params in NerdBaseToken.setDevFundReciever
-  Sink: tainted_state_changing_external_call in Nerd._mint
-  Path Operations:
-    1. setDevFundReciever
-    2. tentativeDevAddress(address) := _devaddr(address)
-    3. devFundAddress(address) := tentativeDevAddress(address)
-    4. INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
-    5. REF_581(uint256) -> _balances[account]
-
-Path #25:
-  Source: external_input_params in NerdBaseToken.getAllocatedLP
-  Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
-  Path Operations:
-    1. getAllocatedLP
-    2. REF_395(uint256) -> ethContributed[_user]
-
-Path #26:
-  Source: external_input_params in Nerd.constructor
-  Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWETHPair
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    3. TMP_1077 = CONVERT factory to IUniswapV2Factory
-    4. uniswapFactory(IUniswapV2Factory) := TMP_1077(IUniswapV2Factory)
-    5. TMP_1124(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_1122', 'TMP_1123']  
-    6. tokenUniswapPair(address) := TMP_1124(address)
-    7. TMP_1154 = CONVERT tokenUniswapPair to IUniswapV2Pair
-    8. pair(IUniswapV2Pair) := TMP_1154(IUniswapV2Pair)
-    9. TMP_1173(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_1172']  
-    10. totalLPTokensMinted(uint256) := TMP_1173(uint256)
-
-Path #27:
-  Source: external_input_params in Nerd.constructor
-  Sink: tainted_state_changing_external_call in Nerd.createUniswapPairMainnet
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    3. TMP_1073 = CONVERT router to IUniswapV2Router02
-    4. uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
-    5. TMP_1121(address) = HIGH_LEVEL_CALL, dest:uniswapRouterV2(IUniswapV2Router02), function:WETH, arguments:[]  
-    6. TMP_1122 = CONVERT TMP_1121 to address
-
-Path #28:
-  Source: external_input_params in Nerd.delegateBySig
-  Sink: tainted_state_changing_external_call in Nerd._moveDelegates
-  Path Operations:
-    1. delegateBySig
-    2. TMP_1303(bytes) = SOLIDITY_CALL abi.encode()(DELEGATION_TYPEHASH,delegatee,nonce,expiry)
-    3. TMP_1304(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1303)
-    4. structHash(bytes32) := TMP_1304(bytes32)
-    5. TMP_1305(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
-    6. TMP_1306(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_1305)
-    7. digest(bytes32) := TMP_1306(bytes32)
-    8. TMP_1307(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
-    9. signatory(address) := TMP_1307(address)
-    10. INTERNAL_CALL, Nerd._delegate(address,address)(signatory,delegatee)
-    11. TMP_1334(uint256) = INTERNAL_CALL, NerdBaseToken.balanceOf(address)(delegator)
-    12. delegatorBalance(uint256) := TMP_1334(uint256)
-    13. INTERNAL_CALL, Nerd._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
-
 Path #29:
-  Source: external_input_params in NerdBaseToken.increaseAllowance
-  Sink: tainted_state_changing_external_call in NerdBaseToken.increaseAllowance
-  Path Operations:
-    1. increaseAllowance
-    2. REF_457(uint256) -> REF_456[spender]
-
-Path #30:
-  Source: external_input_params in NerdBaseToken.transferFrom
-  Sink: tainted_erc20_transfer in NerdBaseToken.transferFrom
-  Path Operations:
-    1. transferFrom
-
-Path #31:
-  Source: external_input_params in NerdBaseToken.setFeeDistributor
-  Sink: tainted_state_changing_external_call in Nerd._transfer
-  Path Operations:
-    1. setFeeDistributor
-    2. feeDistributor(address) := _feeDistributor(address)
-    3. REF_576(uint256) -> _balances[feeDistributor]
-
-Path #32:
-  Source: external_input_params in Nerd.constructor
-  Sink: tainted_state_changing_external_call in Nerd.addLiquidityToUniswapNERDxWETHPair
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
-    3. TMP_1073 = CONVERT router to IUniswapV2Router02
-    4. uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
-    5. TMP_1183 = CONVERT uniswapRouterV2 to address
-
-Path #33:
-  Source: external_input_params in NerdBaseToken.setDevFundReciever
-  Sink: tainted_state_changing_external_call in NerdBaseToken._mint
-  Path Operations:
-    1. setDevFundReciever
-    2. tentativeDevAddress(address) := _devaddr(address)
-    3. devFundAddress(address) := tentativeDevAddress(address)
-    4. INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
-    5. REF_479(uint256) -> _balances[account]
-
-Path #34:
-  Source: external_input_params in NerdBaseToken.transferFrom
-  Sink: tainted_state_changing_external_call in NerdBaseToken.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_453(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_454(uint256) -> REF_453[TMP_987]
-
-Path #35:
   Source: external_input_params in Nerd.constructor
   Sink: tainted_state_changing_external_call in NerdBaseToken.createUniswapPairMainnet
   Path Operations:
@@ -1249,7 +1199,7 @@ Path #35:
     5. TMP_892(address) = HIGH_LEVEL_CALL, dest:uniswapRouterV2(IUniswapV2Router02), function:WETH, arguments:[]  
     6. TMP_893 = CONVERT TMP_892 to address
 
-Path #36:
+Path #30:
   Source: external_input_params in Nerd.constructor
   Sink: tainted_state_changing_external_call in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
   Path Operations:
@@ -1264,15 +1214,64 @@ Path #36:
     9. TMP_1173(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_1172']  
     10. totalLPTokensMinted(uint256) := TMP_1173(uint256)
 
-Path #37:
-  Source: external_input_params in NerdBaseToken.setShouldTransferChecker
+Path #31:
+  Source: external_input_params in Nerd.constructor
+  Sink: tainted_state_changing_external_call in NerdBaseToken.addLiquidityToUniswapNERDxWETHPair
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, NerdBaseToken.initialSetup(address,address,address,uint256,address)(router,factory,_devFund,_lgePeriod,_lgeApprover)
+    3. TMP_1073 = CONVERT router to IUniswapV2Router02
+    4. uniswapRouterV2(IUniswapV2Router02) := TMP_1073(IUniswapV2Router02)
+    5. TMP_954 = CONVERT uniswapRouterV2 to address
+
+Path #32:
+  Source: external_input_params in NerdBaseToken.setFeeDistributor
+  Sink: tainted_state_changing_external_call in Nerd._transfer
+  Path Operations:
+    1. setFeeDistributor
+    2. feeDistributor(address) := _feeDistributor(address)
+    3. REF_576(uint256) -> _balances[feeDistributor]
+
+Path #33:
+  Source: external_input_params in NerdBaseToken.transfer
   Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(TMP_981,recipient,amount)
+    3. REF_471(uint256) -> _balances[recipient]
+
+Path #34:
+  Source: external_input_params in NerdBaseToken.transfer
+  Sink: tainted_erc20_transfer in NerdBaseToken.transfer
+  Path Operations:
+    1. transfer
+
+Path #35:
+  Source: external_input_params in NerdBaseToken.setShouldTransferChecker
+  Sink: tainted_state_changing_external_call in Nerd._transfer
   Path Operations:
     1. setShouldTransferChecker
     2. transferCheckerAddress(address) := _transferCheckerAddress(address)
-    3. TMP_1012 = CONVERT transferCheckerAddress to IFeeApprover
-    4. TUPLE_3(uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_1012(IFeeApprover), function:calculateAmountsAfterFee, arguments:['sender', 'recipient', 'amount']  
-    5. transferToAmount(uint256)= UNPACK TUPLE_3 index: 0 
+    3. TMP_1241 = CONVERT transferCheckerAddress to IFeeApprover
+    4. TUPLE_5(uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_1241(IFeeApprover), function:calculateAmountsAfterFee, arguments:['sender', 'recipient', 'amount']  
+    5. transferToAmount(uint256)= UNPACK TUPLE_5 index: 0 
+
+Path #36:
+  Source: external_input_params in NerdBaseToken.decreaseAllowance
+  Sink: tainted_state_changing_external_call in NerdBaseToken.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_460(uint256) -> REF_459[spender]
+
+Path #37:
+  Source: external_input_params in NerdBaseToken.setDevFundReciever
+  Sink: tainted_state_changing_external_call in Nerd._mint
+  Path Operations:
+    1. setDevFundReciever
+    2. tentativeDevAddress(address) := _devaddr(address)
+    3. devFundAddress(address) := tentativeDevAddress(address)
+    4. INTERNAL_CALL, NerdBaseToken._mint(address,uint256)(devFundAddress,tobeReleasedAmount)
+    5. REF_581(uint256) -> _balances[account]
 
 Path #38:
   Source: external_input_params in Nerd.constructor
@@ -1290,15 +1289,16 @@ Path #38:
     10. totalLPTokensMinted(uint256) := TMP_1173(uint256)
 
 Path #39:
-  Source: external_input_params in NerdBaseToken.setFeeDistributor
-  Sink: tainted_state_changing_external_call in NerdBaseToken.setFeeDistributor
-  Path Operations:
-    1. setFeeDistributor
-
-Path #40:
   Source: external_input_params in NerdBaseToken.transferFrom
-  Sink: tainted_state_changing_external_call in NerdBaseToken._transfer
+  Sink: tainted_state_changing_external_call in NerdBaseToken.transferFrom
   Path Operations:
     1. transferFrom
-    2. INTERNAL_CALL, NerdBaseToken._transfer(address,address,uint256)(sender,recipient,amount)
-    3. REF_464(uint256) -> _balances[sender]
+    2. REF_453(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_454(uint256) -> REF_453[TMP_987]
+
+Path #40:
+  Source: external_input_params in NerdBaseToken.getAllocatedLP
+  Sink: tainted_state_changing_external_call in NerdBaseToken.getAllocatedLP
+  Path Operations:
+    1. getAllocatedLP
+    2. REF_395(uint256) -> ethContributed[_user]

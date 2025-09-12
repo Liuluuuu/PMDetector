@@ -1008,48 +1008,77 @@ Sink #95: tainted_state_changing_external_call
 === Tainted Paths ===
 Path #1:
   Source: external_input_params in DividendDistributor.setShare
-  Sink: tainted_state_changing_external_call in DividendDistributor.getCumulativeDividends
-  Path Operations:
-    1. setShare
-    2. REF_25(DividendDistributor.Share) -> shares[shareholder]
-    3. REF_26(uint256) -> REF_25.amount
-    4. TMP_87(uint256) = INTERNAL_CALL, DividendDistributor.getCumulativeDividends(uint256)(REF_26)
-    5. TMP_133(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['share', 'dividendsPerShare'] 
-
-Path #2:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.getCirculatingSupply
-  Path Operations:
-    1. constructor
-    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    3. _totalSupply(uint256) := TMP_248(uint256)
-
-Path #3:
-  Source: external_input_params in DividendDistributor.setShare
-  Sink: tainted_erc20_transfer in DividendDistributor.distributeDividend
+  Sink: tainted_state_changing_external_call in DividendDistributor.distributeDividend
   Path Operations:
     1. setShare
     2. INTERNAL_CALL, DividendDistributor.distributeDividend(address)(shareholder)
+    3. TMP_127(uint256) = INTERNAL_CALL, DividendDistributor.getUnpaidEarnings(address)(shareholder)
+    4. amount(uint256) := TMP_127(uint256)
+    5. TMP_129(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDistributed', 'amount'] 
+    6. totalDistributed(uint256) := TMP_129(uint256)
+
+Path #2:
+  Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
+  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+  Path Operations:
+    1. setBuybackMultiplierSettings
+    2. buybackMultiplierLength(uint256) := length(uint256)
+
+Path #3:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_221(uint256) -> feeSettings_[2]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. reflectionFee(uint256) := _reflectionFee(uint256)
+    6. TMP_449(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'reflectionFee'] 
 
 Path #4:
+  Source: external_input_params in DividendDistributor.setShare
+  Sink: tainted_state_changing_external_call in DividendDistributor.setShare
+  Path Operations:
+    1. setShare
+    2. REF_18(DividendDistributor.Share) -> shares[shareholder]
+    3. REF_19(uint256) -> REF_18.amount
+    4. TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalShares', 'REF_19'] 
+    5. TMP_86(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_85', 'amount'] 
+    6. totalShares(uint256) := TMP_86(uint256)
+
+Path #5:
   Source: external_input_params in Revoluzion.isOverLiquified
   Sink: tainted_state_changing_external_call in Revoluzion.getLiquidityBacking
   Path Operations:
     1. isOverLiquified
     2. TMP_354(uint256) = INTERNAL_CALL, Revoluzion.getLiquidityBacking(uint256)(accuracy)
-
-Path #5:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion._setFees
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_224(uint256) -> feeSettings_[5]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. feeDenominator(uint256) := _feeDenominator(uint256)
-    6. TMP_363(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['feeDenominator', '100'] 
+    3. TMP_424(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accuracy', 'TMP_423'] 
 
 Path #6:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+  Path Operations:
+    1. constructor
+    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    3. _totalSupply(uint256) := TMP_248(uint256)
+    4. TMP_259(uint256) = _totalSupply (c)/ 20000
+    5. swapThreshold(uint256) := TMP_259(uint256)
+
+Path #7:
+  Source: external_input_params in Revoluzion.transferFrom
+  Sink: tainted_state_changing_external_call in Revoluzion.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_186(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_187(uint256) -> REF_186[TMP_299]
+
+Path #8:
+  Source: external_input_params in Revoluzion.transfer
+  Sink: tainted_erc20_transfer in Revoluzion.transfer
+  Path Operations:
+    1. transfer
+
+Path #9:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.constructor
   Path Operations:
@@ -1058,16 +1087,189 @@ Path #6:
     3. router(IUniswapV2Router02) := TMP_249(IUniswapV2Router02)
     4. TMP_253(address) = HIGH_LEVEL_CALL, dest:router(IUniswapV2Router02), function:WETH, arguments:[]  
 
-Path #7:
+Path #10:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion._setFees
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_219(uint256) -> feeSettings_[0]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+
+Path #11:
+  Source: external_input_params in Revoluzion.transfer
+  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+  Path Operations:
+    1. transfer
+    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+
+Path #12:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion._setFees
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_219(uint256) -> feeSettings_[0]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+    7. TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
+
+Path #13:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion._setFees
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_219(uint256) -> feeSettings_[0]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+
+Path #14:
+  Source: external_input_params in DividendDistributor.setShare
+  Sink: tainted_erc20_transfer in DividendDistributor.setShare
+  Path Operations:
+    1. setShare
+
+Path #15:
+  Source: external_input_params in Revoluzion.transferFrom
+  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+  Path Operations:
+    1. transferFrom
+    2. TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
+
+Path #16:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_223(uint256) -> feeSettings_[4]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. diamondFee(uint256) := _diamondFee(uint256)
+    6. TMP_453(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'diamondFee'] 
+
+Path #17:
+  Source: external_input_params in Revoluzion.transfer
+  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+  Path Operations:
+    1. transfer
+    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+    3. REF_193(uint256) -> _balances[recipient]
+
+Path #18:
+  Source: external_input_params in Revoluzion.distributorInitialization
+  Sink: tainted_state_changing_external_call in Revoluzion.distributorInitialization
+  Path Operations:
+    1. distributorInitialization
+
+Path #19:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_219(uint256) -> feeSettings_[0]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+    7. TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
+    8. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
+    9. totalFee(uint256) := TMP_362(uint256)
+    10. TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalFee', 'buybackMultiplierNumerator'] 
+    11. TMP_375(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_374', 'buybackMultiplierDenominator'] 
+
+Path #20:
+  Source: external_input_params in DividendDistributor.setShare
+  Sink: tainted_state_changing_external_call in DividendDistributor.getCumulativeDividends
+  Path Operations:
+    1. setShare
+    2. REF_25(DividendDistributor.Share) -> shares[shareholder]
+    3. REF_26(uint256) -> REF_25.amount
+    4. TMP_87(uint256) = INTERNAL_CALL, DividendDistributor.getCumulativeDividends(uint256)(REF_26)
+    5. TMP_133(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['share', 'dividendsPerShare'] 
+
+Path #21:
+  Source: external_input_params in Revoluzion.transfer
+  Sink: tainted_state_changing_external_call in Revoluzion.takeFee
+  Path Operations:
+    1. transfer
+    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+    3. TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
+
+Path #22:
+  Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
+  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+  Path Operations:
+    1. setBuybackMultiplierSettings
+    2. buybackMultiplierLength(uint256) := length(uint256)
+
+Path #23:
+  Source: external_input_params in Revoluzion.setDistributorSettings
+  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+  Path Operations:
+    1. setDistributorSettings
+    2. distributorGas(uint256) := gas(uint256)
+
+Path #24:
+  Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
+  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+  Path Operations:
+    1. setBuybackMultiplierSettings
+    2. buybackMultiplierLength(uint256) := length(uint256)
+    3. TMP_372(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buybackMultiplierTriggeredAt', 'buybackMultiplierLength'] 
+
+Path #25:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_219(uint256) -> feeSettings_[0]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. liquidityFee(uint256) := _liquidityFee(uint256)
+    6. dynamicLiquidityFee(uint256) := liquidityFee(uint256)
+    7. TMP_446(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'dynamicLiquidityFee'] 
+
+Path #26:
+  Source: external_input_params in Revoluzion.transfer
+  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+  Path Operations:
+    1. transfer
+    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+
+Path #27:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+  Path Operations:
+    1. constructor
+    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    3. _totalSupply(uint256) := TMP_248(uint256)
+    4. TMP_259(uint256) = _totalSupply (c)/ 20000
+    5. swapThreshold(uint256) := TMP_259(uint256)
+
+Path #28:
   Source: external_input_params in DiamondDistributor.setEligibility
   Sink: tainted_state_changing_external_call in DiamondDistributor.distributeDiamond
   Path Operations:
     1. setEligibility
     2. INTERNAL_CALL, DiamondDistributor.distributeDiamond(address)(holder)
-    3. REF_123(DiamondDistributor.Diamond) -> diamonds[holder]
-    4. REF_124(uint256) -> REF_123.totalRealised
+    3. TMP_216(uint256) = INTERNAL_CALL, DiamondDistributor.getUnpaidEarnings(address)(holder)
+    4. amount(uint256) := TMP_216(uint256)
+    5. TMP_218(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDistributed', 'amount'] 
+    6. totalDistributed(uint256) := TMP_218(uint256)
 
-Path #8:
+Path #29:
+  Source: external_input_params in DividendDistributor.setShare
+  Sink: tainted_state_changing_external_call in DividendDistributor.getCumulativeDividends
+  Path Operations:
+    1. setShare
+    2. REF_25(DividendDistributor.Share) -> shares[shareholder]
+    3. REF_26(uint256) -> REF_25.amount
+    4. TMP_87(uint256) = INTERNAL_CALL, DividendDistributor.getCumulativeDividends(uint256)(REF_26)
+
+Path #30:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
   Path Operations:
@@ -1085,56 +1287,93 @@ Path #8:
     12. TMP_376(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_375', 'totalFee'] 
     13. feeIncrease(uint256) := TMP_376(uint256)
 
-Path #9:
+Path #31:
+  Source: external_input_params in Revoluzion.setIsDiamondExempt
+  Sink: tainted_state_changing_external_call in Revoluzion.setIsDiamondExempt
+  Path Operations:
+    1. setIsDiamondExempt
+
+Path #32:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.swapBack
   Path Operations:
     1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_223(uint256) -> feeSettings_[4]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. diamondFee(uint256) := _diamondFee(uint256)
+    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    3. _totalSupply(uint256) := TMP_248(uint256)
+    4. TMP_259(uint256) = _totalSupply (c)/ 20000
+    5. swapThreshold(uint256) := TMP_259(uint256)
+    6. TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['swapThreshold', 'dynamicLiquidityFee'] 
+    7. TMP_430(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_429', 'totalFee'] 
 
-Path #10:
-  Source: external_input_params in Revoluzion.transfer
-  Sink: tainted_state_changing_external_call in Revoluzion.takeFee
+Path #33:
+  Source: external_input_params in DividendDistributor.setShare
+  Sink: tainted_erc20_transfer in DividendDistributor.distributeDividend
   Path Operations:
-    1. transfer
-    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-    3. TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
-    4. TMP_382(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'TMP_381'] 
+    1. setShare
+    2. INTERNAL_CALL, DividendDistributor.distributeDividend(address)(shareholder)
 
-Path #11:
+Path #34:
   Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+  Sink: tainted_state_changing_external_call in Revoluzion._setFees
   Path Operations:
     1. constructor
     2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_219(uint256) -> feeSettings_[0]
+    3. REF_224(uint256) -> feeSettings_[5]
     4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-    7. TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
-    8. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
-    9. totalFee(uint256) := TMP_362(uint256)
-    10. TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalFee', 'buybackMultiplierNumerator'] 
+    5. feeDenominator(uint256) := _feeDenominator(uint256)
+    6. TMP_363(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['feeDenominator', '100'] 
 
-Path #12:
-  Source: external_input_params in Revoluzion.transferFrom
-  Sink: tainted_erc20_transfer in Revoluzion.transferFrom
+Path #35:
+  Source: external_input_params in Revoluzion.setIsDiamondExempt
+  Sink: tainted_state_changing_external_call in Revoluzion.setIsDiamondExempt
   Path Operations:
-    1. transferFrom
+    1. setIsDiamondExempt
 
-Path #13:
-  Source: external_input_params in DividendDistributor.setShare
-  Sink: tainted_state_changing_external_call in DividendDistributor.setShare
+Path #36:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
   Path Operations:
-    1. setShare
-    2. REF_18(DividendDistributor.Share) -> shares[shareholder]
-    3. REF_19(uint256) -> REF_18.amount
-    4. TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalShares', 'REF_19'] 
+    1. constructor
+    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    3. _totalSupply(uint256) := TMP_248(uint256)
+    4. TMP_259(uint256) = _totalSupply (c)/ 20000
+    5. swapThreshold(uint256) := TMP_259(uint256)
+    6. TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['swapThreshold', 'dynamicLiquidityFee'] 
 
-Path #14:
+Path #37:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_erc20_transfer in Revoluzion.swapBack
+  Path Operations:
+    1. constructor
+    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    3. _totalSupply(uint256) := TMP_248(uint256)
+    4. TMP_259(uint256) = _totalSupply (c)/ 20000
+    5. swapThreshold(uint256) := TMP_259(uint256)
+    6. TMP_432(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['swapThreshold', 'amountToLiquify'] 
+    7. amountToSwap(uint256) := TMP_432(uint256)
+
+Path #38:
+  Source: external_input_params in DividendDistributor.constructor
+  Sink: tainted_state_changing_external_call in DividendDistributor.deposit
+  Path Operations:
+    1. constructor
+    2. TMP_65 = CONVERT rewardToken_ to IERC20Extended
+    3. rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
+    4. TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
+    5. TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
+    6. amount(uint256) := TMP_100(uint256)
+    7. TMP_102(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dividendsPerShareAccuracyFactor', 'amount'] 
+
+Path #39:
+  Source: external_input_params in DiamondDistributor.setEligibility
+  Sink: tainted_state_changing_external_call in DiamondDistributor.distributeDiamond
+  Path Operations:
+    1. setEligibility
+    2. INTERNAL_CALL, DiamondDistributor.distributeDiamond(address)(holder)
+    3. REF_123(DiamondDistributor.Diamond) -> diamonds[holder]
+    4. REF_124(uint256) -> REF_123.totalRealised
+
+Path #40:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.swapBack
   Path Operations:
@@ -1151,36 +1390,32 @@ Path #14:
     11. totalBNBFee(uint256) := TMP_445(uint256)
     12. TMP_447(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_446', 'totalBNBFee'] 
 
-Path #15:
-  Source: external_input_params in DividendDistributor.setShare
-  Sink: tainted_erc20_transfer in DividendDistributor.setShare
-  Path Operations:
-    1. setShare
-
-Path #16:
-  Source: external_input_params in Revoluzion.setIsDividendExempt
-  Sink: tainted_state_changing_external_call in Revoluzion.setIsDividendExempt
-  Path Operations:
-    1. setIsDividendExempt
-
-Path #17:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.getCirculatingSupply
-  Path Operations:
-    1. constructor
-    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    3. _totalSupply(uint256) := TMP_248(uint256)
-    4. TMP_284(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'TMP_283'] 
-
-Path #18:
+Path #41:
   Source: external_input_params in Revoluzion.transfer
   Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
   Path Operations:
     1. transfer
     2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-    3. REF_193(uint256) -> _balances[recipient]
 
-Path #19:
+Path #42:
+  Source: external_input_params in Revoluzion.transferFrom
+  Sink: tainted_erc20_transfer in Revoluzion._transferFrom
+  Path Operations:
+    1. transferFrom
+    2. TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
+
+Path #43:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_219(uint256) -> feeSettings_[0]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. liquidityFee(uint256) := _liquidityFee(uint256)
+    6. dynamicLiquidityFee(uint256) := liquidityFee(uint256)
+
+Path #44:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.swapBack
   Path Operations:
@@ -1190,147 +1425,41 @@ Path #19:
     4. TMP_259(uint256) = _totalSupply (c)/ 20000
     5. swapThreshold(uint256) := TMP_259(uint256)
     6. TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['swapThreshold', 'dynamicLiquidityFee'] 
+    7. TMP_430(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_429', 'totalFee'] 
+    8. TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_430', '2'] 
+    9. amountToLiquify(uint256) := TMP_431(uint256)
 
-Path #20:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_219(uint256) -> feeSettings_[0]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. liquidityFee(uint256) := _liquidityFee(uint256)
-    6. dynamicLiquidityFee(uint256) := liquidityFee(uint256)
-    7. TMP_446(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'dynamicLiquidityFee'] 
-
-Path #21:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_219(uint256) -> feeSettings_[0]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-    7. TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
-    8. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
-    9. totalFee(uint256) := TMP_362(uint256)
-    10. TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalFee', 'buybackMultiplierNumerator'] 
-    11. TMP_375(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_374', 'buybackMultiplierDenominator'] 
-
-Path #22:
+Path #45:
   Source: external_input_params in Revoluzion.transferFrom
-  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+  Sink: tainted_erc20_transfer in Revoluzion.transferFrom
   Path Operations:
     1. transferFrom
-    2. TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
 
-Path #23:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_219(uint256) -> feeSettings_[0]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-    7. TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
-    8. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
-    9. totalFee(uint256) := TMP_362(uint256)
-
-Path #24:
+Path #46:
   Source: external_input_params in Revoluzion.transfer
-  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+  Sink: tainted_state_changing_external_call in Revoluzion.takeFee
   Path Operations:
     1. transfer
     2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+    3. TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
+    4. TMP_382(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'TMP_381'] 
 
-Path #25:
+Path #47:
   Source: external_input_params in DiamondDistributor.setEligibility
   Sink: tainted_erc20_transfer in DiamondDistributor.distributeDiamond
   Path Operations:
     1. setEligibility
     2. INTERNAL_CALL, DiamondDistributor.distributeDiamond(address)(holder)
 
-Path #26:
-  Source: external_input_params in DividendDistributor.setShare
-  Sink: tainted_state_changing_external_call in DividendDistributor.distributeDividend
+Path #48:
+  Source: external_input_params in Revoluzion.transfer
+  Sink: tainted_state_changing_external_call in Revoluzion.takeFee
   Path Operations:
-    1. setShare
-    2. INTERNAL_CALL, DividendDistributor.distributeDividend(address)(shareholder)
-    3. TMP_127(uint256) = INTERNAL_CALL, DividendDistributor.getUnpaidEarnings(address)(shareholder)
-    4. amount(uint256) := TMP_127(uint256)
-    5. TMP_129(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDistributed', 'amount'] 
-    6. totalDistributed(uint256) := TMP_129(uint256)
+    1. transfer
+    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+    3. TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
 
-Path #27:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_221(uint256) -> feeSettings_[2]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. reflectionFee(uint256) := _reflectionFee(uint256)
-    6. TMP_449(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'reflectionFee'] 
-
-Path #28:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_219(uint256) -> feeSettings_[0]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. liquidityFee(uint256) := _liquidityFee(uint256)
-    6. dynamicLiquidityFee(uint256) := liquidityFee(uint256)
-
-Path #29:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_219(uint256) -> feeSettings_[0]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-    7. TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
-    8. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
-    9. totalFee(uint256) := TMP_362(uint256)
-    10. TMP_445(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalFee', 'TMP_444'] 
-    11. totalBNBFee(uint256) := TMP_445(uint256)
-
-Path #30:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-  Path Operations:
-    1. constructor
-    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    3. _totalSupply(uint256) := TMP_248(uint256)
-    4. TMP_259(uint256) = _totalSupply (c)/ 20000
-    5. swapThreshold(uint256) := TMP_259(uint256)
-
-Path #31:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-  Path Operations:
-    1. constructor
-    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    3. _totalSupply(uint256) := TMP_248(uint256)
-    4. TMP_259(uint256) = _totalSupply (c)/ 20000
-    5. swapThreshold(uint256) := TMP_259(uint256)
-
-Path #32:
-  Source: external_input_params in Revoluzion.setDistributorSettings
-  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
-  Path Operations:
-    1. setDistributorSettings
-    2. distributorGas(uint256) := gas(uint256)
-
-Path #33:
+Path #49:
   Source: external_input_params in DividendDistributor.constructor
   Sink: tainted_state_changing_external_call in DividendDistributor.deposit
   Path Operations:
@@ -1340,51 +1469,12 @@ Path #33:
     4. TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
     5. TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
     6. amount(uint256) := TMP_100(uint256)
-    7. TMP_101(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDividends', 'amount'] 
-    8. totalDividends(uint256) := TMP_101(uint256)
+    7. TMP_102(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dividendsPerShareAccuracyFactor', 'amount'] 
+    8. TMP_103(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_102', 'totalShares'] 
+    9. TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['dividendsPerShare', 'TMP_103'] 
+    10. dividendsPerShare(uint256) := TMP_104(uint256)
 
-Path #34:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion._setFees
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_224(uint256) -> feeSettings_[5]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. feeDenominator(uint256) := _feeDenominator(uint256)
-
-Path #35:
-  Source: external_input_params in DividendDistributor.constructor
-  Sink: tainted_state_changing_external_call in DividendDistributor.deposit
-  Path Operations:
-    1. constructor
-    2. TMP_65 = CONVERT rewardToken_ to IERC20Extended
-    3. rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
-    4. TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
-    5. TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
-    6. amount(uint256) := TMP_100(uint256)
-
-Path #36:
-  Source: external_input_params in DividendDistributor.constructor
-  Sink: tainted_state_changing_external_call in DividendDistributor.deposit
-  Path Operations:
-    1. constructor
-    2. TMP_65 = CONVERT rewardToken_ to IERC20Extended
-    3. rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
-    4. TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
-
-Path #37:
-  Source: external_input_params in DividendDistributor.setShare
-  Sink: tainted_state_changing_external_call in DividendDistributor.setShare
-  Path Operations:
-    1. setShare
-    2. REF_18(DividendDistributor.Share) -> shares[shareholder]
-    3. REF_19(uint256) -> REF_18.amount
-    4. TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalShares', 'REF_19'] 
-    5. TMP_86(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_85', 'amount'] 
-    6. totalShares(uint256) := TMP_86(uint256)
-
-Path #38:
+Path #50:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
   Path Operations:
@@ -1403,64 +1493,29 @@ Path #38:
     13. feeIncrease(uint256) := TMP_376(uint256)
     14. TMP_377(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['feeIncrease', 'remainingTime'] 
 
-Path #39:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion._setFees
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_219(uint256) -> feeSettings_[0]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-    7. TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
-
-Path #40:
-  Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
-  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
-  Path Operations:
-    1. setBuybackMultiplierSettings
-    2. buybackMultiplierLength(uint256) := length(uint256)
-
-Path #41:
-  Source: external_input_params in Revoluzion.transferFrom
-  Sink: tainted_erc20_transfer in Revoluzion._transferFrom
-  Path Operations:
-    1. transferFrom
-    2. TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
-
-Path #42:
-  Source: external_input_params in DividendDistributor.constructor
-  Sink: tainted_state_changing_external_call in DividendDistributor.deposit
-  Path Operations:
-    1. constructor
-    2. TMP_65 = CONVERT rewardToken_ to IERC20Extended
-    3. rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
-    4. TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
-    5. TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
-    6. amount(uint256) := TMP_100(uint256)
-    7. TMP_102(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dividendsPerShareAccuracyFactor', 'amount'] 
-
-Path #43:
+Path #51:
   Source: external_input_params in Revoluzion.transferFrom
   Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
   Path Operations:
     1. transferFrom
     2. TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
-    3. REF_190(uint256) -> _balances[sender]
 
-Path #44:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+Path #52:
+  Source: external_input_params in Revoluzion.diamondInitialization
+  Sink: tainted_state_changing_external_call in Revoluzion.diamondInitialization
   Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_223(uint256) -> feeSettings_[4]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. diamondFee(uint256) := _diamondFee(uint256)
-    6. TMP_453(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'diamondFee'] 
+    1. diamondInitialization
 
-Path #45:
+Path #53:
+  Source: external_input_params in DividendDistributor.setShare
+  Sink: tainted_state_changing_external_call in DividendDistributor.setShare
+  Path Operations:
+    1. setShare
+    2. REF_18(DividendDistributor.Share) -> shares[shareholder]
+    3. REF_19(uint256) -> REF_18.amount
+    4. TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalShares', 'REF_19'] 
+
+Path #54:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
   Path Operations:
@@ -1474,44 +1529,54 @@ Path #45:
     8. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
     9. totalFee(uint256) := TMP_362(uint256)
 
-Path #46:
+Path #55:
+  Source: external_input_params in Revoluzion.isOverLiquified
+  Sink: tainted_state_changing_external_call in Revoluzion.getLiquidityBacking
+  Path Operations:
+    1. isOverLiquified
+    2. TMP_354(uint256) = INTERNAL_CALL, Revoluzion.getLiquidityBacking(uint256)(accuracy)
+
+Path #56:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.swapBack
   Path Operations:
     1. constructor
-    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    3. _totalSupply(uint256) := TMP_248(uint256)
-    4. TMP_259(uint256) = _totalSupply (c)/ 20000
-    5. swapThreshold(uint256) := TMP_259(uint256)
-    6. TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['swapThreshold', 'dynamicLiquidityFee'] 
-    7. TMP_430(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_429', 'totalFee'] 
-    8. TMP_431(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_430', '2'] 
-    9. amountToLiquify(uint256) := TMP_431(uint256)
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_223(uint256) -> feeSettings_[4]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. diamondFee(uint256) := _diamondFee(uint256)
 
-Path #47:
-  Source: external_input_params in DividendDistributor.constructor
-  Sink: tainted_state_changing_external_call in DividendDistributor.deposit
+Path #57:
+  Source: external_input_params in Revoluzion.transfer
+  Sink: tainted_state_changing_external_call in Revoluzion._basicTransfer
+  Path Operations:
+    1. transfer
+    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
+    3. TMP_302(bool) = INTERNAL_CALL, Revoluzion._basicTransfer(address,address,uint256)(sender,recipient,amount)
+    4. REF_215(uint256) -> _balances[recipient]
+
+Path #58:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
   Path Operations:
     1. constructor
-    2. TMP_65 = CONVERT rewardToken_ to IERC20Extended
-    3. rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
-    4. TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
-    5. TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
-    6. amount(uint256) := TMP_100(uint256)
-    7. TMP_102(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dividendsPerShareAccuracyFactor', 'amount'] 
-    8. TMP_103(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_102', 'totalShares'] 
-    9. TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['dividendsPerShare', 'TMP_103'] 
-    10. dividendsPerShare(uint256) := TMP_104(uint256)
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_221(uint256) -> feeSettings_[2]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. reflectionFee(uint256) := _reflectionFee(uint256)
 
-Path #48:
-  Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
-  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
+Path #59:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
   Path Operations:
-    1. setBuybackMultiplierSettings
-    2. buybackMultiplierLength(uint256) := length(uint256)
-    3. TMP_372(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['buybackMultiplierTriggeredAt', 'buybackMultiplierLength'] 
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_222(uint256) -> feeSettings_[3]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. marketingFee(uint256) := _marketingFee(uint256)
+    6. TMP_451(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'marketingFee'] 
 
-Path #49:
+Path #60:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.swapBack
   Path Operations:
@@ -1521,72 +1586,7 @@ Path #49:
     4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
     5. marketingFee(uint256) := _marketingFee(uint256)
 
-Path #50:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion._setFees
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_219(uint256) -> feeSettings_[0]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-
-Path #51:
-  Source: external_input_params in Revoluzion.setAutoBuybackSettings
-  Sink: tainted_state_changing_external_call in Revoluzion.triggerAutoBuyback
-  Path Operations:
-    1. setAutoBuybackSettings
-    2. autoBuybackAmount(uint256) := _amount(uint256)
-    3. TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['autoBuybackAccumulator', 'autoBuybackAmount'] 
-    4. autoBuybackAccumulator(uint256) := TMP_474(uint256)
-
-Path #52:
-  Source: external_input_params in Revoluzion.setIsDiamondExempt
-  Sink: tainted_state_changing_external_call in Revoluzion.setIsDiamondExempt
-  Path Operations:
-    1. setIsDiamondExempt
-
-Path #53:
-  Source: external_input_params in DividendDistributor.setShare
-  Sink: tainted_state_changing_external_call in DividendDistributor.getCumulativeDividends
-  Path Operations:
-    1. setShare
-    2. REF_25(DividendDistributor.Share) -> shares[shareholder]
-    3. REF_26(uint256) -> REF_25.amount
-    4. TMP_87(uint256) = INTERNAL_CALL, DividendDistributor.getCumulativeDividends(uint256)(REF_26)
-
-Path #54:
-  Source: external_input_params in Revoluzion.transfer
-  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
-  Path Operations:
-    1. transfer
-    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-
-Path #55:
-  Source: external_input_params in Revoluzion.setIsDividendExempt
-  Sink: tainted_state_changing_external_call in Revoluzion.setIsDividendExempt
-  Path Operations:
-    1. setIsDividendExempt
-
-Path #56:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-  Path Operations:
-    1. constructor
-    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    3. _totalSupply(uint256) := TMP_248(uint256)
-    4. TMP_259(uint256) = _totalSupply (c)/ 20000
-    5. swapThreshold(uint256) := TMP_259(uint256)
-    6. TMP_429(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['swapThreshold', 'dynamicLiquidityFee'] 
-    7. TMP_430(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_429', 'totalFee'] 
-
-Path #57:
-  Source: external_input_params in Revoluzion.setDistributorSettings
-  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
-  Path Operations:
-    1. setDistributorSettings
-    2. distributorGas(uint256) := gas(uint256)
-
-Path #58:
+Path #61:
   Source: external_input_params in DividendDistributor.setShare
   Sink: tainted_state_changing_external_call in DividendDistributor.getUnpaidEarnings
   Path Operations:
@@ -1598,51 +1598,31 @@ Path #58:
     6. TMP_136(uint256) = INTERNAL_CALL, DividendDistributor.getCumulativeDividends(uint256)(REF_63)
     7. shareholderTotalDividends(uint256) := TMP_136(uint256)
 
-Path #59:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_erc20_transfer in Revoluzion.swapBack
-  Path Operations:
-    1. constructor
-    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
-    3. _totalSupply(uint256) := TMP_248(uint256)
-    4. TMP_259(uint256) = _totalSupply (c)/ 20000
-    5. swapThreshold(uint256) := TMP_259(uint256)
-    6. TMP_432(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['swapThreshold', 'amountToLiquify'] 
-    7. amountToSwap(uint256) := TMP_432(uint256)
-
-Path #60:
+Path #62:
   Source: external_input_params in Revoluzion.transferFrom
-  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+  Sink: tainted_state_changing_external_call in Revoluzion._basicTransfer
   Path Operations:
     1. transferFrom
     2. TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
-
-Path #61:
-  Source: external_input_params in Revoluzion.diamondInitialization
-  Sink: tainted_state_changing_external_call in Revoluzion.diamondInitialization
-  Path Operations:
-    1. diamondInitialization
-
-Path #62:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_222(uint256) -> feeSettings_[3]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. marketingFee(uint256) := _marketingFee(uint256)
-    6. TMP_451(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountBNB', 'marketingFee'] 
+    3. TMP_302(bool) = INTERNAL_CALL, Revoluzion._basicTransfer(address,address,uint256)(sender,recipient,amount)
+    4. REF_212(uint256) -> _balances[sender]
 
 Path #63:
-  Source: external_input_params in Revoluzion.transfer
-  Sink: tainted_state_changing_external_call in Revoluzion.takeFee
+  Source: external_input_params in Revoluzion.setIsDividendExempt
+  Sink: tainted_state_changing_external_call in Revoluzion.setIsDividendExempt
   Path Operations:
-    1. transfer
-    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-    3. TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
+    1. setIsDividendExempt
 
 Path #64:
+  Source: external_input_params in Revoluzion.setAutoBuybackSettings
+  Sink: tainted_state_changing_external_call in Revoluzion.triggerAutoBuyback
+  Path Operations:
+    1. setAutoBuybackSettings
+    2. autoBuybackAmount(uint256) := _amount(uint256)
+    3. TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['autoBuybackAccumulator', 'autoBuybackAmount'] 
+    4. autoBuybackAccumulator(uint256) := TMP_474(uint256)
+
+Path #65:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.swapBack
   Path Operations:
@@ -1656,15 +1636,16 @@ Path #64:
     8. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
     9. totalFee(uint256) := TMP_362(uint256)
 
-Path #65:
-  Source: external_input_params in Revoluzion.isOverLiquified
-  Sink: tainted_state_changing_external_call in Revoluzion.getLiquidityBacking
-  Path Operations:
-    1. isOverLiquified
-    2. TMP_354(uint256) = INTERNAL_CALL, Revoluzion.getLiquidityBacking(uint256)(accuracy)
-    3. TMP_424(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['accuracy', 'TMP_423'] 
-
 Path #66:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.getCirculatingSupply
+  Path Operations:
+    1. constructor
+    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    3. _totalSupply(uint256) := TMP_248(uint256)
+    4. TMP_284(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'TMP_283'] 
+
+Path #67:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.swapBack
   Path Operations:
@@ -1675,7 +1656,101 @@ Path #66:
     5. liquidityFee(uint256) := _liquidityFee(uint256)
     6. dynamicLiquidityFee(uint256) := liquidityFee(uint256)
 
-Path #67:
+Path #68:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_219(uint256) -> feeSettings_[0]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+    7. TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
+    8. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
+    9. totalFee(uint256) := TMP_362(uint256)
+    10. TMP_445(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalFee', 'TMP_444'] 
+    11. totalBNBFee(uint256) := TMP_445(uint256)
+
+Path #69:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion._setFees
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_224(uint256) -> feeSettings_[5]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. feeDenominator(uint256) := _feeDenominator(uint256)
+
+Path #70:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.getCirculatingSupply
+  Path Operations:
+    1. constructor
+    2. TMP_248(uint256) = totalSupply_ (c)* TMP_247
+    3. _totalSupply(uint256) := TMP_248(uint256)
+
+Path #71:
+  Source: external_input_params in Revoluzion.setDistributorSettings
+  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+  Path Operations:
+    1. setDistributorSettings
+    2. distributorGas(uint256) := gas(uint256)
+
+Path #72:
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion._setFees
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_219(uint256) -> feeSettings_[0]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+
+Path #73:
+  Source: external_input_params in DividendDistributor.constructor
+  Sink: tainted_state_changing_external_call in DividendDistributor.deposit
+  Path Operations:
+    1. constructor
+    2. TMP_65 = CONVERT rewardToken_ to IERC20Extended
+    3. rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
+    4. TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
+
+Path #74:
+  Source: external_input_params in Revoluzion.setIsDividendExempt
+  Sink: tainted_state_changing_external_call in Revoluzion.setIsDividendExempt
+  Path Operations:
+    1. setIsDividendExempt
+
+Path #75:
+  Source: external_input_params in Revoluzion.transferFrom
+  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+  Path Operations:
+    1. transferFrom
+    2. TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
+    3. REF_190(uint256) -> _balances[sender]
+
+Path #76:
+  Source: external_input_params in Revoluzion.transferFrom
+  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
+  Path Operations:
+    1. transferFrom
+    2. TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
+
+Path #77:
+  Source: external_input_params in DividendDistributor.constructor
+  Sink: tainted_state_changing_external_call in DividendDistributor.deposit
+  Path Operations:
+    1. constructor
+    2. TMP_65 = CONVERT rewardToken_ to IERC20Extended
+    3. rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
+    4. TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
+    5. TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
+    6. amount(uint256) := TMP_100(uint256)
+    7. TMP_101(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDividends', 'amount'] 
+    8. totalDividends(uint256) := TMP_101(uint256)
+
+Path #78:
   Source: external_input_params in Revoluzion.transfer
   Sink: tainted_state_changing_external_call in Revoluzion.takeFee
   Path Operations:
@@ -1686,60 +1761,22 @@ Path #67:
     5. TMP_383(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_382', 'feeDenominator'] 
     6. feeAmount(uint256) := TMP_383(uint256)
 
-Path #68:
+Path #79:
   Source: external_input_params in DiamondDistributor.setEligibility
-  Sink: tainted_state_changing_external_call in DiamondDistributor.distributeDiamond
+  Sink: tainted_erc20_transfer in DiamondDistributor.setEligibility
   Path Operations:
     1. setEligibility
-    2. INTERNAL_CALL, DiamondDistributor.distributeDiamond(address)(holder)
-    3. TMP_216(uint256) = INTERNAL_CALL, DiamondDistributor.getUnpaidEarnings(address)(holder)
-    4. amount(uint256) := TMP_216(uint256)
-    5. TMP_218(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalDistributed', 'amount'] 
-    6. totalDistributed(uint256) := TMP_218(uint256)
 
-Path #69:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion._setFees
+Path #80:
+  Source: external_input_params in DividendDistributor.setShare
+  Sink: tainted_state_changing_external_call in DividendDistributor.distributeDividend
   Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_219(uint256) -> feeSettings_[0]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    1. setShare
+    2. INTERNAL_CALL, DividendDistributor.distributeDividend(address)(shareholder)
+    3. REF_51(DividendDistributor.Share) -> shares[shareholder]
+    4. REF_52(uint256) -> REF_51.totalRealised
 
-Path #70:
-  Source: external_input_params in Revoluzion.transferFrom
-  Sink: tainted_state_changing_external_call in Revoluzion.transferFrom
-  Path Operations:
-    1. transferFrom
-    2. REF_186(mapping(address => uint256)) -> _allowances[sender]
-    3. REF_187(uint256) -> REF_186[TMP_299]
-
-Path #71:
-  Source: external_input_params in Revoluzion.distributorInitialization
-  Sink: tainted_state_changing_external_call in Revoluzion.distributorInitialization
-  Path Operations:
-    1. distributorInitialization
-
-Path #72:
-  Source: external_input_params in Revoluzion.transfer
-  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
-  Path Operations:
-    1. transfer
-    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-
-Path #73:
-  Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion._setFees
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_219(uint256) -> feeSettings_[0]
-    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
-    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
-
-Path #74:
+Path #81:
   Source: external_input_params in Revoluzion.constructor
   Sink: tainted_state_changing_external_call in Revoluzion.getLiquidityBacking
   Path Operations:
@@ -1752,79 +1789,42 @@ Path #74:
     7. pair(address) := TMP_254(address)
     8. TMP_422(uint256) = INTERNAL_CALL, Revoluzion.balanceOf(address)(pair)
 
-Path #75:
-  Source: external_input_params in DividendDistributor.setShare
-  Sink: tainted_state_changing_external_call in DividendDistributor.distributeDividend
+Path #82:
+  Source: external_input_params in DividendDistributor.constructor
+  Sink: tainted_state_changing_external_call in DividendDistributor.deposit
   Path Operations:
-    1. setShare
-    2. INTERNAL_CALL, DividendDistributor.distributeDividend(address)(shareholder)
-    3. REF_51(DividendDistributor.Share) -> shares[shareholder]
-    4. REF_52(uint256) -> REF_51.totalRealised
+    1. constructor
+    2. TMP_65 = CONVERT rewardToken_ to IERC20Extended
+    3. rewardToken(IERC20Extended) := TMP_65(IERC20Extended)
+    4. TMP_99(uint256) = HIGH_LEVEL_CALL, dest:rewardToken(IERC20Extended), function:balanceOf, arguments:['TMP_98']  
+    5. TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_99', 'balanceBefore'] 
+    6. amount(uint256) := TMP_100(uint256)
 
-Path #76:
-  Source: external_input_params in Revoluzion.transferFrom
-  Sink: tainted_state_changing_external_call in Revoluzion._basicTransfer
-  Path Operations:
-    1. transferFrom
-    2. TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
-    3. TMP_302(bool) = INTERNAL_CALL, Revoluzion._basicTransfer(address,address,uint256)(sender,recipient,amount)
-    4. REF_212(uint256) -> _balances[sender]
-
-Path #77:
-  Source: external_input_params in DiamondDistributor.setEligibility
-  Sink: tainted_erc20_transfer in DiamondDistributor.setEligibility
-  Path Operations:
-    1. setEligibility
-
-Path #78:
-  Source: external_input_params in Revoluzion.setIsDiamondExempt
-  Sink: tainted_state_changing_external_call in Revoluzion.setIsDiamondExempt
-  Path Operations:
-    1. setIsDiamondExempt
-
-Path #79:
-  Source: external_input_params in Revoluzion.transfer
-  Sink: tainted_state_changing_external_call in Revoluzion._basicTransfer
-  Path Operations:
-    1. transfer
-    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-    3. TMP_302(bool) = INTERNAL_CALL, Revoluzion._basicTransfer(address,address,uint256)(sender,recipient,amount)
-    4. REF_215(uint256) -> _balances[recipient]
-
-Path #80:
-  Source: external_input_params in Revoluzion.setBuybackMultiplierSettings
-  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
-  Path Operations:
-    1. setBuybackMultiplierSettings
-    2. buybackMultiplierLength(uint256) := length(uint256)
-
-Path #81:
+Path #83:
   Source: external_input_params in Revoluzion.constructor
-  Sink: tainted_state_changing_external_call in Revoluzion.swapBack
+  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
   Path Operations:
     1. constructor
     2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
-    3. REF_221(uint256) -> feeSettings_[2]
+    3. REF_219(uint256) -> feeSettings_[0]
     4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
-    5. reflectionFee(uint256) := _reflectionFee(uint256)
-
-Path #82:
-  Source: external_input_params in Revoluzion.transfer
-  Sink: tainted_state_changing_external_call in Revoluzion.takeFee
-  Path Operations:
-    1. transfer
-    2. TMP_295(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(TMP_294,recipient,amount)
-    3. TMP_329(uint256) = INTERNAL_CALL, Revoluzion.takeFee(address,address,uint256)(sender,recipient,amount)
-
-Path #83:
-  Source: external_input_params in Revoluzion.transferFrom
-  Sink: tainted_state_changing_external_call in Revoluzion._transferFrom
-  Path Operations:
-    1. transferFrom
-    2. TMP_301(bool) = INTERNAL_CALL, Revoluzion._transferFrom(address,address,uint256)(sender,recipient,amount)
+    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+    7. TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
+    8. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
+    9. totalFee(uint256) := TMP_362(uint256)
 
 Path #84:
-  Source: external_input_params in Revoluzion.transfer
-  Sink: tainted_erc20_transfer in Revoluzion.transfer
+  Source: external_input_params in Revoluzion.constructor
+  Sink: tainted_state_changing_external_call in Revoluzion.getMultipliedFee
   Path Operations:
-    1. transfer
+    1. constructor
+    2. INTERNAL_CALL, Revoluzion._initializeFees(uint256[6])(feeSettings_)
+    3. REF_219(uint256) -> feeSettings_[0]
+    4. INTERNAL_CALL, Revoluzion._setFees(uint256,uint256,uint256,uint256,uint256,uint256)(REF_219,REF_220,REF_221,REF_222,REF_223,REF_224)
+    5. TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_liquidityFee', '_buybackFee'] 
+    6. TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_359', '_reflectionFee'] 
+    7. TMP_361(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_360', '_marketingFee'] 
+    8. TMP_362(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_361', '_diamondFee'] 
+    9. totalFee(uint256) := TMP_362(uint256)
+    10. TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalFee', 'buybackMultiplierNumerator'] 

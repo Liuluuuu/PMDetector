@@ -32,18 +32,15 @@ def compute_post_dominator_tree(slither):
             if hasattr(function.nodes[0], 'immediate_postdominator'):
                 continue
 
-            # Create a reversed graph
             reversed_graph = {node: [] for node in function.nodes}
             for node in function.nodes:
                 for son in node.sons:
                     reversed_graph[son].append(node)
             
-            # Find all real exit nodes (those with no successors in the original CFG)
             exit_nodes = [node for node in function.nodes if not node.sons]
             if not exit_nodes:
                 continue
 
-            # Create a virtual exit node to unify multiple exit points.
             virtual_exit_node = Node(NodeType.IF, len(function.nodes) + 1, function, [])
             reversed_graph[virtual_exit_node] = []
 
@@ -65,7 +62,6 @@ def compute_post_dominator_tree(slither):
                 continue
             
             for node in function.nodes:
-                # Get post-dominators, excluding the node itself and the virtual exit
                 post_doms = dominators.get(node, set()) - {node, virtual_exit_node}
                 if post_doms:
                     idom = min(post_doms, key=lambda n: len(dominators.get(n, set())))
@@ -74,7 +70,6 @@ def compute_post_dominator_tree(slither):
                     node.immediate_postdominator = None
 
 from slither.slithir.variables import (
-    Constant,
     StateIRVariable,
     LocalIRVariable,
     TemporaryVariable

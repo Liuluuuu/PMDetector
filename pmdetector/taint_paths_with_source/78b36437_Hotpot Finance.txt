@@ -2,6 +2,32 @@
 Found 9 tainted paths.
 
 ## Path #1
+Source: external_input_params in MeatToken.mint
+Sink: tainted_erc20_transfer in MeatToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [588, 589, 590, 591]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [589]
+    LNE: _mint(_to,_amount)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in Ownable.transferOwnership
+Sink: tainted_erc20_transfer in Ownable.transferOwnership
+
+### Operations with Source Code Mapping:
+    IR:  transferOwnership
+    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [563, 564, 565, 566]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #3
 Source: external_input_params in ERC20.constructor
 Sink: tainted_erc20_transfer in MeatToken._delegate
 
@@ -72,7 +98,7 @@ Sink: tainted_erc20_transfer in MeatToken._delegate
 
 ----------------------------------------
 
-## Path #2
+## Path #4
 Source: external_input_params in MeatToken.mint
 Sink: tainted_erc20_transfer in MeatToken._mint
 
@@ -84,32 +110,6 @@ Sink: tainted_erc20_transfer in MeatToken._mint
     IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
     SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [589]
     LNE: _mint(_to,_amount)
-
-----------------------------------------
-
-## Path #3
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [298]
-    LNE: _transfer(sender,recipient,amount)
-
-----------------------------------------
-
-## Path #4
-Source: external_input_params in Ownable.transferOwnership
-Sink: tainted_erc20_transfer in Ownable.transferOwnership
-
-### Operations with Source Code Mapping:
-    IR:  transferOwnership
-    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [563, 564, 565, 566]
-    LNE: (No direct expression available)
 
 ----------------------------------------
 
@@ -129,17 +129,6 @@ Sink: tainted_erc20_transfer in ERC20._transfer
 ----------------------------------------
 
 ## Path #6
-Source: external_input_params in ERC20.transfer
-Sink: tainted_erc20_transfer in ERC20.transfer
-
-### Operations with Source Code Mapping:
-    IR:  transfer
-    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [256, 257, 258, 259]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #7
 Source: external_input_params in MeatToken.mint
 Sink: tainted_erc20_transfer in MeatToken.mint
 
@@ -154,7 +143,33 @@ Sink: tainted_erc20_transfer in MeatToken.mint
 
 ----------------------------------------
 
+## Path #7
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [256, 257, 258, 259]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
 ## Path #8
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [298]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #9
 Source: external_input_params in ERC20.transferFrom
 Sink: tainted_erc20_transfer in ERC20.transferFrom
 
@@ -162,20 +177,5 @@ Sink: tainted_erc20_transfer in ERC20.transferFrom
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307]
     LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #9
-Source: external_input_params in MeatToken.mint
-Sink: tainted_erc20_transfer in MeatToken._mint
-
-### Operations with Source Code Mapping:
-    IR:  mint
-    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [588, 589, 590, 591]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
-    SRC: File 'pmdetector/flattened_contracts/78b36437_Hotpot Finance/flattened.sol', Lines [589]
-    LNE: _mint(_to,_amount)
 
 ----------------------------------------

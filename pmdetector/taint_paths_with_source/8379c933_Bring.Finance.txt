@@ -2,6 +2,21 @@
 Found 4 tainted paths.
 
 ## Path #1
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/8379c933_Bring.Finance/flattened.sol', Lines [294, 295, 296, 297, 298, 299, 300, 301, 302]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/8379c933_Bring.Finance/flattened.sol', Lines [295]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #2
 Source: external_input_params in ERC20.transfer
 Sink: tainted_erc20_transfer in ERC20.transfer
 
@@ -12,7 +27,7 @@ Sink: tainted_erc20_transfer in ERC20.transfer
 
 ----------------------------------------
 
-## Path #2
+## Path #3
 Source: external_input_params in BRingToken.batchTransfer
 Sink: tainted_erc20_transfer in BRingToken.batchTransfer
 
@@ -27,7 +42,7 @@ Sink: tainted_erc20_transfer in BRingToken.batchTransfer
 
 ----------------------------------------
 
-## Path #3
+## Path #4
 Source: external_input_params in ERC20.transferFrom
 Sink: tainted_erc20_transfer in ERC20.transferFrom
 
@@ -35,20 +50,5 @@ Sink: tainted_erc20_transfer in ERC20.transferFrom
     IR:  transferFrom
     SRC: File 'pmdetector/flattened_contracts/8379c933_Bring.Finance/flattened.sol', Lines [294, 295, 296, 297, 298, 299, 300, 301, 302]
     LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #4
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20._transfer
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/8379c933_Bring.Finance/flattened.sol', Lines [294, 295, 296, 297, 298, 299, 300, 301, 302]
-    LNE: (No direct expression available)
-
-    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
-    SRC: File 'pmdetector/flattened_contracts/8379c933_Bring.Finance/flattened.sol', Lines [295]
-    LNE: _transfer(sender,recipient,amount)
 
 ----------------------------------------

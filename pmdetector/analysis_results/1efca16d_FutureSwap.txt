@@ -110,19 +110,6 @@ Sink #10: tainted_state_changing_external_call
 
 === Tainted Paths ===
 Path #1:
-  Source: external_input_params in UpgradeabilityProxy.constructor
-  Sink: tainted_state_changing_external_call in UpgradeabilityProxy._setImplementation
-  Path Operations:
-    1. constructor
-    2. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
-
-Path #2:
-  Source: external_input_params in UpgradeabilityProxy.constructor
-  Sink: tainted_state_changing_external_call in UpgradeabilityProxy.constructor
-  Path Operations:
-    1. constructor
-
-Path #3:
   Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeTo
   Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy._setImplementation
   Path Operations:
@@ -130,8 +117,21 @@ Path #3:
     2. INTERNAL_CALL, BaseUpgradeabilityProxy._upgradeTo(address)(newImplementation)
     3. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(newImplementation)
 
-Path #4:
+Path #2:
   Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeToAndCall
   Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy.upgradeToAndCall
   Path Operations:
     1. upgradeToAndCall
+
+Path #3:
+  Source: external_input_params in UpgradeabilityProxy.constructor
+  Sink: tainted_state_changing_external_call in UpgradeabilityProxy._setImplementation
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
+
+Path #4:
+  Source: external_input_params in UpgradeabilityProxy.constructor
+  Sink: tainted_state_changing_external_call in UpgradeabilityProxy.constructor
+  Path Operations:
+    1. constructor

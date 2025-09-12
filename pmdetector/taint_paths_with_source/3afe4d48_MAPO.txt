@@ -29,10 +29,6 @@ Sink: tainted_state_changing_external_call in map.transfer
     SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [36, 37, 38, 39, 40, 41, 42, 43]
     LNE: (No direct expression available)
 
-    IR:  REF_7(uint256) -> balances[_to]
-    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [40]
-    LNE: balances[_to] = balances[_to].add(_value)
-
 ----------------------------------------
 
 ## Path #3
@@ -44,54 +40,13 @@ Sink: tainted_state_changing_external_call in map.transfer
     SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [36, 37, 38, 39, 40, 41, 42, 43]
     LNE: (No direct expression available)
 
-----------------------------------------
-
-## Path #4
-Source: external_input_params in map.transferFrom
-Sink: tainted_state_changing_external_call in map.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [45, 46, 47, 48, 49, 50, 51, 52, 53]
-    LNE: (No direct expression available)
-
-    IR:  REF_18(uint256) -> balances[_from]
-    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [49]
-    LNE: balances[_from] = balances[_from].sub(_value)
-
-----------------------------------------
-
-## Path #5
-Source: external_input_params in map.transferFrom
-Sink: tainted_state_changing_external_call in map.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [45, 46, 47, 48, 49, 50, 51, 52, 53]
-    LNE: (No direct expression available)
-
-    IR:  REF_21(uint256) -> balances[_to]
-    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [50]
+    IR:  REF_7(uint256) -> balances[_to]
+    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [40]
     LNE: balances[_to] = balances[_to].add(_value)
 
 ----------------------------------------
 
-## Path #6
-Source: external_input_params in map.batchTransfer
-Sink: tainted_state_changing_external_call in map.batchTransfer
-
-### Operations with Source Code Mapping:
-    IR:  batchTransfer
-    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82]
-    LNE: (No direct expression available)
-
-    IR:  REF_36(uint256) -> _amounts[i]
-    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [77]
-    LNE: balances[msg.sender] = balances[msg.sender].sub(_amounts[i])
-
-----------------------------------------
-
-## Path #7
+## Path #4
 Source: external_input_params in map.transferFrom
 Sink: tainted_state_changing_external_call in map.transferFrom
 
@@ -107,5 +62,50 @@ Sink: tainted_state_changing_external_call in map.transferFrom
     IR:  REF_15(uint256) -> REF_14[msg.sender]
     SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [48]
     LNE: allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in map.transferFrom
+Sink: tainted_state_changing_external_call in map.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [45, 46, 47, 48, 49, 50, 51, 52, 53]
+    LNE: (No direct expression available)
+
+    IR:  REF_18(uint256) -> balances[_from]
+    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [49]
+    LNE: balances[_from] = balances[_from].sub(_value)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in map.transferFrom
+Sink: tainted_state_changing_external_call in map.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [45, 46, 47, 48, 49, 50, 51, 52, 53]
+    LNE: (No direct expression available)
+
+    IR:  REF_21(uint256) -> balances[_to]
+    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [50]
+    LNE: balances[_to] = balances[_to].add(_value)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in map.batchTransfer
+Sink: tainted_state_changing_external_call in map.batchTransfer
+
+### Operations with Source Code Mapping:
+    IR:  batchTransfer
+    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82]
+    LNE: (No direct expression available)
+
+    IR:  REF_36(uint256) -> _amounts[i]
+    SRC: File 'pmdetector/flattened_contracts/3afe4d48_MAPO/flattened.sol', Lines [77]
+    LNE: balances[msg.sender] = balances[msg.sender].sub(_amounts[i])
 
 ----------------------------------------

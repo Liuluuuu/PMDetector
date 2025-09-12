@@ -43,17 +43,6 @@ Sink: tainted_erc20_transfer in ERC20._transfer
 ----------------------------------------
 
 ## Path #4
-Source: external_input_params in ERC20.transferFrom
-Sink: tainted_erc20_transfer in ERC20.transferFrom
-
-### Operations with Source Code Mapping:
-    IR:  transferFrom
-    SRC: File 'pmdetector/flattened_contracts/29dfe685_iZUMi LiquidBox/flattened.sol', Lines [305, 306, 307, 308, 309, 310, 311, 312, 313]
-    LNE: (No direct expression available)
-
-----------------------------------------
-
-## Path #5
 Source: external_input_params in OperableToken.mint
 Sink: tainted_erc20_transfer in OperableToken._mint
 
@@ -65,5 +54,16 @@ Sink: tainted_erc20_transfer in OperableToken._mint
     IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
     SRC: File 'pmdetector/flattened_contracts/29dfe685_iZUMi LiquidBox/flattened.sol', Lines [494]
     LNE: _mint(account,amount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/29dfe685_iZUMi LiquidBox/flattened.sol', Lines [305, 306, 307, 308, 309, 310, 311, 312, 313]
+    LNE: (No direct expression available)
 
 ----------------------------------------
