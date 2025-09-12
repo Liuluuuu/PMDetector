@@ -1,0 +1,1864 @@
+# Taint Analysis Results with Source Code Mapping
+Found 78 tainted paths.
+
+## Path #1
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken.mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  TMP_105(uint256) = _supply (c)* _DECIMALFACTOR
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  _tTotal(uint256) := TMP_105(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._bothTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [728]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._bothTransferContent(address,address,uint256,uint256,uint256,uint256)(sender,recipient,tAmount,rAmount,tTransferAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [792]
+    LNE: _bothTransferContent(sender,recipient,tAmount,rAmount,tTransferAmount,rTransferAmount)
+
+    IR:  REF_121(uint256) -> _rOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [802]
+    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_erc20_transfer in CoinToken._transferStandard
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [726]
+    LNE: _transferStandard(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._transferBothExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [728]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  TUPLE_8(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [789]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tBurn(uint256)= UNPACK TUPLE_8 index: 5 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [789]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._transferFromExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [722]
+    LNE: _transferFromExcluded(sender,recipient,amount)
+
+    IR:  TUPLE_7(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [772]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tBurn(uint256)= UNPACK TUPLE_7 index: 5 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [772]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getRTransferAmount
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_10(uint256,uint256) = INTERNAL_CALL, CoinToken._getRBasics(uint256,uint256,uint256)(tAmount,tFee,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [819]
+    LNE: (rAmount,rFee) = _getRBasics(tAmount,tFee,currentRate)
+
+    IR:  rAmount(uint256)= UNPACK TUPLE_10 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [819]
+    LNE: (rAmount,rFee) = _getRBasics(tAmount,tFee,currentRate)
+
+    IR:  TMP_272(uint256) = INTERNAL_CALL, CoinToken._getRTransferAmount(uint256,uint256,uint256,uint256,uint256)(rAmount,rFee,tBurn,tCharity,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [820]
+    LNE: rTransferAmount = _getRTransferAmount(rAmount,rFee,tBurn,tCharity,currentRate)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_erc20_transfer in CoinToken._transferBothExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [728]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._excludedToTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [722]
+    LNE: _transferFromExcluded(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._excludedToTransferContent(address,address,uint256,uint256,uint256)(sender,recipient,tAmount,rAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [775]
+    LNE: _excludedToTransferContent(sender,recipient,tAmount,rAmount,rTransferAmount)
+
+    IR:  REF_107(uint256) -> _rOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [784]
+    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken._sendToCharity
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  FeeAddress(address) := _FeeAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [536]
+    LNE: FeeAddress = _FeeAddress
+
+    IR:  REF_167(uint256) -> _tOwned[FeeAddress]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [869]
+    LNE: _tOwned[FeeAddress] = _tOwned[FeeAddress].add(tCharity)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_state_changing_external_call in CoinToken._excludedToTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [722]
+    LNE: _transferFromExcluded(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._excludedToTransferContent(address,address,uint256,uint256,uint256)(sender,recipient,tAmount,rAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [775]
+    LNE: _excludedToTransferContent(sender,recipient,tAmount,rAmount,rTransferAmount)
+
+    IR:  REF_104(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [783]
+    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken._reflectFee
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  TMP_105(uint256) = _supply (c)* _DECIMALFACTOR
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  _tTotal(uint256) := TMP_105(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  TMP_106(uint256) = _MAX % _tTotal
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  TMP_107(uint256) = _MAX (c)- TMP_106
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  _rTotal(uint256) := TMP_107(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [806]
+    LNE: _rTotal = _rTotal.sub(rFee).sub(rBurn).sub(rCharity)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken._burn
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  TMP_105(uint256) = _supply (c)* _DECIMALFACTOR
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  _tTotal(uint256) := TMP_105(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getTBasics
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'charityFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [827]
+    LNE: tCharity = ((tAmount.mul(charityFee)).div(_GRANULARITY)).div(100)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getTBasics
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  TMP_276(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'burnFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [826]
+    LNE: tBurn = ((tAmount.mul(burnFee)).div(_GRANULARITY)).div(100)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getRBasics
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_10(uint256,uint256) = INTERNAL_CALL, CoinToken._getRBasics(uint256,uint256,uint256)(tAmount,tFee,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [819]
+    LNE: (rAmount,rFee) = _getRBasics(tAmount,tFee,currentRate)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in CoinToken.balanceOf
+Sink: tainted_state_changing_external_call in CoinToken.tokenFromReflection
+
+### Operations with Source Code Mapping:
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [559, 560, 561, 562]
+    LNE: (No direct expression available)
+
+    IR:  REF_13(uint256) -> _rOwned[account]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [561]
+    LNE: tokenFromReflection(_rOwned[account])
+
+    IR:  TMP_113(uint256) = INTERNAL_CALL, CoinToken.tokenFromReflection(uint256)(REF_13)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [561]
+    LNE: tokenFromReflection(_rOwned[account])
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_state_changing_external_call in CoinToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  REF_16(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [580]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,TOKEN20: transfer amount exceeds allowance))
+
+    IR:  REF_17(uint256) -> REF_16[TMP_123]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [580]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,TOKEN20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getTBasics
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  TMP_273(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'taxFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [825]
+    LNE: tFee = ((tAmount.mul(taxFee)).div(_GRANULARITY)).div(100)
+
+    IR:  TMP_274(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_273', '_GRANULARITY'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [825]
+    LNE: tFee = ((tAmount.mul(taxFee)).div(_GRANULARITY)).div(100)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_erc20_transfer in CoinToken._transferStandard
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [726]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_5(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tCharity(uint256)= UNPACK TUPLE_5 index: 6 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_erc20_transfer in CoinToken._getValues
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._transferStandard
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [726]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_5(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tCharity(uint256)= UNPACK TUPLE_5 index: 6 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_erc20_transfer in CoinToken._transferFromExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [722]
+    LNE: _transferFromExcluded(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken.deliver
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  rAmount(uint256)= UNPACK TUPLE_2 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getRBasics
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  tFee(uint256)= UNPACK TUPLE_9 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  TUPLE_10(uint256,uint256) = INTERNAL_CALL, CoinToken._getRBasics(uint256,uint256,uint256)(tAmount,tFee,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [819]
+    LNE: (rAmount,rFee) = _getRBasics(tAmount,tFee,currentRate)
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_erc20_transfer in CoinToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken.deliver
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  TMP_105(uint256) = _supply (c)* _DECIMALFACTOR
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  _tTotal(uint256) := TMP_105(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  TMP_106(uint256) = _MAX % _tTotal
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  TMP_107(uint256) = _MAX (c)- TMP_106
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  _rTotal(uint256) := TMP_107(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken.deliver
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TMP_142(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [620]
+    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
+
+    IR:  _tFeeTotal(uint256) := TMP_142(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [620]
+    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken._sendToCharity
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  FeeAddress(address) := _FeeAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [536]
+    LNE: FeeAddress = _FeeAddress
+
+    IR:  REF_164(uint256) -> _rOwned[FeeAddress]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [868]
+    LNE: _rOwned[FeeAddress] = _rOwned[FeeAddress].add(rCharity)
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getTBasics
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_state_changing_external_call in CoinToken._bothTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [728]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._bothTransferContent(address,address,uint256,uint256,uint256,uint256)(sender,recipient,tAmount,rAmount,tTransferAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [792]
+    LNE: _bothTransferContent(sender,recipient,tAmount,rAmount,tTransferAmount,rTransferAmount)
+
+    IR:  REF_115(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [800]
+    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
+
+----------------------------------------
+
+## Path #31
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken.getTTransferAmount
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TMP_270(uint256) = INTERNAL_CALL, CoinToken.getTTransferAmount(uint256,uint256,uint256,uint256)(tAmount,tFee,tBurn,tCharity)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [817]
+    LNE: tTransferAmount = getTTransferAmount(tAmount,tFee,tBurn,tCharity)
+
+    IR:  TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tAmount', 'tFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [832]
+    LNE: tAmount.sub(tFee).sub(tBurn).sub(tCharity)
+
+----------------------------------------
+
+## Path #32
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._standardTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [726]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._standardTransferContent(address,address,uint256,uint256)(sender,recipient,rAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [741]
+    LNE: _standardTransferContent(sender,recipient,rAmount,rTransferAmount)
+
+    IR:  REF_85(uint256) -> _rOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [749]
+    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
+
+----------------------------------------
+
+## Path #33
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken._reflectFee
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  TMP_105(uint256) = _supply (c)* _DECIMALFACTOR
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  _tTotal(uint256) := TMP_105(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+----------------------------------------
+
+## Path #34
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getTBasics
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  TMP_273(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'taxFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [825]
+    LNE: tFee = ((tAmount.mul(taxFee)).div(_GRANULARITY)).div(100)
+
+----------------------------------------
+
+## Path #35
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken.getTTransferAmount
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TMP_270(uint256) = INTERNAL_CALL, CoinToken.getTTransferAmount(uint256,uint256,uint256,uint256)(tAmount,tFee,tBurn,tCharity)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [817]
+    LNE: tTransferAmount = getTTransferAmount(tAmount,tFee,tBurn,tCharity)
+
+----------------------------------------
+
+## Path #36
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken._getRate
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  TMP_105(uint256) = _supply (c)* _DECIMALFACTOR
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  _tTotal(uint256) := TMP_105(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  tSupply(uint256) := _tTotal(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [855]
+    LNE: tSupply = _tTotal
+
+    IR:  TUPLE_11(uint256,uint256) = INTERNAL_CALL, CoinToken._getCurrentSupply()()
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [849]
+    LNE: (rSupply,tSupply) = _getCurrentSupply()
+
+    IR:  rSupply(uint256)= UNPACK TUPLE_11 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [849]
+    LNE: (rSupply,tSupply) = _getCurrentSupply()
+
+----------------------------------------
+
+## Path #37
+Source: external_input_params in CoinToken.mint
+Sink: tainted_state_changing_external_call in CoinToken.mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [690, 691, 692, 693, 694, 695]
+    LNE: (No direct expression available)
+
+    IR:  REF_63(uint256) -> _rOwned[account]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [693]
+    LNE: _rOwned[account] = _rOwned[account].add(amount)
+
+----------------------------------------
+
+## Path #38
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_erc20_transfer in CoinToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #39
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getRTransferAmount
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_10(uint256,uint256) = INTERNAL_CALL, CoinToken._getRBasics(uint256,uint256,uint256)(tAmount,tFee,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [819]
+    LNE: (rAmount,rFee) = _getRBasics(tAmount,tFee,currentRate)
+
+    IR:  rAmount(uint256)= UNPACK TUPLE_10 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [819]
+    LNE: (rAmount,rFee) = _getRBasics(tAmount,tFee,currentRate)
+
+    IR:  TMP_272(uint256) = INTERNAL_CALL, CoinToken._getRTransferAmount(uint256,uint256,uint256,uint256,uint256)(rAmount,rFee,tBurn,tCharity,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [820]
+    LNE: rTransferAmount = _getRTransferAmount(rAmount,rFee,tBurn,tCharity,currentRate)
+
+    IR:  TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rAmount', 'rFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [844]
+    LNE: rTransferAmount = rAmount.sub(rFee).sub(rBurn).sub(rCharity)
+
+----------------------------------------
+
+## Path #40
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken._reflectFee
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  TMP_105(uint256) = _supply (c)* _DECIMALFACTOR
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  _tTotal(uint256) := TMP_105(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  TMP_106(uint256) = _MAX % _tTotal
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  TMP_107(uint256) = _MAX (c)- TMP_106
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  _rTotal(uint256) := TMP_107(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [806]
+    LNE: _rTotal = _rTotal.sub(rFee).sub(rBurn).sub(rCharity)
+
+    IR:  TMP_261(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_260', 'rBurn'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [806]
+    LNE: _rTotal = _rTotal.sub(rFee).sub(rBurn).sub(rCharity)
+
+----------------------------------------
+
+## Path #41
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getTBasics
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  TMP_276(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'burnFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [826]
+    LNE: tBurn = ((tAmount.mul(burnFee)).div(_GRANULARITY)).div(100)
+
+    IR:  TMP_277(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_276', '_GRANULARITY'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [826]
+    LNE: tBurn = ((tAmount.mul(burnFee)).div(_GRANULARITY)).div(100)
+
+----------------------------------------
+
+## Path #42
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._transferToExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [724]
+    LNE: _transferToExcluded(sender,recipient,amount)
+
+    IR:  TUPLE_6(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [754]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tBurn(uint256)= UNPACK TUPLE_6 index: 5 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [754]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #43
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken.getTTransferAmount
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TMP_270(uint256) = INTERNAL_CALL, CoinToken.getTTransferAmount(uint256,uint256,uint256,uint256)(tAmount,tFee,tBurn,tCharity)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [817]
+    LNE: tTransferAmount = getTTransferAmount(tAmount,tFee,tBurn,tCharity)
+
+    IR:  TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tAmount', 'tFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [832]
+    LNE: tAmount.sub(tFee).sub(tBurn).sub(tCharity)
+
+    IR:  TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_282', 'tBurn'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [832]
+    LNE: tAmount.sub(tFee).sub(tBurn).sub(tCharity)
+
+----------------------------------------
+
+## Path #44
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getTBasics
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+----------------------------------------
+
+## Path #45
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._reflectFee
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TMP_142(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [620]
+    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
+
+    IR:  _tFeeTotal(uint256) := TMP_142(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [620]
+    LNE: _tFeeTotal = _tFeeTotal.add(tAmount)
+
+----------------------------------------
+
+## Path #46
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._transferFromExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [722]
+    LNE: _transferFromExcluded(sender,recipient,amount)
+
+    IR:  TUPLE_7(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [772]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tCharity(uint256)= UNPACK TUPLE_7 index: 6 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [772]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #47
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken._getCurrentSupply
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  TMP_105(uint256) = _supply (c)* _DECIMALFACTOR
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  _tTotal(uint256) := TMP_105(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  TMP_106(uint256) = _MAX % _tTotal
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  TMP_107(uint256) = _MAX (c)- TMP_106
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  _rTotal(uint256) := TMP_107(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+----------------------------------------
+
+## Path #48
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getTBasics
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'charityFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [827]
+    LNE: tCharity = ((tAmount.mul(charityFee)).div(_GRANULARITY)).div(100)
+
+    IR:  TMP_280(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_279', '_GRANULARITY'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [827]
+    LNE: tCharity = ((tAmount.mul(charityFee)).div(_GRANULARITY)).div(100)
+
+----------------------------------------
+
+## Path #49
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_erc20_transfer in CoinToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #50
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_erc20_transfer in CoinToken._transferToExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [724]
+    LNE: _transferToExcluded(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #51
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getRTransferAmount
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_10(uint256,uint256) = INTERNAL_CALL, CoinToken._getRBasics(uint256,uint256,uint256)(tAmount,tFee,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [819]
+    LNE: (rAmount,rFee) = _getRBasics(tAmount,tFee,currentRate)
+
+    IR:  rAmount(uint256)= UNPACK TUPLE_10 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [819]
+    LNE: (rAmount,rFee) = _getRBasics(tAmount,tFee,currentRate)
+
+    IR:  TMP_272(uint256) = INTERNAL_CALL, CoinToken._getRTransferAmount(uint256,uint256,uint256,uint256,uint256)(rAmount,rFee,tBurn,tCharity,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [820]
+    LNE: rTransferAmount = _getRTransferAmount(rAmount,rFee,tBurn,tCharity,currentRate)
+
+    IR:  TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rAmount', 'rFee'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [844]
+    LNE: rTransferAmount = rAmount.sub(rFee).sub(rBurn).sub(rCharity)
+
+    IR:  TMP_290(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_289', 'rBurn'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [844]
+    LNE: rTransferAmount = rAmount.sub(rFee).sub(rBurn).sub(rCharity)
+
+----------------------------------------
+
+## Path #52
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_state_changing_external_call in CoinToken._excludedFromTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [724]
+    LNE: _transferToExcluded(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._excludedFromTransferContent(address,address,uint256,uint256,uint256)(sender,recipient,tTransferAmount,rAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [757]
+    LNE: _excludedFromTransferContent(sender,recipient,tTransferAmount,rAmount,rTransferAmount)
+
+    IR:  REF_90(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [764]
+    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
+
+----------------------------------------
+
+## Path #53
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getTBasics
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+----------------------------------------
+
+## Path #54
+Source: external_input_params in CoinToken.decreaseAllowance
+Sink: tainted_state_changing_external_call in CoinToken.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [589, 590, 591, 592]
+    LNE: (No direct expression available)
+
+    IR:  REF_23(uint256) -> REF_22[spender]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [590]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,TOKEN20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #55
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._bothTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [728]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._bothTransferContent(address,address,uint256,uint256,uint256,uint256)(sender,recipient,tAmount,rAmount,tTransferAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [792]
+    LNE: _bothTransferContent(sender,recipient,tAmount,rAmount,tTransferAmount,rTransferAmount)
+
+    IR:  REF_118(uint256) -> _tOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [801]
+    LNE: _tOwned[recipient] = _tOwned[recipient].add(tTransferAmount)
+
+----------------------------------------
+
+## Path #56
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_erc20_transfer in CoinToken._getValues
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_10(uint256,uint256) = INTERNAL_CALL, CoinToken._getRBasics(uint256,uint256,uint256)(tAmount,tFee,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [819]
+    LNE: (rAmount,rFee) = _getRBasics(tAmount,tFee,currentRate)
+
+    IR:  rAmount(uint256)= UNPACK TUPLE_10 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [819]
+    LNE: (rAmount,rFee) = _getRBasics(tAmount,tFee,currentRate)
+
+----------------------------------------
+
+## Path #57
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_erc20_transfer in CoinToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #58
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_erc20_transfer in CoinToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #59
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken._reflectFee
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  TMP_105(uint256) = _supply (c)* _DECIMALFACTOR
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  _tTotal(uint256) := TMP_105(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  TMP_106(uint256) = _MAX % _tTotal
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  TMP_107(uint256) = _MAX (c)- TMP_106
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  _rTotal(uint256) := TMP_107(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+----------------------------------------
+
+## Path #60
+Source: external_input_params in CoinToken.burn
+Sink: tainted_state_changing_external_call in CoinToken._burn
+
+### Operations with Source Code Mapping:
+    IR:  burn
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [669, 670, 671]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._burn(address,uint256)(msg.sender,_value)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [670]
+    LNE: _burn(msg.sender,_value)
+
+----------------------------------------
+
+## Path #61
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._excludedFromTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [724]
+    LNE: _transferToExcluded(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._excludedFromTransferContent(address,address,uint256,uint256,uint256)(sender,recipient,tTransferAmount,rAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [757]
+    LNE: _excludedFromTransferContent(sender,recipient,tTransferAmount,rAmount,rTransferAmount)
+
+    IR:  REF_93(uint256) -> _tOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [765]
+    LNE: _tOwned[recipient] = _tOwned[recipient].add(tTransferAmount)
+
+----------------------------------------
+
+## Path #62
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._excludedFromTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [724]
+    LNE: _transferToExcluded(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._excludedFromTransferContent(address,address,uint256,uint256,uint256)(sender,recipient,tTransferAmount,rAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [757]
+    LNE: _excludedFromTransferContent(sender,recipient,tTransferAmount,rAmount,rTransferAmount)
+
+    IR:  REF_96(uint256) -> _rOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [766]
+    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
+
+----------------------------------------
+
+## Path #63
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._reflectFee
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [726]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_5(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tBurn(uint256)= UNPACK TUPLE_5 index: 5 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  INTERNAL_CALL, CoinToken._reflectFee(uint256,uint256,uint256,uint256,uint256,uint256)(rFee,rBurn,rCharity,tFee,tBurn,tCharity)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [743]
+    LNE: _reflectFee(rFee,rBurn,rCharity,tFee,tBurn,tCharity)
+
+    IR:  TMP_264(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tBurnTotal', 'tBurn'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [808]
+    LNE: _tBurnTotal = _tBurnTotal.add(tBurn)
+
+    IR:  _tBurnTotal(uint256) := TMP_264(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [808]
+    LNE: _tBurnTotal = _tBurnTotal.add(tBurn)
+
+----------------------------------------
+
+## Path #64
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken._getCurrentSupply
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  TMP_105(uint256) = _supply (c)* _DECIMALFACTOR
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  _tTotal(uint256) := TMP_105(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  tSupply(uint256) := _tTotal(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [855]
+    LNE: tSupply = _tTotal
+
+----------------------------------------
+
+## Path #65
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._reflectFee
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [726]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_5(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tCharity(uint256)= UNPACK TUPLE_5 index: 6 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  INTERNAL_CALL, CoinToken._reflectFee(uint256,uint256,uint256,uint256,uint256,uint256)(rFee,rBurn,rCharity,tFee,tBurn,tCharity)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [743]
+    LNE: _reflectFee(rFee,rBurn,rCharity,tFee,tBurn,tCharity)
+
+    IR:  TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tCharityTotal', 'tCharity'] 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [809]
+    LNE: _tCharityTotal = _tCharityTotal.add(tCharity)
+
+    IR:  _tCharityTotal(uint256) := TMP_265(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [809]
+    LNE: _tCharityTotal = _tCharityTotal.add(tCharity)
+
+----------------------------------------
+
+## Path #66
+Source: external_input_params in CoinToken.increaseAllowance
+Sink: tainted_state_changing_external_call in CoinToken.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [584, 585, 586, 587]
+    LNE: (No direct expression available)
+
+    IR:  REF_20(uint256) -> REF_19[spender]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [585]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #67
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_state_changing_external_call in CoinToken._bothTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [728]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._bothTransferContent(address,address,uint256,uint256,uint256,uint256)(sender,recipient,tAmount,rAmount,tTransferAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [792]
+    LNE: _bothTransferContent(sender,recipient,tAmount,rAmount,tTransferAmount,rTransferAmount)
+
+    IR:  REF_112(uint256) -> _tOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [799]
+    LNE: _tOwned[sender] = _tOwned[sender].sub(tAmount)
+
+----------------------------------------
+
+## Path #68
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._sendToCharity
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [726]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_5(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tCharity(uint256)= UNPACK TUPLE_5 index: 6 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  INTERNAL_CALL, CoinToken._sendToCharity(uint256,address)(tCharity,sender)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [742]
+    LNE: _sendToCharity(tCharity,sender)
+
+----------------------------------------
+
+## Path #69
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getRTransferAmount
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  tBurn(uint256)= UNPACK TUPLE_9 index: 1 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  TMP_272(uint256) = INTERNAL_CALL, CoinToken._getRTransferAmount(uint256,uint256,uint256,uint256,uint256)(rAmount,rFee,tBurn,tCharity,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [820]
+    LNE: rTransferAmount = _getRTransferAmount(rAmount,rFee,tBurn,tCharity,currentRate)
+
+----------------------------------------
+
+## Path #70
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_erc20_transfer in CoinToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #71
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._transferToExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [724]
+    LNE: _transferToExcluded(sender,recipient,amount)
+
+    IR:  TUPLE_6(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [754]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tCharity(uint256)= UNPACK TUPLE_6 index: 6 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [754]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #72
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_state_changing_external_call in CoinToken._standardTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [726]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._standardTransferContent(address,address,uint256,uint256)(sender,recipient,rAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [741]
+    LNE: _standardTransferContent(sender,recipient,rAmount,rTransferAmount)
+
+    IR:  REF_82(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [748]
+    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
+
+----------------------------------------
+
+## Path #73
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._transferStandard
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [726]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_5(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tBurn(uint256)= UNPACK TUPLE_5 index: 5 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [738]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #74
+Source: external_input_params in CoinToken.deliver
+Sink: tainted_state_changing_external_call in CoinToken._getRTransferAmount
+
+### Operations with Source Code Mapping:
+    IR:  deliver
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [614, 615, 616, 617, 618, 619, 620, 621]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [617]
+    LNE: (rAmount,None,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getTBasics(uint256,uint256,uint256,uint256)(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  tCharity(uint256)= UNPACK TUPLE_9 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [816]
+    LNE: (tFee,tBurn,tCharity) = _getTBasics(tAmount,_TAX_FEE,_BURN_FEE,_CHARITY_FEE)
+
+    IR:  TMP_272(uint256) = INTERNAL_CALL, CoinToken._getRTransferAmount(uint256,uint256,uint256,uint256,uint256)(rAmount,rFee,tBurn,tCharity,currentRate)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [820]
+    LNE: rTransferAmount = _getRTransferAmount(rAmount,rFee,tBurn,tCharity,currentRate)
+
+----------------------------------------
+
+## Path #75
+Source: external_input_params in CoinToken.constructor
+Sink: tainted_state_changing_external_call in CoinToken._getCurrentSupply
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541]
+    LNE: (No direct expression available)
+
+    IR:  TMP_105(uint256) = _supply (c)* _DECIMALFACTOR
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  _tTotal(uint256) := TMP_105(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [521]
+    LNE: _tTotal = _supply * _DECIMALFACTOR
+
+    IR:  TMP_106(uint256) = _MAX % _tTotal
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  TMP_107(uint256) = _MAX (c)- TMP_106
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  _rTotal(uint256) := TMP_107(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [522]
+    LNE: _rTotal = (_MAX - (_MAX % _tTotal))
+
+    IR:  rSupply(uint256) := _rTotal(uint256)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [854]
+    LNE: rSupply = _rTotal
+
+----------------------------------------
+
+## Path #76
+Source: external_input_params in CoinToken.transfer
+Sink: tainted_state_changing_external_call in CoinToken._transferBothExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [564, 565, 566, 567]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(TMP_114,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [565]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [728]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  TUPLE_8(uint256,uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, CoinToken._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [789]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+    IR:  tCharity(uint256)= UNPACK TUPLE_8 index: 6 
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [789]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tBurn,tCharity) = _getValues(tAmount)
+
+----------------------------------------
+
+## Path #77
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_state_changing_external_call in CoinToken._excludedToTransferContent
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [722]
+    LNE: _transferFromExcluded(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, CoinToken._excludedToTransferContent(address,address,uint256,uint256,uint256)(sender,recipient,tAmount,rAmount,rTransferAmount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [775]
+    LNE: _excludedToTransferContent(sender,recipient,tAmount,rAmount,rTransferAmount)
+
+    IR:  REF_101(uint256) -> _tOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [782]
+    LNE: _tOwned[sender] = _tOwned[sender].sub(tAmount)
+
+----------------------------------------
+
+## Path #78
+Source: external_input_params in CoinToken.transferFrom
+Sink: tainted_erc20_transfer in CoinToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [578, 579, 580, 581, 582]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, CoinToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/842cca90_HCT/flattened.sol', Lines [579]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------

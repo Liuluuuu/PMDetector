@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: pmdetector
+Version: 0.1.0
+Summary: A taint analysis tool for smart contracts
+Author: Smart Contract Researcher
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Quality Assurance
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.8
+License-File: LICENSE
+Requires-Dist: slither-analyzer>=0.9.0
+Requires-Dist: requests>=2.25.0
+Dynamic: author
+Dynamic: classifier
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

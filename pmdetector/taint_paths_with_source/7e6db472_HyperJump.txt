@@ -1,0 +1,604 @@
+# Taint Analysis Results with Source Code Mapping
+Found 26 tainted paths.
+
+## Path #1
+Source: external_input_params in HyperBurn.setPairAddr
+Sink: tainted_state_changing_external_call in HyperBurn._updateTwap
+
+### Operations with Source Code Mapping:
+    IR:  setPairAddr
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254]
+    LNE: (No direct expression available)
+
+    IR:  thugSwapPair(address) := pairaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1251]
+    LNE: thugSwapPair = pairaddr
+
+    IR:  TUPLE_7(uint256,uint256,uint32) = LIBRARY_CALL, dest:ThugSwapOracleLibrary, function:ThugSwapOracleLibrary.currentCumulativePrices(address), arguments:['thugSwapPair'] 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1261, 1262]
+    LNE: (price0Cumulative,price1Cumulative,blockTimestamp) = ThugSwapOracleLibrary.currentCumulativePrices(thugSwapPair)
+
+    IR:  blockTimestamp(uint32)= UNPACK TUPLE_7 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1261, 1262]
+    LNE: (price0Cumulative,price1Cumulative,blockTimestamp) = ThugSwapOracleLibrary.currentCumulativePrices(thugSwapPair)
+
+    IR:  TMP_334(uint32) = blockTimestamp - blockTimestampLast
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1263]
+    LNE: timeElapsed = blockTimestamp - blockTimestampLast
+
+    IR:  timeElapsed(uint32) := TMP_334(uint32)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1263]
+    LNE: timeElapsed = blockTimestamp - blockTimestampLast
+
+    IR:  TMP_337(uint256) = TMP_336 / timeElapsed
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  TMP_338 = CONVERT TMP_337 to uint224
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  TMP_339(FixedPoint.uq112x112) = new uq112x112(TMP_338)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  priceAverage(FixedPoint.uq112x112) := TMP_339(FixedPoint.uq112x112)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  TMP_340(FixedPoint.uq144x112) = LIBRARY_CALL, dest:FixedPoint, function:FixedPoint.mul(FixedPoint.uq112x112,uint256), arguments:['priceAverage', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1276]
+    LNE: priceAverageLast = FixedPoint.decode144(FixedPoint.mul(priceAverage,1000000000000000000))
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in HyperBurn.constructor
+Sink: tainted_state_changing_external_call in HyperBurn._transfer
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1097, 1098, 1099, 1100, 1101, 1102, 1103, 1104, 1105]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, HyperBurn._createBurnReservesVault(address)(_burnReservesAddress)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1101]
+    LNE: _createBurnReservesVault(_burnReservesAddress)
+
+    IR:  TMP_307(TokenTimelock) = new TokenTimelock(_burnReservesAddress,TMP_306) 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1220]
+    LNE: burnReservesVault = new TokenTimelock(_burnReservesAddress,block.timestamp + 1209600)
+
+    IR:  burnReservesVault(TokenTimelock) := TMP_307(TokenTimelock)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1220]
+    LNE: burnReservesVault = new TokenTimelock(_burnReservesAddress,block.timestamp + 1209600)
+
+    IR:  TMP_412 = CONVERT burnReservesVault to address
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1349]
+    LNE: _tOwned[address(burnReservesVault)] = _tOwned[address(burnReservesVault)].add(burnReserveAmount_scope_5)
+
+    IR:  REF_180(uint256) -> _tOwned[TMP_412]
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1349]
+    LNE: _tOwned[address(burnReservesVault)] = _tOwned[address(burnReservesVault)].add(burnReserveAmount_scope_5)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in HyperBurn.constructor
+Sink: tainted_state_changing_external_call in HyperBurn._transfer
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1097, 1098, 1099, 1100, 1101, 1102, 1103, 1104, 1105]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, HyperBurn._createBurnReservesVault(address)(_burnReservesAddress)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1101]
+    LNE: _createBurnReservesVault(_burnReservesAddress)
+
+    IR:  TMP_307(TokenTimelock) = new TokenTimelock(_burnReservesAddress,TMP_306) 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1220]
+    LNE: burnReservesVault = new TokenTimelock(_burnReservesAddress,block.timestamp + 1209600)
+
+    IR:  burnReservesVault(TokenTimelock) := TMP_307(TokenTimelock)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1220]
+    LNE: burnReservesVault = new TokenTimelock(_burnReservesAddress,block.timestamp + 1209600)
+
+    IR:  TMP_373 = CONVERT burnReservesVault to address
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1317]
+    LNE: _tOwned[address(burnReservesVault)] = _tOwned[address(burnReservesVault)].add(burnReserveAmount)
+
+    IR:  REF_148(uint256) -> _tOwned[TMP_373]
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1317]
+    LNE: _tOwned[address(burnReservesVault)] = _tOwned[address(burnReservesVault)].add(burnReserveAmount)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in HyperBurn.constructor
+Sink: tainted_erc20_transfer in HyperBurn._createBurnReservesVault
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1097, 1098, 1099, 1100, 1101, 1102, 1103, 1104, 1105]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, HyperBurn._createBurnReservesVault(address)(_burnReservesAddress)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1101]
+    LNE: _createBurnReservesVault(_burnReservesAddress)
+
+    IR:  TMP_307(TokenTimelock) = new TokenTimelock(_burnReservesAddress,TMP_306) 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1220]
+    LNE: burnReservesVault = new TokenTimelock(_burnReservesAddress,block.timestamp + 1209600)
+
+    IR:  burnReservesVault(TokenTimelock) := TMP_307(TokenTimelock)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1220]
+    LNE: burnReservesVault = new TokenTimelock(_burnReservesAddress,block.timestamp + 1209600)
+
+    IR:  TMP_308 = CONVERT burnReservesVault to address
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1221]
+    LNE: setWhitelistedSender(address(burnReservesVault),true)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in BEP20.transfer
+Sink: tainted_state_changing_external_call in BEP20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [695, 696, 697, 698]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_104,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [696]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_43(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [794]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in HyperBurn.balanceOf
+Sink: tainted_erc20_transfer in HyperBurn.balanceOf
+
+### Operations with Source Code Mapping:
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1134, 1135, 1136, 1137]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in BEP20.transferFrom
+Sink: tainted_erc20_transfer in BEP20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [731, 732, 733, 734, 735]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in HyperBurn.constructor
+Sink: tainted_erc20_transfer in HyperBurn._distributeTokens
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1097, 1098, 1099, 1100, 1101, 1102, 1103, 1104, 1105]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, HyperBurn._distributeTokens(address)(_initialDistributionAddress)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1102]
+    LNE: _distributeTokens(_initialDistributionAddress)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in BEP20.transferFrom
+Sink: tainted_state_changing_external_call in BEP20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [731, 732, 733, 734, 735]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [732]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_40(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [793]
+    LNE: _balances[sender] = _balances[sender].sub(amount,BEP20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in HyperBurn.setPairAddr
+Sink: tainted_state_changing_external_call in HyperBurn.getCurrentTwap
+
+### Operations with Source Code Mapping:
+    IR:  setPairAddr
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254]
+    LNE: (No direct expression available)
+
+    IR:  thugSwapPair(address) := pairaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1251]
+    LNE: thugSwapPair = pairaddr
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in HyperBurn.setPairAddr
+Sink: tainted_state_changing_external_call in HyperBurn.initializeTwap
+
+### Operations with Source Code Mapping:
+    IR:  setPairAddr
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254]
+    LNE: (No direct expression available)
+
+    IR:  thugSwapPair(address) := pairaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1251]
+    LNE: thugSwapPair = pairaddr
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in HyperBurn.setPairAddr
+Sink: tainted_state_changing_external_call in HyperBurn._updateTwap
+
+### Operations with Source Code Mapping:
+    IR:  setPairAddr
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254]
+    LNE: (No direct expression available)
+
+    IR:  thugSwapPair(address) := pairaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1251]
+    LNE: thugSwapPair = pairaddr
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in BEP20.transferFrom
+Sink: tainted_state_changing_external_call in BEP20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [731, 732, 733, 734, 735]
+    LNE: (No direct expression available)
+
+    IR:  REF_30(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [733]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,BEP20: transfer amount exceeds allowance))
+
+    IR:  REF_31(uint256) -> REF_30[TMP_110]
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [733]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,BEP20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in HyperBurn.setPairAddr
+Sink: tainted_erc20_transfer in HyperBurn.setPairAddr
+
+### Operations with Source Code Mapping:
+    IR:  setPairAddr
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254]
+    LNE: (No direct expression available)
+
+    IR:  thugSwapPair(address) := pairaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1251]
+    LNE: thugSwapPair = pairaddr
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in HyperBurn.balanceOf
+Sink: tainted_state_changing_external_call in HyperBurn._tokenFromReflection
+
+### Operations with Source Code Mapping:
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1134, 1135, 1136, 1137]
+    LNE: (No direct expression available)
+
+    IR:  REF_89(uint256) -> _rOwned[account]
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1136]
+    LNE: _tokenFromReflection(_rOwned[account])
+
+    IR:  TMP_278(uint256) = INTERNAL_CALL, HyperBurn._tokenFromReflection(uint256)(REF_89)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1136]
+    LNE: _tokenFromReflection(_rOwned[account])
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in HyperBurn.setPairAddr
+Sink: tainted_state_changing_external_call in HyperBurn.getCurrentTwap
+
+### Operations with Source Code Mapping:
+    IR:  setPairAddr
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254]
+    LNE: (No direct expression available)
+
+    IR:  thugSwapPair(address) := pairaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1251]
+    LNE: thugSwapPair = pairaddr
+
+    IR:  TUPLE_9(uint256,uint256,uint32) = LIBRARY_CALL, dest:ThugSwapOracleLibrary, function:ThugSwapOracleLibrary.currentCumulativePrices(address), arguments:['thugSwapPair'] 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1411, 1412]
+    LNE: (price0Cumulative,price1Cumulative,blockTimestamp) = ThugSwapOracleLibrary.currentCumulativePrices(thugSwapPair)
+
+    IR:  blockTimestamp(uint32)= UNPACK TUPLE_9 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1411, 1412]
+    LNE: (price0Cumulative,price1Cumulative,blockTimestamp) = ThugSwapOracleLibrary.currentCumulativePrices(thugSwapPair)
+
+    IR:  TMP_463(uint32) = blockTimestamp - blockTimestampLast
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1413]
+    LNE: timeElapsed = blockTimestamp - blockTimestampLast
+
+    IR:  timeElapsed(uint32) := TMP_463(uint32)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1413]
+    LNE: timeElapsed = blockTimestamp - blockTimestampLast
+
+    IR:  TMP_465(uint256) = TMP_464 / timeElapsed
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1417, 1418, 1419]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  TMP_466 = CONVERT TMP_465 to uint224
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1417, 1418, 1419]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  TMP_467(FixedPoint.uq112x112) = new uq112x112(TMP_466)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1417, 1418, 1419]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  priceAverage(FixedPoint.uq112x112) := TMP_467(FixedPoint.uq112x112)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1417, 1418, 1419]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  TMP_468(FixedPoint.uq144x112) = LIBRARY_CALL, dest:FixedPoint, function:FixedPoint.mul(FixedPoint.uq112x112,uint256), arguments:['priceAverage', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1421]
+    LNE: FixedPoint.decode144(FixedPoint.mul(priceAverage,1000000000000000000))
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in TokenTimelock.release
+Sink: tainted_erc20_transfer in TokenTimelock.release
+
+### Operations with Source Code Mapping:
+    IR:  release
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [528, 529, 530, 531, 532, 533, 534, 535, 536]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in BEP20.increaseAllowance
+Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [749, 750, 751, 752]
+    LNE: (No direct expression available)
+
+    IR:  REF_34(uint256) -> REF_33[spender]
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [750]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in BEP20.transfer
+Sink: tainted_erc20_transfer in BEP20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [695, 696, 697, 698]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in BEP20.transferFrom
+Sink: tainted_erc20_transfer in BEP20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [731, 732, 733, 734, 735]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [732]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in HyperBurn.setPairAddr
+Sink: tainted_state_changing_external_call in HyperBurn._updateTwap
+
+### Operations with Source Code Mapping:
+    IR:  setPairAddr
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254]
+    LNE: (No direct expression available)
+
+    IR:  thugSwapPair(address) := pairaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1251]
+    LNE: thugSwapPair = pairaddr
+
+    IR:  TUPLE_7(uint256,uint256,uint32) = LIBRARY_CALL, dest:ThugSwapOracleLibrary, function:ThugSwapOracleLibrary.currentCumulativePrices(address), arguments:['thugSwapPair'] 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1261, 1262]
+    LNE: (price0Cumulative,price1Cumulative,blockTimestamp) = ThugSwapOracleLibrary.currentCumulativePrices(thugSwapPair)
+
+    IR:  blockTimestamp(uint32)= UNPACK TUPLE_7 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1261, 1262]
+    LNE: (price0Cumulative,price1Cumulative,blockTimestamp) = ThugSwapOracleLibrary.currentCumulativePrices(thugSwapPair)
+
+    IR:  TMP_334(uint32) = blockTimestamp - blockTimestampLast
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1263]
+    LNE: timeElapsed = blockTimestamp - blockTimestampLast
+
+    IR:  timeElapsed(uint32) := TMP_334(uint32)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1263]
+    LNE: timeElapsed = blockTimestamp - blockTimestampLast
+
+    IR:  TMP_337(uint256) = TMP_336 / timeElapsed
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  TMP_338 = CONVERT TMP_337 to uint224
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  TMP_339(FixedPoint.uq112x112) = new uq112x112(TMP_338)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  priceAverage(FixedPoint.uq112x112) := TMP_339(FixedPoint.uq112x112)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1269, 1270, 1271]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in HyperBurn.setPairAddr
+Sink: tainted_erc20_transfer in HyperBurn._initializePair
+
+### Operations with Source Code Mapping:
+    IR:  setPairAddr
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254]
+    LNE: (No direct expression available)
+
+    IR:  thugSwapPair(address) := pairaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1251]
+    LNE: thugSwapPair = pairaddr
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in BEP20.decreaseAllowance
+Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [768, 769, 770, 771]
+    LNE: (No direct expression available)
+
+    IR:  REF_37(uint256) -> REF_36[spender]
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [769]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,BEP20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in HyperBurn.constructor
+Sink: tainted_state_changing_external_call in HyperBurn._transfer
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1097, 1098, 1099, 1100, 1101, 1102, 1103, 1104, 1105]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, HyperBurn._createBurnReservesVault(address)(_burnReservesAddress)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1101]
+    LNE: _createBurnReservesVault(_burnReservesAddress)
+
+    IR:  TMP_307(TokenTimelock) = new TokenTimelock(_burnReservesAddress,TMP_306) 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1220]
+    LNE: burnReservesVault = new TokenTimelock(_burnReservesAddress,block.timestamp + 1209600)
+
+    IR:  burnReservesVault(TokenTimelock) := TMP_307(TokenTimelock)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1220]
+    LNE: burnReservesVault = new TokenTimelock(_burnReservesAddress,block.timestamp + 1209600)
+
+    IR:  TMP_376 = CONVERT burnReservesVault to address
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1318]
+    LNE: _rOwned[address(burnReservesVault)] = _rOwned[address(burnReservesVault)].add(burnReserveAmount.mul(currentRate))
+
+    IR:  REF_151(uint256) -> _rOwned[TMP_376]
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1318]
+    LNE: _rOwned[address(burnReservesVault)] = _rOwned[address(burnReservesVault)].add(burnReserveAmount.mul(currentRate))
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in HyperBurn.setPairAddr
+Sink: tainted_state_changing_external_call in HyperBurn.getCurrentTwap
+
+### Operations with Source Code Mapping:
+    IR:  setPairAddr
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254]
+    LNE: (No direct expression available)
+
+    IR:  thugSwapPair(address) := pairaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1251]
+    LNE: thugSwapPair = pairaddr
+
+    IR:  TUPLE_9(uint256,uint256,uint32) = LIBRARY_CALL, dest:ThugSwapOracleLibrary, function:ThugSwapOracleLibrary.currentCumulativePrices(address), arguments:['thugSwapPair'] 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1411, 1412]
+    LNE: (price0Cumulative,price1Cumulative,blockTimestamp) = ThugSwapOracleLibrary.currentCumulativePrices(thugSwapPair)
+
+    IR:  blockTimestamp(uint32)= UNPACK TUPLE_9 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1411, 1412]
+    LNE: (price0Cumulative,price1Cumulative,blockTimestamp) = ThugSwapOracleLibrary.currentCumulativePrices(thugSwapPair)
+
+    IR:  TMP_463(uint32) = blockTimestamp - blockTimestampLast
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1413]
+    LNE: timeElapsed = blockTimestamp - blockTimestampLast
+
+    IR:  timeElapsed(uint32) := TMP_463(uint32)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1413]
+    LNE: timeElapsed = blockTimestamp - blockTimestampLast
+
+    IR:  TMP_465(uint256) = TMP_464 / timeElapsed
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1417, 1418, 1419]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  TMP_466 = CONVERT TMP_465 to uint224
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1417, 1418, 1419]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  TMP_467(FixedPoint.uq112x112) = new uq112x112(TMP_466)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1417, 1418, 1419]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+    IR:  priceAverage(FixedPoint.uq112x112) := TMP_467(FixedPoint.uq112x112)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1417, 1418, 1419]
+    LNE: priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed))
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in HyperBurn.constructor
+Sink: tainted_state_changing_external_call in HyperBurn._transfer
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1097, 1098, 1099, 1100, 1101, 1102, 1103, 1104, 1105]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, HyperBurn._createBurnReservesVault(address)(_burnReservesAddress)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1101]
+    LNE: _createBurnReservesVault(_burnReservesAddress)
+
+    IR:  TMP_307(TokenTimelock) = new TokenTimelock(_burnReservesAddress,TMP_306) 
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1220]
+    LNE: burnReservesVault = new TokenTimelock(_burnReservesAddress,block.timestamp + 1209600)
+
+    IR:  burnReservesVault(TokenTimelock) := TMP_307(TokenTimelock)
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1220]
+    LNE: burnReservesVault = new TokenTimelock(_burnReservesAddress,block.timestamp + 1209600)
+
+    IR:  TMP_415 = CONVERT burnReservesVault to address
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1350]
+    LNE: _rOwned[address(burnReservesVault)] = _rOwned[address(burnReservesVault)].add(burnReserveAmount_scope_5.mul(currentRate))
+
+    IR:  REF_183(uint256) -> _rOwned[TMP_415]
+    SRC: File 'pmdetector/flattened_contracts/7e6db472_HyperJump/flattened.sol', Lines [1350]
+    LNE: _rOwned[address(burnReservesVault)] = _rOwned[address(burnReservesVault)].add(burnReserveAmount_scope_5.mul(currentRate))
+
+----------------------------------------

@@ -1,0 +1,2321 @@
+# Taint Analysis Results with Source Code Mapping
+Found 85 tainted paths.
+
+## Path #1
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_252(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1969]
+    LNE: user.amount = user.amount.add(_amount).sub(depositFee)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_266(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1976]
+    LNE: user.rewardDebt = user.amount.mul(pool.accNewspacePerShare).div(1e18)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in BEP20.transferFrom
+Sink: tainted_state_changing_external_call in BEP20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [810, 811, 812, 813, 814, 815, 816, 817, 818]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [811]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_42(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [895]
+    LNE: _balances[sender] = _balances[sender].sub(amount,BEP20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in MasterChef.withdraw
+Sink: tainted_state_changing_external_call in MasterChef.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+    LNE: (No direct expression available)
+
+    IR:  REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_289(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1997]
+    LNE: user.rewardDebt = user.amount.mul(pool.accNewspacePerShare).div(1e18)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in BEP20.decreaseAllowance
+Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [851, 852, 853, 854, 855, 856, 857, 858]
+    LNE: (No direct expression available)
+
+    IR:  REF_39(uint256) -> REF_38[spender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [852, 853, 854, 855, 856]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,BEP20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in MasterChef.constructor
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1765, 1766, 1767, 1768, 1769, 1770, 1771]
+    LNE: (No direct expression available)
+
+    IR:  newspace(Newspace) := _newspace(Newspace)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1766]
+    LNE: newspace = _newspace
+
+    IR:  TMP_512(uint256) = HIGH_LEVEL_CALL, dest:newspace(Newspace), function:maxSupply, arguments:[]  
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1929]
+    LNE: newspaceReward = newspace.maxSupply().sub(newspace.totalSupply())
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_252(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1969]
+    LNE: user.amount = user.amount.add(_amount).sub(depositFee)
+
+    IR:  TMP_541(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_252', '_amount'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1969]
+    LNE: user.amount = user.amount.add(_amount).sub(depositFee)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in MasterChef.add
+Sink: tainted_state_changing_external_call in MasterChef.add
+
+### Operations with Source Code Mapping:
+    IR:  add
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1789, 1790, 1791, 1792, 1793, 1794, 1795, 1796, 1797, 1798, 1799, 1800, 1801, 1802, 1803, 1804, 1805, 1806, 1807, 1808, 1809, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 1818, 1819]
+    LNE: (No direct expression available)
+
+    IR:  TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1800]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+    IR:  totalAllocPoint(uint256) := TMP_448(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1800]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_256(uint256) -> pool.lpSupply
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1970]
+    LNE: pool.lpSupply = pool.lpSupply.add(_amount).sub(depositFee)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in MasterChef.withdraw
+Sink: tainted_state_changing_external_call in MasterChef.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+    LNE: (No direct expression available)
+
+    IR:  REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_281(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1993]
+    LNE: user.amount = user.amount.sub(_amount)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in MasterChef.updatePool
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  updatePool
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1900, 1901, 1902, 1903, 1904, 1905, 1906, 1907, 1908, 1909, 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936, 1937, 1938, 1939, 1940, 1941]
+    LNE: (No direct expression available)
+
+    IR:  REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_204(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_498(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  newspaceReward(uint256) := TMP_501(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in MasterChef.pendingNewspace
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  pendingNewspace
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1860, 1861, 1862, 1863, 1864, 1865, 1866, 1867, 1868, 1869, 1870, 1871, 1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1880, 1881, 1882, 1883, 1884, 1885, 1886, 1887, 1888, 1889]
+    LNE: (No direct expression available)
+
+    IR:  REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_176(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_473(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_176,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_473(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_475(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_474', 'REF_179'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_476(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_475', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  newspaceReward(uint256) := TMP_476(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_486(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['newspaceReward', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1884, 1885, 1886]
+    LNE: accNewspacePerShare = accNewspacePerShare.add(newspaceReward.mul(1e18).div(pool.lpSupply))
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in MasterChef.withdraw
+Sink: tainted_state_changing_external_call in MasterChef.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+    LNE: (No direct expression available)
+
+    IR:  REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_274(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1986, 1987, 1988]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_554(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_274', 'REF_276'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1986, 1987, 1988]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_555(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_554', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1986, 1987, 1988]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in BEP20.transferFrom
+Sink: tainted_state_changing_external_call in BEP20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [810, 811, 812, 813, 814, 815, 816, 817, 818]
+    LNE: (No direct expression available)
+
+    IR:  REF_32(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [812, 813, 814, 815, 816]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,BEP20: transfer amount exceeds allowance))
+
+    IR:  REF_33(uint256) -> REF_32[TMP_129]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [812, 813, 814, 815, 816]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,BEP20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in BEP20._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [868, 869, 870, 871]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [869]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_158(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in MasterChef.updatePool
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  updatePool
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1900, 1901, 1902, 1903, 1904, 1905, 1906, 1907, 1908, 1909, 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936, 1937, 1938, 1939, 1940, 1941]
+    LNE: (No direct expression available)
+
+    IR:  REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_204(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_498(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_erc20_transfer in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_232(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_524(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_523', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_525(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_524', 'REF_237'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  pending(uint256) := TMP_525(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in MasterChef.constructor
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1765, 1766, 1767, 1768, 1769, 1770, 1771]
+    LNE: (No direct expression available)
+
+    IR:  newspace(Newspace) := _newspace(Newspace)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1766]
+    LNE: newspace = _newspace
+
+    IR:  TMP_483(uint256) = HIGH_LEVEL_CALL, dest:newspace(Newspace), function:maxSupply, arguments:[]  
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1882]
+    LNE: newspaceReward = newspace.maxSupply().sub(newspace.totalSupply())
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in BEP20.transferFrom
+Sink: tainted_erc20_transfer in BEP20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [810, 811, 812, 813, 814, 815, 816, 817, 818]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in BEP20._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [868, 869, 870, 871]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [869]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_158(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in MasterChef.pendingNewspace
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  pendingNewspace
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1860, 1861, 1862, 1863, 1864, 1865, 1866, 1867, 1868, 1869, 1870, 1871, 1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1880, 1881, 1882, 1883, 1884, 1885, 1886, 1887, 1888, 1889]
+    LNE: (No direct expression available)
+
+    IR:  REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_176(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_473(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_176,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_473(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_475(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_474', 'REF_179'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in MasterChef.updatePool
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  updatePool
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1900, 1901, 1902, 1903, 1904, 1905, 1906, 1907, 1908, 1909, 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936, 1937, 1938, 1939, 1940, 1941]
+    LNE: (No direct expression available)
+
+    IR:  REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_204(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_498(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  newspaceReward(uint256) := TMP_501(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in MasterChef.pendingNewspace
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  pendingNewspace
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1860, 1861, 1862, 1863, 1864, 1865, 1866, 1867, 1868, 1869, 1870, 1871, 1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1880, 1881, 1882, 1883, 1884, 1885, 1886, 1887, 1888, 1889]
+    LNE: (No direct expression available)
+
+    IR:  REF_171(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1862]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_172(MasterChef.UserInfo) -> REF_171[_user]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1862]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  user(MasterChef.UserInfo) := REF_172(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1862]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_193(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1888]
+    LNE: user.amount.mul(accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_489(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_193', 'accNewspacePerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1888]
+    LNE: user.amount.mul(accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_490(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_489', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1888]
+    LNE: user.amount.mul(accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in MasterChef.add
+Sink: tainted_state_changing_external_call in MasterChef.set
+
+### Operations with Source Code Mapping:
+    IR:  add
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1789, 1790, 1791, 1792, 1793, 1794, 1795, 1796, 1797, 1798, 1799, 1800, 1801, 1802, 1803, 1804, 1805, 1806, 1807, 1808, 1809, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 1818, 1819]
+    LNE: (No direct expression available)
+
+    IR:  TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1800]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+    IR:  totalAllocPoint(uint256) := TMP_448(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1800]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in MasterChef.updatePool
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  updatePool
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1900, 1901, 1902, 1903, 1904, 1905, 1906, 1907, 1908, 1909, 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936, 1937, 1938, 1939, 1940, 1941]
+    LNE: (No direct expression available)
+
+    IR:  REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_204(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_498(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_232(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in BEP20.increaseAllowance
+Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [832, 833, 834, 835]
+    LNE: (No direct expression available)
+
+    IR:  REF_36(uint256) -> REF_35[spender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [833]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in MasterChef.updatePool
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  updatePool
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1900, 1901, 1902, 1903, 1904, 1905, 1906, 1907, 1908, 1909, 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936, 1937, 1938, 1939, 1940, 1941]
+    LNE: (No direct expression available)
+
+    IR:  REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_204(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_498(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  newspaceReward(uint256) := TMP_501(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in BEP20.transfer
+Sink: tainted_state_changing_external_call in BEP20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [770, 771, 772, 773]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_123,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [771]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_45(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [896]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in MasterChef.add
+Sink: tainted_state_changing_external_call in MasterChef.set
+
+### Operations with Source Code Mapping:
+    IR:  add
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1789, 1790, 1791, 1792, 1793, 1794, 1795, 1796, 1797, 1798, 1799, 1800, 1801, 1802, 1803, 1804, 1805, 1806, 1807, 1808, 1809, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 1818, 1819]
+    LNE: (No direct expression available)
+
+    IR:  TMP_448(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1800]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+    IR:  totalAllocPoint(uint256) := TMP_448(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1800]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+    IR:  TMP_462(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalAllocPoint', 'REF_161'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1832, 1833, 1834]
+    LNE: totalAllocPoint = totalAllocPoint.sub(poolInfo[_pid].allocPoint).add(_allocPoint)
+
+----------------------------------------
+
+## Path #31
+Source: external_input_params in MasterChef.constructor
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1765, 1766, 1767, 1768, 1769, 1770, 1771]
+    LNE: (No direct expression available)
+
+    IR:  newspace(Newspace) := _newspace(Newspace)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1766]
+    LNE: newspace = _newspace
+
+    IR:  TMP_478(uint256) = HIGH_LEVEL_CALL, dest:newspace(Newspace), function:totalSupply, arguments:[]  
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1878, 1879, 1880]
+    LNE: totalRewards = newspace.totalSupply().add(devReward).add(newspaceReward)
+
+    IR:  TMP_479(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_478', 'devReward'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1878, 1879, 1880]
+    LNE: totalRewards = newspace.totalSupply().add(devReward).add(newspaceReward)
+
+----------------------------------------
+
+## Path #32
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in Newspace._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [868, 869, 870, 871]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [869]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_158(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #33
+Source: external_input_params in MasterChef.constructor
+Sink: tainted_erc20_transfer in MasterChef.safeNewspaceTransfer
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1765, 1766, 1767, 1768, 1769, 1770, 1771]
+    LNE: (No direct expression available)
+
+    IR:  newspace(Newspace) := _newspace(Newspace)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1766]
+    LNE: newspace = _newspace
+
+    IR:  TMP_575(uint256) = HIGH_LEVEL_CALL, dest:newspace(Newspace), function:balanceOf, arguments:['TMP_574']  
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [2021]
+    LNE: newspaceBal = newspace.balanceOf(address(this))
+
+    IR:  newspaceBal(uint256) := TMP_575(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [2021]
+    LNE: newspaceBal = newspace.balanceOf(address(this))
+
+----------------------------------------
+
+## Path #34
+Source: external_input_params in MasterChef.pendingNewspace
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  pendingNewspace
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1860, 1861, 1862, 1863, 1864, 1865, 1866, 1867, 1868, 1869, 1870, 1871, 1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1880, 1881, 1882, 1883, 1884, 1885, 1886, 1887, 1888, 1889]
+    LNE: (No direct expression available)
+
+    IR:  REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_176(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_473(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_176,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_473(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #35
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_232(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #36
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_erc20_transfer in MasterChef.safeNewspaceTransfer
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_232(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_524(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_523', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_525(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_524', 'REF_237'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  pending(uint256) := TMP_525(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  INTERNAL_CALL, MasterChef.safeNewspaceTransfer(address,uint256)(msg.sender,pending)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1955]
+    LNE: safeNewspaceTransfer(msg.sender,pending)
+
+----------------------------------------
+
+## Path #37
+Source: external_input_params in Newspace.updateMinAmountToLiquify
+Sink: tainted_state_changing_external_call in Newspace.addLiquidity
+
+### Operations with Source Code Mapping:
+    IR:  updateMinAmountToLiquify
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1510, 1511, 1512, 1513]
+    LNE: (No direct expression available)
+
+    IR:  minAmountToLiquify(uint256) := _minAmount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1512]
+    LNE: minAmountToLiquify = _minAmount
+
+    IR:  liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1401]
+    LNE: liquifyAmount = minAmountToLiquify
+
+    IR:  TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['liquifyAmount', 'TMP_313'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1405]
+    LNE: otherHalf = liquifyAmount.sub(half.mul(80).div(100))
+
+    IR:  otherHalf(uint256) := TMP_314(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1405]
+    LNE: otherHalf = liquifyAmount.sub(half.mul(80).div(100))
+
+    IR:  INTERNAL_CALL, Newspace.addLiquidity(uint256,uint256)(otherHalf,newBalance)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1417]
+    LNE: addLiquidity(otherHalf,newBalance)
+
+----------------------------------------
+
+## Path #38
+Source: external_input_params in MasterChef.withdraw
+Sink: tainted_state_changing_external_call in MasterChef.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+    LNE: (No direct expression available)
+
+    IR:  REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_289(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1997]
+    LNE: user.rewardDebt = user.amount.mul(pool.accNewspacePerShare).div(1e18)
+
+    IR:  TMP_564(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_289', 'REF_291'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1997]
+    LNE: user.rewardDebt = user.amount.mul(pool.accNewspacePerShare).div(1e18)
+
+----------------------------------------
+
+## Path #39
+Source: external_input_params in MasterChef.withdraw
+Sink: tainted_state_changing_external_call in MasterChef.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+    LNE: (No direct expression available)
+
+    IR:  REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_274(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1986, 1987, 1988]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #40
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in Newspace._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [868, 869, 870, 871]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [869]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_158(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #41
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in Newspace._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [868, 869, 870, 871]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [869]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_158(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #42
+Source: external_input_params in Newspace.updateMinAmountToLiquify
+Sink: tainted_state_changing_external_call in Newspace.swapAndLiquify
+
+### Operations with Source Code Mapping:
+    IR:  updateMinAmountToLiquify
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1510, 1511, 1512, 1513]
+    LNE: (No direct expression available)
+
+    IR:  minAmountToLiquify(uint256) := _minAmount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1512]
+    LNE: minAmountToLiquify = _minAmount
+
+    IR:  liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1401]
+    LNE: liquifyAmount = minAmountToLiquify
+
+    IR:  TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1404]
+    LNE: half = liquifyAmount.div(2)
+
+    IR:  half(uint256) := TMP_311(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1404]
+    LNE: half = liquifyAmount.div(2)
+
+    IR:  TMP_312(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['half', '80'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1405]
+    LNE: otherHalf = liquifyAmount.sub(half.mul(80).div(100))
+
+----------------------------------------
+
+## Path #43
+Source: external_input_params in MasterChef.pendingNewspace
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  pendingNewspace
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1860, 1861, 1862, 1863, 1864, 1865, 1866, 1867, 1868, 1869, 1870, 1871, 1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1880, 1881, 1882, 1883, 1884, 1885, 1886, 1887, 1888, 1889]
+    LNE: (No direct expression available)
+
+    IR:  REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_173(uint256) -> pool.accNewspacePerShare
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1863]
+    LNE: accNewspacePerShare = pool.accNewspacePerShare
+
+    IR:  accNewspacePerShare(uint256) := REF_173(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1863]
+    LNE: accNewspacePerShare = pool.accNewspacePerShare
+
+----------------------------------------
+
+## Path #44
+Source: external_input_params in MasterChef.withdraw
+Sink: tainted_state_changing_external_call in MasterChef.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+    LNE: (No direct expression available)
+
+    IR:  REF_270(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1982]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_270(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1982]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_286(uint256) -> pool.lpSupply
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1995]
+    LNE: pool.lpSupply = pool.lpSupply.sub(_amount)
+
+----------------------------------------
+
+## Path #45
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_260(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1972]
+    LNE: user.amount = user.amount.add(_amount)
+
+----------------------------------------
+
+## Path #46
+Source: external_input_params in MasterChef.withdraw
+Sink: tainted_state_changing_external_call in MasterChef.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+    LNE: (No direct expression available)
+
+    IR:  REF_271(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_272(MasterChef.UserInfo) -> REF_271[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_272(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1983]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_274(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1986, 1987, 1988]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_554(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_274', 'REF_276'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1986, 1987, 1988]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #47
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in Newspace.maxTransferAmount
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [868, 869, 870, 871]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [869]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_158(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  TMP_341(uint256) = INTERNAL_CALL, BEP20.totalSupply()()
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1462]
+    LNE: totalSupply().mul(maxTransferAmountRate).div(10000)
+
+----------------------------------------
+
+## Path #48
+Source: external_input_params in MasterChef.constructor
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1765, 1766, 1767, 1768, 1769, 1770, 1771]
+    LNE: (No direct expression available)
+
+    IR:  newspace(Newspace) := _newspace(Newspace)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1766]
+    LNE: newspace = _newspace
+
+    IR:  TMP_478(uint256) = HIGH_LEVEL_CALL, dest:newspace(Newspace), function:totalSupply, arguments:[]  
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1878, 1879, 1880]
+    LNE: totalRewards = newspace.totalSupply().add(devReward).add(newspaceReward)
+
+----------------------------------------
+
+## Path #49
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_erc20_transfer in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_240(IBEP20) -> pool.lpToken
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1960, 1961, 1962, 1963, 1964]
+    LNE: pool.lpToken.safeTransferFrom(address(msg.sender),address(this),_amount)
+
+----------------------------------------
+
+## Path #50
+Source: external_input_params in MasterChef.constructor
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1765, 1766, 1767, 1768, 1769, 1770, 1771]
+    LNE: (No direct expression available)
+
+    IR:  newspace(Newspace) := _newspace(Newspace)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1766]
+    LNE: newspace = _newspace
+
+    IR:  TMP_503(uint256) = HIGH_LEVEL_CALL, dest:newspace(Newspace), function:totalSupply, arguments:[]  
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1919, 1920, 1921]
+    LNE: totalRewards = newspace.totalSupply().add(devReward).add(newspaceReward)
+
+----------------------------------------
+
+## Path #51
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in BEP20._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [868, 869, 870, 871]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [869]
+    LNE: _mint(_msgSender(),amount)
+
+----------------------------------------
+
+## Path #52
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_erc20_transfer in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_249(IBEP20) -> pool.lpToken
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1968]
+    LNE: pool.lpToken.safeTransfer(feeAddress,depositFee)
+
+----------------------------------------
+
+## Path #53
+Source: external_input_params in Newspace.updateMinAmountToLiquify
+Sink: tainted_erc20_transfer in Newspace.swapTokensForEth
+
+### Operations with Source Code Mapping:
+    IR:  updateMinAmountToLiquify
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1510, 1511, 1512, 1513]
+    LNE: (No direct expression available)
+
+    IR:  minAmountToLiquify(uint256) := _minAmount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1512]
+    LNE: minAmountToLiquify = _minAmount
+
+    IR:  liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1401]
+    LNE: liquifyAmount = minAmountToLiquify
+
+    IR:  TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1404]
+    LNE: half = liquifyAmount.div(2)
+
+    IR:  half(uint256) := TMP_311(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1404]
+    LNE: half = liquifyAmount.div(2)
+
+    IR:  INTERNAL_CALL, Newspace.swapTokensForEth(uint256)(half)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1408]
+    LNE: swapTokensForEth(half)
+
+----------------------------------------
+
+## Path #54
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in BEP20._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [868, 869, 870, 871]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [869]
+    LNE: _mint(_msgSender(),amount)
+
+----------------------------------------
+
+## Path #55
+Source: external_input_params in MasterChef.getMultiplier
+Sink: tainted_state_changing_external_call in MasterChef.getMultiplier
+
+### Operations with Source Code Mapping:
+    IR:  getMultiplier
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1851, 1852, 1853]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #56
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in BEP20._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [868, 869, 870, 871]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [869]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_158(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #57
+Source: external_input_params in MasterChef.pendingNewspace
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  pendingNewspace
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1860, 1861, 1862, 1863, 1864, 1865, 1866, 1867, 1868, 1869, 1870, 1871, 1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1880, 1881, 1882, 1883, 1884, 1885, 1886, 1887, 1888, 1889]
+    LNE: (No direct expression available)
+
+    IR:  REF_171(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1862]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_172(MasterChef.UserInfo) -> REF_171[_user]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1862]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  user(MasterChef.UserInfo) := REF_172(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1862]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_193(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1888]
+    LNE: user.amount.mul(accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_489(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_193', 'accNewspacePerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1888]
+    LNE: user.amount.mul(accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #58
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_263(uint256) -> pool.lpSupply
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1973]
+    LNE: pool.lpSupply = pool.lpSupply.add(_amount)
+
+----------------------------------------
+
+## Path #59
+Source: external_input_params in MasterChef.emergencyWithdraw
+Sink: tainted_erc20_transfer in MasterChef.emergencyWithdraw
+
+### Operations with Source Code Mapping:
+    IR:  emergencyWithdraw
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
+    LNE: (No direct expression available)
+
+    IR:  REF_293(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [2003]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_293(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [2003]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_299(IBEP20) -> pool.lpToken
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [2008]
+    LNE: pool.lpToken.safeTransfer(address(msg.sender),amount)
+
+----------------------------------------
+
+## Path #60
+Source: external_input_params in Newspace.updateMinAmountToLiquify
+Sink: tainted_state_changing_external_call in Newspace.swapAndLiquify
+
+### Operations with Source Code Mapping:
+    IR:  updateMinAmountToLiquify
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1510, 1511, 1512, 1513]
+    LNE: (No direct expression available)
+
+    IR:  minAmountToLiquify(uint256) := _minAmount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1512]
+    LNE: minAmountToLiquify = _minAmount
+
+    IR:  liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1401]
+    LNE: liquifyAmount = minAmountToLiquify
+
+    IR:  TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1404]
+    LNE: half = liquifyAmount.div(2)
+
+    IR:  half(uint256) := TMP_311(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1404]
+    LNE: half = liquifyAmount.div(2)
+
+----------------------------------------
+
+## Path #61
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_232(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_523(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_232', 'REF_234'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_524(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_523', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1949, 1950, 1951, 1952, 1953]
+    LNE: pending = user.amount.mul(pool.accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #62
+Source: external_input_params in MasterChef.pendingNewspace
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  pendingNewspace
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1860, 1861, 1862, 1863, 1864, 1865, 1866, 1867, 1868, 1869, 1870, 1871, 1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1880, 1881, 1882, 1883, 1884, 1885, 1886, 1887, 1888, 1889]
+    LNE: (No direct expression available)
+
+    IR:  REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_176(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_473(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_176,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_473(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_475(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_474', 'REF_179'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_476(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_475', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  newspaceReward(uint256) := TMP_476(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #63
+Source: external_input_params in MasterChef.updatePool
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  updatePool
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1900, 1901, 1902, 1903, 1904, 1905, 1906, 1907, 1908, 1909, 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936, 1937, 1938, 1939, 1940, 1941]
+    LNE: (No direct expression available)
+
+    IR:  REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_204(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_498(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #64
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_256(uint256) -> pool.lpSupply
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1970]
+    LNE: pool.lpSupply = pool.lpSupply.add(_amount).sub(depositFee)
+
+    IR:  TMP_543(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_256', '_amount'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1970]
+    LNE: pool.lpSupply = pool.lpSupply.add(_amount).sub(depositFee)
+
+----------------------------------------
+
+## Path #65
+Source: external_input_params in MasterChef.updatePool
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  updatePool
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1900, 1901, 1902, 1903, 1904, 1905, 1906, 1907, 1908, 1909, 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936, 1937, 1938, 1939, 1940, 1941]
+    LNE: (No direct expression available)
+
+    IR:  REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_204(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_498(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  newspaceReward(uint256) := TMP_501(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #66
+Source: external_input_params in MasterChef.withdraw
+Sink: tainted_erc20_transfer in MasterChef.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+    LNE: (No direct expression available)
+
+    IR:  REF_270(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1982]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_270(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1982]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_283(IBEP20) -> pool.lpToken
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1994]
+    LNE: pool.lpToken.safeTransfer(address(msg.sender),_amount)
+
+----------------------------------------
+
+## Path #67
+Source: external_input_params in Newspace.updateSwapRouter
+Sink: tainted_state_changing_external_call in Newspace.updateSwapRouter
+
+### Operations with Source Code Mapping:
+    IR:  updateSwapRouter
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1537, 1538, 1539, 1540, 1541, 1542, 1543]
+    LNE: (No direct expression available)
+
+    IR:  TMP_368 = CONVERT _router to IUniswapV2Router02
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1539]
+    LNE: swapRouter = IUniswapV2Router02(_router)
+
+    IR:  swapRouter(IUniswapV2Router02) := TMP_368(IUniswapV2Router02)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1539]
+    LNE: swapRouter = IUniswapV2Router02(_router)
+
+    IR:  TMP_372(address) = HIGH_LEVEL_CALL, dest:swapRouter(IUniswapV2Router02), function:WETH, arguments:[]  
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1540]
+    LNE: swapPair = IUniswapV2Factory(swapRouter.factory()).getPair(address(this),swapRouter.WETH())
+
+----------------------------------------
+
+## Path #68
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  TMP_538(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', 'REF_247'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1967]
+    LNE: depositFee = _amount.mul(pool.depositFeeBP).div(10000)
+
+----------------------------------------
+
+## Path #69
+Source: external_input_params in MasterChef.pendingNewspace
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  pendingNewspace
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1860, 1861, 1862, 1863, 1864, 1865, 1866, 1867, 1868, 1869, 1870, 1871, 1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1880, 1881, 1882, 1883, 1884, 1885, 1886, 1887, 1888, 1889]
+    LNE: (No direct expression available)
+
+    IR:  REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_176(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_473(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_176,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_473(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+----------------------------------------
+
+## Path #70
+Source: external_input_params in MasterChef.emergencyWithdraw
+Sink: tainted_state_changing_external_call in MasterChef.emergencyWithdraw
+
+### Operations with Source Code Mapping:
+    IR:  emergencyWithdraw
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
+    LNE: (No direct expression available)
+
+    IR:  REF_293(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [2003]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_293(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [2003]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_303(uint256) -> pool.lpSupply
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [2011]
+    LNE: pool.lpSupply = pool.lpSupply.sub(amount)
+
+----------------------------------------
+
+## Path #71
+Source: external_input_params in MasterChef.updatePool
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  updatePool
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1900, 1901, 1902, 1903, 1904, 1905, 1906, 1907, 1908, 1909, 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936, 1937, 1938, 1939, 1940, 1941]
+    LNE: (No direct expression available)
+
+    IR:  REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_204(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_498(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  newspaceReward(uint256) := TMP_501(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #72
+Source: external_input_params in MasterChef.constructor
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1765, 1766, 1767, 1768, 1769, 1770, 1771]
+    LNE: (No direct expression available)
+
+    IR:  newspace(Newspace) := _newspace(Newspace)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1766]
+    LNE: newspace = _newspace
+
+    IR:  TMP_503(uint256) = HIGH_LEVEL_CALL, dest:newspace(Newspace), function:totalSupply, arguments:[]  
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1919, 1920, 1921]
+    LNE: totalRewards = newspace.totalSupply().add(devReward).add(newspaceReward)
+
+    IR:  TMP_504(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_503', 'devReward'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1919, 1920, 1921]
+    LNE: totalRewards = newspace.totalSupply().add(devReward).add(newspaceReward)
+
+----------------------------------------
+
+## Path #73
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_228(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_228(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1945]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_242(IBEP20) -> pool.lpToken
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1965]
+    LNE: _amount = pool.lpToken.balanceOf(address(this)).sub(balanceBefore)
+
+    IR:  TMP_535(uint256) = HIGH_LEVEL_CALL, dest:REF_242(IBEP20), function:balanceOf, arguments:['TMP_534']  
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1965]
+    LNE: _amount = pool.lpToken.balanceOf(address(this)).sub(balanceBefore)
+
+----------------------------------------
+
+## Path #74
+Source: external_input_params in Newspace.mint
+Sink: tainted_state_changing_external_call in Newspace._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1354, 1355, 1356]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1355]
+    LNE: _mint(_to,_amount)
+
+    IR:  REF_82(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [915]
+    LNE: _balances[account] = _balances[account].add(amount)
+
+----------------------------------------
+
+## Path #75
+Source: external_input_params in MasterChef.pendingNewspace
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  pendingNewspace
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1860, 1861, 1862, 1863, 1864, 1865, 1866, 1867, 1868, 1869, 1870, 1871, 1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1880, 1881, 1882, 1883, 1884, 1885, 1886, 1887, 1888, 1889]
+    LNE: (No direct expression available)
+
+    IR:  REF_171(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1862]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_172(MasterChef.UserInfo) -> REF_171[_user]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1862]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  user(MasterChef.UserInfo) := REF_172(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1862]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_193(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1888]
+    LNE: user.amount.mul(accNewspacePerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #76
+Source: external_input_params in BEP20.mint
+Sink: tainted_state_changing_external_call in Newspace.maxTransferAmount
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [868, 869, 870, 871]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_140,amount)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [869]
+    LNE: _mint(_msgSender(),amount)
+
+    IR:  TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_158(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [914]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  TMP_341(uint256) = INTERNAL_CALL, BEP20.totalSupply()()
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1462]
+    LNE: totalSupply().mul(maxTransferAmountRate).div(10000)
+
+    IR:  TMP_342(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_341', 'maxTransferAmountRate'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1462]
+    LNE: totalSupply().mul(maxTransferAmountRate).div(10000)
+
+----------------------------------------
+
+## Path #77
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+    IR:  REF_229(mapping(address => MasterChef.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_230(MasterChef.UserInfo) -> REF_229[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(MasterChef.UserInfo) := REF_230(MasterChef.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1946]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_266(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1976]
+    LNE: user.rewardDebt = user.amount.mul(pool.accNewspacePerShare).div(1e18)
+
+    IR:  TMP_547(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_266', 'REF_268'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1976]
+    LNE: user.rewardDebt = user.amount.mul(pool.accNewspacePerShare).div(1e18)
+
+----------------------------------------
+
+## Path #78
+Source: external_input_params in BEP20.transfer
+Sink: tainted_erc20_transfer in BEP20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [770, 771, 772, 773]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #79
+Source: external_input_params in MasterChef.updatePool
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  updatePool
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1900, 1901, 1902, 1903, 1904, 1905, 1906, 1907, 1908, 1909, 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936, 1937, 1938, 1939, 1940, 1941]
+    LNE: (No direct expression available)
+
+    IR:  REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_204(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_498(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_204,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_498(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1909, 1910, 1911, 1912]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_499(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_500(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_499', 'REF_207'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_501(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_500', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  newspaceReward(uint256) := TMP_501(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1913, 1914, 1915, 1916]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_518(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['newspaceReward', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1935, 1936, 1937]
+    LNE: pool.accNewspacePerShare = pool.accNewspacePerShare.add(newspaceReward.mul(1e18).div(pool.lpSupply))
+
+----------------------------------------
+
+## Path #80
+Source: external_input_params in MasterChef.pendingNewspace
+Sink: tainted_state_changing_external_call in MasterChef.pendingNewspace
+
+### Operations with Source Code Mapping:
+    IR:  pendingNewspace
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1860, 1861, 1862, 1863, 1864, 1865, 1866, 1867, 1868, 1869, 1870, 1871, 1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1880, 1881, 1882, 1883, 1884, 1885, 1886, 1887, 1888, 1889]
+    LNE: (No direct expression available)
+
+    IR:  REF_170(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_170(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1861]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_176(uint256) -> pool.lastRewardSecond
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_473(uint256) = INTERNAL_CALL, MasterChef.getMultiplier(uint256,uint256)(REF_176,block.timestamp)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  multiplier(uint256) := TMP_473(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1869, 1870, 1871, 1872]
+    LNE: multiplier = getMultiplier(pool.lastRewardSecond,block.timestamp)
+
+    IR:  TMP_474(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'NewspacePerSecond'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_475(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_474', 'REF_179'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_476(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_475', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  newspaceReward(uint256) := TMP_476(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1873, 1874, 1875, 1876]
+    LNE: newspaceReward = multiplier.mul(NewspacePerSecond).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #81
+Source: external_input_params in MasterChef.deposit
+Sink: tainted_state_changing_external_call in MasterChef.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #82
+Source: external_input_params in MasterChef.constructor
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1765, 1766, 1767, 1768, 1769, 1770, 1771]
+    LNE: (No direct expression available)
+
+    IR:  devaddr(address) := _devaddr(address)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1767]
+    LNE: devaddr = _devaddr
+
+----------------------------------------
+
+## Path #83
+Source: external_input_params in Newspace.updateMinAmountToLiquify
+Sink: tainted_state_changing_external_call in Newspace.swapAndLiquify
+
+### Operations with Source Code Mapping:
+    IR:  updateMinAmountToLiquify
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1510, 1511, 1512, 1513]
+    LNE: (No direct expression available)
+
+    IR:  minAmountToLiquify(uint256) := _minAmount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1512]
+    LNE: minAmountToLiquify = _minAmount
+
+    IR:  liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1401]
+    LNE: liquifyAmount = minAmountToLiquify
+
+----------------------------------------
+
+## Path #84
+Source: external_input_params in MasterChef.updatePool
+Sink: tainted_state_changing_external_call in MasterChef.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  updatePool
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1900, 1901, 1902, 1903, 1904, 1905, 1906, 1907, 1908, 1909, 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936, 1937, 1938, 1939, 1940, 1941]
+    LNE: (No direct expression available)
+
+    IR:  REF_199(MasterChef.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(MasterChef.PoolInfo) := REF_199(MasterChef.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1901]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_222(uint256) -> pool.accNewspacePerShare
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1935, 1936, 1937]
+    LNE: pool.accNewspacePerShare = pool.accNewspacePerShare.add(newspaceReward.mul(1e18).div(pool.lpSupply))
+
+----------------------------------------
+
+## Path #85
+Source: external_input_params in Newspace.updateMinAmountToLiquify
+Sink: tainted_state_changing_external_call in Newspace.swapAndLiquify
+
+### Operations with Source Code Mapping:
+    IR:  updateMinAmountToLiquify
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1510, 1511, 1512, 1513]
+    LNE: (No direct expression available)
+
+    IR:  minAmountToLiquify(uint256) := _minAmount(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1512]
+    LNE: minAmountToLiquify = _minAmount
+
+    IR:  liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9935b48f_NewSpace Finance/flattened.sol', Lines [1401]
+    LNE: liquifyAmount = minAmountToLiquify
+
+----------------------------------------

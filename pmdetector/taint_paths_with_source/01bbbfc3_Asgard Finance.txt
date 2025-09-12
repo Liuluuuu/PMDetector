@@ -1,0 +1,556 @@
+# Taint Analysis Results with Source Code Mapping
+Found 30 tainted paths.
+
+## Path #1
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1078, 1079, 1080, 1081, 1082, 1083, 1084, 1085, 1086, 1087, 1088, 1089]
+    LNE: (No direct expression available)
+
+    IR:  REF_76(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1080, 1081, 1082, 1083, 1084, 1085, 1086, 1087]
+    LNE: _approve(sender,msg.sender,_allowances[sender][msg.sender].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_77(uint256) -> REF_76[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1080, 1081, 1082, 1083, 1084, 1085, 1086, 1087]
+    LNE: _approve(sender,msg.sender,_allowances[sender][msg.sender].sub(amount,ERC20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_state_changing_external_call in ERC20Permit._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_582(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in TWAPOracleUpdater.addTWAPSource
+Sink: tainted_state_changing_external_call in TWAPOracleUpdater.addTWAPSource
+
+### Operations with Source Code Mapping:
+    IR:  addTWAPSource
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1564, 1565, 1566, 1567, 1568, 1569, 1570]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in ERC20Permit.permit
+Sink: tainted_state_changing_external_call in ERC20Permit.permit
+
+### Operations with Source Code Mapping:
+    IR:  permit
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1390, 1391, 1392, 1393, 1394, 1395, 1396, 1397, 1398, 1399, 1400, 1401, 1402, 1403, 1404, 1405, 1406, 1407, 1408, 1409, 1410, 1411, 1412, 1413, 1414, 1415, 1416]
+    LNE: (No direct expression available)
+
+    IR:  REF_139(Counters.Counter) -> _nonces[owner]
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1414]
+    LNE: _nonces[owner].increment()
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in TWAPOracleUpdater.changeTWAPEpochPeriod
+Sink: tainted_state_changing_external_call in Divine._uodateTWAPOracle
+
+### Operations with Source Code Mapping:
+    IR:  changeTWAPEpochPeriod
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1555, 1556, 1557, 1558, 1559, 1560, 1561, 1562]
+    LNE: (No direct expression available)
+
+    IR:  twapEpochPeriod(uint256) := newTWAPEpochPeriod_(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1561]
+    LNE: twapEpochPeriod = newTWAPEpochPeriod_
+
+    IR:  INTERNAL_CALL, TWAPOracleUpdater._uodateTWAPOracle(address,uint256)(from_,twapEpochPeriod)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1598]
+    LNE: _uodateTWAPOracle(from_,twapEpochPeriod)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_erc20_transfer in AsgardERC20Token._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_state_changing_external_call in AsgardERC20Token._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_582(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_state_changing_external_call in TWAPOracleUpdater._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_582(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_state_changing_external_call in Divine._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_582(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in ERC20Permit.nonces
+Sink: tainted_state_changing_external_call in ERC20Permit.nonces
+
+### Operations with Source Code Mapping:
+    IR:  nonces
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1421, 1422, 1423]
+    LNE: (No direct expression available)
+
+    IR:  REF_141(Counters.Counter) -> _nonces[owner]
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1422]
+    LNE: _nonces[owner].current()
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_state_changing_external_call in ERC20._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_582(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_state_changing_external_call in ERC20._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_582(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in TWAPOracleUpdater.removeTWAPSource
+Sink: tainted_erc20_transfer in TWAPOracleUpdater.removeTWAPSource
+
+### Operations with Source Code Mapping:
+    IR:  removeTWAPSource
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1572, 1573, 1574, 1575, 1576, 1577, 1578]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in ERC20.decreaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1134, 1135, 1136, 1137, 1138, 1139, 1140, 1141, 1142, 1143, 1144]
+    LNE: (No direct expression available)
+
+    IR:  REF_83(uint256) -> REF_82[spender]
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1135, 1136, 1137, 1138, 1139, 1140, 1141, 1142]
+    LNE: _approve(msg.sender,spender,_allowances[msg.sender][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_state_changing_external_call in AsgardERC20Token._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_582(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in ERC20.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1107, 1108, 1109, 1110, 1111, 1112, 1113, 1114]
+    LNE: (No direct expression available)
+
+    IR:  REF_80(uint256) -> REF_79[spender]
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1108, 1109, 1110, 1111, 1112]
+    LNE: _approve(msg.sender,spender,_allowances[msg.sender][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in TWAPOracleUpdater.changeTWAPEpochPeriod
+Sink: tainted_state_changing_external_call in AsgardERC20Token._uodateTWAPOracle
+
+### Operations with Source Code Mapping:
+    IR:  changeTWAPEpochPeriod
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1555, 1556, 1557, 1558, 1559, 1560, 1561, 1562]
+    LNE: (No direct expression available)
+
+    IR:  twapEpochPeriod(uint256) := newTWAPEpochPeriod_(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1561]
+    LNE: twapEpochPeriod = newTWAPEpochPeriod_
+
+    IR:  INTERNAL_CALL, TWAPOracleUpdater._uodateTWAPOracle(address,uint256)(from_,twapEpochPeriod)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1598]
+    LNE: _uodateTWAPOracle(from_,twapEpochPeriod)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_state_changing_external_call in TWAPOracleUpdater._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_582(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_state_changing_external_call in Divine._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_582(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in ERC20Permit.permit
+Sink: tainted_state_changing_external_call in ERC20Permit.permit
+
+### Operations with Source Code Mapping:
+    IR:  permit
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1390, 1391, 1392, 1393, 1394, 1395, 1396, 1397, 1398, 1399, 1400, 1401, 1402, 1403, 1404, 1405, 1406, 1407, 1408, 1409, 1410, 1411, 1412, 1413, 1414, 1415, 1416]
+    LNE: (No direct expression available)
+
+    IR:  REF_136(Counters.Counter) -> _nonces[owner]
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1393, 1394, 1395, 1396, 1397, 1398, 1399, 1400, 1401, 1402]
+    LNE: hashStruct = keccak256(bytes)(abi.encode(PERMIT_TYPEHASH,owner,spender,amount,_nonces[owner].current(),deadline))
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1078, 1079, 1080, 1081, 1082, 1083, 1084, 1085, 1086, 1087, 1088, 1089]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1079]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in AsgardERC20Token.burnFrom
+Sink: tainted_state_changing_external_call in AsgardERC20Token._burnFrom
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1656, 1657, 1658]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, AsgardERC20Token._burnFrom(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1657]
+    LNE: _burnFrom(account_,amount_)
+
+    IR:  TMP_607(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account_,msg.sender)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1661, 1662, 1663, 1664]
+    LNE: decreasedAllowance_ = allowance(account_,msg.sender).sub(amount_,ERC20: burn amount exceeds allowance)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1078, 1079, 1080, 1081, 1082, 1083, 1084, 1085, 1086, 1087, 1088, 1089]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1079]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_86(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1170, 1171, 1172, 1173]
+    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in AsgardERC20Token.burnFrom
+Sink: tainted_state_changing_external_call in AsgardERC20Token._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1656, 1657, 1658]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, AsgardERC20Token._burnFrom(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1657]
+    LNE: _burnFrom(account_,amount_)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1667]
+    LNE: _burn(account_,amount_)
+
+    IR:  REF_267(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1213, 1214, 1215, 1216]
+    LNE: _balances[account] = _balances[account].sub(amount,ERC20: burn amount exceeds balance)
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_state_changing_external_call in AsgardERC20Token._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+    IR:  REF_264(uint256) -> _balances[account_]
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1192]
+    LNE: _balances[account_] = _balances[account_].add(amount_)
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in AsgardERC20Token.burnFrom
+Sink: tainted_erc20_transfer in AsgardERC20Token._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1656, 1657, 1658]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, AsgardERC20Token._burnFrom(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1657]
+    LNE: _burnFrom(account_,amount_)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1667]
+    LNE: _burn(account_,amount_)
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in ERC20.transfer
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1024]
+    LNE: _transfer(msg.sender,recipient,amount)
+
+    IR:  REF_89(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1174]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in AsgardERC20Token.mint
+Sink: tainted_state_changing_external_call in ERC20Permit._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1621, 1622, 1623]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1622]
+    LNE: _mint(account_,amount_)
+
+    IR:  TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+    IR:  _totalSupply(uint256) := TMP_582(uint256)
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1191]
+    LNE: _totalSupply = _totalSupply.add(amount_)
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/01bbbfc3_Asgard Finance/flattened.sol', Lines [1078, 1079, 1080, 1081, 1082, 1083, 1084, 1085, 1086, 1087, 1088, 1089]
+    LNE: (No direct expression available)
+
+----------------------------------------

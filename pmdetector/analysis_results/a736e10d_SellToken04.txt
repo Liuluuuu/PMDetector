@@ -1,0 +1,365 @@
+=== PMDetector Taint Analysis Results ===
+Found 11 taint sources
+Found 28 taint sinks
+Found 14 tainted paths (filtered from 14 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #2: external_input_params
+  Contract: miner
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _admin
+
+Source #3: external_input_params
+  Contract: miner
+  Function: setAdmin
+  Operation: setAdmin
+  Tainted Variables: addr
+
+Source #4: external_input_params
+  Contract: miner
+  Function: setBNB
+  Operation: setBNB
+  Tainted Variables: token
+
+Source #5: external_input_params
+  Contract: miner
+  Function: setBNB
+  Operation: setBNB
+  Tainted Variables: token1
+
+Source #6: msg.value
+  Contract: miner
+  Function: setBNB
+  Operation: _bnb(uint256) := msg.value(uint256)
+  Tainted Variables: _bnb
+
+Source #7: external_input_params
+  Contract: miner
+  Function: sendMiner
+  Operation: sendMiner
+  Tainted Variables: token
+
+Source #8: external_input_params
+  Contract: miner
+  Function: Resupply
+  Operation: Resupply
+  Tainted Variables: token
+
+Source #9: external_input_params
+  Contract: miner
+  Function: getMiner
+  Operation: getMiner
+  Tainted Variables: token
+
+Source #10: external_input_params
+  Contract: miner
+  Function: getMiner1s
+  Operation: getMiner1s
+  Tainted Variables: token
+
+Source #11: external_input_params
+  Contract: miner
+  Function: getF
+  Operation: getF
+  Tainted Variables: b
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: INTERNAL_CALL, Ownable._transferOwnership(address)(newOwner)
+  Tainted Variable: newOwner
+
+Sink #2: tainted_control_flow_transfer
+  Contract: miner
+  Function: _checkOwner
+  Operation: TMP_19(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #3: tainted_control_flow_external_call
+  Contract: miner
+  Function: setBNB
+  Operation: TMP_59(uint256) = HIGH_LEVEL_CALL, dest:TMP_57(IERC20), function:balanceOf, arguments:['TMP_58']  
+
+Sink #4: tainted_erc20_transfer
+  Contract: miner
+  Function: setBNB
+  Operation: TMP_68(bool) = HIGH_LEVEL_CALL, dest:TMP_65(IERC20), function:transfer, arguments:['57005', 'TMP_67']  
+  Tainted Variable: TMP_67
+
+Sink #5: tainted_control_flow_external_call
+  Contract: miner
+  Function: _addL
+  Operation: TMP_98(uint256) = HIGH_LEVEL_CALL, dest:TMP_96(IERC20), function:balanceOf, arguments:['TMP_97']  
+
+Sink #6: tainted_state_changing_external_call
+  Contract: miner
+  Function: _addL
+  Operation: TUPLE_0(uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_102(IRouter), function:addLiquidityETH, arguments:['_token', 'amount1', '0', '0', 'to', 'block.timestamp'] value:amount0 
+  Tainted Variable: _token
+
+Sink #7: tainted_state_changing_external_call
+  Contract: miner
+  Function: _addL
+  Operation: TUPLE_1(uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_105(IRouter), function:addLiquidity, arguments:['_token', 'token1', 'TMP_108', 'amount1', '0', '0', 'to', 'block.timestamp']  
+  Tainted Variable: _token
+
+Sink #8: tainted_control_flow_transfer
+  Contract: miner
+  Function: sendMiner
+  Operation: TMP_114(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #9: tainted_control_flow_transfer
+  Contract: miner
+  Function: sendMiner
+  Operation: TMP_125(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #10: tainted_control_flow_transfer
+  Contract: miner
+  Function: sendMiner
+  Operation: TMP_141(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #11: tainted_control_flow_external_call
+  Contract: miner
+  Function: sendMiner
+  Operation: TMP_142(uint256) = HIGH_LEVEL_CALL, dest:TMP_140(IERC20), function:balanceOf, arguments:['TMP_141']  
+
+Sink #12: tainted_erc20_transfer
+  Contract: miner
+  Function: sendMiner
+  Operation: TMP_146(bool) = HIGH_LEVEL_CALL, dest:TMP_144(IERC20), function:transfer, arguments:['TMP_145', 'agk']  
+  Tainted Variable: agk
+
+Sink #13: tainted_control_flow_transfer
+  Contract: miner
+  Function: Resupply
+  Operation: TMP_155(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #14: tainted_control_flow_transfer
+  Contract: miner
+  Function: Resupply
+  Operation: TMP_160(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #15: tainted_control_flow_transfer
+  Contract: miner
+  Function: Resupply
+  Operation: TMP_171(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #16: tainted_control_flow_external_call
+  Contract: miner
+  Function: Resupply
+  Operation: TMP_206(uint256) = HIGH_LEVEL_CALL, dest:TMP_204(IERC20), function:balanceOf, arguments:['TMP_205']  
+
+Sink #17: tainted_erc20_transfer
+  Contract: miner
+  Function: Resupply
+  Operation: TMP_215(bool) = HIGH_LEVEL_CALL, dest:TMP_212(IERC20), function:transfer, arguments:['57005', 'TMP_214']  
+  Tainted Variable: TMP_214
+
+Sink #18: tainted_erc20_transfer
+  Contract: miner
+  Function: _buy
+  Operation: HIGH_LEVEL_CALL, dest:TMP_234(IRouter), function:swapExactETHForTokensSupportingFeeOnTransferTokens, arguments:['TMP_236', 'path', 'TMP_237', 'block.timestamp'] value:amount0In 
+  Tainted Variable: TMP_236
+
+Sink #19: tainted_state_changing_external_call
+  Contract: miner
+  Function: _buy
+  Operation: TMP_246(uint256[]) = HIGH_LEVEL_CALL, dest:TMP_242(IRouter), function:swapExactETHForTokens, arguments:['TMP_244', 'path_scope_0', 'TMP_245', 'block.timestamp'] value:amount0In 
+  Tainted Variable: TMP_244
+
+Sink #20: tainted_erc20_transfer
+  Contract: miner
+  Function: _sell
+  Operation: HIGH_LEVEL_CALL, dest:TMP_250(IRouter), function:swapExactTokensForETHSupportingFeeOnTransferTokens, arguments:['tokenAmount', '0', 'path', 'to', 'block.timestamp']  
+  Tainted Variable: tokenAmount
+
+Sink #21: tainted_state_changing_external_call
+  Contract: miner
+  Function: _sell
+  Operation: TMP_256(uint256[]) = HIGH_LEVEL_CALL, dest:TMP_255(IRouter), function:swapExactTokensForETH, arguments:['tokenAmount', '0', 'path_scope_0', 'to', 'block.timestamp']  
+  Tainted Variable: tokenAmount
+
+Sink #22: tainted_state_changing_external_call
+  Contract: miner
+  Function: getTokenPrice
+  Operation: TMP_265(uint256[]) = HIGH_LEVEL_CALL, dest:TMP_264(IRouter), function:getAmountsOut, arguments:['bnb', 'routePath']  
+  Tainted Variable: bnb
+
+Sink #23: tainted_state_changing_external_call
+  Contract: miner
+  Function: getTokenPrice
+  Operation: TMP_269(uint256[]) = HIGH_LEVEL_CALL, dest:TMP_268(IRouter), function:getAmountsOut, arguments:['bnb', 'routePath_scope_0']  
+  Tainted Variable: bnb
+
+Sink #24: tainted_state_changing_external_call
+  Contract: miner
+  Function: getToken2Price
+  Operation: TMP_279(uint256[]) = HIGH_LEVEL_CALL, dest:TMP_278(IRouter), function:getAmountsOut, arguments:['bnb', 'routePath']  
+  Tainted Variable: bnb
+
+Sink #25: tainted_state_changing_external_call
+  Contract: miner
+  Function: getToken2Price
+  Operation: TMP_283(uint256[]) = HIGH_LEVEL_CALL, dest:TMP_282(IRouter), function:getAmountsOut, arguments:['bnb', 'routePath_scope_0']  
+  Tainted Variable: bnb
+
+Sink #26: tainted_state_changing_external_call
+  Contract: miner
+  Function: getbnb
+  Operation: TMP_312(uint256[]) = HIGH_LEVEL_CALL, dest:TMP_311(IRouter), function:getAmountsOut, arguments:['bnb', 'routePath']  
+  Tainted Variable: bnb
+
+Sink #27: tainted_state_changing_external_call
+  Contract: miner
+  Function: getbnb
+  Operation: TMP_316(uint256[]) = HIGH_LEVEL_CALL, dest:TMP_315(IRouter), function:getAmountsOut, arguments:['bnb', 'routePath_scope_0']  
+  Tainted Variable: bnb
+
+Sink #28: tainted_control_flow_transfer
+  Contract: Ownable
+  Function: _checkOwner
+  Operation: TMP_3(address) = INTERNAL_CALL, Context._msgSender()()
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in miner.Resupply
+  Sink: tainted_state_changing_external_call in miner.getToken2Price
+  Path Operations:
+    1. Resupply
+    2. TMP_184(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_139)
+    3. TMP_185(uint256) = TMP_184 (c)* _day
+    4. coin(uint256) = coin (c)+ TMP_185
+    5. TMP_191(uint256) = INTERNAL_CALL, miner.getToken2Price(address,address,uint256)(token,token1,coin)
+
+Path #2:
+  Source: external_input_params in miner.sendMiner
+  Sink: tainted_erc20_transfer in miner.sendMiner
+  Path Operations:
+    1. sendMiner
+    2. TMP_138(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_77)
+    3. TMP_139(uint256) = TMP_138 (c)* _day
+    4. agk(uint256) := TMP_139(uint256)
+
+Path #3:
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Path Operations:
+    1. transferOwnership
+
+Path #4:
+  Source: external_input_params in miner.Resupply
+  Sink: tainted_state_changing_external_call in miner._sell
+  Path Operations:
+    1. Resupply
+    2. TMP_184(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_139)
+    3. TMP_185(uint256) = TMP_184 (c)* _day
+    4. coin(uint256) = coin (c)+ TMP_185
+    5. INTERNAL_CALL, miner._sell(address,address,uint256,uint256,uint256,address)(token,token1,_bnb,REF_160,coin,TMP_192)
+
+Path #5:
+  Source: external_input_params in miner.setBNB
+  Sink: tainted_state_changing_external_call in miner._addL
+  Path Operations:
+    1. setBNB
+    2. INTERNAL_CALL, miner._addL(address,address,uint256,uint256,address)(token,token1,TMP_73,coin,TMP_74)
+
+Path #6:
+  Source: external_input_params in miner.setBNB
+  Sink: tainted_state_changing_external_call in miner._addL
+  Path Operations:
+    1. setBNB
+    2. INTERNAL_CALL, miner._addL(address,address,uint256,uint256,address)(token,token1,TMP_73,coin,TMP_74)
+
+Path #7:
+  Source: external_input_params in miner.setBNB
+  Sink: tainted_state_changing_external_call in miner._buy
+  Path Operations:
+    1. setBNB
+    2. INTERNAL_CALL, miner._buy(address,address,uint256)(token1,token,TMP_51)
+    3. TMP_230(uint256) = INTERNAL_CALL, miner.getTokenPrice(address,address,uint256)(_token,bnbOrUsdt,amount0In)
+    4. min(uint256) := TMP_230(uint256)
+    5. TMP_243(uint256) = min (c)* 98
+    6. TMP_244(uint256) = TMP_243 (c)/ 100
+
+Path #8:
+  Source: external_input_params in miner.Resupply
+  Sink: tainted_erc20_transfer in miner._sell
+  Path Operations:
+    1. Resupply
+    2. TMP_184(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_139)
+    3. TMP_185(uint256) = TMP_184 (c)* _day
+    4. coin(uint256) = coin (c)+ TMP_185
+    5. INTERNAL_CALL, miner._sell(address,address,uint256,uint256,uint256,address)(token,token1,_bnb,REF_160,coin,TMP_192)
+
+Path #9:
+  Source: external_input_params in miner.Resupply
+  Sink: tainted_erc20_transfer in miner.Resupply
+  Path Operations:
+    1. Resupply
+    2. TMP_208 = CONVERT token to IERC20
+    3. TMP_210(uint256) = HIGH_LEVEL_CALL, dest:TMP_208(IERC20), function:balanceOf, arguments:['TMP_209']  
+    4. TMP_211(uint256) = TMP_210 (c)- oldCoin
+    5. ut(uint256) := TMP_211(uint256)
+    6. TMP_213(uint256) = ut (c)* 10
+    7. TMP_214(uint256) = TMP_213 (c)/ 100
+
+Path #10:
+  Source: external_input_params in miner.setBNB
+  Sink: tainted_erc20_transfer in miner._buy
+  Path Operations:
+    1. setBNB
+    2. INTERNAL_CALL, miner._buy(address,address,uint256)(token1,token,TMP_51)
+    3. TMP_230(uint256) = INTERNAL_CALL, miner.getTokenPrice(address,address,uint256)(_token,bnbOrUsdt,amount0In)
+    4. min(uint256) := TMP_230(uint256)
+    5. TMP_235(uint256) = min (c)* 98
+    6. TMP_236(uint256) = TMP_235 (c)/ 100
+
+Path #11:
+  Source: external_input_params in miner.setBNB
+  Sink: tainted_erc20_transfer in miner.setBNB
+  Path Operations:
+    1. setBNB
+    2. TMP_61 = CONVERT token to IERC20
+    3. TMP_63(uint256) = HIGH_LEVEL_CALL, dest:TMP_61(IERC20), function:balanceOf, arguments:['TMP_62']  
+    4. TMP_64(uint256) = TMP_63 (c)- oldCoin
+    5. ut(uint256) := TMP_64(uint256)
+    6. TMP_66(uint256) = ut (c)* 10
+    7. TMP_67(uint256) = TMP_66 (c)/ 100
+
+Path #12:
+  Source: external_input_params in miner.Resupply
+  Sink: tainted_state_changing_external_call in miner.getToken2Price
+  Path Operations:
+    1. Resupply
+    2. TMP_184(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_139)
+    3. TMP_185(uint256) = TMP_184 (c)* _day
+    4. coin(uint256) = coin (c)+ TMP_185
+    5. TMP_191(uint256) = INTERNAL_CALL, miner.getToken2Price(address,address,uint256)(token,token1,coin)
+
+Path #13:
+  Source: external_input_params in miner.sendMiner
+  Sink: tainted_state_changing_external_call in miner.getbnb
+  Path Operations:
+    1. sendMiner
+    2. REF_74(mapping(uint256 => miner.user)) -> selladdress[token]
+    3. REF_76(miner.user) -> REF_74[REF_75]
+    4. REF_77(uint256) -> REF_76.daybnb
+    5. TMP_138(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_77)
+
+Path #14:
+  Source: external_input_params in miner.sendMiner
+  Sink: tainted_state_changing_external_call in miner.getbnb
+  Path Operations:
+    1. sendMiner
+    2. REF_74(mapping(uint256 => miner.user)) -> selladdress[token]
+    3. REF_76(miner.user) -> REF_74[REF_75]
+    4. REF_77(uint256) -> REF_76.daybnb
+    5. TMP_138(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_77)

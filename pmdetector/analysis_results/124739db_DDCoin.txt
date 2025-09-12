@@ -1,0 +1,318 @@
+=== PMDetector Taint Analysis Results ===
+Found 34 taint sources
+Found 9 taint sinks
+Found 8 tainted paths (filtered from 8 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: Owned
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #2: msg.sender
+  Contract: Marketplace
+  Function: constructor
+  Operation: charge_address(address) := msg.sender(address)
+  Tainted Variables: charge_address
+
+Source #3: external_input_params
+  Contract: Marketplace
+  Function: setCharge
+  Operation: setCharge
+  Tainted Variables: _charge
+
+Source #4: external_input_params
+  Contract: Marketplace
+  Function: setAmountDoubleBuy
+  Operation: setAmountDoubleBuy
+  Tainted Variables: _double
+
+Source #5: external_input_params
+  Contract: Marketplace
+  Function: setAmountDoubleSell
+  Operation: setAmountDoubleSell
+  Tainted Variables: _double
+
+Source #6: external_input_params
+  Contract: Marketplace
+  Function: setAmountMaxBuy
+  Operation: setAmountMaxBuy
+  Tainted Variables: _amount
+
+Source #7: external_input_params
+  Contract: Marketplace
+  Function: setAmountMaxSell
+  Operation: setAmountMaxSell
+  Tainted Variables: _amount
+
+Source #8: external_input_params
+  Contract: Marketplace
+  Function: setCountHour
+  Operation: setCountHour
+  Tainted Variables: _hour
+
+Source #9: external_input_params
+  Contract: Marketplace
+  Function: setAmountMaxCountDay
+  Operation: setAmountMaxCountDay
+  Tainted Variables: _acount
+
+Source #10: external_input_params
+  Contract: Marketplace
+  Function: setSpace
+  Operation: setSpace
+  Tainted Variables: _hour
+
+Source #11: external_input_params
+  Contract: Marketplace
+  Function: setChargeAddress
+  Operation: setChargeAddress
+  Tainted Variables: _charge_address
+
+Source #12: external_input_params
+  Contract: Marketplace
+  Function: setNewPrice
+  Operation: setNewPrice
+  Tainted Variables: _price
+
+Source #13: external_input_params
+  Contract: Marketplace
+  Function: setPreAmountPrice
+  Operation: setPreAmountPrice
+  Tainted Variables: _amount
+
+Source #14: external_input_params
+  Contract: Marketplace
+  Function: setPreUpPrice
+  Operation: setPreUpPrice
+  Tainted Variables: _upPrice
+
+Source #15: external_input_params
+  Contract: Marketplace
+  Function: setLimitScale
+  Operation: setLimitScale
+  Tainted Variables: _limitScale
+
+Source #16: external_input_params
+  Contract: Marketplace
+  Function: setLimitAmount
+  Operation: setLimitAmount
+  Tainted Variables: acount
+
+Source #17: external_input_params
+  Contract: Marketplace
+  Function: setLimitAmount
+  Operation: setLimitAmount
+  Tainted Variables: amount
+
+Source #18: external_input_params
+  Contract: Marketplace
+  Function: setInvite
+  Operation: setInvite
+  Tainted Variables: account
+
+Source #19: external_input_params
+  Contract: Marketplace
+  Function: setInvite
+  Operation: setInvite
+  Tainted Variables: invite
+
+Source #20: external_input_params
+  Contract: Marketplace
+  Function: setPerUpAmount
+  Operation: setPerUpAmount
+  Tainted Variables: amount
+
+Source #21: external_input_params
+  Contract: Marketplace
+  Function: setInviteRadio
+  Operation: setInviteRadio
+  Tainted Variables: one
+
+Source #22: external_input_params
+  Contract: Marketplace
+  Function: setInviteRadio
+  Operation: setInviteRadio
+  Tainted Variables: two
+
+Source #23: external_input_params
+  Contract: Marketplace
+  Function: getLimitAmount
+  Operation: getLimitAmount
+  Tainted Variables: acount
+
+Source #24: external_input_params
+  Contract: Marketplace
+  Function: listItem
+  Operation: listItem
+  Tainted Variables: _amount
+
+Source #25: external_input_params
+  Contract: Marketplace
+  Function: listItem
+  Operation: listItem
+  Tainted Variables: invite
+
+Source #26: external_input_params
+  Contract: Marketplace
+  Function: sellItem
+  Operation: sellItem
+  Tainted Variables: _amount
+
+Source #27: external_input_params
+  Contract: Marketplace
+  Function: pay
+  Operation: pay
+  Tainted Variables: _amount
+
+Source #28: external_input_params
+  Contract: Marketplace
+  Function: payCoin
+  Operation: payCoin
+  Tainted Variables: _amount
+
+Source #29: external_input_params
+  Contract: Marketplace
+  Function: itemsWithLength
+  Operation: itemsWithLength
+  Tainted Variables: start
+
+Source #30: external_input_params
+  Contract: Marketplace
+  Function: itemsWithLength
+  Operation: itemsWithLength
+  Tainted Variables: end
+
+Source #31: external_input_params
+  Contract: Marketplace
+  Function: sellsWithLength
+  Operation: sellsWithLength
+  Tainted Variables: start
+
+Source #32: external_input_params
+  Contract: Marketplace
+  Function: sellsWithLength
+  Operation: sellsWithLength
+  Tainted Variables: end
+
+Source #33: external_input_params
+  Contract: Marketplace
+  Function: tradeById
+  Operation: tradeById
+  Tainted Variables: id
+
+Source #34: external_input_params
+  Contract: Marketplace
+  Function: itemById
+  Operation: itemById
+  Tainted Variables: id
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: Marketplace
+  Function: listItem
+  Operation: TMP_69(bool) = HIGH_LEVEL_CALL, dest:usdt(IERC20), function:transferFrom, arguments:['msg.sender', 'TMP_68', '_amount']  
+  Tainted Variable: _amount
+
+Sink #2: tainted_state_changing_external_call
+  Contract: Marketplace
+  Function: sellItem
+  Operation: TMP_131(bool) = HIGH_LEVEL_CALL, dest:usdt(IERC20), function:approve, arguments:['msg.sender', '_amount']  
+  Tainted Variable: _amount
+
+Sink #3: tainted_erc20_transfer
+  Contract: Marketplace
+  Function: sellItem
+  Operation: TMP_135(bool) = HIGH_LEVEL_CALL, dest:usdt(IERC20), function:transfer, arguments:['msg.sender', 'TMP_134']  
+  Tainted Variable: TMP_134
+
+Sink #4: tainted_erc20_transfer
+  Contract: Marketplace
+  Function: sellItem
+  Operation: TMP_139(bool) = HIGH_LEVEL_CALL, dest:usdt(IERC20), function:transfer, arguments:['charge_address', 'TMP_138']  
+  Tainted Variable: charge_address
+
+Sink #5: tainted_erc20_transfer
+  Contract: Marketplace
+  Function: sellItem
+  Operation: TMP_142(bool) = HIGH_LEVEL_CALL, dest:coin(IERC20), function:transferFrom, arguments:['msg.sender', 'REF_70', 'TMP_141']  
+  Tainted Variable: TMP_141
+
+Sink #6: tainted_state_changing_external_call
+  Contract: Marketplace
+  Function: pay
+  Operation: TMP_144(bool) = HIGH_LEVEL_CALL, dest:usdt(IERC20), function:approve, arguments:['msg.sender', '_amount']  
+  Tainted Variable: _amount
+
+Sink #7: tainted_erc20_transfer
+  Contract: Marketplace
+  Function: pay
+  Operation: TMP_145(bool) = HIGH_LEVEL_CALL, dest:usdt(IERC20), function:transfer, arguments:['msg.sender', '_amount']  
+  Tainted Variable: _amount
+
+Sink #8: tainted_state_changing_external_call
+  Contract: Marketplace
+  Function: payCoin
+  Operation: TMP_147(bool) = HIGH_LEVEL_CALL, dest:coin(IERC20), function:approve, arguments:['msg.sender', '_amount']  
+  Tainted Variable: _amount
+
+Sink #9: tainted_erc20_transfer
+  Contract: Marketplace
+  Function: payCoin
+  Operation: TMP_148(bool) = HIGH_LEVEL_CALL, dest:coin(IERC20), function:transfer, arguments:['msg.sender', '_amount']  
+  Tainted Variable: _amount
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in Marketplace.pay
+  Sink: tainted_state_changing_external_call in Marketplace.pay
+  Path Operations:
+    1. pay
+
+Path #2:
+  Source: external_input_params in Marketplace.listItem
+  Sink: tainted_erc20_transfer in Marketplace.listItem
+  Path Operations:
+    1. listItem
+
+Path #3:
+  Source: external_input_params in Marketplace.sellItem
+  Sink: tainted_erc20_transfer in Marketplace.sellItem
+  Path Operations:
+    1. sellItem
+    2. TMP_140(uint256) = _amount (c)/ REF_71
+    3. TMP_141(uint256) = TMP_140 (c)* 100
+
+Path #4:
+  Source: external_input_params in Marketplace.pay
+  Sink: tainted_erc20_transfer in Marketplace.pay
+  Path Operations:
+    1. pay
+
+Path #5:
+  Source: external_input_params in Marketplace.sellItem
+  Sink: tainted_state_changing_external_call in Marketplace.sellItem
+  Path Operations:
+    1. sellItem
+
+Path #6:
+  Source: external_input_params in Marketplace.payCoin
+  Sink: tainted_erc20_transfer in Marketplace.payCoin
+  Path Operations:
+    1. payCoin
+
+Path #7:
+  Source: external_input_params in Marketplace.payCoin
+  Sink: tainted_state_changing_external_call in Marketplace.payCoin
+  Path Operations:
+    1. payCoin
+
+Path #8:
+  Source: external_input_params in Marketplace.sellItem
+  Sink: tainted_erc20_transfer in Marketplace.sellItem
+  Path Operations:
+    1. sellItem
+    2. TMP_133(uint256) = _amount (c)* TMP_132
+    3. TMP_134(uint256) = TMP_133 (c)/ 1000

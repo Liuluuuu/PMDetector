@@ -1,0 +1,592 @@
+=== PMDetector Taint Analysis Results ===
+Found 32 taint sources
+Found 28 taint sinks
+Found 25 tainted paths (filtered from 25 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: name_
+
+Source #2: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: symbol_
+
+Source #3: external_input_params
+  Contract: ERC20
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #4: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: to
+
+Source #5: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #6: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: owner
+
+Source #7: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #8: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #9: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: amount
+
+Source #10: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: from
+
+Source #11: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: to
+
+Source #12: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #13: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: spender
+
+Source #14: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: addedValue
+
+Source #15: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: spender
+
+Source #16: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: subtractedValue
+
+Source #17: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #18: external_input_params
+  Contract: RewardManager
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: token_
+
+Source #19: external_input_params
+  Contract: RewardManager
+  Function: setAdminFeeShare
+  Operation: setAdminFeeShare
+  Tainted Variables: _adminFeeShareBP
+
+Source #20: external_input_params
+  Contract: RewardManager
+  Function: pendingReward
+  Operation: pendingReward
+  Tainted Variables: user_
+
+Source #21: external_input_params
+  Contract: Pool
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: router_
+
+Source #22: external_input_params
+  Contract: Pool
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: a_
+
+Source #23: external_input_params
+  Contract: Pool
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: feeShareBP_
+
+Source #24: external_input_params
+  Contract: Pool
+  Function: deposit
+  Operation: deposit
+  Tainted Variables: amount
+
+Source #25: external_input_params
+  Contract: Pool
+  Function: withdraw
+  Operation: withdraw
+  Tainted Variables: amountLp
+
+Source #26: external_input_params
+  Contract: Pool
+  Function: swapToVUsd
+  Operation: swapToVUsd
+  Tainted Variables: user
+
+Source #27: external_input_params
+  Contract: Pool
+  Function: swapToVUsd
+  Operation: swapToVUsd
+  Tainted Variables: amount
+
+Source #28: external_input_params
+  Contract: Pool
+  Function: swapFromVUsd
+  Operation: swapFromVUsd
+  Tainted Variables: user
+
+Source #29: external_input_params
+  Contract: Pool
+  Function: swapFromVUsd
+  Operation: swapFromVUsd
+  Tainted Variables: amount
+
+Source #30: external_input_params
+  Contract: Pool
+  Function: getY
+  Operation: getY
+  Tainted Variables: x
+
+Source #31: external_input_params
+  Contract: Pool
+  Function: setFeeShare
+  Operation: setFeeShare
+  Tainted Variables: _feeShareBP
+
+Source #32: external_input_params
+  Contract: Pool
+  Function: setRouter
+  Operation: setRouter
+  Tainted Variables: _router
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(owner,to,amount)
+  Tainted Variable: to
+
+Sink #2: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transferFrom
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #3: tainted_erc20_transfer
+  Contract: ERC20
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #4: tainted_erc20_transfer
+  Contract: ERC20
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._afterTokenTransfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #5: tainted_erc20_transfer
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: INTERNAL_CALL, Ownable._transferOwnership(address)(newOwner)
+  Tainted Variable: newOwner
+
+Sink #6: tainted_control_flow_transfer
+  Contract: RewardManager
+  Function: _checkOwner
+  Operation: TMP_688(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #7: tainted_erc20_transfer
+  Contract: RewardManager
+  Function: claimAdminFee
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['token', 'msg.sender', 'adminFeeAmount'] 
+  Tainted Variable: token
+
+Sink #8: tainted_erc20_transfer
+  Contract: RewardManager
+  Function: _depositLp
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['token', 'to', 'pending'] 
+  Tainted Variable: token
+
+Sink #9: tainted_erc20_transfer
+  Contract: RewardManager
+  Function: _withdrawLp
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['token', 'from', 'pending'] 
+  Tainted Variable: token
+
+Sink #10: tainted_erc20_transfer
+  Contract: RewardManager
+  Function: claimRewards
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['token', 'msg.sender', 'pending'] 
+  Tainted Variable: token
+
+Sink #11: tainted_control_flow_transfer
+  Contract: Pool
+  Function: _checkOwner
+  Operation: TMP_792(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #12: tainted_erc20_transfer
+  Contract: Pool
+  Function: deposit
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['token', 'msg.sender', 'TMP_825', 'amount'] 
+  Tainted Variable: token
+
+Sink #13: tainted_erc20_transfer
+  Contract: Pool
+  Function: withdraw
+  Operation: INTERNAL_CALL, RewardManager._withdrawLp(address,uint256)(msg.sender,amountLp)
+  Tainted Variable: amountLp
+
+Sink #14: tainted_erc20_transfer
+  Contract: Pool
+  Function: withdraw
+  Operation: TMP_842(uint256) = INTERNAL_CALL, Pool._preWithdrawSwap(uint256,uint256)(TMP_839,TMP_841)
+  Tainted Variable: TMP_839
+
+Sink #15: tainted_erc20_transfer
+  Contract: Pool
+  Function: withdraw
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['token', 'msg.sender', 'TMP_844'] 
+  Tainted Variable: token
+
+Sink #16: tainted_state_changing_external_call
+  Contract: Pool
+  Function: _preWithdrawSwap
+  Operation: TMP_850(uint256) = HIGH_LEVEL_CALL, dest:this(address), function:getY, arguments:['TMP_849']  
+  Tainted Variable: TMP_849
+
+Sink #17: tainted_state_changing_external_call
+  Contract: Pool
+  Function: _preWithdrawSwap
+  Operation: TMP_854(uint256) = LIBRARY_CALL, dest:Math, function:Math.min(uint256,uint256), arguments:['TMP_852', 'TMP_853'] 
+  Tainted Variable: TMP_852
+
+Sink #18: tainted_state_changing_external_call
+  Contract: Pool
+  Function: _preWithdrawSwap
+  Operation: TMP_858(uint256) = HIGH_LEVEL_CALL, dest:this(address), function:getY, arguments:['TMP_857']  
+  Tainted Variable: TMP_857
+
+Sink #19: tainted_state_changing_external_call
+  Contract: Pool
+  Function: _preWithdrawSwap
+  Operation: TMP_862(uint256) = LIBRARY_CALL, dest:Math, function:Math.min(uint256,uint256), arguments:['TMP_860', 'TMP_861'] 
+  Tainted Variable: TMP_860
+
+Sink #20: tainted_state_changing_external_call
+  Contract: Pool
+  Function: swapToVUsd
+  Operation: TMP_870(uint256) = HIGH_LEVEL_CALL, dest:this(address), function:getY, arguments:['tokenBalance']  
+  Tainted Variable: tokenBalance
+
+Sink #21: tainted_erc20_transfer
+  Contract: Pool
+  Function: swapToVUsd
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['token', 'user', 'TMP_873', 'amount'] 
+  Tainted Variable: token
+
+Sink #22: tainted_state_changing_external_call
+  Contract: Pool
+  Function: swapFromVUsd
+  Operation: TMP_880(uint256) = HIGH_LEVEL_CALL, dest:this(address), function:getY, arguments:['vUsdBalance']  
+  Tainted Variable: vUsdBalance
+
+Sink #23: tainted_erc20_transfer
+  Contract: Pool
+  Function: swapFromVUsd
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['token', 'user', 'result'] 
+  Tainted Variable: token
+
+Sink #24: tainted_state_changing_external_call
+  Contract: Pool
+  Function: getY
+  Operation: TMP_913(uint256) = LIBRARY_CALL, dest:SafeCast, function:SafeCast.toUint256(int256), arguments:['TMP_912'] 
+  Tainted Variable: TMP_912
+
+Sink #25: tainted_state_changing_external_call
+  Contract: Pool
+  Function: getPrice
+  Operation: TMP_960(uint256) = LIBRARY_CALL, dest:SafeCast, function:SafeCast.toUint256(int256), arguments:['TMP_959'] 
+  Tainted Variable: TMP_959
+
+Sink #26: tainted_control_flow_transfer
+  Contract: Ownable
+  Function: _checkOwner
+  Operation: TMP_672(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #27: tainted_erc20_transfer
+  Contract: Pool
+  Function: deposit
+  Operation: INTERNAL_CALL, RewardManager._depositLp(address,uint256)(msg.sender,TMP_831)
+  Tainted Variable: TMP_831
+
+Sink #28: tainted_erc20_transfer
+  Contract: Pool
+  Function: deposit
+  Operation: INTERNAL_CALL, RewardManager._depositLp(address,uint256)(msg.sender,TMP_835)
+  Tainted Variable: TMP_835
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in Pool.constructor
+  Sink: tainted_erc20_transfer in Pool.deposit
+  Path Operations:
+    1. constructor
+    2. a(uint256) := a_(uint256)
+    3. a_(uint256) := a(uint256)
+    4. TMP_962(uint256) = a_ (c)* xy
+    5. TMP_964(uint256) = TMP_962 (c)* TMP_963
+    6. p1(uint256) := TMP_964(uint256)
+    7. TMP_974(uint256) = p1 + p3
+    8. TMP_975(uint256) = INTERNAL_CALL, Pool.cbrt(uint256)(TMP_974)
+    9. d_(uint256) := TMP_975(uint256)
+    10. TMP_981(uint256) = d_ << 1
+    11. TMP_982(uint256) = TMP_981 + 1
+    12. d(uint256) := TMP_982(uint256)
+    13. TMP_831(uint256) = d >> 1
+
+Path #2:
+  Source: external_input_params in RewardManager.constructor
+  Sink: tainted_erc20_transfer in RewardManager.claimAdminFee
+  Path Operations:
+    1. constructor
+    2. token(ERC20) := token_(ERC20)
+
+Path #3:
+  Source: external_input_params in Pool.deposit
+  Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
+  Path Operations:
+    1. deposit
+    2. TMP_820(uint256) = INTERNAL_CALL, Pool.toSystemPrecision(uint256)(amount)
+    3. amountSP(uint256) := TMP_820(uint256)
+    4. tokenBalance(uint256) = tokenBalance (c)+ amountSP
+    5. TMP_838(uint256) = tokenBalance (c)* amountLp
+    6. TMP_839(uint256) = TMP_838 (c)/ totalLpAmount_
+    7. TMP_842(uint256) = INTERNAL_CALL, Pool._preWithdrawSwap(uint256,uint256)(TMP_839,TMP_841)
+    8. TMP_852(uint256) = amountToken - extraToken
+
+Path #4:
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Path Operations:
+    1. transferOwnership
+
+Path #5:
+  Source: external_input_params in Pool.withdraw
+  Sink: tainted_erc20_transfer in Pool.deposit
+  Path Operations:
+    1. withdraw
+    2. INTERNAL_CALL, RewardManager._withdrawLp(address,uint256)(msg.sender,amountLp)
+    3. totalLpAmount(uint256) = totalLpAmount (c)- lpAmount
+    4. TMP_834(uint256) = totalLpAmount (c)* TMP_833
+    5. TMP_835(uint256) = TMP_834 (c)/ oldD
+
+Path #6:
+  Source: external_input_params in Pool.constructor
+  Sink: tainted_state_changing_external_call in Pool.getPrice
+  Path Operations:
+    1. constructor
+    2. a(uint256) := a_(uint256)
+    3. TMP_936(uint256) = a << 3
+    4. TMP_937(uint256) = TMP_936 (c)* d
+    5. TMP_938(uint256) = TMP_937 (c)* x
+    6. TMP_939(uint256) = TMP_938 (c)* x
+    7. TMP_940 = CONVERT TMP_939 to int256
+    8. TMP_941(int256) = TMP_935 (c)+ TMP_940
+    9. TMP_946(int256) = TMP_941 (c)- TMP_945
+    10. TMP_951(int256) = TMP_946 (c)- TMP_950
+    11. p3(int256) := TMP_951(int256)
+    12. TMP_953(int256) = PP (c)* p3
+    13. TMP_958(int256) = TMP_953 (c)/ TMP_957
+    14. TMP_959(int256) = TMP_952 (c)+ TMP_958
+
+Path #7:
+  Source: external_input_params in Pool.deposit
+  Sink: tainted_state_changing_external_call in Pool.swapToVUsd
+  Path Operations:
+    1. deposit
+    2. TMP_820(uint256) = INTERNAL_CALL, Pool.toSystemPrecision(uint256)(amount)
+    3. amountSP(uint256) := TMP_820(uint256)
+    4. tokenBalance(uint256) = tokenBalance (c)+ amountSP
+
+Path #8:
+  Source: external_input_params in RewardManager.constructor
+  Sink: tainted_erc20_transfer in Pool.withdraw
+  Path Operations:
+    1. constructor
+    2. token(ERC20) := token_(ERC20)
+
+Path #9:
+  Source: external_input_params in Pool.deposit
+  Sink: tainted_erc20_transfer in Pool.withdraw
+  Path Operations:
+    1. deposit
+    2. TMP_820(uint256) = INTERNAL_CALL, Pool.toSystemPrecision(uint256)(amount)
+    3. amountSP(uint256) := TMP_820(uint256)
+    4. tokenBalance(uint256) = tokenBalance (c)+ amountSP
+    5. TMP_838(uint256) = tokenBalance (c)* amountLp
+    6. TMP_839(uint256) = TMP_838 (c)/ totalLpAmount_
+
+Path #10:
+  Source: external_input_params in RewardManager.constructor
+  Sink: tainted_erc20_transfer in Pool.swapFromVUsd
+  Path Operations:
+    1. constructor
+    2. token(ERC20) := token_(ERC20)
+
+Path #11:
+  Source: external_input_params in RewardManager.constructor
+  Sink: tainted_erc20_transfer in RewardManager._withdrawLp
+  Path Operations:
+    1. constructor
+    2. token(ERC20) := token_(ERC20)
+
+Path #12:
+  Source: external_input_params in Pool.deposit
+  Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
+  Path Operations:
+    1. deposit
+    2. TMP_820(uint256) = INTERNAL_CALL, Pool.toSystemPrecision(uint256)(amount)
+    3. amountSP(uint256) := TMP_820(uint256)
+    4. vUsdBalance(uint256) = vUsdBalance (c)+ amountSP
+    5. TMP_840(uint256) = vUsdBalance (c)* amountLp
+    6. TMP_841(uint256) = TMP_840 (c)/ totalLpAmount_
+    7. TMP_842(uint256) = INTERNAL_CALL, Pool._preWithdrawSwap(uint256,uint256)(TMP_839,TMP_841)
+    8. TMP_860(uint256) = amountVUsd - extraVUsd_scope_0
+
+Path #13:
+  Source: external_input_params in Pool.deposit
+  Sink: tainted_state_changing_external_call in Pool.swapFromVUsd
+  Path Operations:
+    1. deposit
+    2. TMP_820(uint256) = INTERNAL_CALL, Pool.toSystemPrecision(uint256)(amount)
+    3. amountSP(uint256) := TMP_820(uint256)
+    4. vUsdBalance(uint256) = vUsdBalance (c)+ amountSP
+
+Path #14:
+  Source: external_input_params in RewardManager.constructor
+  Sink: tainted_erc20_transfer in RewardManager._depositLp
+  Path Operations:
+    1. constructor
+    2. token(ERC20) := token_(ERC20)
+
+Path #15:
+  Source: external_input_params in Pool.deposit
+  Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
+  Path Operations:
+    1. deposit
+    2. TMP_820(uint256) = INTERNAL_CALL, Pool.toSystemPrecision(uint256)(amount)
+    3. amountSP(uint256) := TMP_820(uint256)
+    4. vUsdBalance(uint256) = vUsdBalance (c)+ amountSP
+    5. TMP_857(uint256) = vUsdBalance (c)+ extraVUsd_scope_0
+
+Path #16:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+
+Path #17:
+  Source: external_input_params in RewardManager.constructor
+  Sink: tainted_erc20_transfer in RewardManager.claimRewards
+  Path Operations:
+    1. constructor
+    2. token(ERC20) := token_(ERC20)
+
+Path #18:
+  Source: external_input_params in Pool.getY
+  Sink: tainted_state_changing_external_call in Pool.getY
+  Path Operations:
+    1. getY
+    2. TMP_907(uint256) = x (c)* TMP_906
+    3. part2(uint256) := TMP_907(uint256)
+    4. TMP_908(uint256) = INTERNAL_CALL, Pool.sqrt(uint256)(part2)
+    5. TMP_909 = CONVERT TMP_908 to int256
+    6. TMP_912(int256) = TMP_909 (c)+ TMP_911
+
+Path #19:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #20:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #21:
+  Source: external_input_params in Pool.deposit
+  Sink: tainted_state_changing_external_call in Pool._preWithdrawSwap
+  Path Operations:
+    1. deposit
+    2. TMP_820(uint256) = INTERNAL_CALL, Pool.toSystemPrecision(uint256)(amount)
+    3. amountSP(uint256) := TMP_820(uint256)
+    4. tokenBalance(uint256) = tokenBalance (c)+ amountSP
+    5. TMP_849(uint256) = tokenBalance (c)+ extraToken
+
+Path #22:
+  Source: external_input_params in Pool.withdraw
+  Sink: tainted_erc20_transfer in Pool.withdraw
+  Path Operations:
+    1. withdraw
+
+Path #23:
+  Source: external_input_params in RewardManager.constructor
+  Sink: tainted_erc20_transfer in Pool.swapToVUsd
+  Path Operations:
+    1. constructor
+    2. token(ERC20) := token_(ERC20)
+
+Path #24:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+
+Path #25:
+  Source: external_input_params in RewardManager.constructor
+  Sink: tainted_erc20_transfer in Pool.deposit
+  Path Operations:
+    1. constructor
+    2. token(ERC20) := token_(ERC20)

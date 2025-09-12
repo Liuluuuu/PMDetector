@@ -1,0 +1,252 @@
+# Taint Analysis Results with Source Code Mapping
+Found 14 tainted paths.
+
+## Path #1
+Source: external_input_params in AlpaToken.mint
+Sink: tainted_erc20_transfer in AlpaToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [825, 826, 827]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [826]
+    LNE: _mint(_to,_amount)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in AlpaToken.mint
+Sink: tainted_state_changing_external_call in AlpaToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [825, 826, 827]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [826]
+    LNE: _mint(_to,_amount)
+
+    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [649]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_152(uint256)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [649]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [532, 533, 534, 535]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in AlpaToken.mint
+Sink: tainted_state_changing_external_call in AlpaToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [825, 826, 827]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [826]
+    LNE: _mint(_to,_amount)
+
+    IR:  REF_52(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [650]
+    LNE: _balances[account] = _balances[account].add(amount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [568, 569, 570, 571, 572]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [569]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_17(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [630]
+    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in AlpaToken.mint
+Sink: tainted_state_changing_external_call in AlpaToken._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [825, 826, 827]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [826]
+    LNE: _mint(_to,_amount)
+
+    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [649]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_152(uint256)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [649]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in ERC20.decreaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [605, 606, 607, 608]
+    LNE: (No direct expression available)
+
+    IR:  REF_14(uint256) -> REF_13[spender]
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [606]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in ERC20.transfer
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [532, 533, 534, 535]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [533]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_20(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [631]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [568, 569, 570, 571, 572]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [569]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in ERC20.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [586, 587, 588, 589]
+    LNE: (No direct expression available)
+
+    IR:  REF_11(uint256) -> REF_10[spender]
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [587]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in AlpaToken.mint
+Sink: tainted_state_changing_external_call in ERC20._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [825, 826, 827]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [826]
+    LNE: _mint(_to,_amount)
+
+    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [649]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_152(uint256)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [649]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [568, 569, 570, 571, 572]
+    LNE: (No direct expression available)
+
+    IR:  REF_7(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [570]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_8(uint256) -> REF_7[TMP_47]
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [570]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [568, 569, 570, 571, 572]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in AlpaToken.mint
+Sink: tainted_state_changing_external_call in ERC20._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [825, 826, 827]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [826]
+    LNE: _mint(_to,_amount)
+
+    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [649]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_152(uint256)
+    SRC: File 'pmdetector/flattened_contracts/73acafb4_Alpaca City/flattened.sol', Lines [649]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------

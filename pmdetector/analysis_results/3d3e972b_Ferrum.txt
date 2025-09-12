@@ -1,0 +1,359 @@
+=== PMDetector Taint Analysis Results ===
+Found 17 taint sources
+Found 29 taint sinks
+Found 10 tainted paths (filtered from 10 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: ERC20
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #2: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: recipient
+
+Source #3: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #4: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: owner
+
+Source #5: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #6: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #7: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: value
+
+Source #8: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: sender
+
+Source #9: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: recipient
+
+Source #10: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #11: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: spender
+
+Source #12: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: addedValue
+
+Source #13: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: spender
+
+Source #14: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: subtractedValue
+
+Source #15: external_input_params
+  Contract: ERC20Burnable
+  Function: burn
+  Operation: burn
+  Tainted Variables: amount
+
+Source #16: external_input_params
+  Contract: ERC20Burnable
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: account
+
+Source #17: external_input_params
+  Contract: ERC20Burnable
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: amount
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #2: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transferFrom
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #3: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: transferFrom
+  Operation: TMP_20(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_4', 'amount'] 
+  Tainted Variable: REF_4
+
+Sink #4: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: TMP_22(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_7', 'addedValue'] 
+  Tainted Variable: REF_7
+
+Sink #5: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: TMP_24(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_10', 'subtractedValue'] 
+  Tainted Variable: REF_10
+
+Sink #6: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _transfer
+  Operation: TMP_32(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_13', 'amount'] 
+  Tainted Variable: REF_13
+
+Sink #7: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _transfer
+  Operation: TMP_33(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_16', 'amount'] 
+  Tainted Variable: REF_16
+
+Sink #8: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: transferFrom
+  Operation: TMP_62(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_35', 'amount'] 
+  Tainted Variable: REF_35
+
+Sink #9: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: increaseAllowance
+  Operation: TMP_64(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_38', 'addedValue'] 
+  Tainted Variable: REF_38
+
+Sink #10: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: decreaseAllowance
+  Operation: TMP_66(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_41', 'subtractedValue'] 
+  Tainted Variable: REF_41
+
+Sink #11: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _transfer
+  Operation: TMP_74(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_44', 'amount'] 
+  Tainted Variable: REF_44
+
+Sink #12: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _transfer
+  Operation: TMP_75(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_47', 'amount'] 
+  Tainted Variable: REF_47
+
+Sink #13: tainted_state_changing_external_call
+  Contract: FerrumToken
+  Function: transferFrom
+  Operation: TMP_108(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_66', 'amount'] 
+  Tainted Variable: REF_66
+
+Sink #14: tainted_state_changing_external_call
+  Contract: FerrumToken
+  Function: increaseAllowance
+  Operation: TMP_110(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_69', 'addedValue'] 
+  Tainted Variable: REF_69
+
+Sink #15: tainted_state_changing_external_call
+  Contract: FerrumToken
+  Function: decreaseAllowance
+  Operation: TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_72', 'subtractedValue'] 
+  Tainted Variable: REF_72
+
+Sink #16: tainted_state_changing_external_call
+  Contract: FerrumToken
+  Function: _transfer
+  Operation: TMP_120(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_75', 'amount'] 
+  Tainted Variable: REF_75
+
+Sink #17: tainted_state_changing_external_call
+  Contract: FerrumToken
+  Function: _transfer
+  Operation: TMP_121(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_78', 'amount'] 
+  Tainted Variable: REF_78
+
+Sink #18: tainted_state_changing_external_call
+  Contract: FerrumToken
+  Function: _burn
+  Operation: TMP_133(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'value'] 
+  Tainted Variable: _totalSupply
+
+Sink #19: tainted_state_changing_external_call
+  Contract: FerrumToken
+  Function: _burn
+  Operation: TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_86', 'value'] 
+  Tainted Variable: value
+
+Sink #20: tainted_state_changing_external_call
+  Contract: FerrumToken
+  Function: _burnFrom
+  Operation: TMP_145(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_91', 'amount'] 
+  Tainted Variable: REF_91
+
+Sink #21: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _mint
+  Operation: TMP_38(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #22: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _burn
+  Operation: TMP_45(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'value'] 
+  Tainted Variable: _totalSupply
+
+Sink #23: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _mint
+  Operation: TMP_80(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #24: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _burn
+  Operation: TMP_87(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'value'] 
+  Tainted Variable: _totalSupply
+
+Sink #25: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _burn
+  Operation: TMP_88(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_55', 'value'] 
+  Tainted Variable: value
+
+Sink #26: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _burnFrom
+  Operation: TMP_99(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_60', 'amount'] 
+  Tainted Variable: REF_60
+
+Sink #27: tainted_state_changing_external_call
+  Contract: FerrumToken
+  Function: _mint
+  Operation: TMP_126(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #28: tainted_state_changing_external_call
+  Contract: FerrumToken
+  Function: _burn
+  Operation: TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_86', 'value'] 
+  Tainted Variable: REF_86
+
+Sink #29: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _burn
+  Operation: TMP_88(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_55', 'value'] 
+  Tainted Variable: REF_55
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_state_changing_external_call in ERC20Burnable._burnFrom
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burnFrom(address,uint256)(account,amount)
+    3. REF_59(mapping(address => uint256)) -> _allowances[account]
+    4. REF_60(uint256) -> REF_59[msg.sender]
+
+Path #2:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_state_changing_external_call in ERC20Burnable._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burnFrom(address,uint256)(account,amount)
+    3. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    4. REF_55(uint256) -> _balances[account]
+
+Path #3:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #4:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_13(uint256) -> _balances[sender]
+
+Path #5:
+  Source: external_input_params in ERC20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_10(uint256) -> REF_9[spender]
+
+Path #6:
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_7(uint256) -> REF_6[spender]
+
+Path #7:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_3(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_4(uint256) -> REF_3[msg.sender]
+
+Path #8:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #9:
+  Source: external_input_params in ERC20Burnable.burn
+  Sink: tainted_state_changing_external_call in ERC20Burnable._burn
+  Path Operations:
+    1. burn
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(msg.sender,amount)
+
+Path #10:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,recipient,amount)
+    3. REF_16(uint256) -> _balances[recipient]

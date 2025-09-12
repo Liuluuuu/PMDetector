@@ -1,0 +1,223 @@
+# Taint Analysis Results with Source Code Mapping
+Found 11 tainted paths.
+
+## Path #1
+Source: external_input_params in Team3D.initialize
+Sink: tainted_erc20_transfer in Team3D.distributePresale
+
+### Operations with Source Code Mapping:
+    IR:  initialize
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71]
+    LNE: (No direct expression available)
+
+    IR:  TMP_2 = CONVERT _presaleAddr to Presale
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [62]
+    LNE: presale = Presale(_presaleAddr)
+
+    IR:  presale(Presale) := TMP_2(Presale)
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [62]
+    LNE: presale = Presale(_presaleAddr)
+
+    IR:  TMP_16(address) = HIGH_LEVEL_CALL, dest:presale(Presale), function:keys, arguments:['i']  
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [76]
+    LNE: _addr = presale.keys(i)
+
+    IR:  _addr(address) := TMP_16(address)
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [76]
+    LNE: _addr = presale.keys(i)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in Team3D.transferFrom
+Sink: tainted_state_changing_external_call in Team3D.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130]
+    LNE: (No direct expression available)
+
+    IR:  REF_27(uint256) -> balances[from]
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [123]
+    LNE: balances[from] = balances[from].sub(value)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in Team3D.initialize
+Sink: tainted_state_changing_external_call in Team3D.transfer
+
+### Operations with Source Code Mapping:
+    IR:  initialize
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71]
+    LNE: (No direct expression available)
+
+    IR:  TMP_2 = CONVERT _presaleAddr to Presale
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [62]
+    LNE: presale = Presale(_presaleAddr)
+
+    IR:  presale(Presale) := TMP_2(Presale)
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [62]
+    LNE: presale = Presale(_presaleAddr)
+
+    IR:  TMP_16(address) = HIGH_LEVEL_CALL, dest:presale(Presale), function:keys, arguments:['i']  
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [76]
+    LNE: _addr = presale.keys(i)
+
+    IR:  _addr(address) := TMP_16(address)
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [76]
+    LNE: _addr = presale.keys(i)
+
+    IR:  TMP_18(bool) = INTERNAL_CALL, Team3D.transfer(address,uint256)(_addr,TMP_17)
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [77]
+    LNE: transfer(_addr,presale.balances(_addr))
+
+    IR:  REF_16(uint256) -> balances[to]
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [98]
+    LNE: balances[to] = balances[to].add(value)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in Team3D.initialize
+Sink: tainted_state_changing_external_call in Team3D.distributePresale
+
+### Operations with Source Code Mapping:
+    IR:  initialize
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71]
+    LNE: (No direct expression available)
+
+    IR:  TMP_2 = CONVERT _presaleAddr to Presale
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [62]
+    LNE: presale = Presale(_presaleAddr)
+
+    IR:  presale(Presale) := TMP_2(Presale)
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [62]
+    LNE: presale = Presale(_presaleAddr)
+
+    IR:  TMP_16(address) = HIGH_LEVEL_CALL, dest:presale(Presale), function:keys, arguments:['i']  
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [76]
+    LNE: _addr = presale.keys(i)
+
+    IR:  _addr(address) := TMP_16(address)
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [76]
+    LNE: _addr = presale.keys(i)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in Team3D.increaseAllowance
+Sink: tainted_state_changing_external_call in Team3D.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [132, 133, 134, 135, 136, 137]
+    LNE: (No direct expression available)
+
+    IR:  REF_40(uint256) -> REF_39[spender]
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [134]
+    LNE: allowed[msg.sender][spender] = allowed[msg.sender][spender].add(addedValue)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in Team3D.transferFrom
+Sink: tainted_state_changing_external_call in Team3D.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130]
+    LNE: (No direct expression available)
+
+    IR:  REF_30(uint256) -> balances[to]
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [124]
+    LNE: balances[to] = balances[to].add(value)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in Team3D.transferFrom
+Sink: tainted_state_changing_external_call in Team3D.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130]
+    LNE: (No direct expression available)
+
+    IR:  REF_34(mapping(address => uint256)) -> allowed[from]
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [126]
+    LNE: allowed[from][msg.sender] = allowed[from][msg.sender].sub(value)
+
+    IR:  REF_35(uint256) -> REF_34[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [126]
+    LNE: allowed[from][msg.sender] = allowed[from][msg.sender].sub(value)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in Team3D.initialize
+Sink: tainted_state_changing_external_call in Team3D.transfer
+
+### Operations with Source Code Mapping:
+    IR:  initialize
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71]
+    LNE: (No direct expression available)
+
+    IR:  TMP_2 = CONVERT _presaleAddr to Presale
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [62]
+    LNE: presale = Presale(_presaleAddr)
+
+    IR:  presale(Presale) := TMP_2(Presale)
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [62]
+    LNE: presale = Presale(_presaleAddr)
+
+    IR:  TMP_17(uint256) = HIGH_LEVEL_CALL, dest:presale(Presale), function:balances, arguments:['_addr']  
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [77]
+    LNE: transfer(_addr,presale.balances(_addr))
+
+    IR:  TMP_18(bool) = INTERNAL_CALL, Team3D.transfer(address,uint256)(_addr,TMP_17)
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [77]
+    LNE: transfer(_addr,presale.balances(_addr))
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in Team3D.decreaseAllowance
+Sink: tainted_state_changing_external_call in Team3D.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [139, 140, 141, 142, 143, 144]
+    LNE: (No direct expression available)
+
+    IR:  REF_47(uint256) -> REF_46[spender]
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [141]
+    LNE: allowed[msg.sender][spender] = allowed[msg.sender][spender].sub(subtractedValue)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in Team3D.distributePresale
+Sink: tainted_state_changing_external_call in Team3D.distributePresale
+
+### Operations with Source Code Mapping:
+    IR:  distributePresale
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [73, 74, 75, 76, 77, 78, 79]
+    LNE: (No direct expression available)
+
+    IR:  i(uint256) := _min(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [75]
+    LNE: i = _min
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in Team3D.approveAndCall
+Sink: tainted_state_changing_external_call in Team3D.approveAndCall
+
+### Operations with Source Code Mapping:
+    IR:  approveAndCall
+    SRC: File 'pmdetector/flattened_contracts/9b6665d3_Vidya/flattened.sol', Lines [111, 112, 113, 114, 115, 116]
+    LNE: (No direct expression available)
+
+----------------------------------------

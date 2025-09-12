@@ -1,0 +1,218 @@
+# Taint Analysis Results with Source Code Mapping
+Found 12 tainted paths.
+
+## Path #1
+Source: external_input_params in Ownable.transferOwnership
+Sink: tainted_erc20_transfer in Ownable.transferOwnership
+
+### Operations with Source Code Mapping:
+    IR:  transferOwnership
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [568, 569, 570]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_state_changing_external_call in ERC20Burnable._burnFrom
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [499, 500, 501]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burnFrom(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [500]
+    LNE: _burnFrom(account,amount)
+
+    IR:  REF_59(mapping(address => uint256)) -> _allowances[account]
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [416]
+    LNE: _approve(account,msg.sender,_allowances[account][msg.sender].sub(amount))
+
+    IR:  REF_60(uint256) -> REF_59[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [416]
+    LNE: _approve(account,msg.sender,_allowances[account][msg.sender].sub(amount))
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_state_changing_external_call in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [499, 500, 501]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burnFrom(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [500]
+    LNE: _burnFrom(account,amount)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [415]
+    LNE: _burn(account,amount)
+
+    IR:  REF_55(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [383]
+    LNE: _balances[account] = _balances[account].sub(value)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [250, 251, 252, 253]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [286, 287, 288, 289, 290]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [287]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_13(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [346]
+    LNE: _balances[sender] = _balances[sender].sub(amount)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in ERC20.decreaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [323, 324, 325, 326]
+    LNE: (No direct expression available)
+
+    IR:  REF_10(uint256) -> REF_9[spender]
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [324]
+    LNE: _approve(msg.sender,spender,_allowances[msg.sender][spender].sub(subtractedValue))
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in ERC20.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [304, 305, 306, 307]
+    LNE: (No direct expression available)
+
+    IR:  REF_7(uint256) -> REF_6[spender]
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [305]
+    LNE: _approve(msg.sender,spender,_allowances[msg.sender][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [286, 287, 288, 289, 290]
+    LNE: (No direct expression available)
+
+    IR:  REF_3(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [288]
+    LNE: _approve(sender,msg.sender,_allowances[sender][msg.sender].sub(amount))
+
+    IR:  REF_4(uint256) -> REF_3[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [288]
+    LNE: _approve(sender,msg.sender,_allowances[sender][msg.sender].sub(amount))
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in ERC20Detailed.constructor
+Sink: tainted_state_changing_external_call in Token._mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [438, 439, 440, 441, 442]
+    LNE: (No direct expression available)
+
+    IR:  _decimals(uint8) := decimals(uint8)
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [441]
+    LNE: _decimals = decimals
+
+    IR:  TMP_175(uint8) = INTERNAL_CALL, ERC20Detailed.decimals()()
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [599]
+    LNE: _mint(msg.sender,_numTokens * (10 ** uint256(decimals())))
+
+    IR:  TMP_176 = CONVERT TMP_175 to uint256
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [599]
+    LNE: _mint(msg.sender,_numTokens * (10 ** uint256(decimals())))
+
+    IR:  TMP_177(uint256) = 10 ** TMP_176
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [599]
+    LNE: _mint(msg.sender,_numTokens * (10 ** uint256(decimals())))
+
+    IR:  TMP_178(uint256) = _numTokens * TMP_177
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [599]
+    LNE: _mint(msg.sender,_numTokens * (10 ** uint256(decimals())))
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,TMP_178)
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [599]
+    LNE: _mint(msg.sender,_numTokens * (10 ** uint256(decimals())))
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [286, 287, 288, 289, 290]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in ERC20Burnable.burn
+Sink: tainted_state_changing_external_call in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burn
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [492, 493, 494]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(msg.sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [493]
+    LNE: _burn(msg.sender,amount)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in ERC20.transfer
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [250, 251, 252, 253]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [251]
+    LNE: _transfer(msg.sender,recipient,amount)
+
+    IR:  REF_16(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/cd05172c_DAO Maker Vesting/flattened.sol', Lines [347]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------

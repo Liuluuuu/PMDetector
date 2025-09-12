@@ -1,0 +1,377 @@
+# Taint Analysis Results with Source Code Mapping
+Found 21 tainted paths.
+
+## Path #1
+Source: external_input_params in FireToken.transfer
+Sink: tainted_erc20_transfer in FireToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in FireToken.transfer
+Sink: tainted_erc20_transfer in FireToken.swapTokensForEth
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  TMP_124(uint256) = INTERNAL_CALL, FireToken.min(uint256,uint256)(amount,TMP_123)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [282]
+    LNE: swapTokensForEth(min(amount,min(contractTokenBalance,_maxTaxSwap)))
+
+    IR:  INTERNAL_CALL, FireToken.swapTokensForEth(uint256)(TMP_124)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [282]
+    LNE: swapTokensForEth(min(amount,min(contractTokenBalance,_maxTaxSwap)))
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_32(uint256) -> _balances[to]
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [295]
+    LNE: _balances[to] = _balances[to].add(amount.sub(taxAmount))
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  TMP_146(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_initialBuyTax'] 
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [260]
+    LNE: taxAmount = amount.mul(_initialBuyTax).div(100)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'taxAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [266]
+    LNE: sellAmount = amount.sub(taxAmount)
+
+    IR:  sellAmount(uint256) := TMP_104(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [266]
+    LNE: sellAmount = amount.sub(taxAmount)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  TMP_144(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_finalBuyTax'] 
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [260]
+    LNE: taxAmount = amount.mul(_finalBuyTax).div(100)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in FireToken.balanceOf
+Sink: tainted_state_changing_external_call in FireToken.openTrading
+
+### Operations with Source Code Mapping:
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [202, 203, 204]
+    LNE: (No direct expression available)
+
+    IR:  REF_4(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [203]
+    LNE: _balances[account]
+
+    IR:  TMP_187(uint256) = INTERNAL_CALL, FireToken.balanceOf(address)(TMP_186)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [356]
+    LNE: uniswapV2Router.addLiquidityETH{value: address(this).balance}(address(this),balanceOf(address(this)),0,0,owner(),block.timestamp)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  TMP_151(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_initialSellTax'] 
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [263]
+    LNE: taxAmount = amount.mul(_initialSellTax).div(100)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in FireToken.transferFrom
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [220, 221, 222, 223, 224]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [221]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_29(uint256) -> _balances[from]
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [294]
+    LNE: _balances[from] = _balances[from].sub(amount)
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in FireToken.transferFrom
+Sink: tainted_erc20_transfer in FireToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [220, 221, 222, 223, 224]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'taxAmount'] 
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [266]
+    LNE: sellAmount = amount.sub(taxAmount)
+
+    IR:  sellAmount(uint256) := TMP_104(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [266]
+    LNE: sellAmount = amount.sub(taxAmount)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  TMP_144(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_finalBuyTax'] 
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [260]
+    LNE: taxAmount = amount.mul(_finalBuyTax).div(100)
+
+    IR:  TMP_145(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_144', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [260]
+    LNE: taxAmount = amount.mul(_finalBuyTax).div(100)
+
+    IR:  taxAmount(uint256) := TMP_145(uint256)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [260]
+    LNE: taxAmount = amount.mul(_finalBuyTax).div(100)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in FireToken.transfer
+Sink: tainted_state_changing_external_call in FireToken._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [206, 207, 208, 209]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, FireToken._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [207]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  TMP_149(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', '_finalSellTax'] 
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [263]
+    LNE: taxAmount = amount.mul(_finalSellTax).div(100)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in FireToken.transferFrom
+Sink: tainted_state_changing_external_call in FireToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [220, 221, 222, 223, 224]
+    LNE: (No direct expression available)
+
+    IR:  REF_7(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [222]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_8(uint256) -> REF_7[TMP_47]
+    SRC: File 'pmdetector/flattened_contracts/9fc33004_FireToken/flattened.sol', Lines [222]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+----------------------------------------

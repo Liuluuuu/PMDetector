@@ -1,0 +1,1094 @@
+=== PMDetector Taint Analysis Results ===
+Found 41 taint sources
+Found 66 taint sinks
+Found 48 tainted paths (filtered from 48 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #2: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: name_
+
+Source #3: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: symbol_
+
+Source #4: external_input_params
+  Contract: ERC20
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #5: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: to
+
+Source #6: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #7: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: owner
+
+Source #8: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #9: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #10: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: amount
+
+Source #11: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: from
+
+Source #12: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: to
+
+Source #13: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #14: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: spender
+
+Source #15: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: addedValue
+
+Source #16: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: spender
+
+Source #17: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: subtractedValue
+
+Source #18: external_input_params
+  Contract: ERC20
+  Function: mybalanceOf
+  Operation: mybalanceOf
+  Tainted Variables: account
+
+Source #19: external_input_params
+  Contract: ERC20Burnable
+  Function: burn
+  Operation: burn
+  Tainted Variables: amount
+
+Source #20: external_input_params
+  Contract: ERC20Burnable
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: account
+
+Source #21: external_input_params
+  Contract: ERC20Burnable
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: amount
+
+Source #22: external_input_params
+  Contract: MktCap
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: ceo_
+
+Source #23: external_input_params
+  Contract: MktCap
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: baseToken_
+
+Source #24: external_input_params
+  Contract: MktCap
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: router_
+
+Source #25: external_input_params
+  Contract: MktCap
+  Function: setAll
+  Operation: setAll
+  Tainted Variables: allotConfig
+
+Source #26: external_input_params
+  Contract: MktCap
+  Function: setAll
+  Operation: setAll
+  Tainted Variables: sellconfig
+
+Source #27: external_input_params
+  Contract: MktCap
+  Function: setAll
+  Operation: setAll
+  Tainted Variables: list
+
+Source #28: external_input_params
+  Contract: MktCap
+  Function: setAll
+  Operation: setAll
+  Tainted Variables: share
+
+Source #29: external_input_params
+  Contract: MktCap
+  Function: setPair
+  Operation: setPair
+  Tainted Variables: token
+
+Source #30: external_input_params
+  Contract: MktCap
+  Function: trigger
+  Operation: trigger
+  Tainted Variables: t
+
+Source #31: external_input_params
+  Contract: MktCap
+  Function: send
+  Operation: send
+  Tainted Variables: token
+
+Source #32: external_input_params
+  Contract: MktCap
+  Function: send
+  Operation: send
+  Tainted Variables: amount
+
+Source #33: external_input_params
+  Contract: Split
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: total_
+
+Source #34: external_input_params
+  Contract: Split
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _KUBDEX
+
+Source #35: external_input_params
+  Contract: Split
+  Function: unSetPair
+  Operation: unSetPair
+  Tainted Variables: pair
+
+Source #36: external_input_params
+  Contract: Split
+  Function: setinb
+  Operation: setinb
+  Tainted Variables: amount
+
+Source #37: external_input_params
+  Contract: Split
+  Function: setinb
+  Operation: setinb
+  Tainted Variables: num
+
+Source #38: external_input_params
+  Contract: Split
+  Function: setdex
+  Operation: setdex
+  Tainted Variables: _LP
+
+Source #39: external_input_params
+  Contract: Split
+  Function: setdex
+  Operation: setdex
+  Tainted Variables: _DEX
+
+Source #40: external_input_params
+  Contract: Split
+  Function: setdex
+  Operation: setdex
+  Tainted Variables: _fistLP
+
+Source #41: external_input_params
+  Contract: Split
+  Function: multiSend
+  Operation: multiSend
+  Tainted Variables: num
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: INTERNAL_CALL, Ownable._transferOwnership(address)(newOwner)
+  Tainted Variable: newOwner
+
+Sink #2: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(owner,to,amount)
+  Tainted Variable: to
+
+Sink #3: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transferFrom
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #4: tainted_erc20_transfer
+  Contract: ERC20
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #5: tainted_erc20_transfer
+  Contract: ERC20
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._afterTokenTransfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #6: tainted_control_flow_transfer
+  Contract: MktCap
+  Function: _checkOwner
+  Operation: TMP_200(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #7: tainted_erc20_transfer
+  Contract: MktCap
+  Function: constructor
+  Operation: INTERNAL_CALL, Ownable._transferOwnership(address)(ceo_)
+  Tainted Variable: ceo_
+
+Sink #8: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: constructor
+  Operation: TMP_217(address) = HIGH_LEVEL_CALL, dest:TMP_216(IFactory), function:getPair, arguments:['token0', 'token1']  
+  Tainted Variable: token1
+
+Sink #9: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: constructor
+  Operation: TMP_223(bool) = HIGH_LEVEL_CALL, dest:TMP_218(IERC20), function:approve, arguments:['TMP_219', 'TMP_222']  
+  Tainted Variable: TMP_219
+
+Sink #10: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: setPair
+  Operation: TMP_235(bool) = HIGH_LEVEL_CALL, dest:TMP_230(IERC20), function:approve, arguments:['TMP_231', 'TMP_234']  
+  Tainted Variable: TMP_231
+
+Sink #11: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: setPair
+  Operation: TMP_238(address) = HIGH_LEVEL_CALL, dest:TMP_237(IFactory), function:getPair, arguments:['token0', 'token1']  
+  Tainted Variable: token1
+
+Sink #12: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: setMarketing
+  Operation: TMP_245(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['total', 'REF_45'] 
+  Tainted Variable: total
+
+Sink #13: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: _buy
+  Operation: TMP_266(uint256[]) = HIGH_LEVEL_CALL, dest:router(IRouter), function:swapTokensForExactTokens, arguments:['amount0Out', 'TMP_264', 'path', 'TMP_265', 'block.timestamp']  
+  Tainted Variable: TMP_264
+
+Sink #14: tainted_control_flow_external_call
+  Contract: MktCap
+  Function: _addL
+  Operation: TMP_269(uint256) = HIGH_LEVEL_CALL, dest:TMP_267(IERC20), function:balanceOf, arguments:['TMP_268']  
+
+Sink #15: tainted_control_flow_external_call
+  Contract: MktCap
+  Function: _addL
+  Operation: TMP_273(uint256) = HIGH_LEVEL_CALL, dest:TMP_271(IERC20), function:balanceOf, arguments:['TMP_272']  
+
+Sink #16: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: _addL
+  Operation: TUPLE_0(uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:router(IRouter), function:addLiquidity, arguments:['token0', 'token1', 'amount0', 'amount1', '0', '0', 'TMP_276', 'block.timestamp']  
+  Tainted Variable: token1
+
+Sink #17: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: splitAmount
+  Operation: TMP_277(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_65'] 
+  Tainted Variable: REF_65
+
+Sink #18: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: splitAmount
+  Operation: TMP_278(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_277', 'REF_67'] 
+  Tainted Variable: TMP_277
+
+Sink #19: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: splitAmount
+  Operation: TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_69'] 
+  Tainted Variable: REF_69
+
+Sink #20: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: splitAmount
+  Operation: TMP_280(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_279', 'REF_71'] 
+  Tainted Variable: TMP_279
+
+Sink #21: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: splitAmount
+  Operation: TMP_281(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_280', '2'] 
+  Tainted Variable: TMP_280
+
+Sink #22: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: splitAmount
+  Operation: TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'toAddL'] 
+  Tainted Variable: toAddL
+
+Sink #23: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: splitAmount
+  Operation: TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_282', 'toBurn'] 
+  Tainted Variable: TMP_282
+
+Sink #24: tainted_control_flow_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_288(uint256) = HIGH_LEVEL_CALL, dest:TMP_287(IERC20), function:totalSupply, arguments:[]  
+
+Sink #25: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_288', 'REF_78'] 
+  Tainted Variable: REF_78
+
+Sink #26: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_290(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_289', 'REF_80'] 
+  Tainted Variable: TMP_289
+
+Sink #27: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+  Tainted Variable: REF_83
+
+Sink #28: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'REF_85'] 
+  Tainted Variable: TMP_294
+
+Sink #29: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: HIGH_LEVEL_CALL, dest:TMP_298(ERC20Burnable), function:burn, arguments:['toBurn']  
+  Tainted Variable: toBurn
+
+Sink #30: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_305(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['REF_90', '2'] 
+  Tainted Variable: REF_90
+
+Sink #31: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_306(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_88', 'TMP_305'] 
+  Tainted Variable: REF_88
+
+Sink #32: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_307(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_306', 'REF_93'] 
+  Tainted Variable: TMP_306
+
+Sink #33: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_308(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount2', 'REF_95'] 
+  Tainted Variable: amount2
+
+Sink #34: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_309(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_308', 'total2Fee'] 
+  Tainted Variable: TMP_308
+
+Sink #35: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_310(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_309', '2'] 
+  Tainted Variable: TMP_309
+
+Sink #36: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount2', 'amount2AddL'] 
+  Tainted Variable: amount2
+
+Sink #37: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount2Marketing', 'REF_101'] 
+  Tainted Variable: amount2Marketing
+
+Sink #38: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_315(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_314', 'sharetotal'] 
+  Tainted Variable: TMP_314
+
+Sink #39: tainted_erc20_transfer
+  Contract: MktCap
+  Function: trigger
+  Operation: TMP_317(bool) = HIGH_LEVEL_CALL, dest:TMP_316(IERC20), function:transfer, arguments:['REF_104', 'cake']  
+  Tainted Variable: REF_104
+
+Sink #40: tainted_value_transfer
+  Contract: MktCap
+  Function: send
+  Operation: TUPLE_2(bool,bytes) = LOW_LEVEL_CALL, dest:TMP_325, function:call, arguments:[''] value:amount 
+  Tainted Variable: amount
+
+Sink #41: tainted_erc20_transfer
+  Contract: MktCap
+  Function: send
+  Operation: TMP_329(bool) = HIGH_LEVEL_CALL, dest:TMP_327(IERC20), function:transfer, arguments:['TMP_328', 'amount']  
+  Tainted Variable: amount
+
+Sink #42: tainted_control_flow_transfer
+  Contract: Split
+  Function: _checkOwner
+  Operation: TMP_338(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #43: tainted_erc20_transfer
+  Contract: Split
+  Function: _transfer
+  Operation: INTERNAL_CALL, Split._beforeTokenTransfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #44: tainted_erc20_transfer
+  Contract: Split
+  Function: _transfer
+  Operation: INTERNAL_CALL, Split._afterTokenTransfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #45: tainted_erc20_transfer
+  Contract: Split
+  Function: _burn
+  Operation: INTERNAL_CALL, Split._beforeTokenTransfer(address,address,uint256)(account,TMP_406,amount)
+  Tainted Variable: account
+
+Sink #46: tainted_erc20_transfer
+  Contract: Split
+  Function: _burn
+  Operation: INTERNAL_CALL, Split._afterTokenTransfer(address,address,uint256)(account,TMP_413,amount)
+  Tainted Variable: account
+
+Sink #47: tainted_state_changing_external_call
+  Contract: Split
+  Function: takeFee
+  Operation: TMP_467(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'fee'] 
+  Tainted Variable: amount
+
+Sink #48: tainted_state_changing_external_call
+  Contract: Split
+  Function: takeFee
+  Operation: TMP_468(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_467', 'REF_133'] 
+  Tainted Variable: TMP_467
+
+Sink #49: tainted_control_flow_external_call
+  Contract: Split
+  Function: takeFee
+  Operation: TMP_473(uint256) = HIGH_LEVEL_CALL, dest:TMP_472(IERC20), function:totalSupply, arguments:[]  
+
+Sink #50: tainted_erc20_transfer
+  Contract: Split
+  Function: takeFee
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(to,TMP_477,feeAmount)
+  Tainted Variable: to
+
+Sink #51: tainted_state_changing_external_call
+  Contract: Split
+  Function: setPair
+  Operation: TMP_484(address) = HIGH_LEVEL_CALL, dest:TMP_481(IFactory), function:getPair, arguments:['TMP_482', 'TMP_483']  
+  Tainted Variable: TMP_482
+
+Sink #52: tainted_state_changing_external_call
+  Contract: Split
+  Function: setPair
+  Operation: TMP_491(address) = HIGH_LEVEL_CALL, dest:TMP_488(IFactory), function:createPair, arguments:['TMP_489', 'TMP_490']  
+  Tainted Variable: TMP_489
+
+Sink #53: tainted_state_changing_external_call
+  Contract: Split
+  Function: getTokenPrice
+  Operation: TMP_523(uint256) = HIGH_LEVEL_CALL, dest:TMP_522(IERC20), function:balanceOf, arguments:['fistLP']  
+  Tainted Variable: fistLP
+
+Sink #54: tainted_state_changing_external_call
+  Contract: Split
+  Function: getTokenPrice
+  Operation: TMP_529(uint256) = HIGH_LEVEL_CALL, dest:TMP_528(IERC20), function:balanceOf, arguments:['fistLP']  
+  Tainted Variable: fistLP
+
+Sink #55: tainted_value_transfer
+  Contract: Split
+  Function: send
+  Operation: TUPLE_3(bool,bytes) = LOW_LEVEL_CALL, dest:TMP_533, function:call, arguments:[''] value:amount 
+  Tainted Variable: amount
+
+Sink #56: tainted_erc20_transfer
+  Contract: Split
+  Function: send
+  Operation: TMP_536(bool) = HIGH_LEVEL_CALL, dest:TMP_535(IERC20), function:transfer, arguments:['ceo', 'amount']  
+  Tainted Variable: amount
+
+Sink #57: tainted_control_flow_transfer
+  Contract: Ownable
+  Function: _checkOwner
+  Operation: TMP_29(address) = INTERNAL_CALL, Context._msgSender()()
+
+Sink #58: tainted_erc20_transfer
+  Contract: ERC20Burnable
+  Function: _burn
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(account,TMP_168,amount)
+  Tainted Variable: account
+
+Sink #59: tainted_erc20_transfer
+  Contract: ERC20Burnable
+  Function: _burn
+  Operation: INTERNAL_CALL, ERC20._afterTokenTransfer(address,address,uint256)(account,TMP_175,amount)
+  Tainted Variable: account
+
+Sink #60: tainted_erc20_transfer
+  Contract: MktCap
+  Function: _sell
+  Operation: HIGH_LEVEL_CALL, dest:router(IRouter), function:swapExactTokensForTokensSupportingFeeOnTransferTokens, arguments:['amount0In', '0', 'path', 'TMP_258', 'block.timestamp']  
+  Tainted Variable: amount0In
+
+Sink #61: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: splitAmount
+  Operation: TMP_277(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_65'] 
+  Tainted Variable: amount
+
+Sink #62: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: splitAmount
+  Operation: TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_69'] 
+  Tainted Variable: amount
+
+Sink #63: tainted_state_changing_external_call
+  Contract: MktCap
+  Function: splitAmount
+  Operation: TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'toAddL'] 
+  Tainted Variable: amount
+
+Sink #64: tainted_erc20_transfer
+  Contract: Split
+  Function: _mint
+  Operation: INTERNAL_CALL, Split._beforeTokenTransfer(address,address,uint256)(TMP_387,account,amount)
+  Tainted Variable: amount
+
+Sink #65: tainted_erc20_transfer
+  Contract: Split
+  Function: _mint
+  Operation: INTERNAL_CALL, Split._afterTokenTransfer(address,address,uint256)(TMP_391,account,amount)
+  Tainted Variable: amount
+
+Sink #66: tainted_erc20_transfer
+  Contract: Split
+  Function: _afterTokenTransfer
+  Operation: HIGH_LEVEL_CALL, dest:this(address), function:multiSend, arguments:['_num']  
+  Tainted Variable: _num
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.splitAmount
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    3. allot(MktCap.Allot) := allot_(MktCap.Allot)
+    4. REF_69(uint256) -> allot.addL
+    5. TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_69'] 
+
+Path #2:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.splitAmount
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    3. autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    4. REF_83(uint256) -> autoSell.maxPart
+    5. TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+    6. TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'REF_85'] 
+    7. maxSell(uint256) := TMP_295(uint256)
+    8. balance(uint256) := maxSell(uint256)
+    9. TUPLE_1(uint256,uint256,uint256) = INTERNAL_CALL, MktCap.splitAmount(uint256)(balance)
+
+Path #3:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    3. autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    4. REF_78(uint256) -> autoSell.minPart
+    5. TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_288', 'REF_78'] 
+
+Path #4:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    3. allot(MktCap.Allot) := allot_(MktCap.Allot)
+    4. REF_88(uint256) -> allot.total
+    5. TMP_306(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_88', 'TMP_305'] 
+
+Path #5:
+  Source: external_input_params in Split.setdex
+  Sink: tainted_state_changing_external_call in Split.getTokenPrice
+  Path Operations:
+    1. setdex
+    2. fistLP(address) := _fistLP(address)
+
+Path #6:
+  Source: external_input_params in Split.constructor
+  Sink: tainted_erc20_transfer in Split._mint
+  Path Operations:
+    1. constructor
+    2. TMP_441(uint256) = total_ (c)* 1000000000000000000
+    3. INTERNAL_CALL, ERC20._mint(address,uint256)(ceo,TMP_441)
+
+Path #7:
+  Source: external_input_params in Split.setinb
+  Sink: tainted_erc20_transfer in Split._afterTokenTransfer
+  Path Operations:
+    1. setinb
+    2. _num(uint256) := num(uint256)
+
+Path #8:
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Path Operations:
+    1. transferOwnership
+
+Path #9:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. constructor
+    2. token1(address) := baseToken_(address)
+    3. TMP_302 = CONVERT token1 to IERC20
+    4. TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    5. amount2(uint256) := TMP_304(uint256)
+
+Path #10:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.splitAmount
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    3. allot(MktCap.Allot) := allot_(MktCap.Allot)
+    4. REF_69(uint256) -> allot.addL
+    5. TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_69'] 
+    6. TMP_280(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_279', 'REF_71'] 
+
+Path #11:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.splitAmount
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    3. allot(MktCap.Allot) := allot_(MktCap.Allot)
+    4. REF_65(uint256) -> allot.burn
+    5. TMP_277(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_65'] 
+
+Path #12:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap.constructor
+  Path Operations:
+    1. constructor
+    2. TMP_214 = CONVERT router_ to IRouter
+    3. router(IRouter) := TMP_214(IRouter)
+    4. TMP_219 = CONVERT router to address
+
+Path #13:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. constructor
+    2. token1(address) := baseToken_(address)
+    3. TMP_302 = CONVERT token1 to IERC20
+    4. TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    5. amount2(uint256) := TMP_304(uint256)
+    6. TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount2', 'amount2AddL'] 
+    7. amount2Marketing(uint256) := TMP_311(uint256)
+    8. TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount2Marketing', 'REF_101'] 
+
+Path #14:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.setMarketing
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setMarketing(address[],uint256[])(list,share)
+    3. REF_45(uint256) -> share[i]
+    4. TMP_245(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['total', 'REF_45'] 
+    5. total(uint256) := TMP_245(uint256)
+
+Path #15:
+  Source: external_input_params in MktCap.send
+  Sink: tainted_value_transfer in MktCap.send
+  Path Operations:
+    1. send
+
+Path #16:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap.constructor
+  Path Operations:
+    1. constructor
+    2. token1(address) := baseToken_(address)
+
+Path #17:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.splitAmount
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    3. autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    4. REF_83(uint256) -> autoSell.maxPart
+    5. TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+    6. TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'REF_85'] 
+    7. maxSell(uint256) := TMP_295(uint256)
+    8. balance(uint256) := maxSell(uint256)
+    9. TUPLE_1(uint256,uint256,uint256) = INTERNAL_CALL, MktCap.splitAmount(uint256)(balance)
+
+Path #18:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_erc20_transfer in MktCap.constructor
+  Path Operations:
+    1. constructor
+
+Path #19:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap._addL
+  Path Operations:
+    1. constructor
+    2. token1(address) := baseToken_(address)
+
+Path #20:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.splitAmount
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    3. allot(MktCap.Allot) := allot_(MktCap.Allot)
+    4. REF_69(uint256) -> allot.addL
+    5. TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_69'] 
+    6. TMP_280(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_279', 'REF_71'] 
+    7. TMP_281(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_280', '2'] 
+    8. toAddL(uint256) := TMP_281(uint256)
+    9. TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'toAddL'] 
+
+Path #21:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    3. autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    4. REF_78(uint256) -> autoSell.minPart
+
+Path #22:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. constructor
+    2. token1(address) := baseToken_(address)
+    3. TMP_302 = CONVERT token1 to IERC20
+    4. TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    5. amount2(uint256) := TMP_304(uint256)
+    6. TMP_308(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount2', 'REF_95'] 
+    7. TMP_309(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_308', 'total2Fee'] 
+
+Path #23:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_erc20_transfer in MktCap._sell
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    3. autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    4. REF_83(uint256) -> autoSell.maxPart
+    5. TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+    6. TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'REF_85'] 
+    7. maxSell(uint256) := TMP_295(uint256)
+    8. balance(uint256) := maxSell(uint256)
+    9. TUPLE_1(uint256,uint256,uint256) = INTERNAL_CALL, MktCap.splitAmount(uint256)(balance)
+    10. toSell(uint256)= UNPACK TUPLE_1 index: 0 
+    11. INTERNAL_CALL, MktCap._sell(uint256)(toSell)
+
+Path #24:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap.setPair
+  Path Operations:
+    1. constructor
+    2. token1(address) := baseToken_(address)
+
+Path #25:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_erc20_transfer in ERC20Burnable._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+
+Path #26:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.splitAmount
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    3. allot(MktCap.Allot) := allot_(MktCap.Allot)
+    4. REF_69(uint256) -> allot.addL
+    5. TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_69'] 
+    6. TMP_280(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_279', 'REF_71'] 
+    7. TMP_281(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_280', '2'] 
+    8. toAddL(uint256) := TMP_281(uint256)
+
+Path #27:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. constructor
+    2. token1(address) := baseToken_(address)
+    3. TMP_302 = CONVERT token1 to IERC20
+    4. TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    5. amount2(uint256) := TMP_304(uint256)
+    6. TMP_308(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount2', 'REF_95'] 
+
+Path #28:
+  Source: external_input_params in MktCap.send
+  Sink: tainted_erc20_transfer in MktCap.send
+  Path Operations:
+    1. send
+
+Path #29:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap.setPair
+  Path Operations:
+    1. constructor
+    2. TMP_214 = CONVERT router_ to IRouter
+    3. router(IRouter) := TMP_214(IRouter)
+    4. TMP_231 = CONVERT router to address
+
+Path #30:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    3. allot(MktCap.Allot) := allot_(MktCap.Allot)
+    4. REF_88(uint256) -> allot.total
+
+Path #31:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.splitAmount
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    3. allot(MktCap.Allot) := allot_(MktCap.Allot)
+    4. REF_65(uint256) -> allot.burn
+
+Path #32:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap._buy
+  Path Operations:
+    1. constructor
+    2. token1(address) := baseToken_(address)
+    3. TMP_262 = CONVERT token1 to IERC20
+    4. TMP_264(uint256) = HIGH_LEVEL_CALL, dest:TMP_262(IERC20), function:balanceOf, arguments:['TMP_263']  
+
+Path #33:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_erc20_transfer in ERC20Burnable._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+
+Path #34:
+  Source: external_input_params in Split.setdex
+  Sink: tainted_state_changing_external_call in Split.getTokenPrice
+  Path Operations:
+    1. setdex
+    2. fistLP(address) := _fistLP(address)
+
+Path #35:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+
+Path #36:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    3. autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    4. REF_83(uint256) -> autoSell.maxPart
+    5. TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+    6. TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'REF_85'] 
+    7. maxSell(uint256) := TMP_295(uint256)
+    8. balance(uint256) := maxSell(uint256)
+    9. TUPLE_1(uint256,uint256,uint256) = INTERNAL_CALL, MktCap.splitAmount(uint256)(balance)
+    10. toBurn(uint256)= UNPACK TUPLE_1 index: 1 
+
+Path #37:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    3. autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    4. REF_83(uint256) -> autoSell.maxPart
+    5. TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+
+Path #38:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. constructor
+    2. token1(address) := baseToken_(address)
+    3. TMP_302 = CONVERT token1 to IERC20
+    4. TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    5. amount2(uint256) := TMP_304(uint256)
+    6. TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount2', 'amount2AddL'] 
+    7. amount2Marketing(uint256) := TMP_311(uint256)
+
+Path #39:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #40:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #41:
+  Source: external_input_params in Split.constructor
+  Sink: tainted_erc20_transfer in Split._mint
+  Path Operations:
+    1. constructor
+    2. TMP_441(uint256) = total_ (c)* 1000000000000000000
+    3. INTERNAL_CALL, ERC20._mint(address,uint256)(ceo,TMP_441)
+
+Path #42:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.splitAmount
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    3. autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    4. REF_83(uint256) -> autoSell.maxPart
+    5. TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+    6. TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'REF_85'] 
+    7. maxSell(uint256) := TMP_295(uint256)
+    8. balance(uint256) := maxSell(uint256)
+    9. TUPLE_1(uint256,uint256,uint256) = INTERNAL_CALL, MktCap.splitAmount(uint256)(balance)
+
+Path #43:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+
+Path #44:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_erc20_transfer in MktCap.trigger
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setMarketing(address[],uint256[])(list,share)
+    3. marketingAddress(address[]) := list(address[])
+    4. REF_104(address) -> marketingAddress[i]
+
+Path #45:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    3. autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    4. REF_83(uint256) -> autoSell.maxPart
+
+Path #46:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.splitAmount
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    3. allot(MktCap.Allot) := allot_(MktCap.Allot)
+    4. REF_69(uint256) -> allot.addL
+
+Path #47:
+  Source: external_input_params in MktCap.constructor
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. constructor
+    2. token1(address) := baseToken_(address)
+    3. TMP_302 = CONVERT token1 to IERC20
+    4. TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    5. amount2(uint256) := TMP_304(uint256)
+
+Path #48:
+  Source: external_input_params in MktCap.setAll
+  Sink: tainted_state_changing_external_call in MktCap.trigger
+  Path Operations:
+    1. setAll
+    2. INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    3. allot(MktCap.Allot) := allot_(MktCap.Allot)
+    4. REF_90(uint256) -> allot.addL

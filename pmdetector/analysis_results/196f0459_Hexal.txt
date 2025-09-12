@@ -1,0 +1,570 @@
+=== PMDetector Taint Analysis Results ===
+Found 30 taint sources
+Found 35 taint sinks
+Found 22 tainted paths (filtered from 22 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: ERC20
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #2: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: recipient
+
+Source #3: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #4: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: owner
+
+Source #5: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #6: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #7: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: amount
+
+Source #8: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: sender
+
+Source #9: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: recipient
+
+Source #10: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #11: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: spender
+
+Source #12: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: addedValue
+
+Source #13: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: spender
+
+Source #14: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: subtractedValue
+
+Source #15: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: owner
+
+Source #16: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: spender
+
+Source #17: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: amount
+
+Source #18: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: deadline
+
+Source #19: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: v
+
+Source #20: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: r
+
+Source #21: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: s
+
+Source #22: external_input_params
+  Contract: ERC20Permit
+  Function: nonces
+  Operation: nonces
+  Tainted Variables: owner
+
+Source #23: msg.sender
+  Contract: Ownable
+  Function: constructor
+  Operation: _owner(address) := msg.sender(address)
+  Tainted Variables: _owner
+
+Source #24: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner_
+
+Source #25: external_input_params
+  Contract: VaultOwned
+  Function: setVault
+  Operation: setVault
+  Tainted Variables: vault_
+
+Source #26: external_input_params
+  Contract: HXLToken
+  Function: mint
+  Operation: mint
+  Tainted Variables: account_
+
+Source #27: external_input_params
+  Contract: HXLToken
+  Function: mint
+  Operation: mint
+  Tainted Variables: amount_
+
+Source #28: external_input_params
+  Contract: HXLToken
+  Function: burn
+  Operation: burn
+  Tainted Variables: amount
+
+Source #29: external_input_params
+  Contract: HXLToken
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: account_
+
+Source #30: external_input_params
+  Contract: HXLToken
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: amount_
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #2: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transferFrom
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #3: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: transferFrom
+  Operation: TMP_131(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_77', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_77
+
+Sink #4: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: TMP_133(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_80', 'addedValue'] 
+  Tainted Variable: REF_80
+
+Sink #5: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: TMP_135(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_83', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_83
+
+Sink #6: tainted_erc20_transfer
+  Contract: ERC20
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #7: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _transfer
+  Operation: TMP_144(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_86', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_86
+
+Sink #8: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _transfer
+  Operation: TMP_145(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_89', 'amount'] 
+  Tainted Variable: REF_89
+
+Sink #9: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: transferFrom
+  Operation: TMP_177(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_110', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_110
+
+Sink #10: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: increaseAllowance
+  Operation: TMP_179(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_113', 'addedValue'] 
+  Tainted Variable: REF_113
+
+Sink #11: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: decreaseAllowance
+  Operation: TMP_181(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_116', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_116
+
+Sink #12: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: _transfer
+  Operation: TMP_190(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_119', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_119
+
+Sink #13: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: _transfer
+  Operation: TMP_191(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_122', 'amount'] 
+  Tainted Variable: REF_122
+
+Sink #14: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: permit
+  Operation: TMP_230(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_136'] 
+  Tainted Variable: REF_136
+
+Sink #15: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: permit
+  Operation: LIBRARY_CALL, dest:Counters, function:Counters.increment(Counters.Counter), arguments:['REF_139'] 
+  Tainted Variable: REF_139
+
+Sink #16: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: nonces
+  Operation: TMP_244(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_141'] 
+  Tainted Variable: REF_141
+
+Sink #17: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: permit
+  Operation: TMP_298(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_145'] 
+  Tainted Variable: REF_145
+
+Sink #18: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: permit
+  Operation: LIBRARY_CALL, dest:Counters, function:Counters.increment(Counters.Counter), arguments:['REF_148'] 
+  Tainted Variable: REF_148
+
+Sink #19: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: nonces
+  Operation: TMP_312(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_150'] 
+  Tainted Variable: REF_150
+
+Sink #20: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: transferFrom
+  Operation: TMP_316(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_156', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_156
+
+Sink #21: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: increaseAllowance
+  Operation: TMP_318(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_159', 'addedValue'] 
+  Tainted Variable: REF_159
+
+Sink #22: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: decreaseAllowance
+  Operation: TMP_320(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_162', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_162
+
+Sink #23: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: _transfer
+  Operation: TMP_329(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_165', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_165
+
+Sink #24: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: _transfer
+  Operation: TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_168', 'amount'] 
+  Tainted Variable: REF_168
+
+Sink #25: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: _burnFrom
+  Operation: TMP_363(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['TMP_362', 'amount_', 'ERC20: burn amount exceeds allowance'] 
+  Tainted Variable: TMP_362
+
+Sink #26: tainted_erc20_transfer
+  Contract: HXLToken
+  Function: _mint
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(TMP_335,account_,amount_)
+  Tainted Variable: account_
+
+Sink #27: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: _mint
+  Operation: TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+  Tainted Variable: _totalSupply
+
+Sink #28: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: _mint
+  Operation: TMP_338(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_172', 'amount_'] 
+  Tainted Variable: REF_172
+
+Sink #29: tainted_erc20_transfer
+  Contract: HXLToken
+  Function: _burn
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(account,TMP_344,amount)
+  Tainted Variable: account
+
+Sink #30: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: _burn
+  Operation: TMP_346(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_175', 'amount', 'ERC20: burn amount exceeds balance'] 
+  Tainted Variable: REF_175
+
+Sink #31: tainted_state_changing_external_call
+  Contract: HXLToken
+  Function: _burn
+  Operation: TMP_347(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #32: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _mint
+  Operation: TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+  Tainted Variable: _totalSupply
+
+Sink #33: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _burn
+  Operation: TMP_162(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #34: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: _mint
+  Operation: TMP_198(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+  Tainted Variable: _totalSupply
+
+Sink #35: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: _burn
+  Operation: TMP_208(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_76(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_77(uint256) -> REF_76[msg.sender]
+
+Path #2:
+  Source: external_input_params in HXLToken.mint
+  Sink: tainted_erc20_transfer in HXLToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+
+Path #3:
+  Source: external_input_params in HXLToken.mint
+  Sink: tainted_state_changing_external_call in ERC20Permit._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_337(uint256)
+
+Path #4:
+  Source: external_input_params in HXLToken.burnFrom
+  Sink: tainted_erc20_transfer in HXLToken._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, HXLToken._burnFrom(address,uint256)(account_,amount_)
+    3. INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
+
+Path #5:
+  Source: external_input_params in ERC20Permit.permit
+  Sink: tainted_state_changing_external_call in ERC20Permit.permit
+  Path Operations:
+    1. permit
+    2. REF_139(Counters.Counter) -> _nonces[owner]
+
+Path #6:
+  Source: external_input_params in HXLToken.mint
+  Sink: tainted_state_changing_external_call in HXLToken._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_337(uint256)
+
+Path #7:
+  Source: external_input_params in ERC20Permit.nonces
+  Sink: tainted_state_changing_external_call in ERC20Permit.nonces
+  Path Operations:
+    1. nonces
+    2. REF_141(Counters.Counter) -> _nonces[owner]
+
+Path #8:
+  Source: external_input_params in HXLToken.burnFrom
+  Sink: tainted_state_changing_external_call in HXLToken._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, HXLToken._burnFrom(address,uint256)(account_,amount_)
+    3. INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
+    4. REF_175(uint256) -> _balances[account]
+
+Path #9:
+  Source: external_input_params in HXLToken.mint
+  Sink: tainted_state_changing_external_call in ERC20._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_337(uint256)
+
+Path #10:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #11:
+  Source: external_input_params in HXLToken.mint
+  Sink: tainted_state_changing_external_call in ERC20._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_337(uint256)
+
+Path #12:
+  Source: external_input_params in HXLToken.burnFrom
+  Sink: tainted_state_changing_external_call in HXLToken._burnFrom
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, HXLToken._burnFrom(address,uint256)(account_,amount_)
+    3. TMP_362(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account_,msg.sender)
+
+Path #13:
+  Source: external_input_params in ERC20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_83(uint256) -> REF_82[spender]
+
+Path #14:
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_80(uint256) -> REF_79[spender]
+
+Path #15:
+  Source: external_input_params in HXLToken.mint
+  Sink: tainted_state_changing_external_call in HXLToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_337(uint256)
+
+Path #16:
+  Source: external_input_params in HXLToken.mint
+  Sink: tainted_state_changing_external_call in HXLToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. REF_172(uint256) -> _balances[account_]
+
+Path #17:
+  Source: external_input_params in ERC20Permit.permit
+  Sink: tainted_state_changing_external_call in ERC20Permit.permit
+  Path Operations:
+    1. permit
+    2. REF_136(Counters.Counter) -> _nonces[owner]
+
+Path #18:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #19:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_86(uint256) -> _balances[sender]
+
+Path #20:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,recipient,amount)
+    3. REF_89(uint256) -> _balances[recipient]
+
+Path #21:
+  Source: external_input_params in HXLToken.mint
+  Sink: tainted_state_changing_external_call in ERC20Permit._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_337(uint256)
+
+Path #22:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom

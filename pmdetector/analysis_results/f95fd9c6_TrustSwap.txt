@@ -1,0 +1,119 @@
+=== PMDetector Taint Analysis Results ===
+Found 7 taint sources
+Found 7 taint sinks
+Found 4 tainted paths (filtered from 4 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: UpgradeabilityProxy
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _logic
+
+Source #2: external_input_params
+  Contract: UpgradeabilityProxy
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _data
+
+Source #3: external_input_params
+  Contract: BaseAdminUpgradeabilityProxy
+  Function: changeAdmin
+  Operation: changeAdmin
+  Tainted Variables: newAdmin
+
+Source #4: external_input_params
+  Contract: BaseAdminUpgradeabilityProxy
+  Function: upgradeTo
+  Operation: upgradeTo
+  Tainted Variables: newImplementation
+
+Source #5: external_input_params
+  Contract: BaseAdminUpgradeabilityProxy
+  Function: upgradeToAndCall
+  Operation: upgradeToAndCall
+  Tainted Variables: newImplementation
+
+Source #6: external_input_params
+  Contract: BaseAdminUpgradeabilityProxy
+  Function: upgradeToAndCall
+  Operation: upgradeToAndCall
+  Tainted Variables: data
+
+Source #7: external_input_params
+  Contract: AdminUpgradeabilityProxy
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _admin
+
+=== Taint Sinks ===
+Sink #1: tainted_state_changing_external_call
+  Contract: UpgradeabilityProxy
+  Function: constructor
+  Operation: TUPLE_0(bool,bytes) = LOW_LEVEL_CALL, dest:_logic, function:delegatecall, arguments:['_data']  
+  Tainted Variable: _data
+
+Sink #2: tainted_state_changing_external_call
+  Contract: BaseAdminUpgradeabilityProxy
+  Function: upgradeToAndCall
+  Operation: TUPLE_1(bool,bytes) = LOW_LEVEL_CALL, dest:newImplementation, function:delegatecall, arguments:['data']  
+  Tainted Variable: data
+
+Sink #3: tainted_state_changing_external_call
+  Contract: AdminUpgradeabilityProxy
+  Function: constructor
+  Operation: TUPLE_2(bool,bytes) = LOW_LEVEL_CALL, dest:_logic, function:delegatecall, arguments:['_data']  
+  Tainted Variable: _data
+
+Sink #4: tainted_state_changing_external_call
+  Contract: AdminUpgradeabilityProxy
+  Function: _setImplementation
+  Operation: TMP_72(bool) = LIBRARY_CALL, dest:OpenZeppelinUpgradesAddress, function:OpenZeppelinUpgradesAddress.isContract(address), arguments:['newImplementation'] 
+  Tainted Variable: newImplementation
+
+Sink #5: tainted_state_changing_external_call
+  Contract: AdminUpgradeabilityProxy
+  Function: upgradeToAndCall
+  Operation: TUPLE_3(bool,bytes) = LOW_LEVEL_CALL, dest:newImplementation, function:delegatecall, arguments:['data']  
+  Tainted Variable: data
+
+Sink #6: tainted_state_changing_external_call
+  Contract: UpgradeabilityProxy
+  Function: _setImplementation
+  Operation: TMP_15(bool) = LIBRARY_CALL, dest:OpenZeppelinUpgradesAddress, function:OpenZeppelinUpgradesAddress.isContract(address), arguments:['newImplementation'] 
+  Tainted Variable: newImplementation
+
+Sink #7: tainted_state_changing_external_call
+  Contract: BaseAdminUpgradeabilityProxy
+  Function: _setImplementation
+  Operation: TMP_32(bool) = LIBRARY_CALL, dest:OpenZeppelinUpgradesAddress, function:OpenZeppelinUpgradesAddress.isContract(address), arguments:['newImplementation'] 
+  Tainted Variable: newImplementation
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in UpgradeabilityProxy.constructor
+  Sink: tainted_state_changing_external_call in UpgradeabilityProxy._setImplementation
+  Path Operations:
+    1. constructor
+    2. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
+
+Path #2:
+  Source: external_input_params in UpgradeabilityProxy.constructor
+  Sink: tainted_state_changing_external_call in UpgradeabilityProxy.constructor
+  Path Operations:
+    1. constructor
+
+Path #3:
+  Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeTo
+  Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy._setImplementation
+  Path Operations:
+    1. upgradeTo
+    2. INTERNAL_CALL, BaseUpgradeabilityProxy._upgradeTo(address)(newImplementation)
+    3. INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(newImplementation)
+
+Path #4:
+  Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeToAndCall
+  Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy.upgradeToAndCall
+  Path Operations:
+    1. upgradeToAndCall

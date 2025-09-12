@@ -1,0 +1,442 @@
+=== PMDetector Taint Analysis Results ===
+Found 22 taint sources
+Found 27 taint sinks
+Found 18 tainted paths (filtered from 18 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: name
+
+Source #2: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: symbol
+
+Source #3: external_input_params
+  Contract: ERC20
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #4: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: recipient
+
+Source #5: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #6: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: owner
+
+Source #7: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #8: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #9: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: amount
+
+Source #10: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: sender
+
+Source #11: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: recipient
+
+Source #12: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #13: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: spender
+
+Source #14: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: addedValue
+
+Source #15: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: spender
+
+Source #16: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: subtractedValue
+
+Source #17: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #18: external_input_params
+  Contract: SunflowerToken
+  Function: mint
+  Operation: mint
+  Tainted Variables: _to
+
+Source #19: external_input_params
+  Contract: SunflowerToken
+  Function: mint
+  Operation: mint
+  Tainted Variables: _amount
+
+Source #20: external_input_params
+  Contract: SunflowerToken
+  Function: burn
+  Operation: burn
+  Tainted Variables: amount
+
+Source #21: external_input_params
+  Contract: SunflowerToken
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: account
+
+Source #22: external_input_params
+  Contract: SunflowerToken
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: amount
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_41,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #2: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transferFrom
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #3: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: transferFrom
+  Operation: TMP_48(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_8', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_8
+
+Sink #4: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: TMP_52(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_11', 'addedValue'] 
+  Tainted Variable: REF_11
+
+Sink #5: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: TMP_56(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_14', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_14
+
+Sink #6: tainted_erc20_transfer
+  Contract: ERC20
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #7: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _transfer
+  Operation: TMP_65(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_17', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_17
+
+Sink #8: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _transfer
+  Operation: TMP_66(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_20', 'amount'] 
+  Tainted Variable: REF_20
+
+Sink #9: tainted_erc20_transfer
+  Contract: SunflowerToken
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_120,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #10: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: transferFrom
+  Operation: TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_36', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_36
+
+Sink #11: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: increaseAllowance
+  Operation: TMP_131(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_39', 'addedValue'] 
+  Tainted Variable: REF_39
+
+Sink #12: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: decreaseAllowance
+  Operation: TMP_135(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_42', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_42
+
+Sink #13: tainted_erc20_transfer
+  Contract: SunflowerToken
+  Function: _transfer
+  Operation: INTERNAL_CALL, SunflowerToken._beforeTokenTransfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #14: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: _transfer
+  Operation: TMP_144(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_45', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_45
+
+Sink #15: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: _transfer
+  Operation: TMP_145(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_48', 'amount'] 
+  Tainted Variable: REF_48
+
+Sink #16: tainted_erc20_transfer
+  Contract: SunflowerToken
+  Function: _beforeTokenTransfer
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #17: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: _beforeTokenTransfer
+  Operation: TMP_176(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_175', 'amount'] 
+  Tainted Variable: amount
+
+Sink #18: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: burnFrom
+  Operation: TMP_185(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['TMP_184', 'amount', 'ERC20: burn amount exceeds allowance'] 
+  Tainted Variable: TMP_184
+
+Sink #19: tainted_erc20_transfer
+  Contract: SunflowerToken
+  Function: _mint
+  Operation: INTERNAL_CALL, SunflowerToken._beforeTokenTransfer(address,address,uint256)(TMP_150,account,amount)
+  Tainted Variable: account
+
+Sink #20: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: _mint
+  Operation: TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #21: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: _mint
+  Operation: TMP_153(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_52', 'amount'] 
+  Tainted Variable: REF_52
+
+Sink #22: tainted_erc20_transfer
+  Contract: SunflowerToken
+  Function: _burn
+  Operation: INTERNAL_CALL, SunflowerToken._beforeTokenTransfer(address,address,uint256)(account,TMP_159,amount)
+  Tainted Variable: account
+
+Sink #23: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: _burn
+  Operation: TMP_161(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_55', 'amount', 'ERC20: burn amount exceeds balance'] 
+  Tainted Variable: REF_55
+
+Sink #24: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: _burn
+  Operation: TMP_162(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #25: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _mint
+  Operation: TMP_73(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #26: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _burn
+  Operation: TMP_83(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #27: tainted_state_changing_external_call
+  Contract: SunflowerToken
+  Function: _beforeTokenTransfer
+  Operation: TMP_176(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_175', 'amount'] 
+  Tainted Variable: TMP_175
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in SunflowerToken.mint
+  Sink: tainted_state_changing_external_call in SunflowerToken._beforeTokenTransfer
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_152(uint256)
+    5. TMP_175(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
+
+Path #2:
+  Source: external_input_params in SunflowerToken.mint
+  Sink: tainted_state_changing_external_call in SunflowerToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_152(uint256)
+
+Path #3:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #4:
+  Source: external_input_params in SunflowerToken.burnFrom
+  Sink: tainted_state_changing_external_call in SunflowerToken._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    3. REF_55(uint256) -> _balances[account]
+
+Path #5:
+  Source: external_input_params in SunflowerToken.mint
+  Sink: tainted_state_changing_external_call in SunflowerToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. REF_52(uint256) -> _balances[account]
+
+Path #6:
+  Source: external_input_params in SunflowerToken.burnFrom
+  Sink: tainted_erc20_transfer in SunflowerToken._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+
+Path #7:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_17(uint256) -> _balances[sender]
+
+Path #8:
+  Source: external_input_params in SunflowerToken.mint
+  Sink: tainted_erc20_transfer in SunflowerToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+
+Path #9:
+  Source: external_input_params in SunflowerToken.mint
+  Sink: tainted_state_changing_external_call in SunflowerToken._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_152(uint256)
+
+Path #10:
+  Source: external_input_params in ERC20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_14(uint256) -> REF_13[spender]
+
+Path #11:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    3. REF_20(uint256) -> _balances[recipient]
+
+Path #12:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #13:
+  Source: external_input_params in SunflowerToken.burnFrom
+  Sink: tainted_state_changing_external_call in SunflowerToken.burnFrom
+  Path Operations:
+    1. burnFrom
+    2. TMP_184(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account,TMP_183)
+
+Path #14:
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_11(uint256) -> REF_10[spender]
+
+Path #15:
+  Source: external_input_params in SunflowerToken.mint
+  Sink: tainted_state_changing_external_call in ERC20._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_152(uint256)
+
+Path #16:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_7(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_8(uint256) -> REF_7[TMP_47]
+
+Path #17:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #18:
+  Source: external_input_params in SunflowerToken.mint
+  Sink: tainted_state_changing_external_call in ERC20._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    3. TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_152(uint256)

@@ -1,0 +1,84 @@
+# Taint Analysis Results with Source Code Mapping
+Found 6 tainted paths.
+
+## Path #1
+Source: external_input_params in AfraSwap_Token.mint
+Sink: tainted_erc20_transfer in AfraSwap_Token._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/06d7f263_AfraSwap/flattened.sol', Lines [521, 522, 523]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/06d7f263_AfraSwap/flattened.sol', Lines [522]
+    LNE: _mint(_to,_amount)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/06d7f263_AfraSwap/flattened.sol', Lines [311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/06d7f263_AfraSwap/flattened.sol', Lines [312]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/06d7f263_AfraSwap/flattened.sol', Lines [270, 271, 272, 273]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/06d7f263_AfraSwap/flattened.sol', Lines [311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/06d7f263_AfraSwap/flattened.sol', Lines [312]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/06d7f263_AfraSwap/flattened.sol', Lines [311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in AfraSwap_Token.mint
+Sink: tainted_erc20_transfer in AfraSwap_Token._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/06d7f263_AfraSwap/flattened.sol', Lines [521, 522, 523]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/06d7f263_AfraSwap/flattened.sol', Lines [522]
+    LNE: _mint(_to,_amount)
+
+----------------------------------------

@@ -1,0 +1,767 @@
+=== PMDetector Taint Analysis Results ===
+Found 41 taint sources
+Found 44 taint sinks
+Found 26 tainted paths (filtered from 26 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #2: external_input_params
+  Contract: BEP20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: name
+
+Source #3: external_input_params
+  Contract: BEP20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: symbol
+
+Source #4: external_input_params
+  Contract: BEP20
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #5: external_input_params
+  Contract: BEP20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: recipient
+
+Source #6: external_input_params
+  Contract: BEP20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #7: external_input_params
+  Contract: BEP20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: owner
+
+Source #8: external_input_params
+  Contract: BEP20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #9: external_input_params
+  Contract: BEP20
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #10: external_input_params
+  Contract: BEP20
+  Function: approve
+  Operation: approve
+  Tainted Variables: amount
+
+Source #11: external_input_params
+  Contract: BEP20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: sender
+
+Source #12: external_input_params
+  Contract: BEP20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: recipient
+
+Source #13: external_input_params
+  Contract: BEP20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #14: external_input_params
+  Contract: BEP20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: spender
+
+Source #15: external_input_params
+  Contract: BEP20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: addedValue
+
+Source #16: external_input_params
+  Contract: BEP20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: spender
+
+Source #17: external_input_params
+  Contract: BEP20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: subtractedValue
+
+Source #18: external_input_params
+  Contract: BEP20
+  Function: mint
+  Operation: mint
+  Tainted Variables: amount
+
+Source #19: external_input_params
+  Contract: AnchorToken
+  Function: mint
+  Operation: mint
+  Tainted Variables: _to
+
+Source #20: external_input_params
+  Contract: AnchorToken
+  Function: mint
+  Operation: mint
+  Tainted Variables: _amount
+
+Source #21: external_input_params
+  Contract: AnchorToken
+  Function: isExcludedFromAntiWhale
+  Operation: isExcludedFromAntiWhale
+  Tainted Variables: _account
+
+Source #22: external_input_params
+  Contract: AnchorToken
+  Function: updateTransferTaxRate
+  Operation: updateTransferTaxRate
+  Tainted Variables: _transferTaxRate
+
+Source #23: external_input_params
+  Contract: AnchorToken
+  Function: updateBurnRate
+  Operation: updateBurnRate
+  Tainted Variables: _burnRate
+
+Source #24: external_input_params
+  Contract: AnchorToken
+  Function: updateMaxTransferAmountRate
+  Operation: updateMaxTransferAmountRate
+  Tainted Variables: _maxTransferAmountRate
+
+Source #25: external_input_params
+  Contract: AnchorToken
+  Function: updateMinAmountToLiquify
+  Operation: updateMinAmountToLiquify
+  Tainted Variables: _minAmount
+
+Source #26: external_input_params
+  Contract: AnchorToken
+  Function: setExcludedFromAntiWhale
+  Operation: setExcludedFromAntiWhale
+  Tainted Variables: _account
+
+Source #27: external_input_params
+  Contract: AnchorToken
+  Function: setExcludedFromAntiWhale
+  Operation: setExcludedFromAntiWhale
+  Tainted Variables: _excluded
+
+Source #28: external_input_params
+  Contract: AnchorToken
+  Function: updateSwapAndLiquifyEnabled
+  Operation: updateSwapAndLiquifyEnabled
+  Tainted Variables: _enabled
+
+Source #29: external_input_params
+  Contract: AnchorToken
+  Function: updateAnchorSwapRouter
+  Operation: updateAnchorSwapRouter
+  Tainted Variables: _router
+
+Source #30: external_input_params
+  Contract: AnchorToken
+  Function: transferOperator
+  Operation: transferOperator
+  Tainted Variables: newOperator
+
+Source #31: external_input_params
+  Contract: AnchorToken
+  Function: delegates
+  Operation: delegates
+  Tainted Variables: delegator
+
+Source #32: external_input_params
+  Contract: AnchorToken
+  Function: delegate
+  Operation: delegate
+  Tainted Variables: delegatee
+
+Source #33: external_input_params
+  Contract: AnchorToken
+  Function: delegateBySig
+  Operation: delegateBySig
+  Tainted Variables: delegatee
+
+Source #34: external_input_params
+  Contract: AnchorToken
+  Function: delegateBySig
+  Operation: delegateBySig
+  Tainted Variables: nonce
+
+Source #35: external_input_params
+  Contract: AnchorToken
+  Function: delegateBySig
+  Operation: delegateBySig
+  Tainted Variables: expiry
+
+Source #36: external_input_params
+  Contract: AnchorToken
+  Function: delegateBySig
+  Operation: delegateBySig
+  Tainted Variables: v
+
+Source #37: external_input_params
+  Contract: AnchorToken
+  Function: delegateBySig
+  Operation: delegateBySig
+  Tainted Variables: r
+
+Source #38: external_input_params
+  Contract: AnchorToken
+  Function: delegateBySig
+  Operation: delegateBySig
+  Tainted Variables: s
+
+Source #39: external_input_params
+  Contract: AnchorToken
+  Function: getCurrentVotes
+  Operation: getCurrentVotes
+  Tainted Variables: account
+
+Source #40: external_input_params
+  Contract: AnchorToken
+  Function: getPriorVotes
+  Operation: getPriorVotes
+  Tainted Variables: account
+
+Source #41: external_input_params
+  Contract: AnchorToken
+  Function: getPriorVotes
+  Operation: getPriorVotes
+  Tainted Variables: blockNumber
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: BEP20
+  Function: transfer
+  Operation: INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_82,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #2: tainted_erc20_transfer
+  Contract: BEP20
+  Function: transferFrom
+  Operation: INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #3: tainted_state_changing_external_call
+  Contract: BEP20
+  Function: transferFrom
+  Operation: TMP_89(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_10', 'amount', 'BEP20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_10
+
+Sink #4: tainted_state_changing_external_call
+  Contract: BEP20
+  Function: increaseAllowance
+  Operation: TMP_93(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_13', 'addedValue'] 
+  Tainted Variable: REF_13
+
+Sink #5: tainted_state_changing_external_call
+  Contract: BEP20
+  Function: decreaseAllowance
+  Operation: TMP_97(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_16', 'subtractedValue', 'BEP20: decreased allowance below zero'] 
+  Tainted Variable: REF_16
+
+Sink #6: tainted_state_changing_external_call
+  Contract: BEP20
+  Function: _transfer
+  Operation: TMP_108(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_19', 'amount', 'BEP20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_19
+
+Sink #7: tainted_state_changing_external_call
+  Contract: BEP20
+  Function: _transfer
+  Operation: TMP_109(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_22', 'amount'] 
+  Tainted Variable: REF_22
+
+Sink #8: tainted_state_changing_external_call
+  Contract: BEP20
+  Function: _mint
+  Operation: TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #9: tainted_state_changing_external_call
+  Contract: BEP20
+  Function: _mint
+  Operation: TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_26', 'amount'] 
+  Tainted Variable: amount
+
+Sink #10: tainted_state_changing_external_call
+  Contract: BEP20
+  Function: _burn
+  Operation: TMP_122(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #11: tainted_erc20_transfer
+  Contract: AnchorToken
+  Function: transfer
+  Operation: INTERNAL_CALL, AnchorToken._transfer(address,address,uint256)(TMP_142,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #12: tainted_erc20_transfer
+  Contract: AnchorToken
+  Function: transferFrom
+  Operation: INTERNAL_CALL, AnchorToken._transfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #13: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: transferFrom
+  Operation: TMP_149(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_41', 'amount', 'BEP20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_41
+
+Sink #14: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: increaseAllowance
+  Operation: TMP_153(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_44', 'addedValue'] 
+  Tainted Variable: REF_44
+
+Sink #15: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: decreaseAllowance
+  Operation: TMP_157(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_47', 'subtractedValue', 'BEP20: decreased allowance below zero'] 
+  Tainted Variable: REF_47
+
+Sink #16: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _mint
+  Operation: TMP_174(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #17: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _mint
+  Operation: TMP_175(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_57', 'amount'] 
+  Tainted Variable: amount
+
+Sink #18: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _burn
+  Operation: TMP_182(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #19: tainted_erc20_transfer
+  Contract: AnchorToken
+  Function: mint
+  Operation: INTERNAL_CALL, AnchorToken._moveDelegates(address,address,uint256)(TMP_215,REF_72,_amount)
+  Tainted Variable: REF_72
+
+Sink #20: tainted_erc20_transfer
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #21: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: TMP_238(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'transferTaxRate'] 
+  Tainted Variable: amount
+
+Sink #22: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_238', '10000'] 
+  Tainted Variable: TMP_238
+
+Sink #23: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: TMP_240(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['taxAmount', 'burnRate'] 
+  Tainted Variable: taxAmount
+
+Sink #24: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: TMP_241(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_240', '100'] 
+  Tainted Variable: TMP_240
+
+Sink #25: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: TMP_242(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['taxAmount', 'burnAmount'] 
+  Tainted Variable: taxAmount
+
+Sink #26: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: TMP_246(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'taxAmount'] 
+  Tainted Variable: amount
+
+Sink #27: tainted_erc20_transfer
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,BURN_ADDRESS,burnAmount)
+  Tainted Variable: sender
+
+Sink #28: tainted_erc20_transfer
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,TMP_251,liquidityAmount)
+  Tainted Variable: sender
+
+Sink #29: tainted_erc20_transfer
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,sendAmount)
+  Tainted Variable: sender
+
+Sink #30: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: swapAndLiquify
+  Operation: TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
+  Tainted Variable: liquifyAmount
+
+Sink #31: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: swapAndLiquify
+  Operation: TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['liquifyAmount', 'half'] 
+  Tainted Variable: liquifyAmount
+
+Sink #32: tainted_erc20_transfer
+  Contract: AnchorToken
+  Function: swapTokensForEth
+  Operation: HIGH_LEVEL_CALL, dest:AnchorSwapRouter(IUniswapV2Router02), function:swapExactTokensForETHSupportingFeeOnTransferTokens, arguments:['tokenAmount', '0', 'path', 'TMP_279', 'block.timestamp']  
+  Tainted Variable: tokenAmount
+
+Sink #33: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: addLiquidity
+  Operation: TUPLE_4(uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:AnchorSwapRouter(IUniswapV2Router02), function:addLiquidityETH, arguments:['TMP_284', 'tokenAmount', '0', '0', 'TMP_285', 'block.timestamp'] value:ethAmount 
+  Tainted Variable: tokenAmount
+
+Sink #34: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: maxTransferAmount
+  Operation: TMP_287(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_286', 'maxTransferAmountRate'] 
+  Tainted Variable: TMP_286
+
+Sink #35: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: maxTransferAmount
+  Operation: TMP_288(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_287', '10000'] 
+  Tainted Variable: TMP_287
+
+Sink #36: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: updateAnchorSwapRouter
+  Operation: TMP_311(address) = HIGH_LEVEL_CALL, dest:TMP_308(IUniswapV2Factory), function:getPair, arguments:['TMP_309', 'TMP_310']  
+  Tainted Variable: TMP_310
+
+Sink #37: tainted_erc20_transfer
+  Contract: AnchorToken
+  Function: _delegate
+  Operation: INTERNAL_CALL, AnchorToken._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
+  Tainted Variable: currentDelegate
+
+Sink #38: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _moveDelegates
+  Operation: TMP_370(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['srcRepOld', 'amount'] 
+  Tainted Variable: amount
+
+Sink #39: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _moveDelegates
+  Operation: TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['dstRepOld', 'amount'] 
+  Tainted Variable: amount
+
+Sink #40: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: TMP_168(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_50', 'amount', 'BEP20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_50
+
+Sink #41: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _transfer
+  Operation: TMP_169(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_53', 'amount'] 
+  Tainted Variable: REF_53
+
+Sink #42: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _mint
+  Operation: TMP_175(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_57', 'amount'] 
+  Tainted Variable: REF_57
+
+Sink #43: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _moveDelegates
+  Operation: TMP_370(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['srcRepOld', 'amount'] 
+  Tainted Variable: srcRepOld
+
+Sink #44: tainted_state_changing_external_call
+  Contract: AnchorToken
+  Function: _moveDelegates
+  Operation: TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['dstRepOld', 'amount'] 
+  Tainted Variable: dstRepOld
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in AnchorToken.mint
+  Sink: tainted_state_changing_external_call in AnchorToken._moveDelegates
+  Path Operations:
+    1. mint
+    2. REF_72(address) -> _delegates[_to]
+    3. INTERNAL_CALL, AnchorToken._moveDelegates(address,address,uint256)(TMP_215,REF_72,_amount)
+    4. REF_130(mapping(uint32 => AnchorToken.Checkpoint)) -> checkpoints[dstRep]
+    5. REF_131(AnchorToken.Checkpoint) -> REF_130[TMP_379]
+    6. REF_132(uint256) -> REF_131.votes
+    7. dstRepOld(uint256) := REF_132(uint256)
+
+Path #2:
+  Source: external_input_params in BEP20.transfer
+  Sink: tainted_erc20_transfer in BEP20.transfer
+  Path Operations:
+    1. transfer
+
+Path #3:
+  Source: external_input_params in AnchorToken.mint
+  Sink: tainted_state_changing_external_call in AnchorToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(_to,_amount)
+    3. REF_57(uint256) -> _balances[account]
+
+Path #4:
+  Source: external_input_params in AnchorToken.mint
+  Sink: tainted_state_changing_external_call in AnchorToken._moveDelegates
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, AnchorToken._moveDelegates(address,address,uint256)(TMP_215,REF_72,_amount)
+
+Path #5:
+  Source: external_input_params in AnchorToken.updateMinAmountToLiquify
+  Sink: tainted_state_changing_external_call in AnchorToken.swapAndLiquify
+  Path Operations:
+    1. updateMinAmountToLiquify
+    2. minAmountToLiquify(uint256) := _minAmount(uint256)
+    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
+
+Path #6:
+  Source: external_input_params in AnchorToken.updateAnchorSwapRouter
+  Sink: tainted_state_changing_external_call in AnchorToken.updateAnchorSwapRouter
+  Path Operations:
+    1. updateAnchorSwapRouter
+    2. TMP_306 = CONVERT _router to IUniswapV2Router02
+    3. AnchorSwapRouter(IUniswapV2Router02) := TMP_306(IUniswapV2Router02)
+    4. TMP_310(address) = HIGH_LEVEL_CALL, dest:AnchorSwapRouter(IUniswapV2Router02), function:WETH, arguments:[]  
+
+Path #7:
+  Source: external_input_params in BEP20.transfer
+  Sink: tainted_state_changing_external_call in BEP20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(TMP_82,recipient,amount)
+    3. REF_22(uint256) -> _balances[recipient]
+
+Path #8:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in BEP20._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_99,amount)
+
+Path #9:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in AnchorToken._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_99,amount)
+    3. TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_114(uint256)
+
+Path #10:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in AnchorToken.maxTransferAmount
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_99,amount)
+    3. TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_114(uint256)
+    5. TMP_286(uint256) = INTERNAL_CALL, BEP20.totalSupply()()
+
+Path #11:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_state_changing_external_call in BEP20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_9(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_10(uint256) -> REF_9[TMP_88]
+
+Path #12:
+  Source: external_input_params in AnchorToken.updateMinAmountToLiquify
+  Sink: tainted_erc20_transfer in AnchorToken.swapTokensForEth
+  Path Operations:
+    1. updateMinAmountToLiquify
+    2. minAmountToLiquify(uint256) := _minAmount(uint256)
+    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    4. TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['liquifyAmount', '2'] 
+    5. half(uint256) := TMP_259(uint256)
+    6. INTERNAL_CALL, AnchorToken.swapTokensForEth(uint256)(half)
+
+Path #13:
+  Source: external_input_params in BEP20.constructor
+  Sink: tainted_erc20_transfer in AnchorToken._delegate
+  Path Operations:
+    1. constructor
+    2. _name(string) := name(string)
+    3. TMP_324(string) = INTERNAL_CALL, BEP20.name()()
+    4. TMP_325 = CONVERT TMP_324 to bytes
+    5. TMP_326(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_325)
+    6. TMP_329(bytes) = SOLIDITY_CALL abi.encode()(DOMAIN_TYPEHASH,TMP_326,TMP_327,TMP_328)
+    7. TMP_330(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_329)
+    8. domainSeparator(bytes32) := TMP_330(bytes32)
+    9. TMP_333(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
+    10. TMP_334(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_333)
+    11. digest(bytes32) := TMP_334(bytes32)
+    12. TMP_335(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    13. signatory(address) := TMP_335(address)
+    14. INTERNAL_CALL, AnchorToken._delegate(address,address)(signatory,delegatee)
+    15. REF_121(address) -> _delegates[delegator]
+    16. currentDelegate(address) := REF_121(address)
+
+Path #14:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_state_changing_external_call in BEP20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, BEP20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_19(uint256) -> _balances[sender]
+
+Path #15:
+  Source: external_input_params in BEP20.increaseAllowance
+  Sink: tainted_state_changing_external_call in BEP20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_13(uint256) -> REF_12[spender]
+
+Path #16:
+  Source: external_input_params in AnchorToken.updateMinAmountToLiquify
+  Sink: tainted_state_changing_external_call in AnchorToken.addLiquidity
+  Path Operations:
+    1. updateMinAmountToLiquify
+    2. minAmountToLiquify(uint256) := _minAmount(uint256)
+    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
+    4. TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['liquifyAmount', 'half'] 
+    5. otherHalf(uint256) := TMP_260(uint256)
+    6. INTERNAL_CALL, AnchorToken.addLiquidity(uint256,uint256)(otherHalf,newBalance)
+
+Path #17:
+  Source: external_input_params in BEP20.constructor
+  Sink: tainted_state_changing_external_call in AnchorToken._moveDelegates
+  Path Operations:
+    1. constructor
+    2. _name(string) := name(string)
+    3. TMP_324(string) = INTERNAL_CALL, BEP20.name()()
+    4. TMP_325 = CONVERT TMP_324 to bytes
+    5. TMP_326(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_325)
+    6. TMP_329(bytes) = SOLIDITY_CALL abi.encode()(DOMAIN_TYPEHASH,TMP_326,TMP_327,TMP_328)
+    7. TMP_330(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_329)
+    8. domainSeparator(bytes32) := TMP_330(bytes32)
+    9. TMP_333(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
+    10. TMP_334(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_333)
+    11. digest(bytes32) := TMP_334(bytes32)
+    12. TMP_335(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    13. signatory(address) := TMP_335(address)
+    14. INTERNAL_CALL, AnchorToken._delegate(address,address)(signatory,delegatee)
+    15. REF_121(address) -> _delegates[delegator]
+    16. currentDelegate(address) := REF_121(address)
+    17. INTERNAL_CALL, AnchorToken._moveDelegates(address,address,uint256)(currentDelegate,delegatee,delegatorBalance)
+    18. REF_127(mapping(uint32 => AnchorToken.Checkpoint)) -> checkpoints[srcRep]
+    19. REF_128(AnchorToken.Checkpoint) -> REF_127[TMP_377]
+    20. REF_129(uint256) -> REF_128.votes
+    21. srcRepOld(uint256) := REF_129(uint256)
+
+Path #18:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in AnchorToken._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_99,amount)
+    3. TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_114(uint256)
+
+Path #19:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in BEP20._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_99,amount)
+    3. TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_114(uint256)
+
+Path #20:
+  Source: external_input_params in BEP20.transferFrom
+  Sink: tainted_erc20_transfer in BEP20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #21:
+  Source: external_input_params in BEP20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in BEP20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_16(uint256) -> REF_15[spender]
+
+Path #22:
+  Source: external_input_params in AnchorToken.updateMinAmountToLiquify
+  Sink: tainted_state_changing_external_call in AnchorToken.swapAndLiquify
+  Path Operations:
+    1. updateMinAmountToLiquify
+    2. minAmountToLiquify(uint256) := _minAmount(uint256)
+    3. liquifyAmount(uint256) := minAmountToLiquify(uint256)
+
+Path #23:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in AnchorToken.maxTransferAmount
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_99,amount)
+    3. TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_114(uint256)
+    5. TMP_286(uint256) = INTERNAL_CALL, BEP20.totalSupply()()
+    6. TMP_287(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_286', 'maxTransferAmountRate'] 
+
+Path #24:
+  Source: external_input_params in AnchorToken.mint
+  Sink: tainted_erc20_transfer in AnchorToken.mint
+  Path Operations:
+    1. mint
+    2. REF_72(address) -> _delegates[_to]
+
+Path #25:
+  Source: external_input_params in AnchorToken.mint
+  Sink: tainted_state_changing_external_call in AnchorToken._moveDelegates
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, AnchorToken._moveDelegates(address,address,uint256)(TMP_215,REF_72,_amount)
+
+Path #26:
+  Source: external_input_params in BEP20.mint
+  Sink: tainted_state_changing_external_call in BEP20._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, BEP20._mint(address,uint256)(TMP_99,amount)
+    3. TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_114(uint256)

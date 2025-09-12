@@ -1,0 +1,113 @@
+# Taint Analysis Results with Source Code Mapping
+Found 5 tainted paths.
+
+## Path #1
+Source: external_input_params in Tribe.transfer
+Sink: tainted_erc20_transfer in Tribe.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [203, 204, 205, 206, 207]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in Tribe.delegateBySig
+Sink: tainted_erc20_transfer in Tribe._delegate
+
+### Operations with Source Code Mapping:
+    IR:  delegateBySig
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259]
+    LNE: (No direct expression available)
+
+    IR:  TMP_72(bytes) = SOLIDITY_CALL abi.encode()(DELEGATION_TYPEHASH,delegatee,nonce,expiry)
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [251]
+    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
+
+    IR:  TMP_73(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_72)
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [251]
+    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
+
+    IR:  structHash(bytes32) := TMP_73(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [251]
+    LNE: structHash = keccak256(bytes)(abi.encode(DELEGATION_TYPEHASH,delegatee,nonce,expiry))
+
+    IR:  TMP_74(bytes) = SOLIDITY_CALL abi.encodePacked()(,domainSeparator,structHash)
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [252]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  TMP_75(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_74)
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [252]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  digest(bytes32) := TMP_75(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [252]
+    LNE: digest = keccak256(bytes)(abi.encodePacked(,domainSeparator,structHash))
+
+    IR:  TMP_76(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [253]
+    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  signatory(address) := TMP_76(address)
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [253]
+    LNE: signatory = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  INTERNAL_CALL, Tribe._delegate(address,address)(signatory,delegatee)
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [258]
+    LNE: _delegate(signatory,delegatee)
+
+    IR:  REF_45(address) -> delegates[delegator]
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [313]
+    LNE: currentDelegate = delegates[delegator]
+
+    IR:  currentDelegate(address) := REF_45(address)
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [313]
+    LNE: currentDelegate = delegates[delegator]
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in Tribe.mint
+Sink: tainted_erc20_transfer in Tribe.mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122]
+    LNE: (No direct expression available)
+
+    IR:  REF_3(address) -> delegates[dst]
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [121]
+    LNE: _moveDelegates(address(0),delegates[dst],amount)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in Tribe.transferFrom
+Sink: tainted_erc20_transfer in Tribe._transferTokens
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Tribe._transferTokens(address,address,uint96)(src,dst,amount)
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [228]
+    LNE: _transferTokens(src,dst,amount)
+
+    IR:  REF_52(address) -> delegates[src]
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [330]
+    LNE: _moveDelegates(delegates[src],delegates[dst],amount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in Tribe.transferFrom
+Sink: tainted_erc20_transfer in Tribe.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/0ea52845_Fei Protocol/flattened.sol', Lines [216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230]
+    LNE: (No direct expression available)
+
+----------------------------------------

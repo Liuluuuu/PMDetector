@@ -1,0 +1,1834 @@
+# Taint Analysis Results with Source Code Mapping
+Found 72 tainted paths.
+
+## Path #1
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._transferStandard
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [955]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  REF_79(uint256) -> _rOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [974]
+    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  REF_197(uint256) -> TMP_366[TMP_367]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  deserved(uint256) := REF_197(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1350]
+    LNE: burnFeeRewards(sender,deserved)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in ZZF.balanceOf
+Sink: tainted_erc20_transfer in ZZF.arriveRewards
+
+### Operations with Source Code Mapping:
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [797, 798, 799, 800]
+    LNE: (No direct expression available)
+
+    IR:  REF_43(uint256) -> _rOwned[account]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [799]
+    LNE: tokenFromReflection(_rOwned[account])
+
+    IR:  TMP_124(uint256) = INTERNAL_CALL, ZZF.tokenFromReflection(uint256)(REF_43)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [799]
+    LNE: tokenFromReflection(_rOwned[account])
+
+    IR:  TMP_422(uint256) = INTERNAL_CALL, ZZF.balanceOf(address)(fee2)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1403]
+    LNE: _transfer(fee2,address(this),balanceOf(fee2))
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_state_changing_external_call in ZZF._transferToExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [836]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [951]
+    LNE: _transferToExcluded(sender,recipient,amount)
+
+    IR:  REF_82(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [997]
+    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in ZZF.getInvitationList
+Sink: tainted_state_changing_external_call in ZZF.getInvitationList
+
+### Operations with Source Code Mapping:
+    IR:  getInvitationList
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1268, 1269, 1270, 1271, 1272, 1273, 1274, 1275, 1276, 1277, 1278, 1279]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._getCurrentSupply
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [955]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  rFee(uint256)= UNPACK TUPLE_4 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  INTERNAL_CALL, ZZF._reflectFee(uint256,uint256)(rFee,tFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [976]
+    LNE: _reflectFee(rFee,tFee)
+
+    IR:  TMP_242(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1061]
+    LNE: _rTotal = _rTotal.sub(rFee)
+
+    IR:  _rTotal(uint256) := TMP_242(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1061]
+    LNE: _rTotal = _rTotal.sub(rFee)
+
+    IR:  rSupply(uint256) := _rTotal(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1135]
+    LNE: rSupply = _rTotal
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in ZZF.increaseAllowance
+Sink: tainted_state_changing_external_call in ZZF.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [851, 852, 853, 854, 855, 856, 857, 858]
+    LNE: (No direct expression available)
+
+    IR:  REF_50(uint256) -> REF_49[spender]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [852, 853, 854, 855, 856]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_erc20_transfer in ZZF._tokenTransfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [836]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._reflectFee
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [955]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  rFee(uint256)= UNPACK TUPLE_4 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  INTERNAL_CALL, ZZF._reflectFee(uint256,uint256)(rFee,tFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [976]
+    LNE: _reflectFee(rFee,tFee)
+
+    IR:  TMP_242(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1061]
+    LNE: _rTotal = _rTotal.sub(rFee)
+
+    IR:  _rTotal(uint256) := TMP_242(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1061]
+    LNE: _rTotal = _rTotal.sub(rFee)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1349]
+    LNE: _BurnTokenToDead(sender,amount)
+
+    IR:  TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  _balance(uint256) := TMP_397(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  TMP_400(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_useBalance', '_balance'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1379]
+    LNE: _useBalance = _useBalance.add(_balance)
+
+    IR:  _useBalance(uint256) := TMP_400(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1379]
+    LNE: _useBalance = _useBalance.add(_balance)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_erc20_transfer in ZZF._tokenTransfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [836]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF.burnToHolder
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF.burnToHolder
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  REF_188(EnumerableSet.AddressSet) -> InvitationList[_invitation]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1337]
+    LNE: InvitationList[_invitation].add(sender)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in ZZF.getUserList
+Sink: tainted_state_changing_external_call in ZZF.getUserList
+
+### Operations with Source Code Mapping:
+    IR:  getUserList
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1295, 1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_erc20_transfer in ZZF.arriveRewards
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  REF_197(uint256) -> TMP_366[TMP_367]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  deserved(uint256) := REF_197(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1350]
+    LNE: burnFeeRewards(sender,deserved)
+
+    IR:  INTERNAL_CALL, ZZF.arriveRewards(uint256)(increase)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1362]
+    LNE: arriveRewards(increase)
+
+    IR:  TMP_417(uint256) = increase (c)* 2
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1401]
+    LNE: _transfer(address(this),fee1,increase * 2)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in ZZF.reflectionFromToken
+Sink: tainted_state_changing_external_call in ZZF._getRValues
+
+### Operations with Source Code Mapping:
+    IR:  reflectionFromToken
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [881, 882, 883, 884, 885, 886, 887, 888, 889, 890]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [884]
+    LNE: (rAmount,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1081, 1082, 1083, 1084, 1085, 1086]
+    LNE: (rAmount,rTransferAmount,rFee) = _getRValues(tAmount,tFee,tLiquidity,_getRate())
+
+    IR:  TMP_249(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1124]
+    LNE: rAmount = tAmount.mul(currentRate)
+
+    IR:  rAmount(uint256) := TMP_249(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1124]
+    LNE: rAmount = tAmount.mul(currentRate)
+
+    IR:  TMP_252(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['rAmount', 'rFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1127]
+    LNE: rTransferAmount = rAmount.sub(rFee).sub(rLiquidity)
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_erc20_transfer in ZZF._tokenTransfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [836]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._takeLiquidity
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [955]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  tLiquidity(uint256)= UNPACK TUPLE_4 index: 5 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  INTERNAL_CALL, ZZF._takeLiquidity(uint256)(tLiquidity)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [975]
+    LNE: _takeLiquidity(tLiquidity)
+
+    IR:  TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tLiquidity', 'currentRate'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1150]
+    LNE: rLiquidity = tLiquidity.mul(currentRate)
+
+    IR:  rLiquidity(uint256) := TMP_265(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1150]
+    LNE: rLiquidity = tLiquidity.mul(currentRate)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._transferToExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [951]
+    LNE: _transferToExcluded(sender,recipient,amount)
+
+    IR:  REF_88(uint256) -> _rOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [999]
+    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._transferFromExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [949]
+    LNE: _transferFromExcluded(sender,recipient,amount)
+
+    IR:  REF_97(uint256) -> _rOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1024]
+    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in ZZF.transfer
+Sink: tainted_erc20_transfer in ZZF.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_state_changing_external_call in ZZF._transferFromExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [836]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [949]
+    LNE: _transferFromExcluded(sender,recipient,amount)
+
+    IR:  REF_94(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1023]
+    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_erc20_transfer in ZZF.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_state_changing_external_call in ZZF._transferStandard
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [836]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [955]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  REF_76(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [973]
+    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_state_changing_external_call in ZZF._transferBothExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [836]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [953]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  REF_103(uint256) -> _rOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1048]
+    LNE: _rOwned[sender] = _rOwned[sender].sub(rAmount)
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  REF_197(uint256) -> TMP_366[TMP_367]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  deserved(uint256) := REF_197(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1350]
+    LNE: burnFeeRewards(sender,deserved)
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in ZZF.reflectionFromToken
+Sink: tainted_state_changing_external_call in ZZF._getRValues
+
+### Operations with Source Code Mapping:
+    IR:  reflectionFromToken
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [881, 882, 883, 884, 885, 886, 887, 888, 889, 890]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [884]
+    LNE: (rAmount,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1076, 1077, 1078, 1079, 1080]
+    LNE: (tTransferAmount,tFee,tLiquidity) = _getTValues(tAmount)
+
+    IR:  tFee(uint256)= UNPACK TUPLE_8 index: 1 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1076, 1077, 1078, 1079, 1080]
+    LNE: (tTransferAmount,tFee,tLiquidity) = _getTValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1081, 1082, 1083, 1084, 1085, 1086]
+    LNE: (rAmount,rTransferAmount,rFee) = _getRValues(tAmount,tFee,tLiquidity,_getRate())
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1349]
+    LNE: _BurnTokenToDead(sender,amount)
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1349]
+    LNE: _BurnTokenToDead(sender,amount)
+
+    IR:  TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_erc20_transfer in ZZF._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [836]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #31
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  REF_197(uint256) -> TMP_366[TMP_367]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  deserved(uint256) := REF_197(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1350]
+    LNE: burnFeeRewards(sender,deserved)
+
+    IR:  TMP_386(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalRewards', 'increase'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1363]
+    LNE: totalRewards = totalRewards.add(increase)
+
+    IR:  totalRewards(uint256) := TMP_386(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1363]
+    LNE: totalRewards = totalRewards.add(increase)
+
+----------------------------------------
+
+## Path #32
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_erc20_transfer in ZZF._tokenTransfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [836]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+----------------------------------------
+
+## Path #33
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_state_changing_external_call in ZZF._transferFromExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [836]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferFromExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [949]
+    LNE: _transferFromExcluded(sender,recipient,amount)
+
+    IR:  REF_91(uint256) -> _tOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1022]
+    LNE: _tOwned[sender] = _tOwned[sender].sub(tAmount)
+
+----------------------------------------
+
+## Path #34
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1349]
+    LNE: _BurnTokenToDead(sender,amount)
+
+----------------------------------------
+
+## Path #35
+Source: external_input_params in ZZF.setInvitation
+Sink: tainted_state_changing_external_call in ZZF.setInvitation
+
+### Operations with Source Code Mapping:
+    IR:  setInvitation
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1324, 1325, 1326, 1327, 1328, 1329, 1330]
+    LNE: (No direct expression available)
+
+    IR:  REF_183(EnumerableSet.AddressSet) -> InvitationList[from]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1328]
+    LNE: InvitationList[from].add(sender)
+
+----------------------------------------
+
+## Path #36
+Source: external_input_params in ZZF.reflectionFromToken
+Sink: tainted_state_changing_external_call in ZZF.calculateTaxFee
+
+### Operations with Source Code Mapping:
+    IR:  reflectionFromToken
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [881, 882, 883, 884, 885, 886, 887, 888, 889, 890]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [884]
+    LNE: (rAmount,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1076, 1077, 1078, 1079, 1080]
+    LNE: (tTransferAmount,tFee,tLiquidity) = _getTValues(tAmount)
+
+    IR:  TMP_245(uint256) = INTERNAL_CALL, ZZF.calculateTaxFee(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1105]
+    LNE: tFee = calculateTaxFee(tAmount)
+
+----------------------------------------
+
+## Path #37
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  REF_197(uint256) -> TMP_366[TMP_367]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  deserved(uint256) := REF_197(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1350]
+    LNE: burnFeeRewards(sender,deserved)
+
+----------------------------------------
+
+## Path #38
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._reflectFee
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [955]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  tFee(uint256)= UNPACK TUPLE_4 index: 4 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  INTERNAL_CALL, ZZF._reflectFee(uint256,uint256)(rFee,tFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [976]
+    LNE: _reflectFee(rFee,tFee)
+
+    IR:  TMP_243(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_tFeeTotal', 'tFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1062]
+    LNE: _tFeeTotal = _tFeeTotal.add(tFee)
+
+    IR:  _tFeeTotal(uint256) := TMP_243(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1062]
+    LNE: _tFeeTotal = _tFeeTotal.add(tFee)
+
+----------------------------------------
+
+## Path #39
+Source: external_input_params in ZZF.getInvitationList
+Sink: tainted_state_changing_external_call in ZZF.canRewards
+
+### Operations with Source Code Mapping:
+    IR:  getInvitationList
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1268, 1269, 1270, 1271, 1272, 1273, 1274, 1275, 1276, 1277, 1278, 1279]
+    LNE: (No direct expression available)
+
+    IR:  TMP_308(uint256) = from (c)+ index
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1276]
+    LNE: addr = InvitationList[msg.sender].at(from + index)
+
+    IR:  TMP_309(address) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.at(EnumerableSet.AddressSet,uint256), arguments:['REF_154', 'TMP_308'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1276]
+    LNE: addr = InvitationList[msg.sender].at(from + index)
+
+    IR:  addr(address) := TMP_309(address)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1276]
+    LNE: addr = InvitationList[msg.sender].at(from + index)
+
+    IR:  TMP_310(ZZF.userInfo) = INTERNAL_CALL, ZZF.getUserInfo(address)(addr)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1277]
+    LNE: items[index] = getUserInfo(addr)
+
+    IR:  TMP_313(uint256) = INTERNAL_CALL, ZZF.canRewards(address)(addr)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1288]
+    LNE: info = userInfo(addr,burnAmount[addr],Rewards[addr],canRewards(addr),Share[addr],Invitation[addr],historyRewards[addr],ShareTokens[addr])
+
+    IR:  TMP_326(uint256) = INTERNAL_CALL, ZZF.balanceOf(address)(addr)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1308]
+    LNE: amount = balanceOf(addr).sub(burnAmount[addr])
+
+----------------------------------------
+
+## Path #40
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF.burnToHolder
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #41
+Source: external_input_params in ZZF.getInvitationList
+Sink: tainted_state_changing_external_call in ZZF.getInvitationList
+
+### Operations with Source Code Mapping:
+    IR:  getInvitationList
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1268, 1269, 1270, 1271, 1272, 1273, 1274, 1275, 1276, 1277, 1278, 1279]
+    LNE: (No direct expression available)
+
+    IR:  TMP_308(uint256) = from (c)+ index
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1276]
+    LNE: addr = InvitationList[msg.sender].at(from + index)
+
+----------------------------------------
+
+## Path #42
+Source: external_input_params in ZZF.reflectionFromToken
+Sink: tainted_state_changing_external_call in ZZF._getRValues
+
+### Operations with Source Code Mapping:
+    IR:  reflectionFromToken
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [881, 882, 883, 884, 885, 886, 887, 888, 889, 890]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [884]
+    LNE: (rAmount,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1081, 1082, 1083, 1084, 1085, 1086]
+    LNE: (rAmount,rTransferAmount,rFee) = _getRValues(tAmount,tFee,tLiquidity,_getRate())
+
+    IR:  TMP_249(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tAmount', 'currentRate'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1124]
+    LNE: rAmount = tAmount.mul(currentRate)
+
+    IR:  rAmount(uint256) := TMP_249(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1124]
+    LNE: rAmount = tAmount.mul(currentRate)
+
+----------------------------------------
+
+## Path #43
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._getRate
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [955]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  rFee(uint256)= UNPACK TUPLE_4 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  INTERNAL_CALL, ZZF._reflectFee(uint256,uint256)(rFee,tFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [976]
+    LNE: _reflectFee(rFee,tFee)
+
+    IR:  TMP_242(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1061]
+    LNE: _rTotal = _rTotal.sub(rFee)
+
+    IR:  _rTotal(uint256) := TMP_242(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1061]
+    LNE: _rTotal = _rTotal.sub(rFee)
+
+    IR:  TUPLE_10(uint256,uint256) = INTERNAL_CALL, ZZF._getCurrentSupply()()
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1131]
+    LNE: (rSupply,tSupply) = _getCurrentSupply()
+
+    IR:  rSupply(uint256)= UNPACK TUPLE_10 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1131]
+    LNE: (rSupply,tSupply) = _getCurrentSupply()
+
+----------------------------------------
+
+## Path #44
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_erc20_transfer in ZZF.burnFeeRewards
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  REF_197(uint256) -> TMP_366[TMP_367]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  deserved(uint256) := REF_197(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1350]
+    LNE: burnFeeRewards(sender,deserved)
+
+----------------------------------------
+
+## Path #45
+Source: external_input_params in ZZF.reflectionFromToken
+Sink: tainted_state_changing_external_call in ZZF._getTValues
+
+### Operations with Source Code Mapping:
+    IR:  reflectionFromToken
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [881, 882, 883, 884, 885, 886, 887, 888, 889, 890]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [884]
+    LNE: (rAmount,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1076, 1077, 1078, 1079, 1080]
+    LNE: (tTransferAmount,tFee,tLiquidity) = _getTValues(tAmount)
+
+    IR:  TMP_247(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tAmount', 'tFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1107]
+    LNE: tTransferAmount = tAmount.sub(tFee).sub(tLiquidity)
+
+----------------------------------------
+
+## Path #46
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._transferBothExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [953]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  REF_109(uint256) -> _rOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1050]
+    LNE: _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount)
+
+----------------------------------------
+
+## Path #47
+Source: external_input_params in ZZF.decreaseAllowance
+Sink: tainted_state_changing_external_call in ZZF.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873]
+    LNE: (No direct expression available)
+
+    IR:  REF_53(uint256) -> REF_52[spender]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [864, 865, 866, 867, 868, 869, 870, 871]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #48
+Source: external_input_params in ZZF.getUserList
+Sink: tainted_state_changing_external_call in ZZF.getUserList
+
+### Operations with Source Code Mapping:
+    IR:  getUserList
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1295, 1296, 1297, 1298, 1299, 1300, 1301, 1302, 1303, 1304, 1305, 1306]
+    LNE: (No direct expression available)
+
+    IR:  TMP_322(uint256) = from (c)+ index
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1303]
+    LNE: addr = userList.at(from + index)
+
+----------------------------------------
+
+## Path #49
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_erc20_transfer in ZZF.arriveRewards
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  REF_197(uint256) -> TMP_366[TMP_367]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  deserved(uint256) := REF_197(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1350]
+    LNE: burnFeeRewards(sender,deserved)
+
+    IR:  INTERNAL_CALL, ZZF.arriveRewards(uint256)(increase)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1362]
+    LNE: arriveRewards(increase)
+
+    IR:  TMP_419(uint256) = increase (c)* 2
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1402]
+    LNE: _transfer(fee1,fee2,increase * 2)
+
+----------------------------------------
+
+## Path #50
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_erc20_transfer in ZZF._BurnTokenToDead
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1349]
+    LNE: _BurnTokenToDead(sender,amount)
+
+    IR:  TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  _balance(uint256) := TMP_397(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+----------------------------------------
+
+## Path #51
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1349]
+    LNE: _BurnTokenToDead(sender,amount)
+
+    IR:  TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  _balance(uint256) := TMP_397(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+----------------------------------------
+
+## Path #52
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._transferBothExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [953]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  REF_106(uint256) -> _tOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1049]
+    LNE: _tOwned[recipient] = _tOwned[recipient].add(tTransferAmount)
+
+----------------------------------------
+
+## Path #53
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1349]
+    LNE: _BurnTokenToDead(sender,amount)
+
+    IR:  TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  _balance(uint256) := TMP_397(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+----------------------------------------
+
+## Path #54
+Source: external_input_params in ZZF.reflectionFromToken
+Sink: tainted_state_changing_external_call in ZZF.calculateTaxFee
+
+### Operations with Source Code Mapping:
+    IR:  reflectionFromToken
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [881, 882, 883, 884, 885, 886, 887, 888, 889, 890]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [884]
+    LNE: (rAmount,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1076, 1077, 1078, 1079, 1080]
+    LNE: (tTransferAmount,tFee,tLiquidity) = _getTValues(tAmount)
+
+    IR:  TMP_245(uint256) = INTERNAL_CALL, ZZF.calculateTaxFee(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1105]
+    LNE: tFee = calculateTaxFee(tAmount)
+
+    IR:  TMP_273(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_taxFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1156]
+    LNE: _amount.mul(_taxFee).div(10 ** 2)
+
+----------------------------------------
+
+## Path #55
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_state_changing_external_call in ZZF.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  REF_46(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [837, 838, 839, 840, 841, 842, 843, 844]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_47(uint256) -> REF_46[TMP_133]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [837, 838, 839, 840, 841, 842, 843, 844]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #56
+Source: external_input_params in ZZF.reflectionFromToken
+Sink: tainted_state_changing_external_call in ZZF._getRValues
+
+### Operations with Source Code Mapping:
+    IR:  reflectionFromToken
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [881, 882, 883, 884, 885, 886, 887, 888, 889, 890]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [884]
+    LNE: (rAmount,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1081, 1082, 1083, 1084, 1085, 1086]
+    LNE: (rAmount,rTransferAmount,rFee) = _getRValues(tAmount,tFee,tLiquidity,_getRate())
+
+----------------------------------------
+
+## Path #57
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_erc20_transfer in ZZF._BurnTokenToDead
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1349]
+    LNE: _BurnTokenToDead(sender,amount)
+
+    IR:  TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  _balance(uint256) := TMP_397(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+----------------------------------------
+
+## Path #58
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._takeLiquidity
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [955]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  tLiquidity(uint256)= UNPACK TUPLE_4 index: 5 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  INTERNAL_CALL, ZZF._takeLiquidity(uint256)(tLiquidity)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [975]
+    LNE: _takeLiquidity(tLiquidity)
+
+----------------------------------------
+
+## Path #59
+Source: external_input_params in ZZF.transferFrom
+Sink: tainted_state_changing_external_call in ZZF._transferBothExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [836]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferBothExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [953]
+    LNE: _transferBothExcluded(sender,recipient,amount)
+
+    IR:  REF_100(uint256) -> _tOwned[sender]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1047]
+    LNE: _tOwned[sender] = _tOwned[sender].sub(tAmount)
+
+----------------------------------------
+
+## Path #60
+Source: external_input_params in ZZF.reflectionFromToken
+Sink: tainted_state_changing_external_call in ZZF._getRValues
+
+### Operations with Source Code Mapping:
+    IR:  reflectionFromToken
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [881, 882, 883, 884, 885, 886, 887, 888, 889, 890]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [884]
+    LNE: (rAmount,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1076, 1077, 1078, 1079, 1080]
+    LNE: (tTransferAmount,tFee,tLiquidity) = _getTValues(tAmount)
+
+    IR:  tLiquidity(uint256)= UNPACK TUPLE_8 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1076, 1077, 1078, 1079, 1080]
+    LNE: (tTransferAmount,tFee,tLiquidity) = _getTValues(tAmount)
+
+    IR:  TUPLE_9(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getRValues(uint256,uint256,uint256,uint256)(tAmount,tFee,tLiquidity,TMP_244)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1081, 1082, 1083, 1084, 1085, 1086]
+    LNE: (rAmount,rTransferAmount,rFee) = _getRValues(tAmount,tFee,tLiquidity,_getRate())
+
+----------------------------------------
+
+## Path #61
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._takeLiquidity
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [955]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  tLiquidity(uint256)= UNPACK TUPLE_4 index: 5 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  INTERNAL_CALL, ZZF._takeLiquidity(uint256)(tLiquidity)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [975]
+    LNE: _takeLiquidity(tLiquidity)
+
+----------------------------------------
+
+## Path #62
+Source: external_input_params in ZZF.reflectionFromToken
+Sink: tainted_state_changing_external_call in ZZF.calculateLiquidityFee
+
+### Operations with Source Code Mapping:
+    IR:  reflectionFromToken
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [881, 882, 883, 884, 885, 886, 887, 888, 889, 890]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [884]
+    LNE: (rAmount,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1076, 1077, 1078, 1079, 1080]
+    LNE: (tTransferAmount,tFee,tLiquidity) = _getTValues(tAmount)
+
+    IR:  TMP_246(uint256) = INTERNAL_CALL, ZZF.calculateLiquidityFee(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1106]
+    LNE: tLiquidity = calculateLiquidityFee(tAmount)
+
+----------------------------------------
+
+## Path #63
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_erc20_transfer in ZZF._BurnTokenToDead
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1349]
+    LNE: _BurnTokenToDead(sender,amount)
+
+----------------------------------------
+
+## Path #64
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1349]
+    LNE: _BurnTokenToDead(sender,amount)
+
+    IR:  TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  _balance(uint256) := TMP_397(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  TMP_400(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_useBalance', '_balance'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1379]
+    LNE: _useBalance = _useBalance.add(_balance)
+
+    IR:  _useBalance(uint256) := TMP_400(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1379]
+    LNE: _useBalance = _useBalance.add(_balance)
+
+----------------------------------------
+
+## Path #65
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._getCurrentSupply
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferStandard(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [955]
+    LNE: _transferStandard(sender,recipient,amount)
+
+    IR:  TUPLE_4(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  rFee(uint256)= UNPACK TUPLE_4 index: 2 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [965, 966, 967, 968, 969, 970, 971, 972]
+    LNE: (rAmount,rTransferAmount,rFee,tTransferAmount,tFee,tLiquidity) = _getValues(tAmount)
+
+    IR:  INTERNAL_CALL, ZZF._reflectFee(uint256,uint256)(rFee,tFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [976]
+    LNE: _reflectFee(rFee,tFee)
+
+    IR:  TMP_242(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_rTotal', 'rFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1061]
+    LNE: _rTotal = _rTotal.sub(rFee)
+
+    IR:  _rTotal(uint256) := TMP_242(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1061]
+    LNE: _rTotal = _rTotal.sub(rFee)
+
+----------------------------------------
+
+## Path #66
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF.arriveFeeRewards
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  REF_197(uint256) -> TMP_366[TMP_367]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  deserved(uint256) := REF_197(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1350]
+    LNE: burnFeeRewards(sender,deserved)
+
+    IR:  TMP_386(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalRewards', 'increase'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1363]
+    LNE: totalRewards = totalRewards.add(increase)
+
+    IR:  totalRewards(uint256) := TMP_386(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1363]
+    LNE: totalRewards = totalRewards.add(increase)
+
+----------------------------------------
+
+## Path #67
+Source: external_input_params in ZZF.reflectionFromToken
+Sink: tainted_state_changing_external_call in ZZF.calculateLiquidityFee
+
+### Operations with Source Code Mapping:
+    IR:  reflectionFromToken
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [881, 882, 883, 884, 885, 886, 887, 888, 889, 890]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [884]
+    LNE: (rAmount,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1076, 1077, 1078, 1079, 1080]
+    LNE: (tTransferAmount,tFee,tLiquidity) = _getTValues(tAmount)
+
+    IR:  TMP_246(uint256) = INTERNAL_CALL, ZZF.calculateLiquidityFee(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1106]
+    LNE: tLiquidity = calculateLiquidityFee(tAmount)
+
+    IR:  TMP_276(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_amount', '_liquidityFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1163]
+    LNE: _amount.mul(_liquidityFee).div(10 ** 2)
+
+----------------------------------------
+
+## Path #68
+Source: external_input_params in ZZF.reflectionFromToken
+Sink: tainted_state_changing_external_call in ZZF._getTValues
+
+### Operations with Source Code Mapping:
+    IR:  reflectionFromToken
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [881, 882, 883, 884, 885, 886, 887, 888, 889, 890]
+    LNE: (No direct expression available)
+
+    IR:  TUPLE_2(uint256,uint256,uint256,uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [884]
+    LNE: (rAmount,None,None,None,None,None) = _getValues(tAmount)
+
+    IR:  TUPLE_8(uint256,uint256,uint256) = INTERNAL_CALL, ZZF._getTValues(uint256)(tAmount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1076, 1077, 1078, 1079, 1080]
+    LNE: (tTransferAmount,tFee,tLiquidity) = _getTValues(tAmount)
+
+----------------------------------------
+
+## Path #69
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF.burnFeeRewards
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  TMP_366(uint256[]) = HIGH_LEVEL_CALL, dest:uniswapRouter(IUniswapV2Router02), function:getAmountsOut, arguments:['amount', 'path']  
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  REF_197(uint256) -> TMP_366[TMP_367]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  deserved(uint256) := REF_197(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1346]
+    LNE: deserved = uniswapRouter.getAmountsOut(amount,path)[path.length - 1]
+
+    IR:  INTERNAL_CALL, ZZF.burnFeeRewards(address,uint256)(sender,deserved)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1350]
+    LNE: burnFeeRewards(sender,deserved)
+
+    IR:  TMP_381(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBurn', 'increase'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1357]
+    LNE: totalBurn = totalBurn.add(increase)
+
+    IR:  totalBurn(uint256) := TMP_381(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1357]
+    LNE: totalBurn = totalBurn.add(increase)
+
+----------------------------------------
+
+## Path #70
+Source: external_input_params in ZZF.burnToHolder
+Sink: tainted_state_changing_external_call in ZZF._BurnTokenToDead
+
+### Operations with Source Code Mapping:
+    IR:  burnToHolder
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._BurnTokenToDead(address,uint256)(sender,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1349]
+    LNE: _BurnTokenToDead(sender,amount)
+
+    IR:  TMP_396(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amountIn', 'invFee'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  TMP_397(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_396', '100'] 
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+    IR:  _balance(uint256) := TMP_397(uint256)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [1376]
+    LNE: _balance = amountIn.mul(invFee).div(100)
+
+----------------------------------------
+
+## Path #71
+Source: external_input_params in ZZF.transfer
+Sink: tainted_state_changing_external_call in ZZF._transferToExcluded
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [807, 808, 809, 810]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ZZF._transfer(address,address,uint256)(TMP_125,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [808]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  INTERNAL_CALL, ZZF._tokenTransfer(address,address,uint256,bool)(from,to,amount,takeFee)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [938]
+    LNE: _tokenTransfer(from,to,amount,takeFee)
+
+    IR:  INTERNAL_CALL, ZZF._transferToExcluded(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [951]
+    LNE: _transferToExcluded(sender,recipient,amount)
+
+    IR:  REF_85(uint256) -> _tOwned[recipient]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [998]
+    LNE: _tOwned[recipient] = _tOwned[recipient].add(tTransferAmount)
+
+----------------------------------------
+
+## Path #72
+Source: external_input_params in ZZF.balanceOf
+Sink: tainted_state_changing_external_call in ZZF.tokenFromReflection
+
+### Operations with Source Code Mapping:
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [797, 798, 799, 800]
+    LNE: (No direct expression available)
+
+    IR:  REF_43(uint256) -> _rOwned[account]
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [799]
+    LNE: tokenFromReflection(_rOwned[account])
+
+    IR:  TMP_124(uint256) = INTERNAL_CALL, ZZF.tokenFromReflection(uint256)(REF_43)
+    SRC: File 'pmdetector/flattened_contracts/767a177a_ZongZi/flattened.sol', Lines [799]
+    LNE: tokenFromReflection(_rOwned[account])
+
+----------------------------------------

@@ -1,0 +1,54 @@
+### **Unified & Generalized Attack Model for Flash-laon based Price Manipulation**
+
+This unified model captures simple, composite, and circular (looping) attacks as **arbitrary compositions of the base phases**, focusing on the **flow of tainted oracle (price) data** through a transaction or sequence of contracts.
+
+**Phase 0: Setup (Optional)**
+
+- **Action:** Attacker acquires exploitable capital, often via a flash loan or other leveraged positions.
+- **Goal:** Satisfy preconditions for the attack (collateral, liquidity, etc).
+
+---
+
+- **Phase 1: Oracle Manipulation (Taint Introduction)**
+- **Action:** Attacker manipulates the oracle (or state) to set a favorable, tainted price.
+- **Taint Source:** Any mechanism (DEX swap, oracle update) that sets an externally-controlled state which the target contract will later read.
+
+---
+
+- **Phase 2: Tainted Data Exploitation (Payload Phase — Arbitrary Sequences Allowed)**
+
+The attacker’s core logic can involve **any sequence and combination (including repetitions and loops) of tainted reads, state updates, and value extraction steps**.
+
+**Sub-Phase 2.a: Tainted Read(s)**
+
+- **Action:** One or more target contracts read the tainted price/state.
+- **Purpose:** Make logic decisions/calculations using the attacker-influenced value.
+- **Note:** There may be **multiple reads**, possibly by different contracts or in loops within a single transaction.
+
+**Sub-Phase 2.b: State Mutation (Optional)**
+
+- **Action:** The contract(s) use(s) the tainted value to update persistent protocol state and/or issue token transfers.
+- **Examples:** Open/close positions, set collateral values, update reward calculations, liquidate, or issue tokens.
+- **Note:** There might be **interleaved mutations** (i.e., update → extract value → update again).
+
+**Sub-Phase 2.c: Value Extraction / Sinks**
+
+- **Action:** The attacker receives tokens, ether, or value — either directly or indirectly.
+- **Note:** Extraction can occur **immediately** after the read, after several reads, or after any series of state transitions.
+
+**Sub-Phase 2.d: Reverse Oracle Manipulation (Optional, Composable Anywhere)**
+
+- **Action:** The attacker undoes or further manipulates the oracle (e.g., swings price back), to enable more profit extraction or position unwinding, or as part of a **circular arbitrage** scheme.
+- **Note:** This can happen **multiple times, at arbitrary points**, within a complex attack.
+
+---
+
+- **Important:** The attacker may **repeat or loop through any or all of these sub-phases**, forming cycles (e.g., circular arbitrage, cross-protocol position moving).
+- **The core focus for taint analysis:** Trace whether attacker-controlled values from the oracle flow into economic critical variables or actions, regardless of function boundaries, read counts, or sequencing.
+
+---
+
+**Phase 3: Resolution & Cleanup**
+
+- **Action:** The attacker unwinds positions, repays flash loans, restores oracle (if necessary), and finalizes profit realization.
+- **Note:** In some cases, the clean-up (especially price reversal) can happen in the "payload" (Phase 2), or may be omitted in attacks with no reversal.

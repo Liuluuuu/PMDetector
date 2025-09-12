@@ -1,0 +1,422 @@
+# Taint Analysis Results with Source Code Mapping
+Found 24 tainted paths.
+
+## Path #1
+Source: external_input_params in CAROLProtocol.stake
+Sink: tainted_state_changing_external_call in CAROLProtocol.newBond
+
+### Operations with Source Code Mapping:
+    IR:  stake
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [847, 848, 849, 850, 851, 852, 853, 854, 855, 856, 857, 858, 859, 860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892, 893]
+    LNE: (No direct expression available)
+
+    IR:  REF_130(Models.Bond) -> REF_129[bondIdx]
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [853]
+    LNE: bond = bonds[msg.sender][bondIdx]
+
+    IR:  bond(Models.Bond) := REF_130(Models.Bond)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [853]
+    LNE: bond = bonds[msg.sender][bondIdx]
+
+    IR:  REF_131(uint256) -> bond.amount
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [855]
+    LNE: ethAmount = bond.amount * (Constants.PERCENTS_DIVIDER + bond.profitPercent) / Constants.PERCENTS_DIVIDER
+
+    IR:  TMP_375(uint256) = REF_131 (c)* TMP_374
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [855]
+    LNE: ethAmount = bond.amount * (Constants.PERCENTS_DIVIDER + bond.profitPercent) / Constants.PERCENTS_DIVIDER
+
+    IR:  TMP_376(uint256) = TMP_375 (c)/ REF_134
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [855]
+    LNE: ethAmount = bond.amount * (Constants.PERCENTS_DIVIDER + bond.profitPercent) / Constants.PERCENTS_DIVIDER
+
+    IR:  ethAmount(uint256) := TMP_376(uint256)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [855]
+    LNE: ethAmount = bond.amount * (Constants.PERCENTS_DIVIDER + bond.profitPercent) / Constants.PERCENTS_DIVIDER
+
+    IR:  TMP_384(uint256) = INTERNAL_CALL, CAROLProtocol.getTokensAmount(uint256)(ethAmount)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [862]
+    LNE: tokensAmount = getTokensAmount(ethAmount)
+
+    IR:  TMP_544(uint256) = amount (c)* reserve1
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [1137]
+    LNE: amount * reserve1 / reserve0
+
+    IR:  TMP_545(uint256) = TMP_544 (c)/ reserve0
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [1137]
+    LNE: amount * reserve1 / reserve0
+
+    IR:  TMP_354(uint256) = INTERNAL_CALL, CAROLProtocol.getTokensAmount(uint256)(liquidityAmount)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [821]
+    LNE: tokensAmount = getTokensAmount(liquidityAmount)
+
+    IR:  tokensAmount(uint256) := TMP_354(uint256)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [821]
+    LNE: tokensAmount = getTokensAmount(liquidityAmount)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in CAROLProtocol.sell
+Sink: tainted_state_changing_external_call in CAROLProtocol.sell
+
+### Operations with Source Code Mapping:
+    IR:  sell
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [955, 956, 957, 958, 959, 960, 961, 962, 963, 964, 965, 966, 967, 968, 969, 970, 971, 972, 973, 974, 975, 976, 977, 978, 979, 980, 981, 982, 983, 984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 996, 997, 998, 999, 1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in CAROLProtocol.constructor
+Sink: tainted_state_changing_external_call in CAROLProtocol.stake
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [666, 667, 668, 669, 670, 671, 672]
+    LNE: (No direct expression available)
+
+    IR:  UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [667]
+    LNE: UNISWAP_ROUTER_ADDRESS = uniswapRouterAddress
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in CAROLProtocol.constructor
+Sink: tainted_state_changing_external_call in CAROLProtocol.sell
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [666, 667, 668, 669, 670, 671, 672]
+    LNE: (No direct expression available)
+
+    IR:  UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [667]
+    LNE: UNISWAP_ROUTER_ADDRESS = uniswapRouterAddress
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in CAROLProtocol.stake
+Sink: tainted_state_changing_external_call in CAROLProtocol.stake
+
+### Operations with Source Code Mapping:
+    IR:  stake
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [847, 848, 849, 850, 851, 852, 853, 854, 855, 856, 857, 858, 859, 860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892, 893]
+    LNE: (No direct expression available)
+
+    IR:  REF_130(Models.Bond) -> REF_129[bondIdx]
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [853]
+    LNE: bond = bonds[msg.sender][bondIdx]
+
+    IR:  bond(Models.Bond) := REF_130(Models.Bond)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [853]
+    LNE: bond = bonds[msg.sender][bondIdx]
+
+    IR:  REF_131(uint256) -> bond.amount
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [855]
+    LNE: ethAmount = bond.amount * (Constants.PERCENTS_DIVIDER + bond.profitPercent) / Constants.PERCENTS_DIVIDER
+
+    IR:  TMP_375(uint256) = REF_131 (c)* TMP_374
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [855]
+    LNE: ethAmount = bond.amount * (Constants.PERCENTS_DIVIDER + bond.profitPercent) / Constants.PERCENTS_DIVIDER
+
+    IR:  TMP_376(uint256) = TMP_375 (c)/ REF_134
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [855]
+    LNE: ethAmount = bond.amount * (Constants.PERCENTS_DIVIDER + bond.profitPercent) / Constants.PERCENTS_DIVIDER
+
+    IR:  ethAmount(uint256) := TMP_376(uint256)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [855]
+    LNE: ethAmount = bond.amount * (Constants.PERCENTS_DIVIDER + bond.profitPercent) / Constants.PERCENTS_DIVIDER
+
+    IR:  TMP_387(uint256) = INTERNAL_CALL, CAROLProtocol.getTokensAmount(uint256)(ethAmount)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [865]
+    LNE: liquidityTokensAmount = getTokensAmount(ethAmount)
+
+    IR:  liquidityTokensAmount(uint256) := TMP_387(uint256)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [865]
+    LNE: liquidityTokensAmount = getTokensAmount(ethAmount)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in CAROLToken.mint
+Sink: tainted_erc20_transfer in CAROLToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [444, 445, 446, 447, 448]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(to,amount)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [447]
+    LNE: _mint(to,amount)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in Ownable.transferOwnership
+Sink: tainted_erc20_transfer in Ownable.transferOwnership
+
+### Operations with Source Code Mapping:
+    IR:  transferOwnership
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [412, 413, 414, 415]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in CAROLProtocol.sell
+Sink: tainted_state_changing_external_call in CAROLProtocol.sell
+
+### Operations with Source Code Mapping:
+    IR:  sell
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [955, 956, 957, 958, 959, 960, 961, 962, 963, 964, 965, 966, 967, 968, 969, 970, 971, 972, 973, 974, 975, 976, 977, 978, 979, 980, 981, 982, 983, 984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 996, 997, 998, 999, 1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in CAROLProtocol.constructor
+Sink: tainted_state_changing_external_call in CAROLProtocol.swap
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [666, 667, 668, 669, 670, 671, 672]
+    LNE: (No direct expression available)
+
+    IR:  UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [667]
+    LNE: UNISWAP_ROUTER_ADDRESS = uniswapRouterAddress
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_erc20_transfer in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [374, 375, 376, 377]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [376]
+    LNE: _burn(account,amount)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in CAROLProtocol.constructor
+Sink: tainted_erc20_transfer in CAROLProtocol.sell
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [666, 667, 668, 669, 670, 671, 672]
+    LNE: (No direct expression available)
+
+    IR:  TOKEN_ADDRESS(address) := CAROLTokenAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [668]
+    LNE: TOKEN_ADDRESS = CAROLTokenAddress
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in CAROLProtocol.constructor
+Sink: tainted_state_changing_external_call in CAROLProtocol.swap
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [666, 667, 668, 669, 670, 671, 672]
+    LNE: (No direct expression available)
+
+    IR:  UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [667]
+    LNE: UNISWAP_ROUTER_ADDRESS = uniswapRouterAddress
+
+    IR:  TMP_577 = CONVERT UNISWAP_ROUTER_ADDRESS to IUniswapV2Router01
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [1231, 1232, 1233, 1234, 1235, 1236]
+    LNE: amounts = IUniswapV2Router01(UNISWAP_ROUTER_ADDRESS).swapExactETHForTokens{value: amount}(0,pathBuy,address(this),block.timestamp + 300)
+
+    IR:  TMP_580(uint256[]) = HIGH_LEVEL_CALL, dest:TMP_577(IUniswapV2Router01), function:swapExactETHForTokens, arguments:['0', 'pathBuy', 'TMP_578', 'TMP_579'] value:amount 
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [1231, 1232, 1233, 1234, 1235, 1236]
+    LNE: amounts = IUniswapV2Router01(UNISWAP_ROUTER_ADDRESS).swapExactETHForTokens{value: amount}(0,pathBuy,address(this),block.timestamp + 300)
+
+    IR:  amounts(uint256[]) = ['TMP_580(uint256[])']
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [1231, 1232, 1233, 1234, 1235, 1236]
+    LNE: amounts = IUniswapV2Router01(UNISWAP_ROUTER_ADDRESS).swapExactETHForTokens{value: amount}(0,pathBuy,address(this),block.timestamp + 300)
+
+    IR:  REF_293(uint256) -> amounts[1]
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [1237]
+    LNE: tokensAmount = amounts[1]
+
+    IR:  tokensAmount(uint256) := REF_293(uint256)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [1237]
+    LNE: tokensAmount = amounts[1]
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in CAROLProtocol.constructor
+Sink: tainted_state_changing_external_call in CAROLProtocol.sell
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [666, 667, 668, 669, 670, 671, 672]
+    LNE: (No direct expression available)
+
+    IR:  UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [667]
+    LNE: UNISWAP_ROUTER_ADDRESS = uniswapRouterAddress
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in CAROLToken.mint
+Sink: tainted_erc20_transfer in CAROLToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [444, 445, 446, 447, 448]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(to,amount)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [447]
+    LNE: _mint(to,amount)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in CAROLProtocol.constructor
+Sink: tainted_state_changing_external_call in CAROLProtocol.newBond
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [666, 667, 668, 669, 670, 671, 672]
+    LNE: (No direct expression available)
+
+    IR:  TOKEN_ADDRESS(address) := CAROLTokenAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [668]
+    LNE: TOKEN_ADDRESS = CAROLTokenAddress
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in CAROLProtocol.constructor
+Sink: tainted_state_changing_external_call in CAROLProtocol.stake
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [666, 667, 668, 669, 670, 671, 672]
+    LNE: (No direct expression available)
+
+    IR:  TOKEN_ADDRESS(address) := CAROLTokenAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [668]
+    LNE: TOKEN_ADDRESS = CAROLTokenAddress
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in CAROLProtocol.constructor
+Sink: tainted_state_changing_external_call in CAROLProtocol.newBond
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [666, 667, 668, 669, 670, 671, 672]
+    LNE: (No direct expression available)
+
+    IR:  UNISWAP_ROUTER_ADDRESS(address) := uniswapRouterAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [667]
+    LNE: UNISWAP_ROUTER_ADDRESS = uniswapRouterAddress
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [258, 259, 260, 261, 262, 263]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [261]
+    LNE: _transfer(from,to,amount)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [258, 259, 260, 261, 262, 263]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [239, 240, 241, 242, 243]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in CAROLProtocol.influencerBond
+Sink: tainted_state_changing_external_call in CAROLProtocol.influencerBond
+
+### Operations with Source Code Mapping:
+    IR:  influencerBond
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038, 1039, 1040]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in CAROLProtocol.claim
+Sink: tainted_state_changing_external_call in CAROLProtocol.claim
+
+### Operations with Source Code Mapping:
+    IR:  claim
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 930, 931, 932]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [258, 259, 260, 261, 262, 263]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [261]
+    LNE: _transfer(from,to,amount)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_erc20_transfer in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [374, 375, 376, 377]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/30ef939a_Carol Protocol/flattened.sol', Lines [376]
+    LNE: _burn(account,amount)
+
+----------------------------------------

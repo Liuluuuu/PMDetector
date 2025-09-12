@@ -1,0 +1,222 @@
+# Taint Analysis Results with Source Code Mapping
+Found 12 tainted paths.
+
+## Path #1
+Source: external_input_params in CToken.transferFrom
+Sink: tainted_erc20_transfer in CToken.transferTokens
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [1119, 1120, 1121]
+    LNE: (No direct expression available)
+
+    IR:  TMP_167(uint256) = INTERNAL_CALL, CToken.transferTokens(address,address,address,uint256)(msg.sender,src,dst,amount)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [1120]
+    LNE: transferTokens(msg.sender,src,dst,amount) == uint256(Error.NO_ERROR)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in CToken.transferFrom
+Sink: tainted_erc20_transfer in CToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [1119, 1120, 1121]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in CToken._reduceReserves
+Sink: tainted_state_changing_external_call in CToken.supplyRatePerBlock
+
+### Operations with Source Code Mapping:
+    IR:  _reduceReserves
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2225, 2226, 2227, 2228, 2229, 2230, 2231, 2232, 2233]
+    LNE: (No direct expression available)
+
+    IR:  TMP_537(uint256) = INTERNAL_CALL, CToken._reduceReservesFresh(uint256)(reduceAmount)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2232]
+    LNE: _reduceReservesFresh(reduceAmount)
+
+    IR:  TMP_549(uint256) = totalReserves - reduceAmount
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2272]
+    LNE: totalReservesNew = totalReserves - reduceAmount
+
+    IR:  totalReservesNew(uint256) := TMP_549(uint256)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2272]
+    LNE: totalReservesNew = totalReserves - reduceAmount
+
+    IR:  totalReserves(uint256) := totalReservesNew(uint256)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2277]
+    LNE: totalReserves = totalReservesNew
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in CToken.transfer
+Sink: tainted_erc20_transfer in CToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [1108, 1109, 1110]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in CToken._setComptroller
+Sink: tainted_state_changing_external_call in CToken.liquidateBorrowFresh
+
+### Operations with Source Code Mapping:
+    IR:  _setComptroller
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2156, 2157, 2158, 2159, 2160, 2161, 2162, 2163, 2164, 2165, 2166, 2167, 2168, 2169, 2170, 2171, 2172, 2173]
+    LNE: (No direct expression available)
+
+    IR:  comptroller(ComptrollerInterface) := newComptroller(ComptrollerInterface)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2167]
+    LNE: comptroller = newComptroller
+
+    IR:  TUPLE_84(uint256,uint256) = HIGH_LEVEL_CALL, dest:comptroller(ComptrollerInterface), function:liquidateCalculateSeizeTokens, arguments:['TMP_458', 'TMP_459', 'repayAmount']  
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2009]
+    LNE: (amountSeizeError,seizeTokens) = comptroller.liquidateCalculateSeizeTokens(address(this),address(cTokenCollateral),repayAmount)
+
+    IR:  seizeTokens(uint256)= UNPACK TUPLE_84 index: 1 
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2009]
+    LNE: (amountSeizeError,seizeTokens) = comptroller.liquidateCalculateSeizeTokens(address(this),address(cTokenCollateral),repayAmount)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in CToken._setComptroller
+Sink: tainted_state_changing_external_call in CToken.liquidateBorrowFresh
+
+### Operations with Source Code Mapping:
+    IR:  _setComptroller
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2156, 2157, 2158, 2159, 2160, 2161, 2162, 2163, 2164, 2165, 2166, 2167, 2168, 2169, 2170, 2171, 2172, 2173]
+    LNE: (No direct expression available)
+
+    IR:  comptroller(ComptrollerInterface) := newComptroller(ComptrollerInterface)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2167]
+    LNE: comptroller = newComptroller
+
+    IR:  TUPLE_84(uint256,uint256) = HIGH_LEVEL_CALL, dest:comptroller(ComptrollerInterface), function:liquidateCalculateSeizeTokens, arguments:['TMP_458', 'TMP_459', 'repayAmount']  
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2009]
+    LNE: (amountSeizeError,seizeTokens) = comptroller.liquidateCalculateSeizeTokens(address(this),address(cTokenCollateral),repayAmount)
+
+    IR:  seizeTokens(uint256)= UNPACK TUPLE_84 index: 1 
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2009]
+    LNE: (amountSeizeError,seizeTokens) = comptroller.liquidateCalculateSeizeTokens(address(this),address(cTokenCollateral),repayAmount)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in CToken._reduceReserves
+Sink: tainted_state_changing_external_call in CToken.borrowRatePerBlock
+
+### Operations with Source Code Mapping:
+    IR:  _reduceReserves
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2225, 2226, 2227, 2228, 2229, 2230, 2231, 2232, 2233]
+    LNE: (No direct expression available)
+
+    IR:  TMP_537(uint256) = INTERNAL_CALL, CToken._reduceReservesFresh(uint256)(reduceAmount)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2232]
+    LNE: _reduceReservesFresh(reduceAmount)
+
+    IR:  TMP_549(uint256) = totalReserves - reduceAmount
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2272]
+    LNE: totalReservesNew = totalReserves - reduceAmount
+
+    IR:  totalReservesNew(uint256) := TMP_549(uint256)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2272]
+    LNE: totalReservesNew = totalReserves - reduceAmount
+
+    IR:  totalReserves(uint256) := totalReservesNew(uint256)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2277]
+    LNE: totalReserves = totalReservesNew
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in CToken._reduceReserves
+Sink: tainted_state_changing_external_call in CToken.accrueInterest
+
+### Operations with Source Code Mapping:
+    IR:  _reduceReserves
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2225, 2226, 2227, 2228, 2229, 2230, 2231, 2232, 2233]
+    LNE: (No direct expression available)
+
+    IR:  TMP_537(uint256) = INTERNAL_CALL, CToken._reduceReservesFresh(uint256)(reduceAmount)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2232]
+    LNE: _reduceReservesFresh(reduceAmount)
+
+    IR:  TMP_549(uint256) = totalReserves - reduceAmount
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2272]
+    LNE: totalReservesNew = totalReserves - reduceAmount
+
+    IR:  totalReservesNew(uint256) := TMP_549(uint256)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2272]
+    LNE: totalReservesNew = totalReserves - reduceAmount
+
+    IR:  totalReserves(uint256) := totalReservesNew(uint256)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2277]
+    LNE: totalReserves = totalReservesNew
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in CToken._setPendingAdmin
+Sink: tainted_erc20_transfer in CToken._reduceReservesFresh
+
+### Operations with Source Code Mapping:
+    IR:  _setPendingAdmin
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2106, 2107, 2108, 2109, 2110, 2111, 2112, 2113, 2114, 2115, 2116, 2117, 2118, 2119, 2120, 2121, 2122]
+    LNE: (No direct expression available)
+
+    IR:  pendingAdmin(address) := newPendingAdmin(address)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2116]
+    LNE: pendingAdmin = newPendingAdmin
+
+    IR:  admin(address) := pendingAdmin(address)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2140]
+    LNE: admin = pendingAdmin
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in CToken.transferFrom
+Sink: tainted_erc20_transfer in CToken.transferTokens
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [1119, 1120, 1121]
+    LNE: (No direct expression available)
+
+    IR:  TMP_167(uint256) = INTERNAL_CALL, CToken.transferTokens(address,address,address,uint256)(msg.sender,src,dst,amount)
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [1120]
+    LNE: transferTokens(msg.sender,src,dst,amount) == uint256(Error.NO_ERROR)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in CToken.seize
+Sink: tainted_state_changing_external_call in CToken.seize
+
+### Operations with Source Code Mapping:
+    IR:  seize
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2047, 2048, 2049, 2050, 2051, 2052, 2053, 2054, 2055, 2056, 2057, 2058, 2059, 2060, 2061, 2062, 2063, 2064, 2065, 2066, 2067, 2068, 2069, 2070, 2071, 2072, 2073, 2074, 2075, 2076, 2077, 2078, 2079, 2080, 2081, 2082, 2083, 2084, 2085, 2086, 2087, 2088, 2089, 2090, 2091, 2092, 2093]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in CToken.seize
+Sink: tainted_state_changing_external_call in CToken.seize
+
+### Operations with Source Code Mapping:
+    IR:  seize
+    SRC: File 'pmdetector/flattened_contracts/10cfdf49_GoodCompound/flattened.sol', Lines [2047, 2048, 2049, 2050, 2051, 2052, 2053, 2054, 2055, 2056, 2057, 2058, 2059, 2060, 2061, 2062, 2063, 2064, 2065, 2066, 2067, 2068, 2069, 2070, 2071, 2072, 2073, 2074, 2075, 2076, 2077, 2078, 2079, 2080, 2081, 2082, 2083, 2084, 2085, 2086, 2087, 2088, 2089, 2090, 2091, 2092, 2093]
+    LNE: (No direct expression available)
+
+----------------------------------------

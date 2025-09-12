@@ -1,0 +1,152 @@
+# Taint Analysis Results with Source Code Mapping
+Found 10 tainted paths.
+
+## Path #1
+Source: external_input_params in Sync.transfer
+Sink: tainted_state_changing_external_call in Sync.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [400, 401, 402, 403, 404, 405, 406, 407, 408, 409]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in Sync.transferFrom
+Sink: tainted_state_changing_external_call in Sync.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437]
+    LNE: (No direct expression available)
+
+    IR:  REF_28(uint256) -> balances[to]
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [431]
+    LNE: balances[to] = balances[to].add(value)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in Sync.transferFrom
+Sink: tainted_state_changing_external_call in Sync.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437]
+    LNE: (No direct expression available)
+
+    IR:  REF_32(mapping(address => uint256)) -> allowed[from]
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [433]
+    LNE: allowed[from][msg.sender] = allowed[from][msg.sender].sub(value)
+
+    IR:  REF_33(uint256) -> REF_32[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [433]
+    LNE: allowed[from][msg.sender] = allowed[from][msg.sender].sub(value)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in Sync.transferFrom
+Sink: tainted_state_changing_external_call in Sync.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437]
+    LNE: (No direct expression available)
+
+    IR:  REF_25(uint256) -> balances[from]
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [430]
+    LNE: balances[from] = balances[from].sub(value)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in Sync.transfer
+Sink: tainted_state_changing_external_call in Sync.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [400, 401, 402, 403, 404, 405, 406, 407, 408, 409]
+    LNE: (No direct expression available)
+
+    IR:  REF_14(uint256) -> balances[to]
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [405]
+    LNE: balances[to] = balances[to].add(value)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in Sync._mint
+Sink: tainted_state_changing_external_call in Sync.burn
+
+### Operations with Source Code Mapping:
+    IR:  _mint
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [381, 382, 383, 384, 385, 386]
+    LNE: (No direct expression available)
+
+    IR:  TMP_54(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [383]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_54(uint256)
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [383]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in Sync._mint
+Sink: tainted_state_changing_external_call in Sync._mint
+
+### Operations with Source Code Mapping:
+    IR:  _mint
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [381, 382, 383, 384, 385, 386]
+    LNE: (No direct expression available)
+
+    IR:  TMP_54(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [383]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_54(uint256)
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [383]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in Sync.burn
+Sink: tainted_state_changing_external_call in Sync.burn
+
+### Operations with Source Code Mapping:
+    IR:  burn
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [439, 440, 441, 442, 443, 444, 445]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in Sync.approveAndCall
+Sink: tainted_state_changing_external_call in Sync.approveAndCall
+
+### Operations with Source Code Mapping:
+    IR:  approveAndCall
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [418, 419, 420, 421, 422, 423]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in Sync._mint
+Sink: tainted_state_changing_external_call in Sync._mint
+
+### Operations with Source Code Mapping:
+    IR:  _mint
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [381, 382, 383, 384, 385, 386]
+    LNE: (No direct expression available)
+
+    IR:  REF_4(uint256) -> balances[account]
+    SRC: File 'pmdetector/flattened_contracts/85786faf_SYNC Network/flattened.sol', Lines [384]
+    LNE: balances[account] = balances[account].add(amount)
+
+----------------------------------------

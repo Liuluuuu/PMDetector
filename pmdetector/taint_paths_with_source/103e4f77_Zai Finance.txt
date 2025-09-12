@@ -1,0 +1,512 @@
+# Taint Analysis Results with Source Code Mapping
+Found 22 tainted paths.
+
+## Path #1
+Source: external_input_params in ERC20.decreaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [389, 390, 391, 392]
+    LNE: (No direct expression available)
+
+    IR:  REF_10(uint256) -> REF_9[spender]
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [390]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in ERC20Detailed.constructor
+Sink: tainted_state_changing_external_call in Permittable.permit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [522, 523, 524, 525, 526]
+    LNE: (No direct expression available)
+
+    IR:  _name(string) := name(string)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [523]
+    LNE: _name = name
+
+    IR:  TMP_384(string) = INTERNAL_CALL, ERC20Detailed.name()()
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  TMP_387(bytes32) = LIBRARY_CALL, dest:LibEIP712, function:LibEIP712.hashEIP712Domain(string,string,uint256,address), arguments:['TMP_384', 'EIP712_VERSION', 'TMP_385', 'TMP_386'] 
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  EIP712_DOMAIN_SEPARATOR(bytes32) := TMP_387(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in ERC20Detailed.constructor
+Sink: tainted_state_changing_external_call in Dollar.permit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [522, 523, 524, 525, 526]
+    LNE: (No direct expression available)
+
+    IR:  _name(string) := name(string)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [523]
+    LNE: _name = name
+
+    IR:  TMP_384(string) = INTERNAL_CALL, ERC20Detailed.name()()
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  TMP_387(bytes32) = LIBRARY_CALL, dest:LibEIP712, function:LibEIP712.hashEIP712Domain(string,string,uint256,address), arguments:['TMP_384', 'EIP712_VERSION', 'TMP_385', 'TMP_386'] 
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  EIP712_DOMAIN_SEPARATOR(bytes32) := TMP_387(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  TMP_463(bytes32) = LIBRARY_CALL, dest:LibEIP712, function:LibEIP712.hashEIP712Message(bytes32,bytes32), arguments:['EIP712_DOMAIN_SEPARATOR', 'TMP_462'] 
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627]
+    LNE: digest = LibEIP712.hashEIP712Message(EIP712_DOMAIN_SEPARATOR,keccak256(bytes)(abi.encode(EIP712_PERMIT_TYPEHASH,owner,spender,value,nonces[owner] ++,deadline)))
+
+    IR:  digest(bytes32) := TMP_463(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627]
+    LNE: digest = LibEIP712.hashEIP712Message(EIP712_DOMAIN_SEPARATOR,keccak256(bytes)(abi.encode(EIP712_PERMIT_TYPEHASH,owner,spender,value,nonces[owner] ++,deadline)))
+
+    IR:  TMP_464(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1629]
+    LNE: recovered = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  recovered(address) := TMP_464(address)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1629]
+    LNE: recovered = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  TMP_468(bool) = recovered != TMP_467
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1632]
+    LNE: Require.that(recovered != address(0),FILE,Zero address)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in MinterRole.addMinter
+Sink: tainted_state_changing_external_call in MinterRole._addMinter
+
+### Operations with Source Code Mapping:
+    IR:  addMinter
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [616, 617, 618]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MinterRole._addMinter(address)(account)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [617]
+    LNE: _addMinter(account)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in ERC20Detailed.constructor
+Sink: tainted_state_changing_external_call in Dollar.permit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [522, 523, 524, 525, 526]
+    LNE: (No direct expression available)
+
+    IR:  _name(string) := name(string)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [523]
+    LNE: _name = name
+
+    IR:  TMP_384(string) = INTERNAL_CALL, ERC20Detailed.name()()
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  TMP_387(bytes32) = LIBRARY_CALL, dest:LibEIP712, function:LibEIP712.hashEIP712Domain(string,string,uint256,address), arguments:['TMP_384', 'EIP712_VERSION', 'TMP_385', 'TMP_386'] 
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  EIP712_DOMAIN_SEPARATOR(bytes32) := TMP_387(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  TMP_463(bytes32) = LIBRARY_CALL, dest:LibEIP712, function:LibEIP712.hashEIP712Message(bytes32,bytes32), arguments:['EIP712_DOMAIN_SEPARATOR', 'TMP_462'] 
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627]
+    LNE: digest = LibEIP712.hashEIP712Message(EIP712_DOMAIN_SEPARATOR,keccak256(bytes)(abi.encode(EIP712_PERMIT_TYPEHASH,owner,spender,value,nonces[owner] ++,deadline)))
+
+    IR:  digest(bytes32) := TMP_463(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627]
+    LNE: digest = LibEIP712.hashEIP712Message(EIP712_DOMAIN_SEPARATOR,keccak256(bytes)(abi.encode(EIP712_PERMIT_TYPEHASH,owner,spender,value,nonces[owner] ++,deadline)))
+
+    IR:  TMP_464(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1629]
+    LNE: recovered = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  recovered(address) := TMP_464(address)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1629]
+    LNE: recovered = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  TMP_465(bool) = recovered == owner
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1630]
+    LNE: Require.that(recovered == owner,FILE,Invalid signature)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in Dollar.mint
+Sink: tainted_state_changing_external_call in Dollar._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1695, 1696, 1697, 1698]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1696]
+    LNE: _mint(account,amount)
+
+    IR:  REF_195(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [430]
+    LNE: _balances[account] = _balances[account].add(amount)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [316, 317, 318, 319]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in MinterRole.isMinter
+Sink: tainted_state_changing_external_call in MinterRole.isMinter
+
+### Operations with Source Code Mapping:
+    IR:  isMinter
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [612, 613, 614]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in ERC20.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [370, 371, 372, 373]
+    LNE: (No direct expression available)
+
+    IR:  REF_7(uint256) -> REF_6[spender]
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [371]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in ERC20Detailed.constructor
+Sink: tainted_state_changing_external_call in Permittable.permit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [522, 523, 524, 525, 526]
+    LNE: (No direct expression available)
+
+    IR:  _name(string) := name(string)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [523]
+    LNE: _name = name
+
+    IR:  TMP_384(string) = INTERNAL_CALL, ERC20Detailed.name()()
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  TMP_387(bytes32) = LIBRARY_CALL, dest:LibEIP712, function:LibEIP712.hashEIP712Domain(string,string,uint256,address), arguments:['TMP_384', 'EIP712_VERSION', 'TMP_385', 'TMP_386'] 
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  EIP712_DOMAIN_SEPARATOR(bytes32) := TMP_387(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  TMP_391(bytes32) = LIBRARY_CALL, dest:LibEIP712, function:LibEIP712.hashEIP712Message(bytes32,bytes32), arguments:['EIP712_DOMAIN_SEPARATOR', 'TMP_390'] 
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627]
+    LNE: digest = LibEIP712.hashEIP712Message(EIP712_DOMAIN_SEPARATOR,keccak256(bytes)(abi.encode(EIP712_PERMIT_TYPEHASH,owner,spender,value,nonces[owner] ++,deadline)))
+
+    IR:  digest(bytes32) := TMP_391(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627]
+    LNE: digest = LibEIP712.hashEIP712Message(EIP712_DOMAIN_SEPARATOR,keccak256(bytes)(abi.encode(EIP712_PERMIT_TYPEHASH,owner,spender,value,nonces[owner] ++,deadline)))
+
+    IR:  TMP_392(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1629]
+    LNE: recovered = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  recovered(address) := TMP_392(address)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1629]
+    LNE: recovered = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  TMP_396(bool) = recovered != TMP_395
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1632]
+    LNE: Require.that(recovered != address(0),FILE,Zero address)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in ERC20Burnable.burn
+Sink: tainted_state_changing_external_call in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burn
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [497, 498, 499]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(TMP_124,amount)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [498]
+    LNE: _burn(_msgSender(),amount)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_state_changing_external_call in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [504, 505, 506]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burnFrom(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [505]
+    LNE: _burnFrom(account,amount)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [481]
+    LNE: _burn(account,amount)
+
+    IR:  REF_54(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [448]
+    LNE: _balances[account] = _balances[account].sub(amount,ERC20: burn amount exceeds balance)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_state_changing_external_call in ERC20Burnable._burnFrom
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [504, 505, 506]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burnFrom(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [505]
+    LNE: _burnFrom(account,amount)
+
+    IR:  REF_59(mapping(address => uint256)) -> _allowances[account]
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [482]
+    LNE: _approve(account,_msgSender(),_allowances[account][_msgSender()].sub(amount,ERC20: burn amount exceeds allowance))
+
+    IR:  REF_60(uint256) -> REF_59[TMP_121]
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [482]
+    LNE: _approve(account,_msgSender(),_allowances[account][_msgSender()].sub(amount,ERC20: burn amount exceeds allowance))
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in Permittable.permit
+Sink: tainted_state_changing_external_call in Permittable.permit
+
+### Operations with Source Code Mapping:
+    IR:  permit
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1614, 1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1631, 1632, 1633, 1634, 1635, 1636, 1637]
+    LNE: (No direct expression available)
+
+    IR:  TMP_398(bool) = now <= deadline
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1634]
+    LNE: Require.that(now <= deadline,FILE,Expired)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [352, 353, 354, 355, 356]
+    LNE: (No direct expression available)
+
+    IR:  REF_3(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [354]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_4(uint256) -> REF_3[TMP_26]
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [354]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in ERC20Detailed.constructor
+Sink: tainted_state_changing_external_call in Permittable.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [522, 523, 524, 525, 526]
+    LNE: (No direct expression available)
+
+    IR:  _name(string) := name(string)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [523]
+    LNE: _name = name
+
+    IR:  TMP_384(string) = INTERNAL_CALL, ERC20Detailed.name()()
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [352, 353, 354, 355, 356]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [353]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_13(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [412]
+    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in ERC20Detailed.constructor
+Sink: tainted_state_changing_external_call in Dollar.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [522, 523, 524, 525, 526]
+    LNE: (No direct expression available)
+
+    IR:  _name(string) := name(string)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [523]
+    LNE: _name = name
+
+    IR:  TMP_456(string) = INTERNAL_CALL, ERC20Detailed.name()()
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in ERC20.transfer
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [316, 317, 318, 319]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_20,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [317]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_16(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [413]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [352, 353, 354, 355, 356]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in ERC20Detailed.constructor
+Sink: tainted_state_changing_external_call in Dollar.permit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [522, 523, 524, 525, 526]
+    LNE: (No direct expression available)
+
+    IR:  _name(string) := name(string)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [523]
+    LNE: _name = name
+
+    IR:  TMP_384(string) = INTERNAL_CALL, ERC20Detailed.name()()
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  TMP_387(bytes32) = LIBRARY_CALL, dest:LibEIP712, function:LibEIP712.hashEIP712Domain(string,string,uint256,address), arguments:['TMP_384', 'EIP712_VERSION', 'TMP_385', 'TMP_386'] 
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  EIP712_DOMAIN_SEPARATOR(bytes32) := TMP_387(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in ERC20Detailed.constructor
+Sink: tainted_state_changing_external_call in Permittable.permit
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [522, 523, 524, 525, 526]
+    LNE: (No direct expression available)
+
+    IR:  _name(string) := name(string)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [523]
+    LNE: _name = name
+
+    IR:  TMP_384(string) = INTERNAL_CALL, ERC20Detailed.name()()
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  TMP_387(bytes32) = LIBRARY_CALL, dest:LibEIP712, function:LibEIP712.hashEIP712Domain(string,string,uint256,address), arguments:['TMP_384', 'EIP712_VERSION', 'TMP_385', 'TMP_386'] 
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  EIP712_DOMAIN_SEPARATOR(bytes32) := TMP_387(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1598, 1599, 1600, 1601, 1602, 1603]
+    LNE: EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(),EIP712_VERSION,Constants.getChainId(),address(this))
+
+    IR:  TMP_391(bytes32) = LIBRARY_CALL, dest:LibEIP712, function:LibEIP712.hashEIP712Message(bytes32,bytes32), arguments:['EIP712_DOMAIN_SEPARATOR', 'TMP_390'] 
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627]
+    LNE: digest = LibEIP712.hashEIP712Message(EIP712_DOMAIN_SEPARATOR,keccak256(bytes)(abi.encode(EIP712_PERMIT_TYPEHASH,owner,spender,value,nonces[owner] ++,deadline)))
+
+    IR:  digest(bytes32) := TMP_391(bytes32)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627]
+    LNE: digest = LibEIP712.hashEIP712Message(EIP712_DOMAIN_SEPARATOR,keccak256(bytes)(abi.encode(EIP712_PERMIT_TYPEHASH,owner,spender,value,nonces[owner] ++,deadline)))
+
+    IR:  TMP_392(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1629]
+    LNE: recovered = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  recovered(address) := TMP_392(address)
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1629]
+    LNE: recovered = ecrecover(bytes32,uint8,bytes32,bytes32)(digest,v,r,s)
+
+    IR:  TMP_393(bool) = recovered == owner
+    SRC: File 'pmdetector/flattened_contracts/103e4f77_Zai Finance/flattened.sol', Lines [1630]
+    LNE: Require.that(recovered == owner,FILE,Invalid signature)
+
+----------------------------------------

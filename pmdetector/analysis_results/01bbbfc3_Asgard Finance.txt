@@ -1,0 +1,922 @@
+=== PMDetector Taint Analysis Results ===
+Found 37 taint sources
+Found 76 taint sinks
+Found 30 tainted paths (filtered from 30 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: ERC20
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #2: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: recipient
+
+Source #3: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #4: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: owner
+
+Source #5: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #6: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #7: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: amount
+
+Source #8: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: sender
+
+Source #9: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: recipient
+
+Source #10: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #11: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: spender
+
+Source #12: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: addedValue
+
+Source #13: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: spender
+
+Source #14: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: subtractedValue
+
+Source #15: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: owner
+
+Source #16: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: spender
+
+Source #17: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: amount
+
+Source #18: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: deadline
+
+Source #19: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: v
+
+Source #20: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: r
+
+Source #21: external_input_params
+  Contract: ERC20Permit
+  Function: permit
+  Operation: permit
+  Tainted Variables: s
+
+Source #22: external_input_params
+  Contract: ERC20Permit
+  Function: nonces
+  Operation: nonces
+  Tainted Variables: owner
+
+Source #23: msg.sender
+  Contract: Ownable
+  Function: constructor
+  Operation: _owner(address) := msg.sender(address)
+  Tainted Variables: _owner
+
+Source #24: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner_
+
+Source #25: external_input_params
+  Contract: VaultOwned
+  Function: setVault
+  Operation: setVault
+  Tainted Variables: vault_
+
+Source #26: external_input_params
+  Contract: TWAPOracleUpdater
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: name_
+
+Source #27: external_input_params
+  Contract: TWAPOracleUpdater
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: symbol_
+
+Source #28: external_input_params
+  Contract: TWAPOracleUpdater
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: decimals_
+
+Source #29: external_input_params
+  Contract: TWAPOracleUpdater
+  Function: changeTWAPOracle
+  Operation: changeTWAPOracle
+  Tainted Variables: newTWAPOracle_
+
+Source #30: external_input_params
+  Contract: TWAPOracleUpdater
+  Function: changeTWAPEpochPeriod
+  Operation: changeTWAPEpochPeriod
+  Tainted Variables: newTWAPEpochPeriod_
+
+Source #31: external_input_params
+  Contract: TWAPOracleUpdater
+  Function: addTWAPSource
+  Operation: addTWAPSource
+  Tainted Variables: newTWAPSourceDexPool_
+
+Source #32: external_input_params
+  Contract: TWAPOracleUpdater
+  Function: removeTWAPSource
+  Operation: removeTWAPSource
+  Tainted Variables: twapSourceToRemove_
+
+Source #33: external_input_params
+  Contract: AsgardERC20Token
+  Function: mint
+  Operation: mint
+  Tainted Variables: account_
+
+Source #34: external_input_params
+  Contract: AsgardERC20Token
+  Function: mint
+  Operation: mint
+  Tainted Variables: amount_
+
+Source #35: external_input_params
+  Contract: AsgardERC20Token
+  Function: burn
+  Operation: burn
+  Tainted Variables: amount
+
+Source #36: external_input_params
+  Contract: AsgardERC20Token
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: account_
+
+Source #37: external_input_params
+  Contract: AsgardERC20Token
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: amount_
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #2: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transferFrom
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #3: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: transferFrom
+  Operation: TMP_131(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_77', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_77
+
+Sink #4: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: TMP_133(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_80', 'addedValue'] 
+  Tainted Variable: REF_80
+
+Sink #5: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: TMP_135(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_83', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_83
+
+Sink #6: tainted_erc20_transfer
+  Contract: ERC20
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #7: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _transfer
+  Operation: TMP_144(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_86', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_86
+
+Sink #8: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _transfer
+  Operation: TMP_145(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_89', 'amount'] 
+  Tainted Variable: REF_89
+
+Sink #9: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: transferFrom
+  Operation: TMP_177(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_110', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_110
+
+Sink #10: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: increaseAllowance
+  Operation: TMP_179(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_113', 'addedValue'] 
+  Tainted Variable: REF_113
+
+Sink #11: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: decreaseAllowance
+  Operation: TMP_181(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_116', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_116
+
+Sink #12: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: _transfer
+  Operation: TMP_190(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_119', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_119
+
+Sink #13: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: _transfer
+  Operation: TMP_191(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_122', 'amount'] 
+  Tainted Variable: REF_122
+
+Sink #14: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: permit
+  Operation: TMP_230(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_136'] 
+  Tainted Variable: REF_136
+
+Sink #15: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: permit
+  Operation: LIBRARY_CALL, dest:Counters, function:Counters.increment(Counters.Counter), arguments:['REF_139'] 
+  Tainted Variable: REF_139
+
+Sink #16: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: nonces
+  Operation: TMP_244(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_141'] 
+  Tainted Variable: REF_141
+
+Sink #17: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: permit
+  Operation: TMP_298(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_145'] 
+  Tainted Variable: REF_145
+
+Sink #18: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: permit
+  Operation: LIBRARY_CALL, dest:Counters, function:Counters.increment(Counters.Counter), arguments:['REF_148'] 
+  Tainted Variable: REF_148
+
+Sink #19: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: nonces
+  Operation: TMP_312(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_150'] 
+  Tainted Variable: REF_150
+
+Sink #20: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: transferFrom
+  Operation: TMP_316(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_156', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_156
+
+Sink #21: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: increaseAllowance
+  Operation: TMP_318(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_159', 'addedValue'] 
+  Tainted Variable: REF_159
+
+Sink #22: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: decreaseAllowance
+  Operation: TMP_320(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_162', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_162
+
+Sink #23: tainted_erc20_transfer
+  Contract: TWAPOracleUpdater
+  Function: _transfer
+  Operation: INTERNAL_CALL, TWAPOracleUpdater._beforeTokenTransfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #24: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: _transfer
+  Operation: TMP_329(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_165', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_165
+
+Sink #25: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: _transfer
+  Operation: TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_168', 'amount'] 
+  Tainted Variable: REF_168
+
+Sink #26: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: addTWAPSource
+  Operation: TMP_366(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.add(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'newTWAPSourceDexPool_'] 
+  Tainted Variable: newTWAPSourceDexPool_
+
+Sink #27: tainted_erc20_transfer
+  Contract: TWAPOracleUpdater
+  Function: removeTWAPSource
+  Operation: TMP_370(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.remove(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'twapSourceToRemove_'] 
+  Tainted Variable: twapSourceToRemove_
+
+Sink #28: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: _beforeTokenTransfer
+  Operation: TMP_376(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.contains(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'from_'] 
+  Tainted Variable: from_
+
+Sink #29: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: _beforeTokenTransfer
+  Operation: TMP_378(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.contains(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'to_'] 
+  Tainted Variable: to_
+
+Sink #30: tainted_state_changing_external_call
+  Contract: Divine
+  Function: addTWAPSource
+  Operation: TMP_393(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.add(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'newTWAPSourceDexPool_'] 
+  Tainted Variable: newTWAPSourceDexPool_
+
+Sink #31: tainted_erc20_transfer
+  Contract: Divine
+  Function: removeTWAPSource
+  Operation: TMP_397(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.remove(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'twapSourceToRemove_'] 
+  Tainted Variable: twapSourceToRemove_
+
+Sink #32: tainted_state_changing_external_call
+  Contract: Divine
+  Function: permit
+  Operation: TMP_431(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_194'] 
+  Tainted Variable: REF_194
+
+Sink #33: tainted_state_changing_external_call
+  Contract: Divine
+  Function: permit
+  Operation: LIBRARY_CALL, dest:Counters, function:Counters.increment(Counters.Counter), arguments:['REF_197'] 
+  Tainted Variable: REF_197
+
+Sink #34: tainted_state_changing_external_call
+  Contract: Divine
+  Function: nonces
+  Operation: TMP_445(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_199'] 
+  Tainted Variable: REF_199
+
+Sink #35: tainted_state_changing_external_call
+  Contract: Divine
+  Function: transferFrom
+  Operation: TMP_449(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_205', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_205
+
+Sink #36: tainted_state_changing_external_call
+  Contract: Divine
+  Function: increaseAllowance
+  Operation: TMP_451(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_208', 'addedValue'] 
+  Tainted Variable: REF_208
+
+Sink #37: tainted_state_changing_external_call
+  Contract: Divine
+  Function: decreaseAllowance
+  Operation: TMP_453(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_211', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_211
+
+Sink #38: tainted_state_changing_external_call
+  Contract: Divine
+  Function: _transfer
+  Operation: TMP_462(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_214', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_214
+
+Sink #39: tainted_state_changing_external_call
+  Contract: Divine
+  Function: _transfer
+  Operation: TMP_463(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_217', 'amount'] 
+  Tainted Variable: REF_217
+
+Sink #40: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: addTWAPSource
+  Operation: TMP_505(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.add(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'newTWAPSourceDexPool_'] 
+  Tainted Variable: newTWAPSourceDexPool_
+
+Sink #41: tainted_erc20_transfer
+  Contract: AsgardERC20Token
+  Function: removeTWAPSource
+  Operation: TMP_509(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.remove(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'twapSourceToRemove_'] 
+  Tainted Variable: twapSourceToRemove_
+
+Sink #42: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: permit
+  Operation: TMP_543(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_237'] 
+  Tainted Variable: REF_237
+
+Sink #43: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: permit
+  Operation: LIBRARY_CALL, dest:Counters, function:Counters.increment(Counters.Counter), arguments:['REF_240'] 
+  Tainted Variable: REF_240
+
+Sink #44: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: nonces
+  Operation: TMP_557(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['REF_242'] 
+  Tainted Variable: REF_242
+
+Sink #45: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: transferFrom
+  Operation: TMP_561(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_248', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_248
+
+Sink #46: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: increaseAllowance
+  Operation: TMP_563(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_251', 'addedValue'] 
+  Tainted Variable: REF_251
+
+Sink #47: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: decreaseAllowance
+  Operation: TMP_565(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_254', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_254
+
+Sink #48: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _transfer
+  Operation: TMP_574(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_257', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_257
+
+Sink #49: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _transfer
+  Operation: TMP_575(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_260', 'amount'] 
+  Tainted Variable: REF_260
+
+Sink #50: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _burnFrom
+  Operation: TMP_608(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['TMP_607', 'amount_', 'ERC20: burn amount exceeds allowance'] 
+  Tainted Variable: TMP_607
+
+Sink #51: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: _uodateTWAPOracle
+  Operation: TMP_374(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.contains(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'dexPoolToUpdateFrom_'] 
+  Tainted Variable: dexPoolToUpdateFrom_
+
+Sink #52: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: _uodateTWAPOracle
+  Operation: TMP_375(bool) = HIGH_LEVEL_CALL, dest:twapOracle(ITWAPOracle), function:updateTWAP, arguments:['dexPoolToUpdateFrom_', 'twapEpochPeriodToUpdate_']  
+  Tainted Variable: dexPoolToUpdateFrom_
+
+Sink #53: tainted_state_changing_external_call
+  Contract: Divine
+  Function: _uodateTWAPOracle
+  Operation: TMP_402(bool) = HIGH_LEVEL_CALL, dest:twapOracle(ITWAPOracle), function:updateTWAP, arguments:['dexPoolToUpdateFrom_', 'twapEpochPeriodToUpdate_']  
+  Tainted Variable: twapEpochPeriodToUpdate_
+
+Sink #54: tainted_state_changing_external_call
+  Contract: Divine
+  Function: _beforeTokenTransfer
+  Operation: TMP_403(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.contains(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'from_'] 
+  Tainted Variable: from_
+
+Sink #55: tainted_state_changing_external_call
+  Contract: Divine
+  Function: _beforeTokenTransfer
+  Operation: TMP_405(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.contains(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'to_'] 
+  Tainted Variable: to_
+
+Sink #56: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _uodateTWAPOracle
+  Operation: TMP_514(bool) = HIGH_LEVEL_CALL, dest:twapOracle(ITWAPOracle), function:updateTWAP, arguments:['dexPoolToUpdateFrom_', 'twapEpochPeriodToUpdate_']  
+  Tainted Variable: twapEpochPeriodToUpdate_
+
+Sink #57: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _beforeTokenTransfer
+  Operation: TMP_515(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.contains(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'from_'] 
+  Tainted Variable: from_
+
+Sink #58: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _beforeTokenTransfer
+  Operation: TMP_517(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.contains(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'to_'] 
+  Tainted Variable: to_
+
+Sink #59: tainted_erc20_transfer
+  Contract: AsgardERC20Token
+  Function: _mint
+  Operation: INTERNAL_CALL, TWAPOracleUpdater._beforeTokenTransfer(address,address,uint256)(TMP_580,account_,amount_)
+  Tainted Variable: account_
+
+Sink #60: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _mint
+  Operation: TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+  Tainted Variable: _totalSupply
+
+Sink #61: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _mint
+  Operation: TMP_583(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_264', 'amount_'] 
+  Tainted Variable: REF_264
+
+Sink #62: tainted_erc20_transfer
+  Contract: AsgardERC20Token
+  Function: _burn
+  Operation: INTERNAL_CALL, TWAPOracleUpdater._beforeTokenTransfer(address,address,uint256)(account,TMP_589,amount)
+  Tainted Variable: account
+
+Sink #63: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _burn
+  Operation: TMP_591(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_267', 'amount', 'ERC20: burn amount exceeds balance'] 
+  Tainted Variable: REF_267
+
+Sink #64: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _burn
+  Operation: TMP_592(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #65: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _mint
+  Operation: TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+  Tainted Variable: _totalSupply
+
+Sink #66: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _burn
+  Operation: TMP_162(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #67: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: _mint
+  Operation: TMP_198(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+  Tainted Variable: _totalSupply
+
+Sink #68: tainted_state_changing_external_call
+  Contract: ERC20Permit
+  Function: _burn
+  Operation: TMP_208(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #69: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: _mint
+  Operation: TMP_337(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+  Tainted Variable: _totalSupply
+
+Sink #70: tainted_state_changing_external_call
+  Contract: TWAPOracleUpdater
+  Function: _burn
+  Operation: TMP_347(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #71: tainted_state_changing_external_call
+  Contract: Divine
+  Function: _uodateTWAPOracle
+  Operation: TMP_401(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.contains(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'dexPoolToUpdateFrom_'] 
+  Tainted Variable: dexPoolToUpdateFrom_
+
+Sink #72: tainted_state_changing_external_call
+  Contract: Divine
+  Function: _uodateTWAPOracle
+  Operation: TMP_402(bool) = HIGH_LEVEL_CALL, dest:twapOracle(ITWAPOracle), function:updateTWAP, arguments:['dexPoolToUpdateFrom_', 'twapEpochPeriodToUpdate_']  
+  Tainted Variable: dexPoolToUpdateFrom_
+
+Sink #73: tainted_state_changing_external_call
+  Contract: Divine
+  Function: _mint
+  Operation: TMP_470(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+  Tainted Variable: _totalSupply
+
+Sink #74: tainted_state_changing_external_call
+  Contract: Divine
+  Function: _burn
+  Operation: TMP_480(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #75: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _uodateTWAPOracle
+  Operation: TMP_513(bool) = LIBRARY_CALL, dest:EnumerableSet, function:EnumerableSet.contains(EnumerableSet.AddressSet,address), arguments:['_dexPoolsTWAPSources', 'dexPoolToUpdateFrom_'] 
+  Tainted Variable: dexPoolToUpdateFrom_
+
+Sink #76: tainted_state_changing_external_call
+  Contract: AsgardERC20Token
+  Function: _uodateTWAPOracle
+  Operation: TMP_514(bool) = HIGH_LEVEL_CALL, dest:twapOracle(ITWAPOracle), function:updateTWAP, arguments:['dexPoolToUpdateFrom_', 'twapEpochPeriodToUpdate_']  
+  Tainted Variable: dexPoolToUpdateFrom_
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_76(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_77(uint256) -> REF_76[msg.sender]
+
+Path #2:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_state_changing_external_call in ERC20Permit._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_582(uint256)
+
+Path #3:
+  Source: external_input_params in TWAPOracleUpdater.addTWAPSource
+  Sink: tainted_state_changing_external_call in TWAPOracleUpdater.addTWAPSource
+  Path Operations:
+    1. addTWAPSource
+
+Path #4:
+  Source: external_input_params in ERC20Permit.permit
+  Sink: tainted_state_changing_external_call in ERC20Permit.permit
+  Path Operations:
+    1. permit
+    2. REF_139(Counters.Counter) -> _nonces[owner]
+
+Path #5:
+  Source: external_input_params in TWAPOracleUpdater.changeTWAPEpochPeriod
+  Sink: tainted_state_changing_external_call in Divine._uodateTWAPOracle
+  Path Operations:
+    1. changeTWAPEpochPeriod
+    2. twapEpochPeriod(uint256) := newTWAPEpochPeriod_(uint256)
+    3. INTERNAL_CALL, TWAPOracleUpdater._uodateTWAPOracle(address,uint256)(from_,twapEpochPeriod)
+
+Path #6:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_erc20_transfer in AsgardERC20Token._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+
+Path #7:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_state_changing_external_call in AsgardERC20Token._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_582(uint256)
+
+Path #8:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_state_changing_external_call in TWAPOracleUpdater._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_582(uint256)
+
+Path #9:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_state_changing_external_call in Divine._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_582(uint256)
+
+Path #10:
+  Source: external_input_params in ERC20Permit.nonces
+  Sink: tainted_state_changing_external_call in ERC20Permit.nonces
+  Path Operations:
+    1. nonces
+    2. REF_141(Counters.Counter) -> _nonces[owner]
+
+Path #11:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_state_changing_external_call in ERC20._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_582(uint256)
+
+Path #12:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #13:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_state_changing_external_call in ERC20._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_582(uint256)
+
+Path #14:
+  Source: external_input_params in TWAPOracleUpdater.removeTWAPSource
+  Sink: tainted_erc20_transfer in TWAPOracleUpdater.removeTWAPSource
+  Path Operations:
+    1. removeTWAPSource
+
+Path #15:
+  Source: external_input_params in ERC20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_83(uint256) -> REF_82[spender]
+
+Path #16:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_state_changing_external_call in AsgardERC20Token._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_582(uint256)
+
+Path #17:
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_80(uint256) -> REF_79[spender]
+
+Path #18:
+  Source: external_input_params in TWAPOracleUpdater.changeTWAPEpochPeriod
+  Sink: tainted_state_changing_external_call in AsgardERC20Token._uodateTWAPOracle
+  Path Operations:
+    1. changeTWAPEpochPeriod
+    2. twapEpochPeriod(uint256) := newTWAPEpochPeriod_(uint256)
+    3. INTERNAL_CALL, TWAPOracleUpdater._uodateTWAPOracle(address,uint256)(from_,twapEpochPeriod)
+
+Path #19:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_state_changing_external_call in TWAPOracleUpdater._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_582(uint256)
+
+Path #20:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_state_changing_external_call in Divine._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_582(uint256)
+
+Path #21:
+  Source: external_input_params in ERC20Permit.permit
+  Sink: tainted_state_changing_external_call in ERC20Permit.permit
+  Path Operations:
+    1. permit
+    2. REF_136(Counters.Counter) -> _nonces[owner]
+
+Path #22:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #23:
+  Source: external_input_params in AsgardERC20Token.burnFrom
+  Sink: tainted_state_changing_external_call in AsgardERC20Token._burnFrom
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, AsgardERC20Token._burnFrom(address,uint256)(account_,amount_)
+    3. TMP_607(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account_,msg.sender)
+
+Path #24:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_86(uint256) -> _balances[sender]
+
+Path #25:
+  Source: external_input_params in AsgardERC20Token.burnFrom
+  Sink: tainted_state_changing_external_call in AsgardERC20Token._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, AsgardERC20Token._burnFrom(address,uint256)(account_,amount_)
+    3. INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
+    4. REF_267(uint256) -> _balances[account]
+
+Path #26:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_state_changing_external_call in AsgardERC20Token._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. REF_264(uint256) -> _balances[account_]
+
+Path #27:
+  Source: external_input_params in AsgardERC20Token.burnFrom
+  Sink: tainted_erc20_transfer in AsgardERC20Token._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, AsgardERC20Token._burnFrom(address,uint256)(account_,amount_)
+    3. INTERNAL_CALL, ERC20._burn(address,uint256)(account_,amount_)
+
+Path #28:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,recipient,amount)
+    3. REF_89(uint256) -> _balances[recipient]
+
+Path #29:
+  Source: external_input_params in AsgardERC20Token.mint
+  Sink: tainted_state_changing_external_call in ERC20Permit._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, ERC20._mint(address,uint256)(account_,amount_)
+    3. TMP_582(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount_'] 
+    4. _totalSupply(uint256) := TMP_582(uint256)
+
+Path #30:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom

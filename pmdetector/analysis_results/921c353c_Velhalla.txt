@@ -1,0 +1,56 @@
+=== PMDetector Taint Analysis Results ===
+Found 6 taint sources
+Found 1 taint sinks
+Found 1 tainted paths (filtered from 1 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: TransparentUpgradeableProxy
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: admin
+
+Source #2: external_input_params
+  Contract: TransparentUpgradeableProxy
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: implementation
+
+Source #3: external_input_params
+  Contract: TransparentUpgradeableProxy
+  Function: changeAdmin
+  Operation: changeAdmin
+  Tainted Variables: newAdmin
+
+Source #4: external_input_params
+  Contract: TransparentUpgradeableProxy
+  Function: upgradeTo
+  Operation: upgradeTo
+  Tainted Variables: newImplementation
+
+Source #5: external_input_params
+  Contract: TransparentUpgradeableProxy
+  Function: upgradeToAndCall
+  Operation: upgradeToAndCall
+  Tainted Variables: newImplementation
+
+Source #6: external_input_params
+  Contract: TransparentUpgradeableProxy
+  Function: upgradeToAndCall
+  Operation: upgradeToAndCall
+  Tainted Variables: data
+
+=== Taint Sinks ===
+Sink #1: tainted_state_changing_external_call
+  Contract: TransparentUpgradeableProxy
+  Function: upgradeToAndCall
+  Operation: TUPLE_0(bool,bytes) = LOW_LEVEL_CALL, dest:newImplementation, function:delegatecall, arguments:['data']  
+  Tainted Variable: data
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in TransparentUpgradeableProxy.upgradeToAndCall
+  Sink: tainted_state_changing_external_call in TransparentUpgradeableProxy.upgradeToAndCall
+  Path Operations:
+    1. upgradeToAndCall

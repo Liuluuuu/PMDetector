@@ -1,0 +1,601 @@
+=== PMDetector Taint Analysis Results ===
+Found 32 taint sources
+Found 46 taint sinks
+Found 16 tainted paths (filtered from 16 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: msg.sender
+  Contract: Ownable
+  Function: constructor
+  Operation: owner(address) := msg.sender(address)
+  Tainted Variables: owner
+
+Source #2: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #3: external_input_params
+  Contract: Whitelist
+  Function: addAddressToWhitelist
+  Operation: addAddressToWhitelist
+  Tainted Variables: addr
+
+Source #4: external_input_params
+  Contract: Whitelist
+  Function: addAddressesToWhitelist
+  Operation: addAddressesToWhitelist
+  Tainted Variables: addrs
+
+Source #5: external_input_params
+  Contract: Whitelist
+  Function: removeAddressFromWhitelist
+  Operation: removeAddressFromWhitelist
+  Tainted Variables: addr
+
+Source #6: external_input_params
+  Contract: Whitelist
+  Function: removeAddressesFromWhitelist
+  Operation: removeAddressesFromWhitelist
+  Tainted Variables: addrs
+
+Source #7: external_input_params
+  Contract: BasicToken
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: _to
+
+Source #8: external_input_params
+  Contract: BasicToken
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: _value
+
+Source #9: external_input_params
+  Contract: BasicToken
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: _owner
+
+Source #10: external_input_params
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: _from
+
+Source #11: external_input_params
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: _to
+
+Source #12: external_input_params
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: _value
+
+Source #13: external_input_params
+  Contract: StandardToken
+  Function: approve
+  Operation: approve
+  Tainted Variables: _spender
+
+Source #14: external_input_params
+  Contract: StandardToken
+  Function: approve
+  Operation: approve
+  Tainted Variables: _value
+
+Source #15: external_input_params
+  Contract: StandardToken
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: _owner
+
+Source #16: external_input_params
+  Contract: StandardToken
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: _spender
+
+Source #17: external_input_params
+  Contract: StandardToken
+  Function: increaseApproval
+  Operation: increaseApproval
+  Tainted Variables: _spender
+
+Source #18: external_input_params
+  Contract: StandardToken
+  Function: increaseApproval
+  Operation: increaseApproval
+  Tainted Variables: _addedValue
+
+Source #19: external_input_params
+  Contract: StandardToken
+  Function: decreaseApproval
+  Operation: decreaseApproval
+  Tainted Variables: _spender
+
+Source #20: external_input_params
+  Contract: StandardToken
+  Function: decreaseApproval
+  Operation: decreaseApproval
+  Tainted Variables: _subtractedValue
+
+Source #21: external_input_params
+  Contract: MintableToken
+  Function: mint
+  Operation: mint
+  Tainted Variables: _to
+
+Source #22: external_input_params
+  Contract: MintableToken
+  Function: mint
+  Operation: mint
+  Tainted Variables: _amount
+
+Source #23: external_input_params
+  Contract: DripToken
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _initialMint
+
+Source #24: external_input_params
+  Contract: DripToken
+  Function: setVaultAddress
+  Operation: setVaultAddress
+  Tainted Variables: _newVaultAddress
+
+Source #25: external_input_params
+  Contract: DripToken
+  Function: statsOf
+  Operation: statsOf
+  Tainted Variables: player
+
+Source #26: external_input_params
+  Contract: DripToken
+  Function: mintedBy
+  Operation: mintedBy
+  Tainted Variables: player
+
+Source #27: external_input_params
+  Contract: DripToken
+  Function: setAccountCustomTax
+  Operation: setAccountCustomTax
+  Tainted Variables: account
+
+Source #28: external_input_params
+  Contract: DripToken
+  Function: setAccountCustomTax
+  Operation: setAccountCustomTax
+  Tainted Variables: taxRate
+
+Source #29: external_input_params
+  Contract: DripToken
+  Function: removeAccountCustomTax
+  Operation: removeAccountCustomTax
+  Tainted Variables: account
+
+Source #30: external_input_params
+  Contract: DripToken
+  Function: excludeAccount
+  Operation: excludeAccount
+  Tainted Variables: account
+
+Source #31: external_input_params
+  Contract: DripToken
+  Function: includeAccount
+  Operation: includeAccount
+  Tainted Variables: account
+
+Source #32: external_input_params
+  Contract: DripToken
+  Function: isExcluded
+  Operation: isExcluded
+  Tainted Variables: account
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: Whitelist
+  Function: removeAddressesFromWhitelist
+  Operation: TMP_22(bool) = INTERNAL_CALL, Whitelist.removeAddressFromWhitelist(address)(REF_7)
+  Tainted Variable: REF_7
+
+Sink #2: tainted_state_changing_external_call
+  Contract: BasicToken
+  Function: transfer
+  Operation: TMP_45(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_11', '_value'] 
+  Tainted Variable: _value
+
+Sink #3: tainted_state_changing_external_call
+  Contract: BasicToken
+  Function: transfer
+  Operation: TMP_46(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_14', '_value'] 
+  Tainted Variable: REF_14
+
+Sink #4: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: transfer
+  Operation: TMP_53(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_19', '_value'] 
+  Tainted Variable: _value
+
+Sink #5: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: transfer
+  Operation: TMP_54(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_22', '_value'] 
+  Tainted Variable: REF_22
+
+Sink #6: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: TMP_63(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_29', '_value'] 
+  Tainted Variable: REF_29
+
+Sink #7: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: TMP_64(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_32', '_value'] 
+  Tainted Variable: REF_32
+
+Sink #8: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: TMP_65(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_37', '_value'] 
+  Tainted Variable: REF_37
+
+Sink #9: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: increaseApproval
+  Operation: TMP_68(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_46', '_addedValue'] 
+  Tainted Variable: REF_46
+
+Sink #10: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: decreaseApproval
+  Operation: TMP_71(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['oldValue', '_subtractedValue'] 
+  Tainted Variable: oldValue
+
+Sink #11: tainted_erc20_transfer
+  Contract: MintableToken
+  Function: removeAddressesFromWhitelist
+  Operation: TMP_83(bool) = INTERNAL_CALL, Whitelist.removeAddressFromWhitelist(address)(REF_66)
+  Tainted Variable: REF_66
+
+Sink #12: tainted_state_changing_external_call
+  Contract: MintableToken
+  Function: transferFrom
+  Operation: TMP_98(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_71', '_value'] 
+  Tainted Variable: REF_71
+
+Sink #13: tainted_state_changing_external_call
+  Contract: MintableToken
+  Function: transferFrom
+  Operation: TMP_99(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_74', '_value'] 
+  Tainted Variable: REF_74
+
+Sink #14: tainted_state_changing_external_call
+  Contract: MintableToken
+  Function: transferFrom
+  Operation: TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_79', '_value'] 
+  Tainted Variable: REF_79
+
+Sink #15: tainted_state_changing_external_call
+  Contract: MintableToken
+  Function: increaseApproval
+  Operation: TMP_103(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_88', '_addedValue'] 
+  Tainted Variable: REF_88
+
+Sink #16: tainted_state_changing_external_call
+  Contract: MintableToken
+  Function: decreaseApproval
+  Operation: TMP_106(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['oldValue', '_subtractedValue'] 
+  Tainted Variable: oldValue
+
+Sink #17: tainted_state_changing_external_call
+  Contract: MintableToken
+  Function: transfer
+  Operation: TMP_113(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_103', '_value'] 
+  Tainted Variable: _value
+
+Sink #18: tainted_state_changing_external_call
+  Contract: MintableToken
+  Function: transfer
+  Operation: TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_106', '_value'] 
+  Tainted Variable: REF_106
+
+Sink #19: tainted_state_changing_external_call
+  Contract: MintableToken
+  Function: mint
+  Operation: TMP_119(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply_', '_amount'] 
+  Tainted Variable: totalSupply_
+
+Sink #20: tainted_state_changing_external_call
+  Contract: MintableToken
+  Function: mint
+  Operation: TMP_120(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_111', '_amount'] 
+  Tainted Variable: REF_111
+
+Sink #21: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: mint
+  Operation: TMP_137(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply_', '_amount'] 
+  Tainted Variable: totalSupply_
+
+Sink #22: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: mint
+  Operation: TMP_138(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_116', '_amount'] 
+  Tainted Variable: REF_116
+
+Sink #23: tainted_erc20_transfer
+  Contract: DripToken
+  Function: removeAddressesFromWhitelist
+  Operation: TMP_157(bool) = INTERNAL_CALL, Whitelist.removeAddressFromWhitelist(address)(REF_125)
+  Tainted Variable: REF_125
+
+Sink #24: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: transferFrom
+  Operation: TMP_172(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_130', '_value'] 
+  Tainted Variable: REF_130
+
+Sink #25: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: transferFrom
+  Operation: TMP_173(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_133', '_value'] 
+  Tainted Variable: REF_133
+
+Sink #26: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: transferFrom
+  Operation: TMP_174(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_138', '_value'] 
+  Tainted Variable: REF_138
+
+Sink #27: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: increaseApproval
+  Operation: TMP_177(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_147', '_addedValue'] 
+  Tainted Variable: REF_147
+
+Sink #28: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: decreaseApproval
+  Operation: TMP_180(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['oldValue', '_subtractedValue'] 
+  Tainted Variable: oldValue
+
+Sink #29: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: transfer
+  Operation: TMP_187(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_162', '_value'] 
+  Tainted Variable: _value
+
+Sink #30: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: transfer
+  Operation: TMP_188(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_165', '_value'] 
+  Tainted Variable: REF_165
+
+Sink #31: tainted_erc20_transfer
+  Contract: DripToken
+  Function: constructor
+  Operation: TMP_193(bool) = INTERNAL_CALL, Whitelist.removeAddressFromWhitelist(address)(owner)
+  Tainted Variable: owner
+
+Sink #32: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: mint
+  Operation: TMP_197(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['mintedSupply_', '_amount'] 
+  Tainted Variable: _amount
+
+Sink #33: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: mint
+  Operation: TMP_201(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['mintedSupply_', '_amount'] 
+  Tainted Variable: mintedSupply_
+
+Sink #34: tainted_erc20_transfer
+  Contract: DripToken
+  Function: transferFrom
+  Operation: TUPLE_0(uint256,uint256) = INTERNAL_CALL, DripToken.calculateTransferTaxes(address,uint256)(_from,_value)
+  Tainted Variable: _from
+
+Sink #35: tainted_erc20_transfer
+  Contract: DripToken
+  Function: transferFrom
+  Operation: TMP_213(bool) = INTERNAL_CALL, StandardToken.transferFrom(address,address,uint256)(_from,vaultAddress,taxAmount)
+  Tainted Variable: _from
+
+Sink #36: tainted_erc20_transfer
+  Contract: DripToken
+  Function: transferFrom
+  Operation: TMP_216(bool) = INTERNAL_CALL, StandardToken.transferFrom(address,address,uint256)(_from,_to,adjustedValue)
+  Tainted Variable: _from
+
+Sink #37: tainted_erc20_transfer
+  Contract: DripToken
+  Function: transfer
+  Operation: TUPLE_1(uint256,uint256) = INTERNAL_CALL, DripToken.calculateTransferTaxes(address,uint256)(msg.sender,_value)
+  Tainted Variable: _value
+
+Sink #38: tainted_erc20_transfer
+  Contract: DripToken
+  Function: transfer
+  Operation: TMP_220(bool) = INTERNAL_CALL, BasicToken.transfer(address,uint256)(vaultAddress,taxAmount)
+  Tainted Variable: vaultAddress
+
+Sink #39: tainted_erc20_transfer
+  Contract: DripToken
+  Function: transfer
+  Operation: TMP_223(bool) = INTERNAL_CALL, BasicToken.transfer(address,uint256)(_to,adjustedValue)
+  Tainted Variable: _to
+
+Sink #40: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: remainingMintableSupply
+  Operation: TMP_227(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['targetSupply', 'mintedSupply_'] 
+  Tainted Variable: mintedSupply_
+
+Sink #41: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: mint
+  Operation: TMP_197(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['mintedSupply_', '_amount'] 
+  Tainted Variable: mintedSupply_
+
+Sink #42: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: calculateTransactionTax
+  Operation: TMP_207(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_value', '_tax'] 
+  Tainted Variable: _value
+
+Sink #43: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: calculateTransactionTax
+  Operation: TMP_208(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_207', '100'] 
+  Tainted Variable: TMP_207
+
+Sink #44: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: calculateTransactionTax
+  Operation: TMP_209(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['100', '_tax'] 
+  Tainted Variable: _tax
+
+Sink #45: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: calculateTransactionTax
+  Operation: TMP_210(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['_value', 'TMP_209'] 
+  Tainted Variable: _value
+
+Sink #46: tainted_state_changing_external_call
+  Contract: DripToken
+  Function: calculateTransactionTax
+  Operation: TMP_211(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_210', '100'] 
+  Tainted Variable: TMP_210
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in MintableToken.mint
+  Sink: tainted_state_changing_external_call in MintableToken.mint
+  Path Operations:
+    1. mint
+    2. REF_111(uint256) -> balances[_to]
+
+Path #2:
+  Source: external_input_params in StandardToken.decreaseApproval
+  Sink: tainted_state_changing_external_call in StandardToken.decreaseApproval
+  Path Operations:
+    1. decreaseApproval
+    2. REF_51(uint256) -> REF_50[_spender]
+    3. oldValue(uint256) := REF_51(uint256)
+
+Path #3:
+  Source: external_input_params in StandardToken.transferFrom
+  Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_36(mapping(address => uint256)) -> allowed[_from]
+    3. REF_37(uint256) -> REF_36[msg.sender]
+
+Path #4:
+  Source: external_input_params in StandardToken.transferFrom
+  Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_29(uint256) -> balances[_from]
+
+Path #5:
+  Source: external_input_params in MintableToken.mint
+  Sink: tainted_state_changing_external_call in DripToken.mint
+  Path Operations:
+    1. mint
+    2. TMP_119(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply_', '_amount'] 
+    3. totalSupply_(uint256) := TMP_119(uint256)
+
+Path #6:
+  Source: external_input_params in MintableToken.mint
+  Sink: tainted_state_changing_external_call in MintableToken.mint
+  Path Operations:
+    1. mint
+    2. TMP_119(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply_', '_amount'] 
+    3. totalSupply_(uint256) := TMP_119(uint256)
+
+Path #7:
+  Source: external_input_params in BasicToken.transfer
+  Sink: tainted_state_changing_external_call in BasicToken.transfer
+  Path Operations:
+    1. transfer
+
+Path #8:
+  Source: external_input_params in DripToken.constructor
+  Sink: tainted_state_changing_external_call in DripToken.mint
+  Path Operations:
+    1. constructor
+    2. TMP_191(uint256) = _initialMint * 1000000000000000000
+    3. TMP_192(bool) = INTERNAL_CALL, DripToken.mint(address,uint256)(owner,TMP_191)
+
+Path #9:
+  Source: external_input_params in DripToken.setVaultAddress
+  Sink: tainted_erc20_transfer in DripToken.transfer
+  Path Operations:
+    1. setVaultAddress
+    2. vaultAddress(address) := _newVaultAddress(address)
+
+Path #10:
+  Source: external_input_params in DripToken.constructor
+  Sink: tainted_state_changing_external_call in DripToken.mint
+  Path Operations:
+    1. constructor
+    2. TMP_191(uint256) = _initialMint * 1000000000000000000
+    3. TMP_192(bool) = INTERNAL_CALL, DripToken.mint(address,uint256)(owner,TMP_191)
+    4. TMP_201(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['mintedSupply_', '_amount'] 
+    5. mintedSupply_(uint256) := TMP_201(uint256)
+
+Path #11:
+  Source: external_input_params in StandardToken.increaseApproval
+  Sink: tainted_state_changing_external_call in StandardToken.increaseApproval
+  Path Operations:
+    1. increaseApproval
+    2. REF_46(uint256) -> REF_45[_spender]
+
+Path #12:
+  Source: external_input_params in StandardToken.transferFrom
+  Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_32(uint256) -> balances[_to]
+
+Path #13:
+  Source: external_input_params in DripToken.constructor
+  Sink: tainted_state_changing_external_call in DripToken.remainingMintableSupply
+  Path Operations:
+    1. constructor
+    2. TMP_191(uint256) = _initialMint * 1000000000000000000
+    3. TMP_192(bool) = INTERNAL_CALL, DripToken.mint(address,uint256)(owner,TMP_191)
+    4. TMP_201(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['mintedSupply_', '_amount'] 
+    5. mintedSupply_(uint256) := TMP_201(uint256)
+
+Path #14:
+  Source: external_input_params in Whitelist.removeAddressesFromWhitelist
+  Sink: tainted_erc20_transfer in Whitelist.removeAddressesFromWhitelist
+  Path Operations:
+    1. removeAddressesFromWhitelist
+    2. REF_7(address) -> addrs[i]
+
+Path #15:
+  Source: external_input_params in BasicToken.transfer
+  Sink: tainted_state_changing_external_call in BasicToken.transfer
+  Path Operations:
+    1. transfer
+    2. REF_14(uint256) -> balances[_to]
+
+Path #16:
+  Source: external_input_params in DripToken.constructor
+  Sink: tainted_state_changing_external_call in DripToken.mint
+  Path Operations:
+    1. constructor
+    2. TMP_191(uint256) = _initialMint * 1000000000000000000
+    3. TMP_192(bool) = INTERNAL_CALL, DripToken.mint(address,uint256)(owner,TMP_191)
+    4. TMP_201(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['mintedSupply_', '_amount'] 
+    5. mintedSupply_(uint256) := TMP_201(uint256)

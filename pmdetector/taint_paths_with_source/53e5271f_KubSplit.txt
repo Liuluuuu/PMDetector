@@ -1,0 +1,1182 @@
+# Taint Analysis Results with Source Code Mapping
+Found 48 tainted paths.
+
+## Path #1
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.splitAmount
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1028]
+    LNE: setAllot(allotConfig)
+
+    IR:  allot(MktCap.Allot) := allot_(MktCap.Allot)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1036]
+    LNE: allot = allot_
+
+    IR:  REF_69(uint256) -> allot.addL
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_69'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.splitAmount
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1029]
+    LNE: setAutoSellConfig(sellconfig)
+
+    IR:  autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1033]
+    LNE: autoSell = autoSell_
+
+    IR:  REF_83(uint256) -> autoSell.maxPart
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'REF_85'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  maxSell(uint256) := TMP_295(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  balance(uint256) := maxSell(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1098]
+    LNE: balance = maxSell
+
+    IR:  TUPLE_1(uint256,uint256,uint256) = INTERNAL_CALL, MktCap.splitAmount(uint256)(balance)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1099]
+    LNE: (toSell,toBurn,toAddL) = splitAmount(balance)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1029]
+    LNE: setAutoSellConfig(sellconfig)
+
+    IR:  autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1033]
+    LNE: autoSell = autoSell_
+
+    IR:  REF_78(uint256) -> autoSell.minPart
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1096]
+    LNE: balance < IERC20(token0).totalSupply().mul(autoSell.minPart).div(autoSell.parts)
+
+    IR:  TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_288', 'REF_78'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1096]
+    LNE: balance < IERC20(token0).totalSupply().mul(autoSell.minPart).div(autoSell.parts)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1028]
+    LNE: setAllot(allotConfig)
+
+    IR:  allot(MktCap.Allot) := allot_(MktCap.Allot)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1036]
+    LNE: allot = allot_
+
+    IR:  REF_88(uint256) -> allot.total
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1104]
+    LNE: total2Fee = allot.total.sub(allot.addL.div(2)).sub(allot.burn)
+
+    IR:  TMP_306(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_88', 'TMP_305'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1104]
+    LNE: total2Fee = allot.total.sub(allot.addL.div(2)).sub(allot.burn)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in Split.setdex
+Sink: tainted_state_changing_external_call in Split.getTokenPrice
+
+### Operations with Source Code Mapping:
+    IR:  setdex
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1207, 1208, 1209, 1210, 1211]
+    LNE: (No direct expression available)
+
+    IR:  fistLP(address) := _fistLP(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1210]
+    LNE: fistLP = _fistLP
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in Split.constructor
+Sink: tainted_erc20_transfer in Split._mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1152, 1153, 1154, 1155, 1156, 1157, 1158, 1159, 1160, 1161, 1162]
+    LNE: (No direct expression available)
+
+    IR:  TMP_441(uint256) = total_ (c)* 1000000000000000000
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1161]
+    LNE: _mint(ceo,total_ * 1000000000000000000)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(ceo,TMP_441)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1161]
+    LNE: _mint(ceo,total_ * 1000000000000000000)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in Split.setinb
+Sink: tainted_erc20_transfer in Split._afterTokenTransfer
+
+### Operations with Source Code Mapping:
+    IR:  setinb
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1203, 1204, 1205, 1206]
+    LNE: (No direct expression available)
+
+    IR:  _num(uint256) := num(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1205]
+    LNE: _num = num
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in Ownable.transferOwnership
+Sink: tainted_erc20_transfer in Ownable.transferOwnership
+
+### Operations with Source Code Mapping:
+    IR:  transferOwnership
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [326, 327, 328, 329]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  token1(address) := baseToken_(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1022]
+    LNE: token1 = baseToken_
+
+    IR:  TMP_302 = CONVERT token1 to IERC20
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  amount2(uint256) := TMP_304(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.splitAmount
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1028]
+    LNE: setAllot(allotConfig)
+
+    IR:  allot(MktCap.Allot) := allot_(MktCap.Allot)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1036]
+    LNE: allot = allot_
+
+    IR:  REF_69(uint256) -> allot.addL
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_69'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  TMP_280(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_279', 'REF_71'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.splitAmount
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1028]
+    LNE: setAllot(allotConfig)
+
+    IR:  allot(MktCap.Allot) := allot_(MktCap.Allot)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1036]
+    LNE: allot = allot_
+
+    IR:  REF_65(uint256) -> allot.burn
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1089]
+    LNE: toBurn = amount.mul(allot.burn).div(allot.total)
+
+    IR:  TMP_277(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_65'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1089]
+    LNE: toBurn = amount.mul(allot.burn).div(allot.total)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  TMP_214 = CONVERT router_ to IRouter
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1023]
+    LNE: router = IRouter(router_)
+
+    IR:  router(IRouter) := TMP_214(IRouter)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1023]
+    LNE: router = IRouter(router_)
+
+    IR:  TMP_219 = CONVERT router to address
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1025]
+    LNE: IERC20(token1).approve(address(router),uint256(2 ** 256 - 1))
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  token1(address) := baseToken_(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1022]
+    LNE: token1 = baseToken_
+
+    IR:  TMP_302 = CONVERT token1 to IERC20
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  amount2(uint256) := TMP_304(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount2', 'amount2AddL'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1106]
+    LNE: amount2Marketing = amount2.sub(amount2AddL)
+
+    IR:  amount2Marketing(uint256) := TMP_311(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1106]
+    LNE: amount2Marketing = amount2.sub(amount2AddL)
+
+    IR:  TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount2Marketing', 'REF_101'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1111]
+    LNE: cake = amount2Marketing.mul(marketingShare[i]).div(sharetotal)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.setMarketing
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setMarketing(address[],uint256[])(list,share)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1030]
+    LNE: setMarketing(list,share)
+
+    IR:  REF_45(uint256) -> share[i]
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1048]
+    LNE: total = total.add(share[i])
+
+    IR:  TMP_245(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['total', 'REF_45'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1048]
+    LNE: total = total.add(share[i])
+
+    IR:  total(uint256) := TMP_245(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1048]
+    LNE: total = total.add(share[i])
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in MktCap.send
+Sink: tainted_value_transfer in MktCap.send
+
+### Operations with Source Code Mapping:
+    IR:  send
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1117, 1118, 1119, 1120, 1121, 1122, 1123]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  token1(address) := baseToken_(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1022]
+    LNE: token1 = baseToken_
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.splitAmount
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1029]
+    LNE: setAutoSellConfig(sellconfig)
+
+    IR:  autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1033]
+    LNE: autoSell = autoSell_
+
+    IR:  REF_83(uint256) -> autoSell.maxPart
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'REF_85'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  maxSell(uint256) := TMP_295(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  balance(uint256) := maxSell(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1098]
+    LNE: balance = maxSell
+
+    IR:  TUPLE_1(uint256,uint256,uint256) = INTERNAL_CALL, MktCap.splitAmount(uint256)(balance)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1099]
+    LNE: (toSell,toBurn,toAddL) = splitAmount(balance)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in MktCap.constructor
+Sink: tainted_erc20_transfer in MktCap.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap._addL
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  token1(address) := baseToken_(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1022]
+    LNE: token1 = baseToken_
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.splitAmount
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1028]
+    LNE: setAllot(allotConfig)
+
+    IR:  allot(MktCap.Allot) := allot_(MktCap.Allot)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1036]
+    LNE: allot = allot_
+
+    IR:  REF_69(uint256) -> allot.addL
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_69'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  TMP_280(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_279', 'REF_71'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  TMP_281(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_280', '2'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  toAddL(uint256) := TMP_281(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'toAddL'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1091]
+    LNE: toSell = amount.sub(toAddL).sub(toBurn)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1029]
+    LNE: setAutoSellConfig(sellconfig)
+
+    IR:  autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1033]
+    LNE: autoSell = autoSell_
+
+    IR:  REF_78(uint256) -> autoSell.minPart
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1096]
+    LNE: balance < IERC20(token0).totalSupply().mul(autoSell.minPart).div(autoSell.parts)
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  token1(address) := baseToken_(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1022]
+    LNE: token1 = baseToken_
+
+    IR:  TMP_302 = CONVERT token1 to IERC20
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  amount2(uint256) := TMP_304(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  TMP_308(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount2', 'REF_95'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1105]
+    LNE: amount2AddL = amount2.mul(allot.addL).div(total2Fee).div(2)
+
+    IR:  TMP_309(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_308', 'total2Fee'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1105]
+    LNE: amount2AddL = amount2.mul(allot.addL).div(total2Fee).div(2)
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in MktCap.setAll
+Sink: tainted_erc20_transfer in MktCap._sell
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1029]
+    LNE: setAutoSellConfig(sellconfig)
+
+    IR:  autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1033]
+    LNE: autoSell = autoSell_
+
+    IR:  REF_83(uint256) -> autoSell.maxPart
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'REF_85'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  maxSell(uint256) := TMP_295(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  balance(uint256) := maxSell(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1098]
+    LNE: balance = maxSell
+
+    IR:  TUPLE_1(uint256,uint256,uint256) = INTERNAL_CALL, MktCap.splitAmount(uint256)(balance)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1099]
+    LNE: (toSell,toBurn,toAddL) = splitAmount(balance)
+
+    IR:  toSell(uint256)= UNPACK TUPLE_1 index: 0 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1099]
+    LNE: (toSell,toBurn,toAddL) = splitAmount(balance)
+
+    IR:  INTERNAL_CALL, MktCap._sell(uint256)(toSell)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1101]
+    LNE: _sell(toSell)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap.setPair
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  token1(address) := baseToken_(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1022]
+    LNE: token1 = baseToken_
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_erc20_transfer in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [911, 912, 913, 914]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [913]
+    LNE: _burn(account,amount)
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.splitAmount
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1028]
+    LNE: setAllot(allotConfig)
+
+    IR:  allot(MktCap.Allot) := allot_(MktCap.Allot)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1036]
+    LNE: allot = allot_
+
+    IR:  REF_69(uint256) -> allot.addL
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'REF_69'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  TMP_280(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_279', 'REF_71'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  TMP_281(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_280', '2'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+    IR:  toAddL(uint256) := TMP_281(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  token1(address) := baseToken_(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1022]
+    LNE: token1 = baseToken_
+
+    IR:  TMP_302 = CONVERT token1 to IERC20
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  amount2(uint256) := TMP_304(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  TMP_308(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount2', 'REF_95'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1105]
+    LNE: amount2AddL = amount2.mul(allot.addL).div(total2Fee).div(2)
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in MktCap.send
+Sink: tainted_erc20_transfer in MktCap.send
+
+### Operations with Source Code Mapping:
+    IR:  send
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1117, 1118, 1119, 1120, 1121, 1122, 1123]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap.setPair
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  TMP_214 = CONVERT router_ to IRouter
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1023]
+    LNE: router = IRouter(router_)
+
+    IR:  router(IRouter) := TMP_214(IRouter)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1023]
+    LNE: router = IRouter(router_)
+
+    IR:  TMP_231 = CONVERT router to address
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1040]
+    LNE: IERC20(token1).approve(address(router),uint256(2 ** 256 - 1))
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1028]
+    LNE: setAllot(allotConfig)
+
+    IR:  allot(MktCap.Allot) := allot_(MktCap.Allot)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1036]
+    LNE: allot = allot_
+
+    IR:  REF_88(uint256) -> allot.total
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1104]
+    LNE: total2Fee = allot.total.sub(allot.addL.div(2)).sub(allot.burn)
+
+----------------------------------------
+
+## Path #31
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.splitAmount
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1028]
+    LNE: setAllot(allotConfig)
+
+    IR:  allot(MktCap.Allot) := allot_(MktCap.Allot)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1036]
+    LNE: allot = allot_
+
+    IR:  REF_65(uint256) -> allot.burn
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1089]
+    LNE: toBurn = amount.mul(allot.burn).div(allot.total)
+
+----------------------------------------
+
+## Path #32
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap._buy
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  token1(address) := baseToken_(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1022]
+    LNE: token1 = baseToken_
+
+    IR:  TMP_262 = CONVERT token1 to IERC20
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1078]
+    LNE: router.swapTokensForExactTokens(amount0Out,IERC20(token1).balanceOf(address(this)),path,address(this),block.timestamp)
+
+    IR:  TMP_264(uint256) = HIGH_LEVEL_CALL, dest:TMP_262(IERC20), function:balanceOf, arguments:['TMP_263']  
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1078]
+    LNE: router.swapTokensForExactTokens(amount0Out,IERC20(token1).balanceOf(address(this)),path,address(this),block.timestamp)
+
+----------------------------------------
+
+## Path #33
+Source: external_input_params in ERC20Burnable.burnFrom
+Sink: tainted_erc20_transfer in ERC20Burnable._burn
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [911, 912, 913, 914]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [913]
+    LNE: _burn(account,amount)
+
+----------------------------------------
+
+## Path #34
+Source: external_input_params in Split.setdex
+Sink: tainted_state_changing_external_call in Split.getTokenPrice
+
+### Operations with Source Code Mapping:
+    IR:  setdex
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1207, 1208, 1209, 1210, 1211]
+    LNE: (No direct expression available)
+
+    IR:  fistLP(address) := _fistLP(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1210]
+    LNE: fistLP = _fistLP
+
+----------------------------------------
+
+## Path #35
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [620, 621, 622, 623, 624, 625]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [623]
+    LNE: _transfer(from,to,amount)
+
+----------------------------------------
+
+## Path #36
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1029]
+    LNE: setAutoSellConfig(sellconfig)
+
+    IR:  autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1033]
+    LNE: autoSell = autoSell_
+
+    IR:  REF_83(uint256) -> autoSell.maxPart
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'REF_85'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  maxSell(uint256) := TMP_295(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  balance(uint256) := maxSell(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1098]
+    LNE: balance = maxSell
+
+    IR:  TUPLE_1(uint256,uint256,uint256) = INTERNAL_CALL, MktCap.splitAmount(uint256)(balance)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1099]
+    LNE: (toSell,toBurn,toAddL) = splitAmount(balance)
+
+    IR:  toBurn(uint256)= UNPACK TUPLE_1 index: 1 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1099]
+    LNE: (toSell,toBurn,toAddL) = splitAmount(balance)
+
+----------------------------------------
+
+## Path #37
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1029]
+    LNE: setAutoSellConfig(sellconfig)
+
+    IR:  autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1033]
+    LNE: autoSell = autoSell_
+
+    IR:  REF_83(uint256) -> autoSell.maxPart
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+----------------------------------------
+
+## Path #38
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  token1(address) := baseToken_(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1022]
+    LNE: token1 = baseToken_
+
+    IR:  TMP_302 = CONVERT token1 to IERC20
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  amount2(uint256) := TMP_304(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  TMP_311(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount2', 'amount2AddL'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1106]
+    LNE: amount2Marketing = amount2.sub(amount2AddL)
+
+    IR:  amount2Marketing(uint256) := TMP_311(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1106]
+    LNE: amount2Marketing = amount2.sub(amount2AddL)
+
+----------------------------------------
+
+## Path #39
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [620, 621, 622, 623, 624, 625]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #40
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [571, 572, 573, 574, 575]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #41
+Source: external_input_params in Split.constructor
+Sink: tainted_erc20_transfer in Split._mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1152, 1153, 1154, 1155, 1156, 1157, 1158, 1159, 1160, 1161, 1162]
+    LNE: (No direct expression available)
+
+    IR:  TMP_441(uint256) = total_ (c)* 1000000000000000000
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1161]
+    LNE: _mint(ceo,total_ * 1000000000000000000)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(ceo,TMP_441)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1161]
+    LNE: _mint(ceo,total_ * 1000000000000000000)
+
+----------------------------------------
+
+## Path #42
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.splitAmount
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1029]
+    LNE: setAutoSellConfig(sellconfig)
+
+    IR:  autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1033]
+    LNE: autoSell = autoSell_
+
+    IR:  REF_83(uint256) -> autoSell.maxPart
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'REF_83'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'REF_85'] 
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  maxSell(uint256) := TMP_295(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+    IR:  balance(uint256) := maxSell(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1098]
+    LNE: balance = maxSell
+
+    IR:  TUPLE_1(uint256,uint256,uint256) = INTERNAL_CALL, MktCap.splitAmount(uint256)(balance)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1099]
+    LNE: (toSell,toBurn,toAddL) = splitAmount(balance)
+
+----------------------------------------
+
+## Path #43
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [620, 621, 622, 623, 624, 625]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [623]
+    LNE: _transfer(from,to,amount)
+
+----------------------------------------
+
+## Path #44
+Source: external_input_params in MktCap.setAll
+Sink: tainted_erc20_transfer in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setMarketing(address[],uint256[])(list,share)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1030]
+    LNE: setMarketing(list,share)
+
+    IR:  marketingAddress(address[]) := list(address[])
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1051]
+    LNE: marketingAddress = list
+
+    IR:  REF_104(address) -> marketingAddress[i]
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1112]
+    LNE: IERC20(token1).transfer(marketingAddress[i],cake)
+
+----------------------------------------
+
+## Path #45
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAutoSellConfig(MktCap.autoConfig)(sellconfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1029]
+    LNE: setAutoSellConfig(sellconfig)
+
+    IR:  autoSell(MktCap.autoConfig) := autoSell_(MktCap.autoConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1033]
+    LNE: autoSell = autoSell_
+
+    IR:  REF_83(uint256) -> autoSell.maxPart
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1097]
+    LNE: maxSell = IERC20(token0).totalSupply().mul(autoSell.maxPart).div(autoSell.parts)
+
+----------------------------------------
+
+## Path #46
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.splitAmount
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1028]
+    LNE: setAllot(allotConfig)
+
+    IR:  allot(MktCap.Allot) := allot_(MktCap.Allot)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1036]
+    LNE: allot = allot_
+
+    IR:  REF_69(uint256) -> allot.addL
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1090]
+    LNE: toAddL = amount.mul(allot.addL).div(allot.total).div(2)
+
+----------------------------------------
+
+## Path #47
+Source: external_input_params in MktCap.constructor
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026]
+    LNE: (No direct expression available)
+
+    IR:  token1(address) := baseToken_(address)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1022]
+    LNE: token1 = baseToken_
+
+    IR:  TMP_302 = CONVERT token1 to IERC20
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  TMP_304(uint256) = HIGH_LEVEL_CALL, dest:TMP_302(IERC20), function:balanceOf, arguments:['TMP_303']  
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+    IR:  amount2(uint256) := TMP_304(uint256)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1102]
+    LNE: amount2 = IERC20(token1).balanceOf(address(this))
+
+----------------------------------------
+
+## Path #48
+Source: external_input_params in MktCap.setAll
+Sink: tainted_state_changing_external_call in MktCap.trigger
+
+### Operations with Source Code Mapping:
+    IR:  setAll
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1027, 1028, 1029, 1030, 1031]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, MktCap.setAllot(MktCap.Allot)(allotConfig)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1028]
+    LNE: setAllot(allotConfig)
+
+    IR:  allot(MktCap.Allot) := allot_(MktCap.Allot)
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1036]
+    LNE: allot = allot_
+
+    IR:  REF_90(uint256) -> allot.addL
+    SRC: File 'pmdetector/flattened_contracts/53e5271f_KubSplit/flattened.sol', Lines [1104]
+    LNE: total2Fee = allot.total.sub(allot.addL.div(2)).sub(allot.burn)
+
+----------------------------------------

@@ -1,0 +1,609 @@
+# Taint Analysis Results with Source Code Mapping
+Found 33 tainted paths.
+
+## Path #1
+Source: external_input_params in KimochiToken.lock
+Sink: tainted_state_changing_external_call in KimochiToken.lock
+
+### Operations with Source Code Mapping:
+    IR:  lock
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892, 893, 894]
+    LNE: (No direct expression available)
+
+    IR:  TMP_213(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalLock', '_amount'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [889]
+    LNE: _totalLock = _totalLock.add(_amount)
+
+    IR:  _totalLock(uint256) := TMP_213(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [889]
+    LNE: _totalLock = _totalLock.add(_amount)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in KimochiToken.mint
+Sink: tainted_state_changing_external_call in ERC20._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [861, 862, 863, 864, 865, 866, 867, 868]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [867]
+    LNE: _mint(_to,_amount)
+
+    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_152(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in KimochiToken.transferAll
+Sink: tainted_state_changing_external_call in KimochiToken.transferAll
+
+### Operations with Source Code Mapping:
+    IR:  transferAll
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [925, 926, 927, 928, 929, 930, 931, 932, 933, 934, 935, 936, 937, 938, 939, 940]
+    LNE: (No direct expression available)
+
+    IR:  REF_91(uint256) -> _locks[_to]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [926]
+    LNE: _locks[_to] = _locks[_to].add(_locks[msg.sender])
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in KimochiToken.canUnlockAmount
+Sink: tainted_state_changing_external_call in KimochiToken.canUnlockAmount
+
+### Operations with Source Code Mapping:
+    IR:  canUnlockAmount
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908]
+    LNE: (No direct expression available)
+
+    IR:  REF_81(uint256) -> _locks[_holder]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [906]
+    LNE: _locks[_holder].mul(releaseBlock).div(numberLockBlock)
+
+    IR:  TMP_221(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_81', 'releaseBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [906]
+    LNE: _locks[_holder].mul(releaseBlock).div(numberLockBlock)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in KimochiToken.mint
+Sink: tainted_state_changing_external_call in KimochiToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [861, 862, 863, 864, 865, 866, 867, 868]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [867]
+    LNE: _mint(_to,_amount)
+
+    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_152(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [516, 517, 518, 519]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in KimochiToken.mint
+Sink: tainted_state_changing_external_call in KimochiToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [861, 862, 863, 864, 865, 866, 867, 868]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [867]
+    LNE: _mint(_to,_amount)
+
+    IR:  REF_52(uint256) -> _balances[account]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [634]
+    LNE: _balances[account] = _balances[account].add(amount)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in KimochiToken.startFarming
+Sink: tainted_state_changing_external_call in KimochiToken.canUnlockAmount
+
+### Operations with Source Code Mapping:
+    IR:  startFarming
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [1010, 1011, 1012, 1013, 1014, 1015]
+    LNE: (No direct expression available)
+
+    IR:  TMP_264(uint256) = lockFromBlock + numblock
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [1013]
+    LNE: lockToBlock = lockFromBlock + numblock
+
+    IR:  lockToBlock(uint256) := TMP_264(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [1013]
+    LNE: lockToBlock = lockFromBlock + numblock
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in KimochiToken.mint
+Sink: tainted_erc20_transfer in KimochiToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [861, 862, 863, 864, 865, 866, 867, 868]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [867]
+    LNE: _mint(_to,_amount)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in KimochiToken.mint
+Sink: tainted_state_changing_external_call in KimochiToken._beforeTokenTransfer
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [861, 862, 863, 864, 865, 866, 867, 868]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [867]
+    LNE: _mint(_to,_amount)
+
+    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_152(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  TMP_177(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [830]
+    LNE: require(bool,string)(totalSupply().add(amount) <= _cap,ERC20Capped: cap exceeded)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in KimochiToken.lock
+Sink: tainted_state_changing_external_call in KimochiToken.circulatingSupply
+
+### Operations with Source Code Mapping:
+    IR:  lock
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892, 893, 894]
+    LNE: (No direct expression available)
+
+    IR:  TMP_213(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalLock', '_amount'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [889]
+    LNE: _totalLock = _totalLock.add(_amount)
+
+    IR:  _totalLock(uint256) := TMP_213(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [889]
+    LNE: _totalLock = _totalLock.add(_amount)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in KimochiToken.mint
+Sink: tainted_state_changing_external_call in KimochiToken.mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [861, 862, 863, 864, 865, 866, 867, 868]
+    LNE: (No direct expression available)
+
+    IR:  REF_63(uint256) -> minterAllowed[_to]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [864]
+    LNE: mintingAllowedAmount = minterAllowed[_to]
+
+    IR:  mintingAllowedAmount(uint256) := REF_63(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [864]
+    LNE: mintingAllowedAmount = minterAllowed[_to]
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in KimochiToken.lock
+Sink: tainted_erc20_transfer in KimochiToken.lock
+
+### Operations with Source Code Mapping:
+    IR:  lock
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892, 893, 894]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [552, 553, 554, 555, 556]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [553]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_17(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [614]
+    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in KimochiToken.mint
+Sink: tainted_state_changing_external_call in KimochiToken._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [861, 862, 863, 864, 865, 866, 867, 868]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [867]
+    LNE: _mint(_to,_amount)
+
+    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_152(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in ERC20.decreaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [589, 590, 591, 592]
+    LNE: (No direct expression available)
+
+    IR:  REF_14(uint256) -> REF_13[spender]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [590]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in KimochiToken.mint
+Sink: tainted_state_changing_external_call in KimochiToken.circulatingSupply
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [861, 862, 863, 864, 865, 866, 867, 868]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [867]
+    LNE: _mint(_to,_amount)
+
+    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_152(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  TMP_172(uint256) = INTERNAL_CALL, ERC20.totalSupply()()
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [812]
+    LNE: totalSupply().sub(_totalLock)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in ERC20.transfer
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [516, 517, 518, 519]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [517]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_20(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [615]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in KimochiToken.canUnlockAmount
+Sink: tainted_state_changing_external_call in KimochiToken.canUnlockAmount
+
+### Operations with Source Code Mapping:
+    IR:  canUnlockAmount
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908]
+    LNE: (No direct expression available)
+
+    IR:  REF_81(uint256) -> _locks[_holder]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [906]
+    LNE: _locks[_holder].mul(releaseBlock).div(numberLockBlock)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [552, 553, 554, 555, 556]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [553]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in KimochiToken.lock
+Sink: tainted_state_changing_external_call in KimochiToken.lock
+
+### Operations with Source Code Mapping:
+    IR:  lock
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892, 893, 894]
+    LNE: (No direct expression available)
+
+    IR:  REF_71(uint256) -> _locks[_holder]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [888]
+    LNE: _locks[_holder] = _locks[_holder].add(_amount)
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in ERC20.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [570, 571, 572, 573]
+    LNE: (No direct expression available)
+
+    IR:  REF_11(uint256) -> REF_10[spender]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [571]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in KimochiToken.canUnlockAmount
+Sink: tainted_erc20_transfer in KimochiToken.unlock
+
+### Operations with Source Code Mapping:
+    IR:  canUnlockAmount
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908]
+    LNE: (No direct expression available)
+
+    IR:  REF_81(uint256) -> _locks[_holder]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [906]
+    LNE: _locks[_holder].mul(releaseBlock).div(numberLockBlock)
+
+    IR:  TMP_221(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_81', 'releaseBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [906]
+    LNE: _locks[_holder].mul(releaseBlock).div(numberLockBlock)
+
+    IR:  TMP_222(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_221', 'numberLockBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [906]
+    LNE: _locks[_holder].mul(releaseBlock).div(numberLockBlock)
+
+    IR:  TMP_225(uint256) = INTERNAL_CALL, KimochiToken.canUnlockAmount(address)(msg.sender)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [913]
+    LNE: amount = canUnlockAmount(msg.sender)
+
+    IR:  amount(uint256) := TMP_225(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [913]
+    LNE: amount = canUnlockAmount(msg.sender)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in KimochiToken.canUnlockAmount
+Sink: tainted_state_changing_external_call in KimochiToken.canUnlockAmount
+
+### Operations with Source Code Mapping:
+    IR:  canUnlockAmount
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908]
+    LNE: (No direct expression available)
+
+    IR:  REF_80(uint256) -> _lastUnlockBlock[_holder]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [905]
+    LNE: numberLockBlock = lockToBlock.sub(_lastUnlockBlock[_holder])
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in KimochiToken.transferAll
+Sink: tainted_erc20_transfer in KimochiToken.transferAll
+
+### Operations with Source Code Mapping:
+    IR:  transferAll
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [925, 926, 927, 928, 929, 930, 931, 932, 933, 934, 935, 936, 937, 938, 939, 940]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in KimochiToken.mint
+Sink: tainted_state_changing_external_call in ERC20._burn
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [861, 862, 863, 864, 865, 866, 867, 868]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(_to,_amount)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [867]
+    LNE: _mint(_to,_amount)
+
+    IR:  TMP_152(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_152(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [633]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in KimochiToken.totalBalanceOf
+Sink: tainted_state_changing_external_call in KimochiToken.totalBalanceOf
+
+### Operations with Source Code Mapping:
+    IR:  totalBalanceOf
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [870, 871, 872]
+    LNE: (No direct expression available)
+
+    IR:  REF_66(uint256) -> _locks[_holder]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [871]
+    LNE: _locks[_holder].add(balanceOf(_holder))
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [552, 553, 554, 555, 556]
+    LNE: (No direct expression available)
+
+    IR:  REF_7(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [554]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_8(uint256) -> REF_7[TMP_47]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [554]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [552, 553, 554, 555, 556]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in KimochiToken.canUnlockAmount
+Sink: tainted_state_changing_external_call in KimochiToken.unlock
+
+### Operations with Source Code Mapping:
+    IR:  canUnlockAmount
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908]
+    LNE: (No direct expression available)
+
+    IR:  REF_81(uint256) -> _locks[_holder]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [906]
+    LNE: _locks[_holder].mul(releaseBlock).div(numberLockBlock)
+
+    IR:  TMP_221(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_81', 'releaseBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [906]
+    LNE: _locks[_holder].mul(releaseBlock).div(numberLockBlock)
+
+    IR:  TMP_222(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_221', 'numberLockBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [906]
+    LNE: _locks[_holder].mul(releaseBlock).div(numberLockBlock)
+
+    IR:  TMP_225(uint256) = INTERNAL_CALL, KimochiToken.canUnlockAmount(address)(msg.sender)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [913]
+    LNE: amount = canUnlockAmount(msg.sender)
+
+    IR:  amount(uint256) := TMP_225(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [913]
+    LNE: amount = canUnlockAmount(msg.sender)
+
+----------------------------------------
+
+## Path #31
+Source: external_input_params in KimochiToken.canUnlockAmount
+Sink: tainted_state_changing_external_call in KimochiToken.canUnlockAmount
+
+### Operations with Source Code Mapping:
+    IR:  canUnlockAmount
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908]
+    LNE: (No direct expression available)
+
+    IR:  REF_78(uint256) -> _lastUnlockBlock[_holder]
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [904]
+    LNE: releaseBlock = block.number.sub(_lastUnlockBlock[_holder])
+
+----------------------------------------
+
+## Path #32
+Source: external_input_params in KimochiToken.lock
+Sink: tainted_state_changing_external_call in KimochiToken.unlock
+
+### Operations with Source Code Mapping:
+    IR:  lock
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892, 893, 894]
+    LNE: (No direct expression available)
+
+    IR:  TMP_213(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalLock', '_amount'] 
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [889]
+    LNE: _totalLock = _totalLock.add(_amount)
+
+    IR:  _totalLock(uint256) := TMP_213(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [889]
+    LNE: _totalLock = _totalLock.add(_amount)
+
+----------------------------------------
+
+## Path #33
+Source: external_input_params in KimochiToken.burnFrom
+Sink: tainted_state_changing_external_call in KimochiToken.burnFrom
+
+### Operations with Source Code Mapping:
+    IR:  burnFrom
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [963, 964, 965, 966, 967, 968, 969]
+    LNE: (No direct expression available)
+
+    IR:  TMP_243(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account,TMP_242)
+    SRC: File 'pmdetector/flattened_contracts/a05dde68_Kimochi/flattened.sol', Lines [964]
+    LNE: decreasedAllowance = allowance(account,_msgSender()).sub(amount,ERC20: burn amount exceeds allowance)
+
+----------------------------------------

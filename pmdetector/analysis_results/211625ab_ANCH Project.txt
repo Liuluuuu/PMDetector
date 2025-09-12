@@ -1,0 +1,1723 @@
+=== PMDetector Taint Analysis Results ===
+Found 30 taint sources
+Found 148 taint sinks
+Found 74 tainted paths (filtered from 74 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #2: external_input_params
+  Contract: LPTokenWrapper
+  Function: setProjectAddress
+  Operation: setProjectAddress
+  Tainted Variables: _projectAddress
+
+Source #3: external_input_params
+  Contract: LPTokenWrapper
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #4: external_input_params
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: deposit
+  Tainted Variables: amount
+
+Source #5: external_input_params
+  Contract: LPTokenWrapper
+  Function: withdraw
+  Operation: withdraw
+  Tainted Variables: amount
+
+Source #6: external_input_params
+  Contract: ANCHStakePool
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _token
+
+Source #7: external_input_params
+  Contract: ANCHStakePool
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _lpToken
+
+Source #8: external_input_params
+  Contract: ANCHStakePool
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _usdtToken
+
+Source #9: external_input_params
+  Contract: ANCHStakePool
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _projectAddress
+
+Source #10: external_input_params
+  Contract: ANCHStakePool
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _starttime
+
+Source #11: external_input_params
+  Contract: ANCHStakePool
+  Function: bindReferrer
+  Operation: bindReferrer
+  Tainted Variables: _address
+
+Source #12: msg.sender
+  Contract: ANCHStakePool
+  Function: bindReferrer
+  Operation: REF_90(address) (->team) := msg.sender(address)
+  Tainted Variables: REF_90
+
+Source #13: external_input_params
+  Contract: ANCHStakePool
+  Function: getReferrer
+  Operation: getReferrer
+  Tainted Variables: account
+
+Source #14: external_input_params
+  Contract: ANCHStakePool
+  Function: swapLPTokenAmount
+  Operation: swapLPTokenAmount
+  Tainted Variables: usdtAmount
+
+Source #15: external_input_params
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: earn
+  Tainted Variables: rewardType
+
+Source #16: external_input_params
+  Contract: ANCHStakePool
+  Function: getReward
+  Operation: getReward
+  Tainted Variables: account
+
+Source #17: external_input_params
+  Contract: ANCHStakePool
+  Function: getRewardWithdrawed
+  Operation: getRewardWithdrawed
+  Tainted Variables: account
+
+Source #18: external_input_params
+  Contract: ANCHStakePool
+  Function: getTotalReward
+  Operation: getTotalReward
+  Tainted Variables: account
+
+Source #19: external_input_params
+  Contract: ANCHStakePool
+  Function: getTeamInfo
+  Operation: getTeamInfo
+  Tainted Variables: account
+
+Source #20: external_input_params
+  Contract: ANCHStakePool
+  Function: withdrawAll
+  Operation: withdrawAll
+  Tainted Variables: _token
+
+Source #21: external_input_params
+  Contract: ANCHStakePool
+  Function: setToken
+  Operation: setToken
+  Tainted Variables: _token
+
+Source #22: external_input_params
+  Contract: ANCHStakePool
+  Function: setLPToken
+  Operation: setLPToken
+  Tainted Variables: _lpToken
+
+Source #23: external_input_params
+  Contract: ANCHStakePool
+  Function: setNFTPublisher
+  Operation: setNFTPublisher
+  Tainted Variables: _nftPublisher
+
+Source #24: external_input_params
+  Contract: ANCHStakePool
+  Function: setNewMillionReleaseAmount
+  Operation: setNewMillionReleaseAmount
+  Tainted Variables: _newMillionReleaseAmount
+
+Source #25: external_input_params
+  Contract: ANCHStakePool
+  Function: setMinUsdtAmount
+  Operation: setMinUsdtAmount
+  Tainted Variables: _MIN_USDT_AMOUNT
+
+Source #26: external_input_params
+  Contract: ANCHStakePool
+  Function: setReleasePercent
+  Operation: setReleasePercent
+  Tainted Variables: _releasePercent
+
+Source #27: external_input_params
+  Contract: ANCHStakePool
+  Function: setMillion
+  Operation: setMillion
+  Tainted Variables: _MILLION
+
+Source #28: external_input_params
+  Contract: ANCHStakePool
+  Function: setAutoRelease
+  Operation: setAutoRelease
+  Tainted Variables: _isAutoRelease
+
+Source #29: external_input_params
+  Contract: ANCHStakePool
+  Function: setOpenBind
+  Operation: setOpenBind
+  Tainted Variables: _isOpenBind
+
+Source #30: external_input_params
+  Contract: ANCHStakePool
+  Function: setTriggerNFTPublishUSDTAmount
+  Operation: setTriggerNFTPublishUSDTAmount
+  Tainted Variables: _triggerNFTPublishUSDTAmount
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: INTERNAL_CALL, Ownable._transferOwnership(address)(newOwner)
+  Tainted Variable: newOwner
+
+Sink #2: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #3: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: TMP_113(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_29', 'amount'] 
+  Tainted Variable: amount
+
+Sink #4: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+  Tainted Variable: amount
+
+Sink #5: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: TMP_115(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_114', '1'] 
+  Tainted Variable: TMP_114
+
+Sink #6: tainted_erc20_transfer
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['lpToken', 'msg.sender', 'projectAddress', 'TMP_115'] 
+  Tainted Variable: projectAddress
+
+Sink #7: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: TMP_118(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+  Tainted Variable: amount
+
+Sink #8: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: TMP_119(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_118', '1'] 
+  Tainted Variable: TMP_118
+
+Sink #9: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: TMP_120(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'TMP_119'] 
+  Tainted Variable: amount
+
+Sink #10: tainted_erc20_transfer
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['lpToken', 'msg.sender', 'TMP_117', 'TMP_120'] 
+  Tainted Variable: TMP_120
+
+Sink #11: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: withdraw
+  Operation: TMP_122(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #12: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: withdraw
+  Operation: TMP_123(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_40', 'amount'] 
+  Tainted Variable: amount
+
+Sink #13: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: withdraw
+  Operation: TMP_124(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+  Tainted Variable: amount
+
+Sink #14: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: withdraw
+  Operation: TMP_125(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_124', '2'] 
+  Tainted Variable: TMP_124
+
+Sink #15: tainted_erc20_transfer
+  Contract: LPTokenWrapper
+  Function: withdraw
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['lpToken', 'projectAddress', 'TMP_125'] 
+  Tainted Variable: projectAddress
+
+Sink #16: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: withdraw
+  Operation: TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+  Tainted Variable: amount
+
+Sink #17: tainted_state_changing_external_call
+  Contract: LPTokenWrapper
+  Function: withdraw
+  Operation: TMP_128(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_127', '97'] 
+  Tainted Variable: TMP_127
+
+Sink #18: tainted_erc20_transfer
+  Contract: LPTokenWrapper
+  Function: withdraw
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['lpToken', 'msg.sender', 'TMP_128'] 
+  Tainted Variable: TMP_128
+
+Sink #19: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_133(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #20: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_51', 'amount'] 
+  Tainted Variable: amount
+
+Sink #21: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_135(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+  Tainted Variable: amount
+
+Sink #22: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_136(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_135', '1'] 
+  Tainted Variable: TMP_135
+
+Sink #23: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['lpToken', 'msg.sender', 'projectAddress', 'TMP_136'] 
+  Tainted Variable: projectAddress
+
+Sink #24: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_139(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+  Tainted Variable: amount
+
+Sink #25: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_140(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_139', '1'] 
+  Tainted Variable: TMP_139
+
+Sink #26: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_141(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'TMP_140'] 
+  Tainted Variable: amount
+
+Sink #27: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['lpToken', 'msg.sender', 'TMP_138', 'TMP_141'] 
+  Tainted Variable: TMP_141
+
+Sink #28: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #29: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_144(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_62', 'amount'] 
+  Tainted Variable: amount
+
+Sink #30: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_145(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+  Tainted Variable: amount
+
+Sink #31: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_146(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_145', '2'] 
+  Tainted Variable: TMP_145
+
+Sink #32: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['lpToken', 'projectAddress', 'TMP_146'] 
+  Tainted Variable: projectAddress
+
+Sink #33: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_148(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+  Tainted Variable: amount
+
+Sink #34: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_149(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_148', '97'] 
+  Tainted Variable: TMP_148
+
+Sink #35: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['lpToken', 'msg.sender', 'TMP_149'] 
+  Tainted Variable: TMP_149
+
+Sink #36: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: bindReferrer
+  Operation: TMP_178(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_85', '1'] 
+  Tainted Variable: REF_85
+
+Sink #37: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: INTERNAL_CALL, LPTokenWrapper.deposit(uint256)(amount)
+  Tainted Variable: amount
+
+Sink #38: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_194(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalStakeLPAmount', 'amount'] 
+  Tainted Variable: totalStakeLPAmount
+
+Sink #39: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_195(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_97', 'amount'] 
+  Tainted Variable: amount
+
+Sink #40: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_198(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalUSDTAmount', 'usdtAmount'] 
+  Tainted Variable: totalUSDTAmount
+
+Sink #41: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_199(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalANCHAmount', 'anchAmount'] 
+  Tainted Variable: totalANCHAmount
+
+Sink #42: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_200(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_103', 'usdtAmount'] 
+  Tainted Variable: usdtAmount
+
+Sink #43: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_201(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_106', 'anchAmount'] 
+  Tainted Variable: anchAmount
+
+Sink #44: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_212(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_119', 'amount'] 
+  Tainted Variable: amount
+
+Sink #45: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_213(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_124', 'usdtAmount'] 
+  Tainted Variable: usdtAmount
+
+Sink #46: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_214(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_129', 'anchAmount'] 
+  Tainted Variable: anchAmount
+
+Sink #47: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_217(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalInviteLPAmount', 'amount'] 
+  Tainted Variable: totalInviteLPAmount
+
+Sink #48: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: newMillionReleaseReward
+  Operation: TMP_252(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_251', 'totalStakeLPAmount'] 
+  Tainted Variable: totalStakeLPAmount
+
+Sink #49: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: newMillionReleaseReward
+  Operation: TMP_253(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['accStakeRewardPerShare', 'TMP_252'] 
+  Tainted Variable: accStakeRewardPerShare
+
+Sink #50: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['block.timestamp', 'lastRebaseTime'] 
+  Tainted Variable: lastRebaseTime
+
+Sink #51: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_262(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_261', 'releasePercent'] 
+  Tainted Variable: TMP_261
+
+Sink #52: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_263(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_262', '1000'] 
+  Tainted Variable: TMP_262
+
+Sink #53: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalRewarded', 'rewardTokenAmount'] 
+  Tainted Variable: rewardTokenAmount
+
+Sink #54: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_268(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['rewardTokenAmount', '50'] 
+  Tainted Variable: rewardTokenAmount
+
+Sink #55: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_269(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_268', '100'] 
+  Tainted Variable: TMP_268
+
+Sink #56: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['rewardTokenAmount', '30'] 
+  Tainted Variable: rewardTokenAmount
+
+Sink #57: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_271(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_270', '100'] 
+  Tainted Variable: TMP_270
+
+Sink #58: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_272(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['rewardTokenAmount', '20'] 
+  Tainted Variable: rewardTokenAmount
+
+Sink #59: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_273(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_272', '100'] 
+  Tainted Variable: TMP_272
+
+Sink #60: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: INTERNAL_CALL, ANCHStakePool.safeTransfer(address,uint256)(TMP_274,lastTrxReward)
+  Tainted Variable: TMP_274
+
+Sink #61: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_277(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['stakeReward', '1000000000000'] 
+  Tainted Variable: stakeReward
+
+Sink #62: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_278(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_277', 'totalStakeLPAmount'] 
+  Tainted Variable: TMP_277
+
+Sink #63: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_279(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['accStakeRewardPerShare', 'TMP_278'] 
+  Tainted Variable: accStakeRewardPerShare
+
+Sink #64: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_281(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['inviteReward', '1000000000000'] 
+  Tainted Variable: inviteReward
+
+Sink #65: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_282(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_281', 'totalInviteLPAmount'] 
+  Tainted Variable: TMP_281
+
+Sink #66: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_283(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['accInviteRewardPerShare', 'TMP_282'] 
+  Tainted Variable: accInviteRewardPerShare
+
+Sink #67: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_284(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalRewarded', 'rewardTokenAmount'] 
+  Tainted Variable: totalRewarded
+
+Sink #68: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getUSDTAmount
+  Operation: TMP_288(uint256) = HIGH_LEVEL_CALL, dest:TMP_286(IERC20), function:balanceOf, arguments:['TMP_287']  
+  Tainted Variable: TMP_287
+
+Sink #69: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getUSDTAmount
+  Operation: TMP_291(uint256) = HIGH_LEVEL_CALL, dest:TMP_289(IERC20), function:balanceOf, arguments:['TMP_290']  
+  Tainted Variable: TMP_290
+
+Sink #70: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getUSDTAmount
+  Operation: TMP_293(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['lpAmount', 'lpAmount'] 
+  Tainted Variable: lpAmount
+
+Sink #71: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getUSDTAmount
+  Operation: TMP_294(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_293', 'usdtTotal'] 
+  Tainted Variable: TMP_293
+
+Sink #72: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getUSDTAmount
+  Operation: TMP_295(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_294', 'tokenTotal'] 
+  Tainted Variable: TMP_294
+
+Sink #73: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getUSDTAmount
+  Operation: TMP_296(uint256) = LIBRARY_CALL, dest:Math, function:Math.sqrt(uint256), arguments:['TMP_295'] 
+  Tainted Variable: TMP_295
+
+Sink #74: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getTokenAmount
+  Operation: TMP_299(uint256) = HIGH_LEVEL_CALL, dest:TMP_297(IERC20), function:balanceOf, arguments:['TMP_298']  
+  Tainted Variable: TMP_298
+
+Sink #75: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getTokenAmount
+  Operation: TMP_302(uint256) = HIGH_LEVEL_CALL, dest:TMP_300(IERC20), function:balanceOf, arguments:['TMP_301']  
+  Tainted Variable: TMP_301
+
+Sink #76: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getTokenAmount
+  Operation: TMP_304(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['lpAmount', 'lpAmount'] 
+  Tainted Variable: lpAmount
+
+Sink #77: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getTokenAmount
+  Operation: TMP_305(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_304', 'tokenTotal'] 
+  Tainted Variable: TMP_304
+
+Sink #78: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getTokenAmount
+  Operation: TMP_306(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_305', 'usdtTotal'] 
+  Tainted Variable: TMP_305
+
+Sink #79: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getTokenAmount
+  Operation: TMP_307(uint256) = LIBRARY_CALL, dest:Math, function:Math.sqrt(uint256), arguments:['TMP_306'] 
+  Tainted Variable: TMP_306
+
+Sink #80: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: swapTokenAmount
+  Operation: TMP_310(uint256) = HIGH_LEVEL_CALL, dest:TMP_308(IERC20), function:balanceOf, arguments:['TMP_309']  
+  Tainted Variable: TMP_309
+
+Sink #81: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: swapTokenAmount
+  Operation: TMP_313(uint256) = HIGH_LEVEL_CALL, dest:TMP_311(IERC20), function:balanceOf, arguments:['TMP_312']  
+  Tainted Variable: TMP_312
+
+Sink #82: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: swapTokenAmount
+  Operation: TMP_315(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['usdtAmount', 'tokenTotal'] 
+  Tainted Variable: usdtAmount
+
+Sink #83: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: swapTokenAmount
+  Operation: TMP_316(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_315', 'usdtTotal'] 
+  Tainted Variable: TMP_315
+
+Sink #84: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: swapLPTokenAmount
+  Operation: TMP_319(uint256) = HIGH_LEVEL_CALL, dest:TMP_317(IERC20), function:balanceOf, arguments:['TMP_318']  
+  Tainted Variable: TMP_318
+
+Sink #85: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: swapLPTokenAmount
+  Operation: TMP_322(uint256) = HIGH_LEVEL_CALL, dest:TMP_320(IERC20), function:balanceOf, arguments:['TMP_321']  
+  Tainted Variable: TMP_321
+
+Sink #86: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: swapLPTokenAmount
+  Operation: TMP_324(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['usdtAmount', 'usdtAmount'] 
+  Tainted Variable: usdtAmount
+
+Sink #87: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: swapLPTokenAmount
+  Operation: TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_324', 'tokenTotal'] 
+  Tainted Variable: TMP_324
+
+Sink #88: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: swapLPTokenAmount
+  Operation: TMP_326(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_325', 'usdtTotal'] 
+  Tainted Variable: TMP_325
+
+Sink #89: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: swapLPTokenAmount
+  Operation: TMP_327(uint256) = LIBRARY_CALL, dest:Math, function:Math.sqrt(uint256), arguments:['TMP_326'] 
+  Tainted Variable: TMP_326
+
+Sink #90: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_342(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_241', 'accInviteRewardPerShare'] 
+  Tainted Variable: accInviteRewardPerShare
+
+Sink #91: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_343(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_342', '1000000000000'] 
+  Tainted Variable: TMP_342
+
+Sink #92: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_344(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalInviteLPAmount', 'amount'] 
+  Tainted Variable: totalInviteLPAmount
+
+Sink #93: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_347(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalStakeLPAmount', 'amount'] 
+  Tainted Variable: totalStakeLPAmount
+
+Sink #94: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_348(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalUSDTAmount', 'REF_252'] 
+  Tainted Variable: totalUSDTAmount
+
+Sink #95: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: TMP_349(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalANCHAmount', 'REF_254'] 
+  Tainted Variable: totalANCHAmount
+
+Sink #96: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: emergencyWithdraw
+  Operation: TMP_358(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalStakeLPAmount', 'amount'] 
+  Tainted Variable: totalStakeLPAmount
+
+Sink #97: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: emergencyWithdraw
+  Operation: TMP_359(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalUSDTAmount', 'REF_264'] 
+  Tainted Variable: totalUSDTAmount
+
+Sink #98: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: emergencyWithdraw
+  Operation: TMP_360(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalANCHAmount', 'REF_266'] 
+  Tainted Variable: totalANCHAmount
+
+Sink #99: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_375(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_283', 'accStakeRewardPerShare'] 
+  Tainted Variable: accStakeRewardPerShare
+
+Sink #100: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_376(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_375', '1000000000000'] 
+  Tainted Variable: TMP_375
+
+Sink #101: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_379(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_290', 'accInviteRewardPerShare'] 
+  Tainted Variable: accInviteRewardPerShare
+
+Sink #102: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_380(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_379', '1000000000000'] 
+  Tainted Variable: TMP_379
+
+Sink #103: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_391(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_298', 'accStakeRewardPerShare'] 
+  Tainted Variable: accStakeRewardPerShare
+
+Sink #104: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_392(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_391', '1000000000000'] 
+  Tainted Variable: TMP_391
+
+Sink #105: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_399(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_305', 'accInviteRewardPerShare'] 
+  Tainted Variable: accInviteRewardPerShare
+
+Sink #106: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_400(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_399', '1000000000000'] 
+  Tainted Variable: TMP_399
+
+Sink #107: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getReward
+  Operation: TMP_406(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_309', 'accStakeRewardPerShare'] 
+  Tainted Variable: REF_309
+
+Sink #108: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getReward
+  Operation: TMP_407(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_406', '1000000000000'] 
+  Tainted Variable: TMP_406
+
+Sink #109: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getReward
+  Operation: TMP_408(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_407', 'REF_313'] 
+  Tainted Variable: TMP_407
+
+Sink #110: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getReward
+  Operation: TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+  Tainted Variable: REF_314
+
+Sink #111: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getReward
+  Operation: TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+  Tainted Variable: TMP_409
+
+Sink #112: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getReward
+  Operation: TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+  Tainted Variable: TMP_410
+
+Sink #113: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getReward
+  Operation: TMP_412(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['stakeLPReward', 'inviteReward'] 
+  Tainted Variable: stakeLPReward
+
+Sink #114: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getRewardWithdrawed
+  Operation: TMP_413(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['stakeLPReward', 'inviteReward'] 
+  Tainted Variable: stakeLPReward
+
+Sink #115: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getTotalReward
+  Operation: TMP_414(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['stakeLPReward', 'REF_326'] 
+  Tainted Variable: stakeLPReward
+
+Sink #116: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getTotalReward
+  Operation: TMP_415(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['inviteReward', 'REF_328'] 
+  Tainted Variable: inviteReward
+
+Sink #117: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: getTotalReward
+  Operation: TMP_416(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalStakeLPReward', 'totalInviteReward'] 
+  Tainted Variable: totalStakeLPReward
+
+Sink #118: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: safeTransfer
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['token', '_to', 'tokenBalance'] 
+  Tainted Variable: token
+
+Sink #119: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: safeTransfer
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['token', '_to', '_amount'] 
+  Tainted Variable: token
+
+Sink #120: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: withdrawAll
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['_token', 'msg.sender', 'balance'] 
+  Tainted Variable: _token
+
+Sink #121: tainted_erc20_transfer
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['lpToken', 'msg.sender', 'projectAddress', 'TMP_115'] 
+  Tainted Variable: lpToken
+
+Sink #122: tainted_erc20_transfer
+  Contract: LPTokenWrapper
+  Function: deposit
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['lpToken', 'msg.sender', 'TMP_117', 'TMP_120'] 
+  Tainted Variable: lpToken
+
+Sink #123: tainted_erc20_transfer
+  Contract: LPTokenWrapper
+  Function: withdraw
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['lpToken', 'projectAddress', 'TMP_125'] 
+  Tainted Variable: lpToken
+
+Sink #124: tainted_erc20_transfer
+  Contract: LPTokenWrapper
+  Function: withdraw
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['lpToken', 'msg.sender', 'TMP_128'] 
+  Tainted Variable: lpToken
+
+Sink #125: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['lpToken', 'msg.sender', 'projectAddress', 'TMP_136'] 
+  Tainted Variable: lpToken
+
+Sink #126: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['lpToken', 'msg.sender', 'TMP_138', 'TMP_141'] 
+  Tainted Variable: lpToken
+
+Sink #127: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['lpToken', 'projectAddress', 'TMP_146'] 
+  Tainted Variable: lpToken
+
+Sink #128: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: withdraw
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['lpToken', 'msg.sender', 'TMP_149'] 
+  Tainted Variable: lpToken
+
+Sink #129: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_202(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_109', 'accStakeRewardPerShare'] 
+  Tainted Variable: accStakeRewardPerShare
+
+Sink #130: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_203(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_202', '1000000000000'] 
+  Tainted Variable: TMP_202
+
+Sink #131: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_215(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_134', 'accInviteRewardPerShare'] 
+  Tainted Variable: accInviteRewardPerShare
+
+Sink #132: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: deposit
+  Operation: TMP_216(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_215', '1000000000000'] 
+  Tainted Variable: TMP_215
+
+Sink #133: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: newMillionReleaseReward
+  Operation: TMP_222(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['newMillionTotalReleased', 'newMillionReleaseAmount'] 
+  Tainted Variable: newMillionReleaseAmount
+
+Sink #134: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: newMillionReleaseReward
+  Operation: TMP_229(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['newMillionUSDTAmount', 'MILLION'] 
+  Tainted Variable: newMillionUSDTAmount
+
+Sink #135: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: triggerNFTPublish
+  Operation: HIGH_LEVEL_CALL, dest:nftPublisher(INFTPublish), function:publishNFT, arguments:['triggerNFTPublishUSDTAmount']  
+  Tainted Variable: triggerNFTPublishUSDTAmount
+
+Sink #136: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: triggerNFTPublish
+  Operation: TMP_258(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['triggerNFTPublishUSDTAmount', 'increaseUSDTAmount'] 
+  Tainted Variable: triggerNFTPublishUSDTAmount
+
+Sink #137: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: dailyReleaseReward
+  Operation: TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalRewarded', 'rewardTokenAmount'] 
+  Tainted Variable: totalRewarded
+
+Sink #138: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: earnStakeReward
+  Operation: INTERNAL_CALL, ANCHStakePool.safeTransfer(address,uint256)(msg.sender,stakeLPReward)
+  Tainted Variable: stakeLPReward
+
+Sink #139: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earnStakeReward
+  Operation: TMP_364(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_272', 'stakeLPReward'] 
+  Tainted Variable: stakeLPReward
+
+Sink #140: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: earnInviteReward
+  Operation: INTERNAL_CALL, ANCHStakePool.safeTransfer(address,uint256)(account,inviteReward)
+  Tainted Variable: inviteReward
+
+Sink #141: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earnInviteReward
+  Operation: TMP_368(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_276', 'inviteReward'] 
+  Tainted Variable: inviteReward
+
+Sink #142: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: INTERNAL_CALL, ANCHStakePool.safeTransfer(address,uint256)(msg.sender,totalReward)
+  Tainted Variable: totalReward
+
+Sink #143: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_280', 'stakeLPReward'] 
+  Tainted Variable: stakeLPReward
+
+Sink #144: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_378(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_287', 'inviteReward'] 
+  Tainted Variable: inviteReward
+
+Sink #145: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: INTERNAL_CALL, ANCHStakePool.safeTransfer(address,uint256)(msg.sender,stakeLPReward)
+  Tainted Variable: stakeLPReward
+
+Sink #146: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_390(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_295', 'stakeLPReward'] 
+  Tainted Variable: stakeLPReward
+
+Sink #147: tainted_erc20_transfer
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: INTERNAL_CALL, ANCHStakePool.safeTransfer(address,uint256)(msg.sender,inviteReward)
+  Tainted Variable: inviteReward
+
+Sink #148: tainted_state_changing_external_call
+  Contract: ANCHStakePool
+  Function: earn
+  Operation: TMP_398(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_302', 'inviteReward'] 
+  Tainted Variable: inviteReward
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_erc20_transfer in ANCHStakePool.deposit
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+
+Path #2:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_erc20_transfer in ANCHStakePool.withdraw
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+
+Path #3:
+  Source: external_input_params in ANCHStakePool.getTotalReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getTotalReward
+  Path Operations:
+    1. getTotalReward
+    2. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
+    3. stakeLPReward(uint256)= UNPACK TUPLE_6 index: 1 
+
+Path #4:
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Path Operations:
+    1. transferOwnership
+
+Path #5:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_erc20_transfer in ANCHStakePool.deposit
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+
+Path #6:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+
+Path #7:
+  Source: external_input_params in ANCHStakePool.setTriggerNFTPublishUSDTAmount
+  Sink: tainted_state_changing_external_call in ANCHStakePool.triggerNFTPublish
+  Path Operations:
+    1. setTriggerNFTPublishUSDTAmount
+    2. triggerNFTPublishUSDTAmount(uint256) := _triggerNFTPublishUSDTAmount(uint256)
+
+Path #8:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+    3. TMP_318 = CONVERT lpToken to address
+
+Path #9:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_state_changing_external_call in ANCHStakePool.swapTokenAmount
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+    3. TMP_309 = CONVERT lpToken to address
+
+Path #10:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_309(uint256) -> user.amount
+    5. TMP_406(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_309', 'accStakeRewardPerShare'] 
+    6. TMP_407(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_406', '1000000000000'] 
+
+Path #11:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_erc20_transfer in ANCHStakePool.earnStakeReward
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    7. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    8. inviteReward(uint256) := TMP_411(uint256)
+    9. TUPLE_2(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    10. stakeLPReward(uint256)= UNPACK TUPLE_2 index: 1 
+
+Path #12:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.earn
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    7. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    8. inviteReward(uint256) := TMP_411(uint256)
+    9. TUPLE_5(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    10. inviteReward(uint256)= UNPACK TUPLE_5 index: 2 
+
+Path #13:
+  Source: external_input_params in LPTokenWrapper.withdraw
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+  Path Operations:
+    1. withdraw
+
+Path #14:
+  Source: external_input_params in ANCHStakePool.getRewardWithdrawed
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getRewardWithdrawed
+  Path Operations:
+    1. getRewardWithdrawed
+    2. REF_320(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_320(ANCHStakePool.UserInfo)
+    4. REF_321(uint256) -> user.stakeRewardWithdrawedAmount
+    5. stakeLPReward(uint256) := REF_321(uint256)
+
+Path #15:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_erc20_transfer in ANCHStakePool.earnInviteReward
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    7. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    8. inviteReward(uint256) := TMP_411(uint256)
+    9. TUPLE_3(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
+    10. inviteReward(uint256)= UNPACK TUPLE_3 index: 2 
+
+Path #16:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+
+Path #17:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+
+Path #18:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.earnStakeReward
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    7. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    8. inviteReward(uint256) := TMP_411(uint256)
+    9. TUPLE_2(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    10. stakeLPReward(uint256)= UNPACK TUPLE_2 index: 1 
+
+Path #19:
+  Source: external_input_params in LPTokenWrapper.deposit
+  Sink: tainted_state_changing_external_call in ANCHStakePool.deposit
+  Path Operations:
+    1. deposit
+    2. TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    3. _totalSupply(uint256) := TMP_112(uint256)
+
+Path #20:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.earn
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    7. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    8. inviteReward(uint256) := TMP_411(uint256)
+    9. TUPLE_5(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    10. stakeLPReward(uint256)= UNPACK TUPLE_5 index: 1 
+
+Path #21:
+  Source: external_input_params in LPTokenWrapper.withdraw
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+  Path Operations:
+    1. withdraw
+    2. TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+
+Path #22:
+  Source: external_input_params in LPTokenWrapper.deposit
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+  Path Operations:
+    1. deposit
+    2. TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    3. _totalSupply(uint256) := TMP_112(uint256)
+
+Path #23:
+  Source: external_input_params in ANCHStakePool.swapLPTokenAmount
+  Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+  Path Operations:
+    1. swapLPTokenAmount
+
+Path #24:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_erc20_transfer in ANCHStakePool.dailyReleaseReward
+  Path Operations:
+    1. constructor
+    2. token(IERC20) := _token(IERC20)
+    3. TMP_274 = CONVERT token to address
+
+Path #25:
+  Source: external_input_params in LPTokenWrapper.withdraw
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+  Path Operations:
+    1. withdraw
+
+Path #26:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_erc20_transfer in ANCHStakePool.earn
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    7. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    8. inviteReward(uint256) := TMP_411(uint256)
+    9. TUPLE_5(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    10. stakeLPReward(uint256)= UNPACK TUPLE_5 index: 1 
+
+Path #27:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+
+Path #28:
+  Source: external_input_params in ANCHStakePool.swapLPTokenAmount
+  Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+  Path Operations:
+    1. swapLPTokenAmount
+    2. TMP_324(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['usdtAmount', 'usdtAmount'] 
+
+Path #29:
+  Source: external_input_params in ANCHStakePool.withdrawAll
+  Sink: tainted_erc20_transfer in ANCHStakePool.withdrawAll
+  Path Operations:
+    1. withdrawAll
+
+Path #30:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+    3. TMP_321 = CONVERT lpToken to address
+
+Path #31:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_state_changing_external_call in ANCHStakePool.swapTokenAmount
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+    3. TMP_312 = CONVERT lpToken to address
+
+Path #32:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_erc20_transfer in ANCHStakePool.safeTransfer
+  Path Operations:
+    1. constructor
+    2. token(IERC20) := _token(IERC20)
+
+Path #33:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getTokenAmount
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+    3. TMP_298 = CONVERT lpToken to address
+
+Path #34:
+  Source: external_input_params in LPTokenWrapper.deposit
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+  Path Operations:
+    1. deposit
+
+Path #35:
+  Source: external_input_params in LPTokenWrapper.setProjectAddress
+  Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
+  Path Operations:
+    1. setProjectAddress
+    2. projectAddress(address) := _projectAddress(address)
+
+Path #36:
+  Source: external_input_params in LPTokenWrapper.deposit
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+  Path Operations:
+    1. deposit
+    2. TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    3. _totalSupply(uint256) := TMP_112(uint256)
+
+Path #37:
+  Source: external_input_params in LPTokenWrapper.setProjectAddress
+  Sink: tainted_erc20_transfer in ANCHStakePool.withdraw
+  Path Operations:
+    1. setProjectAddress
+    2. projectAddress(address) := _projectAddress(address)
+
+Path #38:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getUSDTAmount
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+    3. TMP_290 = CONVERT lpToken to address
+
+Path #39:
+  Source: external_input_params in LPTokenWrapper.deposit
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+  Path Operations:
+    1. deposit
+    2. TMP_118(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+
+Path #40:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_erc20_transfer in ANCHStakePool.safeTransfer
+  Path Operations:
+    1. constructor
+    2. token(IERC20) := _token(IERC20)
+
+Path #41:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_309(uint256) -> user.amount
+    5. TMP_406(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_309', 'accStakeRewardPerShare'] 
+    6. TMP_407(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_406', '1000000000000'] 
+    7. TMP_408(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_407', 'REF_313'] 
+    8. stakeLPReward(uint256) := TMP_408(uint256)
+
+Path #42:
+  Source: external_input_params in ANCHStakePool.swapLPTokenAmount
+  Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+  Path Operations:
+    1. swapLPTokenAmount
+    2. TMP_324(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['usdtAmount', 'usdtAmount'] 
+    3. TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_324', 'tokenTotal'] 
+
+Path #43:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.earn
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    7. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    8. inviteReward(uint256) := TMP_411(uint256)
+    9. TUPLE_4(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    10. inviteReward(uint256)= UNPACK TUPLE_4 index: 2 
+
+Path #44:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.earn
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    7. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    8. inviteReward(uint256) := TMP_411(uint256)
+    9. TUPLE_4(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    10. stakeLPReward(uint256)= UNPACK TUPLE_4 index: 1 
+
+Path #45:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getUSDTAmount
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+    3. TMP_287 = CONVERT lpToken to address
+
+Path #46:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+
+Path #47:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_erc20_transfer in ANCHStakePool.earn
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    7. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    8. inviteReward(uint256) := TMP_411(uint256)
+    9. TUPLE_4(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    10. totalReward(uint256)= UNPACK TUPLE_4 index: 0 
+
+Path #48:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.earnInviteReward
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    7. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    8. inviteReward(uint256) := TMP_411(uint256)
+    9. TUPLE_3(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
+    10. inviteReward(uint256)= UNPACK TUPLE_3 index: 2 
+
+Path #49:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getTokenAmount
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+    3. TMP_301 = CONVERT lpToken to address
+
+Path #50:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_state_changing_external_call in ANCHStakePool.dailyReleaseReward
+  Path Operations:
+    1. constructor
+    2. lastRebaseTime(uint256) := _starttime(uint256)
+
+Path #51:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+
+Path #52:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_erc20_transfer in ANCHStakePool.withdraw
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+
+Path #53:
+  Source: external_input_params in LPTokenWrapper.setProjectAddress
+  Sink: tainted_erc20_transfer in ANCHStakePool.deposit
+  Path Operations:
+    1. setProjectAddress
+    2. projectAddress(address) := _projectAddress(address)
+
+Path #54:
+  Source: external_input_params in ANCHStakePool.constructor
+  Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
+  Path Operations:
+    1. constructor
+    2. lpToken(IERC20) := _lpToken(IERC20)
+
+Path #55:
+  Source: external_input_params in ANCHStakePool.setTriggerNFTPublishUSDTAmount
+  Sink: tainted_state_changing_external_call in ANCHStakePool.triggerNFTPublish
+  Path Operations:
+    1. setTriggerNFTPublishUSDTAmount
+    2. triggerNFTPublishUSDTAmount(uint256) := _triggerNFTPublishUSDTAmount(uint256)
+
+Path #56:
+  Source: external_input_params in LPTokenWrapper.withdraw
+  Sink: tainted_erc20_transfer in LPTokenWrapper.withdraw
+  Path Operations:
+    1. withdraw
+    2. TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+    3. TMP_128(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_127', '97'] 
+
+Path #57:
+  Source: external_input_params in ANCHStakePool.getTotalReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getTotalReward
+  Path Operations:
+    1. getTotalReward
+    2. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
+    3. stakeLPReward(uint256)= UNPACK TUPLE_6 index: 1 
+    4. TMP_414(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['stakeLPReward', 'REF_326'] 
+    5. totalStakeLPReward(uint256) := TMP_414(uint256)
+
+Path #58:
+  Source: external_input_params in LPTokenWrapper.withdraw
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+  Path Operations:
+    1. withdraw
+
+Path #59:
+  Source: external_input_params in LPTokenWrapper.withdraw
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.withdraw
+  Path Operations:
+    1. withdraw
+    2. TMP_124(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+
+Path #60:
+  Source: external_input_params in LPTokenWrapper.deposit
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+  Path Operations:
+    1. deposit
+    2. TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '100'] 
+
+Path #61:
+  Source: external_input_params in ANCHStakePool.getTotalReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getTotalReward
+  Path Operations:
+    1. getTotalReward
+    2. TUPLE_6(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(account)
+    3. inviteReward(uint256)= UNPACK TUPLE_6 index: 2 
+
+Path #62:
+  Source: external_input_params in ANCHStakePool.bindReferrer
+  Sink: tainted_state_changing_external_call in ANCHStakePool.bindReferrer
+  Path Operations:
+    1. bindReferrer
+    2. REF_84(ANCHStakePool.UserInfo) -> userInfo[_address]
+    3. REF_85(uint256) -> REF_84.directNums
+
+Path #63:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_309(uint256) -> user.amount
+    5. TMP_406(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_309', 'accStakeRewardPerShare'] 
+
+Path #64:
+  Source: external_input_params in ANCHStakePool.setNewMillionReleaseAmount
+  Sink: tainted_state_changing_external_call in ANCHStakePool.newMillionReleaseReward
+  Path Operations:
+    1. setNewMillionReleaseAmount
+    2. newMillionReleaseAmount(uint256) := _newMillionReleaseAmount(uint256)
+
+Path #65:
+  Source: external_input_params in ANCHStakePool.setMillion
+  Sink: tainted_state_changing_external_call in ANCHStakePool.newMillionReleaseReward
+  Path Operations:
+    1. setMillion
+    2. MILLION(uint256) := _MILLION(uint256)
+    3. newMillionUSDTAmount(uint256) := MILLION(uint256)
+
+Path #66:
+  Source: external_input_params in LPTokenWrapper.deposit
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+  Path Operations:
+    1. deposit
+
+Path #67:
+  Source: external_input_params in LPTokenWrapper.deposit
+  Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
+  Path Operations:
+    1. deposit
+    2. TMP_120(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'TMP_119'] 
+
+Path #68:
+  Source: external_input_params in ANCHStakePool.swapLPTokenAmount
+  Sink: tainted_state_changing_external_call in ANCHStakePool.swapLPTokenAmount
+  Path Operations:
+    1. swapLPTokenAmount
+    2. TMP_324(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['usdtAmount', 'usdtAmount'] 
+    3. TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_324', 'tokenTotal'] 
+    4. TMP_326(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_325', 'usdtTotal'] 
+
+Path #69:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_state_changing_external_call in ANCHStakePool.getReward
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_309(uint256) -> user.amount
+
+Path #70:
+  Source: external_input_params in LPTokenWrapper.deposit
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+  Path Operations:
+    1. deposit
+
+Path #71:
+  Source: external_input_params in LPTokenWrapper.setProjectAddress
+  Sink: tainted_erc20_transfer in LPTokenWrapper.deposit
+  Path Operations:
+    1. setProjectAddress
+    2. projectAddress(address) := _projectAddress(address)
+
+Path #72:
+  Source: external_input_params in LPTokenWrapper.deposit
+  Sink: tainted_state_changing_external_call in LPTokenWrapper.deposit
+  Path Operations:
+    1. deposit
+
+Path #73:
+  Source: external_input_params in ANCHStakePool.getReward
+  Sink: tainted_erc20_transfer in ANCHStakePool.earn
+  Path Operations:
+    1. getReward
+    2. REF_308(ANCHStakePool.UserInfo) -> userInfo[account]
+    3. user(ANCHStakePool.UserInfo) := REF_308(ANCHStakePool.UserInfo)
+    4. REF_314(uint256) -> user.inviteLPAmount
+    5. TMP_409(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_314', 'accInviteRewardPerShare'] 
+    6. TMP_410(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_409', '1000000000000'] 
+    7. TMP_411(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_410', 'REF_318'] 
+    8. inviteReward(uint256) := TMP_411(uint256)
+    9. TUPLE_5(uint256,uint256,uint256) = INTERNAL_CALL, ANCHStakePool.getReward(address)(msg.sender)
+    10. inviteReward(uint256)= UNPACK TUPLE_5 index: 2 
+
+Path #74:
+  Source: external_input_params in LPTokenWrapper.deposit
+  Sink: tainted_state_changing_external_call in ANCHStakePool.withdraw
+  Path Operations:
+    1. deposit
+    2. TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    3. _totalSupply(uint256) := TMP_112(uint256)

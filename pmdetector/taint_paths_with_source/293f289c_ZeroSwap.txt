@@ -1,0 +1,350 @@
+# Taint Analysis Results with Source Code Mapping
+Found 20 tainted paths.
+
+## Path #1
+Source: external_input_params in ERC20Permit.nonces
+Sink: tainted_state_changing_external_call in ERC20Permit.nonces
+
+### Operations with Source Code Mapping:
+    IR:  nonces
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [857, 858, 859]
+    LNE: (No direct expression available)
+
+    IR:  REF_72(Counters.Counter) -> _nonces[owner]
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [858]
+    LNE: _nonces[owner].current()
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in ERC20.transfer
+Sink: tainted_erc20_transfer in ERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [482, 483, 484, 485]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in ZeroSwapToken.constructor
+Sink: tainted_state_changing_external_call in ZeroSwapToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [870, 871, 872]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,totalSupply)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [871]
+    LNE: _mint(msg.sender,totalSupply)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in ZeroSwapToken.constructor
+Sink: tainted_state_changing_external_call in ERC20Permit._burn
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [870, 871, 872]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,totalSupply)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [871]
+    LNE: _mint(msg.sender,totalSupply)
+
+    IR:  TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_259(uint256)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in ERC20Permit.permit
+Sink: tainted_state_changing_external_call in ERC20Permit.permit
+
+### Operations with Source Code Mapping:
+    IR:  permit
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [825, 826, 827, 828, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846, 847, 848, 849, 850, 851, 852]
+    LNE: (No direct expression available)
+
+    IR:  REF_70(Counters.Counter) -> _nonces[owner]
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [850]
+    LNE: _nonces[owner].increment()
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [518, 519, 520, 521, 522]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [519]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_17(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [580]
+    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in ZeroSwapToken.constructor
+Sink: tainted_state_changing_external_call in ZeroSwapToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [870, 871, 872]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,totalSupply)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [871]
+    LNE: _mint(msg.sender,totalSupply)
+
+    IR:  TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_259(uint256)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in ERC20.decreaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [555, 556, 557, 558]
+    LNE: (No direct expression available)
+
+    IR:  REF_14(uint256) -> REF_13[spender]
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [556]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in ERC20.transfer
+Sink: tainted_state_changing_external_call in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [482, 483, 484, 485]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_41,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [483]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_20(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [581]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in ZeroSwapToken.constructor
+Sink: tainted_erc20_transfer in ZeroSwapToken._mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [870, 871, 872]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,totalSupply)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [871]
+    LNE: _mint(msg.sender,totalSupply)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in ERC20Permit.permit
+Sink: tainted_state_changing_external_call in ERC20Permit.permit
+
+### Operations with Source Code Mapping:
+    IR:  permit
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [825, 826, 827, 828, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846, 847, 848, 849, 850, 851, 852]
+    LNE: (No direct expression available)
+
+    IR:  REF_67(Counters.Counter) -> _nonces[owner]
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [828, 829, 830, 831, 832, 833, 834, 835, 836, 837]
+    LNE: hashStruct = keccak256(bytes)(abi.encode(PERMIT_TYPEHASH,owner,spender,amount,_nonces[owner].current(),deadline))
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in ZeroSwapToken.constructor
+Sink: tainted_state_changing_external_call in ERC20Permit._mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [870, 871, 872]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,totalSupply)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [871]
+    LNE: _mint(msg.sender,totalSupply)
+
+    IR:  TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_259(uint256)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [518, 519, 520, 521, 522]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [519]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in ERC20.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [536, 537, 538, 539]
+    LNE: (No direct expression available)
+
+    IR:  REF_11(uint256) -> REF_10[spender]
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [537]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in ZeroSwapToken.constructor
+Sink: tainted_state_changing_external_call in ERC20._burn
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [870, 871, 872]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,totalSupply)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [871]
+    LNE: _mint(msg.sender,totalSupply)
+
+    IR:  TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_259(uint256)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in ZeroSwapToken.rescueTokens
+Sink: tainted_erc20_transfer in ZeroSwapToken.rescueTokens
+
+### Operations with Source Code Mapping:
+    IR:  rescueTokens
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [882, 883, 884, 885, 886]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_state_changing_external_call in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [518, 519, 520, 521, 522]
+    LNE: (No direct expression available)
+
+    IR:  REF_7(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [520]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_8(uint256) -> REF_7[TMP_47]
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [520]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in ERC20.transferFrom
+Sink: tainted_erc20_transfer in ERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [518, 519, 520, 521, 522]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in ZeroSwapToken.constructor
+Sink: tainted_state_changing_external_call in ZeroSwapToken._burn
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [870, 871, 872]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,totalSupply)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [871]
+    LNE: _mint(msg.sender,totalSupply)
+
+    IR:  TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_259(uint256)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in ZeroSwapToken.constructor
+Sink: tainted_state_changing_external_call in ERC20._mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [870, 871, 872]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20._mint(address,uint256)(msg.sender,totalSupply)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [871]
+    LNE: _mint(msg.sender,totalSupply)
+
+    IR:  TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+    IR:  _totalSupply(uint256) := TMP_259(uint256)
+    SRC: File 'pmdetector/flattened_contracts/293f289c_ZeroSwap/flattened.sol', Lines [599]
+    LNE: _totalSupply = _totalSupply.add(amount)
+
+----------------------------------------

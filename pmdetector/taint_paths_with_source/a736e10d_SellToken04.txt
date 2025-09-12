@@ -1,0 +1,360 @@
+# Taint Analysis Results with Source Code Mapping
+Found 14 tainted paths.
+
+## Path #1
+Source: external_input_params in miner.Resupply
+Sink: tainted_state_changing_external_call in miner.getToken2Price
+
+### Operations with Source Code Mapping:
+    IR:  Resupply
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366]
+    LNE: (No direct expression available)
+
+    IR:  TMP_184(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_139)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  TMP_185(uint256) = TMP_184 (c)* _day
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  coin(uint256) = coin (c)+ TMP_185
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  TMP_191(uint256) = INTERNAL_CALL, miner.getToken2Price(address,address,uint256)(token,token1,coin)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [352]
+    LNE: _bnb = getToken2Price(token,token1,coin)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in miner.sendMiner
+Sink: tainted_erc20_transfer in miner.sendMiner
+
+### Operations with Source Code Mapping:
+    IR:  sendMiner
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329]
+    LNE: (No direct expression available)
+
+    IR:  TMP_138(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_77)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [320]
+    LNE: agk = getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  TMP_139(uint256) = TMP_138 (c)* _day
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [320]
+    LNE: agk = getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  agk(uint256) := TMP_139(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [320]
+    LNE: agk = getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in Ownable.transferOwnership
+Sink: tainted_erc20_transfer in Ownable.transferOwnership
+
+### Operations with Source Code Mapping:
+    IR:  transferOwnership
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [219, 220, 221, 222]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in miner.Resupply
+Sink: tainted_state_changing_external_call in miner._sell
+
+### Operations with Source Code Mapping:
+    IR:  Resupply
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366]
+    LNE: (No direct expression available)
+
+    IR:  TMP_184(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_139)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  TMP_185(uint256) = TMP_184 (c)* _day
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  coin(uint256) = coin (c)+ TMP_185
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  INTERNAL_CALL, miner._sell(address,address,uint256,uint256,uint256,address)(token,token1,_bnb,REF_160,coin,TMP_192)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [353]
+    LNE: _sell(token,token1,_bnb,vid[0],coin,address(this))
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in miner.setBNB
+Sink: tainted_state_changing_external_call in miner._addL
+
+### Operations with Source Code Mapping:
+    IR:  setBNB
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, miner._addL(address,address,uint256,uint256,address)(token,token1,TMP_73,coin,TMP_74)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [288]
+    LNE: _addL(token,token1,_bnb * 5 / 100,coin,_msgSender())
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in miner.setBNB
+Sink: tainted_state_changing_external_call in miner._addL
+
+### Operations with Source Code Mapping:
+    IR:  setBNB
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, miner._addL(address,address,uint256,uint256,address)(token,token1,TMP_73,coin,TMP_74)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [288]
+    LNE: _addL(token,token1,_bnb * 5 / 100,coin,_msgSender())
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in miner.setBNB
+Sink: tainted_state_changing_external_call in miner._buy
+
+### Operations with Source Code Mapping:
+    IR:  setBNB
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, miner._buy(address,address,uint256)(token1,token,TMP_51)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [282]
+    LNE: _buy(token1,token,_bnb * 92 / 100)
+
+    IR:  TMP_230(uint256) = INTERNAL_CALL, miner.getTokenPrice(address,address,uint256)(_token,bnbOrUsdt,amount0In)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [368]
+    LNE: min = getTokenPrice(_token,bnbOrUsdt,amount0In)
+
+    IR:  min(uint256) := TMP_230(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [368]
+    LNE: min = getTokenPrice(_token,bnbOrUsdt,amount0In)
+
+    IR:  TMP_243(uint256) = min (c)* 98
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [380]
+    LNE: IRouter(_router).swapExactETHForTokens{value: amount0In}(min * 98 / 100,path_scope_0,address(this),block.timestamp)
+
+    IR:  TMP_244(uint256) = TMP_243 (c)/ 100
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [380]
+    LNE: IRouter(_router).swapExactETHForTokens{value: amount0In}(min * 98 / 100,path_scope_0,address(this),block.timestamp)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in miner.Resupply
+Sink: tainted_erc20_transfer in miner._sell
+
+### Operations with Source Code Mapping:
+    IR:  Resupply
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366]
+    LNE: (No direct expression available)
+
+    IR:  TMP_184(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_139)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  TMP_185(uint256) = TMP_184 (c)* _day
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  coin(uint256) = coin (c)+ TMP_185
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  INTERNAL_CALL, miner._sell(address,address,uint256,uint256,uint256,address)(token,token1,_bnb,REF_160,coin,TMP_192)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [353]
+    LNE: _sell(token,token1,_bnb,vid[0],coin,address(this))
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in miner.Resupply
+Sink: tainted_erc20_transfer in miner.Resupply
+
+### Operations with Source Code Mapping:
+    IR:  Resupply
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366]
+    LNE: (No direct expression available)
+
+    IR:  TMP_208 = CONVERT token to IERC20
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [358]
+    LNE: ut = IERC20(token).balanceOf(address(this)) - oldCoin
+
+    IR:  TMP_210(uint256) = HIGH_LEVEL_CALL, dest:TMP_208(IERC20), function:balanceOf, arguments:['TMP_209']  
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [358]
+    LNE: ut = IERC20(token).balanceOf(address(this)) - oldCoin
+
+    IR:  TMP_211(uint256) = TMP_210 (c)- oldCoin
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [358]
+    LNE: ut = IERC20(token).balanceOf(address(this)) - oldCoin
+
+    IR:  ut(uint256) := TMP_211(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [358]
+    LNE: ut = IERC20(token).balanceOf(address(this)) - oldCoin
+
+    IR:  TMP_213(uint256) = ut (c)* 10
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [359]
+    LNE: IERC20(token).transfer(0x000000000000000000000000000000000000dEaD,ut * 10 / 100)
+
+    IR:  TMP_214(uint256) = TMP_213 (c)/ 100
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [359]
+    LNE: IERC20(token).transfer(0x000000000000000000000000000000000000dEaD,ut * 10 / 100)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in miner.setBNB
+Sink: tainted_erc20_transfer in miner._buy
+
+### Operations with Source Code Mapping:
+    IR:  setBNB
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, miner._buy(address,address,uint256)(token1,token,TMP_51)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [282]
+    LNE: _buy(token1,token,_bnb * 92 / 100)
+
+    IR:  TMP_230(uint256) = INTERNAL_CALL, miner.getTokenPrice(address,address,uint256)(_token,bnbOrUsdt,amount0In)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [368]
+    LNE: min = getTokenPrice(_token,bnbOrUsdt,amount0In)
+
+    IR:  min(uint256) := TMP_230(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [368]
+    LNE: min = getTokenPrice(_token,bnbOrUsdt,amount0In)
+
+    IR:  TMP_235(uint256) = min (c)* 98
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [373]
+    LNE: IRouter(_router).swapExactETHForTokensSupportingFeeOnTransferTokens{value: amount0In}(min * 98 / 100,path,address(this),block.timestamp)
+
+    IR:  TMP_236(uint256) = TMP_235 (c)/ 100
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [373]
+    LNE: IRouter(_router).swapExactETHForTokensSupportingFeeOnTransferTokens{value: amount0In}(min * 98 / 100,path,address(this),block.timestamp)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in miner.setBNB
+Sink: tainted_erc20_transfer in miner.setBNB
+
+### Operations with Source Code Mapping:
+    IR:  setBNB
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294]
+    LNE: (No direct expression available)
+
+    IR:  TMP_61 = CONVERT token to IERC20
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [285]
+    LNE: ut = IERC20(token).balanceOf(address(this)) - oldCoin
+
+    IR:  TMP_63(uint256) = HIGH_LEVEL_CALL, dest:TMP_61(IERC20), function:balanceOf, arguments:['TMP_62']  
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [285]
+    LNE: ut = IERC20(token).balanceOf(address(this)) - oldCoin
+
+    IR:  TMP_64(uint256) = TMP_63 (c)- oldCoin
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [285]
+    LNE: ut = IERC20(token).balanceOf(address(this)) - oldCoin
+
+    IR:  ut(uint256) := TMP_64(uint256)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [285]
+    LNE: ut = IERC20(token).balanceOf(address(this)) - oldCoin
+
+    IR:  TMP_66(uint256) = ut (c)* 10
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [286]
+    LNE: IERC20(token).transfer(0x000000000000000000000000000000000000dEaD,ut * 10 / 100)
+
+    IR:  TMP_67(uint256) = TMP_66 (c)/ 100
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [286]
+    LNE: IERC20(token).transfer(0x000000000000000000000000000000000000dEaD,ut * 10 / 100)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in miner.Resupply
+Sink: tainted_state_changing_external_call in miner.getToken2Price
+
+### Operations with Source Code Mapping:
+    IR:  Resupply
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366]
+    LNE: (No direct expression available)
+
+    IR:  TMP_184(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_139)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  TMP_185(uint256) = TMP_184 (c)* _day
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  coin(uint256) = coin (c)+ TMP_185
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [345]
+    LNE: coin += getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  TMP_191(uint256) = INTERNAL_CALL, miner.getToken2Price(address,address,uint256)(token,token1,coin)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [352]
+    LNE: _bnb = getToken2Price(token,token1,coin)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in miner.sendMiner
+Sink: tainted_state_changing_external_call in miner.getbnb
+
+### Operations with Source Code Mapping:
+    IR:  sendMiner
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329]
+    LNE: (No direct expression available)
+
+    IR:  REF_74(mapping(uint256 => miner.user)) -> selladdress[token]
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [320]
+    LNE: agk = getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  REF_76(miner.user) -> REF_74[REF_75]
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [320]
+    LNE: agk = getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  REF_77(uint256) -> REF_76.daybnb
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [320]
+    LNE: agk = getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  TMP_138(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_77)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [320]
+    LNE: agk = getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in miner.sendMiner
+Sink: tainted_state_changing_external_call in miner.getbnb
+
+### Operations with Source Code Mapping:
+    IR:  sendMiner
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329]
+    LNE: (No direct expression available)
+
+    IR:  REF_74(mapping(uint256 => miner.user)) -> selladdress[token]
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [320]
+    LNE: agk = getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  REF_76(miner.user) -> REF_74[REF_75]
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [320]
+    LNE: agk = getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  REF_77(uint256) -> REF_76.daybnb
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [320]
+    LNE: agk = getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+    IR:  TMP_138(uint256) = INTERNAL_CALL, miner.getbnb(address,address,uint256)(token,token1,REF_77)
+    SRC: File 'pmdetector/flattened_contracts/a736e10d_SellToken04/flattened.sol', Lines [320]
+    LNE: agk = getbnb(token,token1,selladdress[token][vid[i]].daybnb) * _day
+
+----------------------------------------

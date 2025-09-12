@@ -1,0 +1,294 @@
+# Taint Analysis Results with Source Code Mapping
+Found 16 tainted paths.
+
+## Path #1
+Source: external_input_params in MintableToken.mint
+Sink: tainted_state_changing_external_call in MintableToken.mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [352, 353, 354, 355, 356, 357, 358, 359]
+    LNE: (No direct expression available)
+
+    IR:  REF_111(uint256) -> balances[_to]
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [355]
+    LNE: balances[_to] = balances[_to].add(_amount)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in StandardToken.decreaseApproval
+Sink: tainted_state_changing_external_call in StandardToken.decreaseApproval
+
+### Operations with Source Code Mapping:
+    IR:  decreaseApproval
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [317, 318, 319, 320, 321, 322, 323, 324, 325, 326]
+    LNE: (No direct expression available)
+
+    IR:  REF_51(uint256) -> REF_50[_spender]
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [318]
+    LNE: oldValue = allowed[msg.sender][_spender]
+
+    IR:  oldValue(uint256) := REF_51(uint256)
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [318]
+    LNE: oldValue = allowed[msg.sender][_spender]
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in StandardToken.transferFrom
+Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263]
+    LNE: (No direct expression available)
+
+    IR:  REF_36(mapping(address => uint256)) -> allowed[_from]
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [260]
+    LNE: allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value)
+
+    IR:  REF_37(uint256) -> REF_36[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [260]
+    LNE: allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in StandardToken.transferFrom
+Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263]
+    LNE: (No direct expression available)
+
+    IR:  REF_29(uint256) -> balances[_from]
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [258]
+    LNE: balances[_from] = balances[_from].sub(_value)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in MintableToken.mint
+Sink: tainted_state_changing_external_call in DripToken.mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [352, 353, 354, 355, 356, 357, 358, 359]
+    LNE: (No direct expression available)
+
+    IR:  TMP_119(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply_', '_amount'] 
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [354]
+    LNE: totalSupply_ = totalSupply_.add(_amount)
+
+    IR:  totalSupply_(uint256) := TMP_119(uint256)
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [354]
+    LNE: totalSupply_ = totalSupply_.add(_amount)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in MintableToken.mint
+Sink: tainted_state_changing_external_call in MintableToken.mint
+
+### Operations with Source Code Mapping:
+    IR:  mint
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [352, 353, 354, 355, 356, 357, 358, 359]
+    LNE: (No direct expression available)
+
+    IR:  TMP_119(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply_', '_amount'] 
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [354]
+    LNE: totalSupply_ = totalSupply_.add(_amount)
+
+    IR:  totalSupply_(uint256) := TMP_119(uint256)
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [354]
+    LNE: totalSupply_ = totalSupply_.add(_amount)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in BasicToken.transfer
+Sink: tainted_state_changing_external_call in BasicToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [202, 203, 204, 205, 206, 207, 208, 209, 210]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in DripToken.constructor
+Sink: tainted_state_changing_external_call in DripToken.mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [403, 404, 405, 406, 407]
+    LNE: (No direct expression available)
+
+    IR:  TMP_191(uint256) = _initialMint * 1000000000000000000
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [405]
+    LNE: mint(owner,_initialMint * 1e18)
+
+    IR:  TMP_192(bool) = INTERNAL_CALL, DripToken.mint(address,uint256)(owner,TMP_191)
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [405]
+    LNE: mint(owner,_initialMint * 1e18)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in DripToken.setVaultAddress
+Sink: tainted_erc20_transfer in DripToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  setVaultAddress
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [409, 410, 411]
+    LNE: (No direct expression available)
+
+    IR:  vaultAddress(address) := _newVaultAddress(address)
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [410]
+    LNE: vaultAddress = _newVaultAddress
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in DripToken.constructor
+Sink: tainted_state_changing_external_call in DripToken.mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [403, 404, 405, 406, 407]
+    LNE: (No direct expression available)
+
+    IR:  TMP_191(uint256) = _initialMint * 1000000000000000000
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [405]
+    LNE: mint(owner,_initialMint * 1e18)
+
+    IR:  TMP_192(bool) = INTERNAL_CALL, DripToken.mint(address,uint256)(owner,TMP_191)
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [405]
+    LNE: mint(owner,_initialMint * 1e18)
+
+    IR:  TMP_201(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['mintedSupply_', '_amount'] 
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [428]
+    LNE: mintedSupply_ = mintedSupply_.add(_amount)
+
+    IR:  mintedSupply_(uint256) := TMP_201(uint256)
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [428]
+    LNE: mintedSupply_ = mintedSupply_.add(_amount)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in StandardToken.increaseApproval
+Sink: tainted_state_changing_external_call in StandardToken.increaseApproval
+
+### Operations with Source Code Mapping:
+    IR:  increaseApproval
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [301, 302, 303, 304, 305]
+    LNE: (No direct expression available)
+
+    IR:  REF_46(uint256) -> REF_45[_spender]
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [302]
+    LNE: allowed[msg.sender][_spender] = allowed[msg.sender][_spender].add(_addedValue)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in StandardToken.transferFrom
+Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263]
+    LNE: (No direct expression available)
+
+    IR:  REF_32(uint256) -> balances[_to]
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [259]
+    LNE: balances[_to] = balances[_to].add(_value)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in DripToken.constructor
+Sink: tainted_state_changing_external_call in DripToken.remainingMintableSupply
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [403, 404, 405, 406, 407]
+    LNE: (No direct expression available)
+
+    IR:  TMP_191(uint256) = _initialMint * 1000000000000000000
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [405]
+    LNE: mint(owner,_initialMint * 1e18)
+
+    IR:  TMP_192(bool) = INTERNAL_CALL, DripToken.mint(address,uint256)(owner,TMP_191)
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [405]
+    LNE: mint(owner,_initialMint * 1e18)
+
+    IR:  TMP_201(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['mintedSupply_', '_amount'] 
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [428]
+    LNE: mintedSupply_ = mintedSupply_.add(_amount)
+
+    IR:  mintedSupply_(uint256) := TMP_201(uint256)
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [428]
+    LNE: mintedSupply_ = mintedSupply_.add(_amount)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in Whitelist.removeAddressesFromWhitelist
+Sink: tainted_erc20_transfer in Whitelist.removeAddressesFromWhitelist
+
+### Operations with Source Code Mapping:
+    IR:  removeAddressesFromWhitelist
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [111, 112, 113, 114, 115, 116, 117]
+    LNE: (No direct expression available)
+
+    IR:  REF_7(address) -> addrs[i]
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [113]
+    LNE: removeAddressFromWhitelist(addrs[i])
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in BasicToken.transfer
+Sink: tainted_state_changing_external_call in BasicToken.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [202, 203, 204, 205, 206, 207, 208, 209, 210]
+    LNE: (No direct expression available)
+
+    IR:  REF_14(uint256) -> balances[_to]
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [207]
+    LNE: balances[_to] = balances[_to].add(_value)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in DripToken.constructor
+Sink: tainted_state_changing_external_call in DripToken.mint
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [403, 404, 405, 406, 407]
+    LNE: (No direct expression available)
+
+    IR:  TMP_191(uint256) = _initialMint * 1000000000000000000
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [405]
+    LNE: mint(owner,_initialMint * 1e18)
+
+    IR:  TMP_192(bool) = INTERNAL_CALL, DripToken.mint(address,uint256)(owner,TMP_191)
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [405]
+    LNE: mint(owner,_initialMint * 1e18)
+
+    IR:  TMP_201(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['mintedSupply_', '_amount'] 
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [428]
+    LNE: mintedSupply_ = mintedSupply_.add(_amount)
+
+    IR:  mintedSupply_(uint256) := TMP_201(uint256)
+    SRC: File 'pmdetector/flattened_contracts/aa36e72c_Drip/flattened.sol', Lines [428]
+    LNE: mintedSupply_ = mintedSupply_.add(_amount)
+
+----------------------------------------

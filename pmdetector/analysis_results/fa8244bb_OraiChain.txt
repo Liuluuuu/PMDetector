@@ -1,0 +1,306 @@
+=== PMDetector Taint Analysis Results ===
+Found 17 taint sources
+Found 22 taint sinks
+Found 9 tainted paths (filtered from 9 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: BasicToken
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: _to
+
+Source #2: external_input_params
+  Contract: BasicToken
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: _value
+
+Source #3: external_input_params
+  Contract: BasicToken
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: _owner
+
+Source #4: external_input_params
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: _from
+
+Source #5: external_input_params
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: _to
+
+Source #6: external_input_params
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: _value
+
+Source #7: external_input_params
+  Contract: StandardToken
+  Function: approve
+  Operation: approve
+  Tainted Variables: _spender
+
+Source #8: external_input_params
+  Contract: StandardToken
+  Function: approve
+  Operation: approve
+  Tainted Variables: _value
+
+Source #9: external_input_params
+  Contract: StandardToken
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: _owner
+
+Source #10: external_input_params
+  Contract: StandardToken
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: _spender
+
+Source #11: external_input_params
+  Contract: StandardToken
+  Function: increaseApproval
+  Operation: increaseApproval
+  Tainted Variables: _spender
+
+Source #12: external_input_params
+  Contract: StandardToken
+  Function: increaseApproval
+  Operation: increaseApproval
+  Tainted Variables: _addedValue
+
+Source #13: external_input_params
+  Contract: StandardToken
+  Function: decreaseApproval
+  Operation: decreaseApproval
+  Tainted Variables: _spender
+
+Source #14: external_input_params
+  Contract: StandardToken
+  Function: decreaseApproval
+  Operation: decreaseApproval
+  Tainted Variables: _subtractedValue
+
+Source #15: external_input_params
+  Contract: ERC677Token
+  Function: transferAndCall
+  Operation: transferAndCall
+  Tainted Variables: _to
+
+Source #16: external_input_params
+  Contract: ERC677Token
+  Function: transferAndCall
+  Operation: transferAndCall
+  Tainted Variables: _value
+
+Source #17: external_input_params
+  Contract: ERC677Token
+  Function: transferAndCall
+  Operation: transferAndCall
+  Tainted Variables: _data
+
+=== Taint Sinks ===
+Sink #1: tainted_state_changing_external_call
+  Contract: BasicToken
+  Function: transfer
+  Operation: TMP_13(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_1', '_value'] 
+  Tainted Variable: _value
+
+Sink #2: tainted_state_changing_external_call
+  Contract: BasicToken
+  Function: transfer
+  Operation: TMP_14(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_4', '_value'] 
+  Tainted Variable: REF_4
+
+Sink #3: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: transfer
+  Operation: TMP_16(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_8', '_value'] 
+  Tainted Variable: _value
+
+Sink #4: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: transfer
+  Operation: TMP_17(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_11', '_value'] 
+  Tainted Variable: REF_11
+
+Sink #5: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: TMP_19(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_17', '_value'] 
+  Tainted Variable: REF_17
+
+Sink #6: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: TMP_20(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_20', '_value'] 
+  Tainted Variable: REF_20
+
+Sink #7: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: transferFrom
+  Operation: TMP_21(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_allowance', '_value'] 
+  Tainted Variable: _allowance
+
+Sink #8: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: increaseApproval
+  Operation: TMP_24(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_32', '_addedValue'] 
+  Tainted Variable: REF_32
+
+Sink #9: tainted_state_changing_external_call
+  Contract: StandardToken
+  Function: decreaseApproval
+  Operation: TMP_27(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['oldValue', '_subtractedValue'] 
+  Tainted Variable: oldValue
+
+Sink #10: tainted_erc20_transfer
+  Contract: ERC677Token
+  Function: transferAndCall
+  Operation: TMP_29(bool) = INTERNAL_CALL, ERC20Basic.transfer(address,uint256)(_to,_value)
+  Tainted Variable: _to
+
+Sink #11: tainted_erc20_transfer
+  Contract: ERC677Token
+  Function: contractFallback
+  Operation: HIGH_LEVEL_CALL, dest:receiver(ERC677Receiver), function:onTokenTransfer, arguments:['msg.sender', '_value', '_data']  
+  Tainted Variable: _value
+
+Sink #12: tainted_erc20_transfer
+  Contract: OraiToken
+  Function: transferAndCall
+  Operation: TMP_36(bool) = INTERNAL_CALL, ERC20Basic.transfer(address,uint256)(_to,_value)
+  Tainted Variable: _to
+
+Sink #13: tainted_state_changing_external_call
+  Contract: OraiToken
+  Function: transferFrom
+  Operation: TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_50', '_value'] 
+  Tainted Variable: REF_50
+
+Sink #14: tainted_state_changing_external_call
+  Contract: OraiToken
+  Function: transferFrom
+  Operation: TMP_44(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_53', '_value'] 
+  Tainted Variable: REF_53
+
+Sink #15: tainted_state_changing_external_call
+  Contract: OraiToken
+  Function: transferFrom
+  Operation: TMP_45(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_allowance', '_value'] 
+  Tainted Variable: _allowance
+
+Sink #16: tainted_state_changing_external_call
+  Contract: OraiToken
+  Function: increaseApproval
+  Operation: TMP_48(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_65', '_addedValue'] 
+  Tainted Variable: REF_65
+
+Sink #17: tainted_state_changing_external_call
+  Contract: OraiToken
+  Function: decreaseApproval
+  Operation: TMP_51(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['oldValue', '_subtractedValue'] 
+  Tainted Variable: oldValue
+
+Sink #18: tainted_state_changing_external_call
+  Contract: OraiToken
+  Function: transfer
+  Operation: TMP_53(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_79', '_value'] 
+  Tainted Variable: _value
+
+Sink #19: tainted_state_changing_external_call
+  Contract: OraiToken
+  Function: transfer
+  Operation: TMP_54(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_82', '_value'] 
+  Tainted Variable: REF_82
+
+Sink #20: tainted_erc20_transfer
+  Contract: OraiToken
+  Function: transferAndCall
+  Operation: TMP_56(bool) = INTERNAL_CALL, ERC677Token.transferAndCall(address,uint256,bytes)(_to,_value,_data)
+  Tainted Variable: _to
+
+Sink #21: tainted_erc20_transfer
+  Contract: OraiToken
+  Function: transfer
+  Operation: TMP_58(bool) = INTERNAL_CALL, BasicToken.transfer(address,uint256)(_to,_value)
+  Tainted Variable: _to
+
+Sink #22: tainted_erc20_transfer
+  Contract: OraiToken
+  Function: transferFrom
+  Operation: TMP_62(bool) = INTERNAL_CALL, StandardToken.transferFrom(address,address,uint256)(_from,_to,_value)
+  Tainted Variable: _from
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in StandardToken.transferFrom
+  Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_17(uint256) -> balances[_from]
+
+Path #2:
+  Source: external_input_params in StandardToken.increaseApproval
+  Sink: tainted_state_changing_external_call in StandardToken.increaseApproval
+  Path Operations:
+    1. increaseApproval
+    2. REF_32(uint256) -> REF_31[_spender]
+
+Path #3:
+  Source: external_input_params in StandardToken.transferFrom
+  Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_14(mapping(address => uint256)) -> allowed[_from]
+    3. REF_15(uint256) -> REF_14[msg.sender]
+    4. _allowance(uint256) := REF_15(uint256)
+
+Path #4:
+  Source: external_input_params in StandardToken.transferFrom
+  Sink: tainted_state_changing_external_call in StandardToken.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_20(uint256) -> balances[_to]
+
+Path #5:
+  Source: external_input_params in BasicToken.transfer
+  Sink: tainted_state_changing_external_call in BasicToken.transfer
+  Path Operations:
+    1. transfer
+
+Path #6:
+  Source: external_input_params in ERC677Token.transferAndCall
+  Sink: tainted_erc20_transfer in ERC677Token.contractFallback
+  Path Operations:
+    1. transferAndCall
+    2. INTERNAL_CALL, ERC677Token.contractFallback(address,uint256,bytes)(_to,_value,_data)
+
+Path #7:
+  Source: external_input_params in BasicToken.transfer
+  Sink: tainted_state_changing_external_call in BasicToken.transfer
+  Path Operations:
+    1. transfer
+    2. REF_4(uint256) -> balances[_to]
+
+Path #8:
+  Source: external_input_params in ERC677Token.transferAndCall
+  Sink: tainted_erc20_transfer in ERC677Token.transferAndCall
+  Path Operations:
+    1. transferAndCall
+
+Path #9:
+  Source: external_input_params in StandardToken.decreaseApproval
+  Sink: tainted_state_changing_external_call in StandardToken.decreaseApproval
+  Path Operations:
+    1. decreaseApproval
+    2. REF_37(uint256) -> REF_36[_spender]
+    3. oldValue(uint256) := REF_37(uint256)

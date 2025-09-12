@@ -1,0 +1,390 @@
+=== PMDetector Taint Analysis Results ===
+Found 25 taint sources
+Found 17 taint sinks
+Found 17 tainted paths (filtered from 17 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #2: external_input_params
+  Contract: DFS
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _usdt
+
+Source #3: external_input_params
+  Contract: DFS
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _multiSignAddress
+
+Source #4: external_input_params
+  Contract: DFS
+  Function: setExclusiveFromFee
+  Operation: setExclusiveFromFee
+  Tainted Variables: _exclusive
+
+Source #5: external_input_params
+  Contract: DFS
+  Function: setPair
+  Operation: setPair
+  Tainted Variables: _pair
+
+Source #6: external_input_params
+  Contract: DFS
+  Function: setMultiSignAddress
+  Operation: setMultiSignAddress
+  Tainted Variables: _address
+
+Source #7: external_input_params
+  Contract: DFS
+  Function: setBondAddress
+  Operation: setBondAddress
+  Tainted Variables: _bond
+
+Source #8: external_input_params
+  Contract: DFS
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #9: external_input_params
+  Contract: DFS
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: recipient
+
+Source #10: external_input_params
+  Contract: DFS
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #11: external_input_params
+  Contract: DFS
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: owner
+
+Source #12: external_input_params
+  Contract: DFS
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #13: external_input_params
+  Contract: DFS
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #14: external_input_params
+  Contract: DFS
+  Function: approve
+  Operation: approve
+  Tainted Variables: amount
+
+Source #15: external_input_params
+  Contract: DFS
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: sender
+
+Source #16: external_input_params
+  Contract: DFS
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: recipient
+
+Source #17: external_input_params
+  Contract: DFS
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #18: external_input_params
+  Contract: DFS
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: spender
+
+Source #19: external_input_params
+  Contract: DFS
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: addedValue
+
+Source #20: external_input_params
+  Contract: DFS
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: spender
+
+Source #21: external_input_params
+  Contract: DFS
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: subtractedValue
+
+Source #22: external_input_params
+  Contract: DFS
+  Function: burn
+  Operation: burn
+  Tainted Variables: amount
+
+Source #23: external_input_params
+  Contract: DFS
+  Function: isContract
+  Operation: isContract
+  Tainted Variables: account
+
+Source #24: external_input_params
+  Contract: DFS
+  Function: setMintlist
+  Operation: setMintlist
+  Tainted Variables: _list
+
+Source #25: external_input_params
+  Contract: DFS
+  Function: mint
+  Operation: mint
+  Tainted Variables: amount
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: INTERNAL_CALL, Ownable._transferOwnership(address)(newOwner)
+  Tainted Variable: newOwner
+
+Sink #2: tainted_erc20_transfer
+  Contract: DFS
+  Function: transfer
+  Operation: INTERNAL_CALL, DFS._transfer(address,address,uint256)(TMP_69,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #3: tainted_erc20_transfer
+  Contract: DFS
+  Function: transferFrom
+  Operation: INTERNAL_CALL, DFS._transfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #4: tainted_state_changing_external_call
+  Contract: DFS
+  Function: transferFrom
+  Operation: TMP_76(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_14', 'amount', 'BEP20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_14
+
+Sink #5: tainted_state_changing_external_call
+  Contract: DFS
+  Function: increaseAllowance
+  Operation: TMP_80(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_17', 'addedValue'] 
+  Tainted Variable: REF_17
+
+Sink #6: tainted_state_changing_external_call
+  Contract: DFS
+  Function: decreaseAllowance
+  Operation: TMP_84(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_20', 'subtractedValue', 'BEP20: decreased allowance below zero'] 
+  Tainted Variable: REF_20
+
+Sink #7: tainted_state_changing_external_call
+  Contract: DFS
+  Function: _transfer
+  Operation: TMP_106(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'rate'] 
+  Tainted Variable: amount
+
+Sink #8: tainted_state_changing_external_call
+  Contract: DFS
+  Function: _transfer
+  Operation: TMP_107(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_106', '1000'] 
+  Tainted Variable: TMP_106
+
+Sink #9: tainted_state_changing_external_call
+  Contract: DFS
+  Function: _transfer
+  Operation: TMP_108(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_27', 'amount'] 
+  Tainted Variable: REF_27
+
+Sink #10: tainted_state_changing_external_call
+  Contract: DFS
+  Function: _transfer
+  Operation: TMP_109(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_108', 'fee'] 
+  Tainted Variable: TMP_108
+
+Sink #11: tainted_state_changing_external_call
+  Contract: DFS
+  Function: _transfer
+  Operation: TMP_110(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_31', 'fee'] 
+  Tainted Variable: fee
+
+Sink #12: tainted_state_changing_external_call
+  Contract: DFS
+  Function: _transfer
+  Operation: TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_34', 'amount'] 
+  Tainted Variable: REF_34
+
+Sink #13: tainted_state_changing_external_call
+  Contract: DFS
+  Function: _transfer
+  Operation: TMP_120(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_52', 'amount'] 
+  Tainted Variable: REF_52
+
+Sink #14: tainted_state_changing_external_call
+  Contract: DFS
+  Function: _mint
+  Operation: TMP_138(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #15: tainted_state_changing_external_call
+  Contract: DFS
+  Function: _mint
+  Operation: TMP_139(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_73', 'amount'] 
+  Tainted Variable: amount
+
+Sink #16: tainted_state_changing_external_call
+  Contract: DFS
+  Function: _burn
+  Operation: TMP_145(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_76', 'amount', 'BEP20: burn amount exceeds balance'] 
+  Tainted Variable: amount
+
+Sink #17: tainted_state_changing_external_call
+  Contract: DFS
+  Function: _burn
+  Operation: TMP_146(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in DFS.mint
+  Sink: tainted_state_changing_external_call in DFS._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, DFS._mint(address,uint256)(TMP_133,amount)
+
+Path #2:
+  Source: external_input_params in DFS.transferFrom
+  Sink: tainted_erc20_transfer in DFS.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #3:
+  Source: external_input_params in DFS.transferFrom
+  Sink: tainted_state_changing_external_call in DFS._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_27(uint256) -> _balance[from]
+    4. TMP_108(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_27', 'amount'] 
+
+Path #4:
+  Source: external_input_params in DFS.mint
+  Sink: tainted_state_changing_external_call in DFS._burn
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, DFS._mint(address,uint256)(TMP_133,amount)
+    3. TMP_138(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_138(uint256)
+
+Path #5:
+  Source: external_input_params in DFS.transferFrom
+  Sink: tainted_state_changing_external_call in DFS._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_34(uint256) -> _balance[from]
+
+Path #6:
+  Source: external_input_params in DFS.burn
+  Sink: tainted_state_changing_external_call in DFS._burn
+  Path Operations:
+    1. burn
+    2. INTERNAL_CALL, DFS._burn(address,uint256)(TMP_86,amount)
+
+Path #7:
+  Source: external_input_params in DFS.transferFrom
+  Sink: tainted_state_changing_external_call in DFS.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_13(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_14(uint256) -> REF_13[TMP_75]
+
+Path #8:
+  Source: external_input_params in DFS.transfer
+  Sink: tainted_state_changing_external_call in DFS._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(TMP_69,recipient,amount)
+
+Path #9:
+  Source: external_input_params in DFS.transfer
+  Sink: tainted_state_changing_external_call in DFS._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(TMP_69,recipient,amount)
+    3. TMP_106(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'rate'] 
+    4. TMP_107(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_106', '1000'] 
+    5. fee(uint256) := TMP_107(uint256)
+
+Path #10:
+  Source: external_input_params in DFS.mint
+  Sink: tainted_state_changing_external_call in DFS._mint
+  Path Operations:
+    1. mint
+    2. INTERNAL_CALL, DFS._mint(address,uint256)(TMP_133,amount)
+    3. TMP_138(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+    4. _totalSupply(uint256) := TMP_138(uint256)
+
+Path #11:
+  Source: external_input_params in DFS.increaseAllowance
+  Sink: tainted_state_changing_external_call in DFS.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_17(uint256) -> REF_16[spender]
+
+Path #12:
+  Source: external_input_params in DFS.transferFrom
+  Sink: tainted_state_changing_external_call in DFS._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_27(uint256) -> _balance[from]
+
+Path #13:
+  Source: external_input_params in DFS.transfer
+  Sink: tainted_state_changing_external_call in DFS._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(TMP_69,recipient,amount)
+    3. REF_52(uint256) -> _balance[to]
+
+Path #14:
+  Source: external_input_params in DFS.transfer
+  Sink: tainted_state_changing_external_call in DFS._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, DFS._transfer(address,address,uint256)(TMP_69,recipient,amount)
+    3. TMP_106(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['amount', 'rate'] 
+
+Path #15:
+  Source: external_input_params in DFS.transfer
+  Sink: tainted_erc20_transfer in DFS.transfer
+  Path Operations:
+    1. transfer
+
+Path #16:
+  Source: external_input_params in DFS.decreaseAllowance
+  Sink: tainted_state_changing_external_call in DFS.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_20(uint256) -> REF_19[spender]
+
+Path #17:
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Path Operations:
+    1. transferOwnership

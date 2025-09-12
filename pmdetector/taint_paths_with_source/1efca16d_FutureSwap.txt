@@ -1,0 +1,58 @@
+# Taint Analysis Results with Source Code Mapping
+Found 4 tainted paths.
+
+## Path #1
+Source: external_input_params in UpgradeabilityProxy.constructor
+Sink: tainted_state_changing_external_call in UpgradeabilityProxy._setImplementation
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/1efca16d_FutureSwap/flattened.sol', Lines [185, 186, 187, 188, 189, 190, 191, 192]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
+    SRC: File 'pmdetector/flattened_contracts/1efca16d_FutureSwap/flattened.sol', Lines [187]
+    LNE: _setImplementation(_logic)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in UpgradeabilityProxy.constructor
+Sink: tainted_state_changing_external_call in UpgradeabilityProxy.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/1efca16d_FutureSwap/flattened.sol', Lines [185, 186, 187, 188, 189, 190, 191, 192]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeTo
+Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy._setImplementation
+
+### Operations with Source Code Mapping:
+    IR:  upgradeTo
+    SRC: File 'pmdetector/flattened_contracts/1efca16d_FutureSwap/flattened.sol', Lines [267, 268, 269]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseUpgradeabilityProxy._upgradeTo(address)(newImplementation)
+    SRC: File 'pmdetector/flattened_contracts/1efca16d_FutureSwap/flattened.sol', Lines [268]
+    LNE: _upgradeTo(newImplementation)
+
+    IR:  INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(newImplementation)
+    SRC: File 'pmdetector/flattened_contracts/1efca16d_FutureSwap/flattened.sol', Lines [147]
+    LNE: _setImplementation(newImplementation)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeToAndCall
+Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy.upgradeToAndCall
+
+### Operations with Source Code Mapping:
+    IR:  upgradeToAndCall
+    SRC: File 'pmdetector/flattened_contracts/1efca16d_FutureSwap/flattened.sol', Lines [280, 281, 282, 283, 284]
+    LNE: (No direct expression available)
+
+----------------------------------------

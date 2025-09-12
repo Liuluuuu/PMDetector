@@ -1,0 +1,24 @@
+# Taint Analysis Results with Source Code Mapping
+Found 2 tainted paths.
+
+## Path #1
+Source: external_input_params in ParassetERC20.transferFrom
+Sink: tainted_erc20_transfer in ParassetERC20.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/d76f140e_Parasset/flattened.sol', Lines [233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in ParassetERC20.transfer
+Sink: tainted_erc20_transfer in ParassetERC20.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/d76f140e_Parasset/flattened.sol', Lines [192, 193, 194, 195]
+    LNE: (No direct expression available)
+
+----------------------------------------

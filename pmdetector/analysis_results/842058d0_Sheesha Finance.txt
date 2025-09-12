@@ -1,0 +1,888 @@
+=== PMDetector Taint Analysis Results ===
+Found 33 taint sources
+Found 66 taint sinks
+Found 33 tainted paths (filtered from 33 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: name_
+
+Source #2: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: symbol_
+
+Source #3: external_input_params
+  Contract: ERC20
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #4: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: recipient
+
+Source #5: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #6: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: owner
+
+Source #7: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #8: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #9: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: amount
+
+Source #10: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: sender
+
+Source #11: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: recipient
+
+Source #12: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #13: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: spender
+
+Source #14: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: addedValue
+
+Source #15: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: spender
+
+Source #16: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: subtractedValue
+
+Source #17: external_input_params
+  Contract: ERC20Burnable
+  Function: burn
+  Operation: burn
+  Tainted Variables: amount
+
+Source #18: external_input_params
+  Contract: ERC20Burnable
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: account
+
+Source #19: external_input_params
+  Contract: ERC20Burnable
+  Function: burnFrom
+  Operation: burnFrom
+  Tainted Variables: amount
+
+Source #20: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #21: external_input_params
+  Contract: SHEESHA
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _devAddress
+
+Source #22: external_input_params
+  Contract: SHEESHA
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _marketingAddress
+
+Source #23: external_input_params
+  Contract: SHEESHA
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _teamAddress
+
+Source #24: external_input_params
+  Contract: SHEESHA
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _reserveAddress
+
+Source #25: external_input_params
+  Contract: SHEESHA
+  Function: transferVaultRewards
+  Operation: transferVaultRewards
+  Tainted Variables: _vaultAddress
+
+Source #26: external_input_params
+  Contract: SHEESHA
+  Function: transferVaultLPRewards
+  Operation: transferVaultLPRewards
+  Tainted Variables: _vaultLPAddress
+
+Source #27: external_input_params
+  Contract: LGE
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: router
+
+Source #28: external_input_params
+  Contract: LGE
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: factory
+
+Source #29: external_input_params
+  Contract: LGE
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: _sheeshaGlobals
+
+Source #30: msg.sender
+  Contract: LGE
+  Function: addLiquidity
+  Operation: REF_158(address) (->userList) := msg.sender(address)
+  Tainted Variables: REF_158
+
+Source #31: external_input_params
+  Contract: LGE
+  Function: claimAndStakeLP
+  Operation: claimAndStakeLP
+  Tainted Variables: _pid
+
+Source #32: external_input_params
+  Contract: LGE
+  Function: getLPTokens
+  Operation: getLPTokens
+  Tainted Variables: _who
+
+Source #33: external_input_params
+  Contract: LGE
+  Function: isUserExisting
+  Operation: isUserExisting
+  Tainted Variables: _who
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_45,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #2: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transferFrom
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #3: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: transferFrom
+  Operation: TMP_52(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_9', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_9
+
+Sink #4: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: TMP_56(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_12', 'addedValue'] 
+  Tainted Variable: REF_12
+
+Sink #5: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: TMP_60(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_15', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_15
+
+Sink #6: tainted_erc20_transfer
+  Contract: ERC20
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #7: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _transfer
+  Operation: TMP_69(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_18', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_18
+
+Sink #8: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _transfer
+  Operation: TMP_70(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_21', 'amount'] 
+  Tainted Variable: REF_21
+
+Sink #9: tainted_erc20_transfer
+  Contract: ERC20Burnable
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_97,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #10: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: transferFrom
+  Operation: TMP_104(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_37', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_37
+
+Sink #11: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: increaseAllowance
+  Operation: TMP_108(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_40', 'addedValue'] 
+  Tainted Variable: REF_40
+
+Sink #12: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: decreaseAllowance
+  Operation: TMP_112(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_43', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_43
+
+Sink #13: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _transfer
+  Operation: TMP_121(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_46', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_46
+
+Sink #14: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _transfer
+  Operation: TMP_122(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_49', 'amount'] 
+  Tainted Variable: REF_49
+
+Sink #15: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: burnFrom
+  Operation: TMP_153(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['TMP_152', 'amount', 'ERC20: burn amount exceeds allowance'] 
+  Tainted Variable: TMP_152
+
+Sink #16: tainted_state_changing_external_call
+  Contract: SHEESHA
+  Function: burnFrom
+  Operation: TMP_188(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['TMP_187', 'amount', 'ERC20: burn amount exceeds allowance'] 
+  Tainted Variable: TMP_187
+
+Sink #17: tainted_erc20_transfer
+  Contract: SHEESHA
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_192,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #18: tainted_state_changing_external_call
+  Contract: SHEESHA
+  Function: transferFrom
+  Operation: TMP_199(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_67', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_67
+
+Sink #19: tainted_state_changing_external_call
+  Contract: SHEESHA
+  Function: increaseAllowance
+  Operation: TMP_203(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_70', 'addedValue'] 
+  Tainted Variable: REF_70
+
+Sink #20: tainted_state_changing_external_call
+  Contract: SHEESHA
+  Function: decreaseAllowance
+  Operation: TMP_207(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_73', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_73
+
+Sink #21: tainted_state_changing_external_call
+  Contract: SHEESHA
+  Function: _transfer
+  Operation: TMP_216(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_76', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_76
+
+Sink #22: tainted_state_changing_external_call
+  Contract: SHEESHA
+  Function: _transfer
+  Operation: TMP_217(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_79', 'amount'] 
+  Tainted Variable: REF_79
+
+Sink #23: tainted_erc20_transfer
+  Contract: SHEESHA
+  Function: _burn
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(account,TMP_231,amount)
+  Tainted Variable: account
+
+Sink #24: tainted_state_changing_external_call
+  Contract: SHEESHA
+  Function: _burn
+  Operation: TMP_233(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_86', 'amount', 'ERC20: burn amount exceeds balance'] 
+  Tainted Variable: REF_86
+
+Sink #25: tainted_state_changing_external_call
+  Contract: SHEESHA
+  Function: _burn
+  Operation: TMP_234(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #26: tainted_erc20_transfer
+  Contract: SHEESHA
+  Function: constructor
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_246,devAddress,TMP_248)
+  Tainted Variable: devAddress
+
+Sink #27: tainted_erc20_transfer
+  Contract: SHEESHA
+  Function: constructor
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_250,teamAddress,TMP_252)
+  Tainted Variable: teamAddress
+
+Sink #28: tainted_erc20_transfer
+  Contract: SHEESHA
+  Function: constructor
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_254,marketingAddress,TMP_256)
+  Tainted Variable: marketingAddress
+
+Sink #29: tainted_erc20_transfer
+  Contract: SHEESHA
+  Function: constructor
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_258,reserveAddress,TMP_260)
+  Tainted Variable: reserveAddress
+
+Sink #30: tainted_erc20_transfer
+  Contract: SHEESHA
+  Function: transferVaultRewards
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_265,_vaultAddress,TMP_267)
+  Tainted Variable: _vaultAddress
+
+Sink #31: tainted_erc20_transfer
+  Contract: SHEESHA
+  Function: transferVaultLPRewards
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_272,_vaultLPAddress,TMP_274)
+  Tainted Variable: _vaultLPAddress
+
+Sink #32: tainted_erc20_transfer
+  Contract: LGE
+  Function: constructor
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_282,devAddress,TMP_284)
+  Tainted Variable: devAddress
+
+Sink #33: tainted_erc20_transfer
+  Contract: LGE
+  Function: constructor
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_286,teamAddress,TMP_288)
+  Tainted Variable: teamAddress
+
+Sink #34: tainted_erc20_transfer
+  Contract: LGE
+  Function: constructor
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_290,marketingAddress,TMP_292)
+  Tainted Variable: marketingAddress
+
+Sink #35: tainted_erc20_transfer
+  Contract: LGE
+  Function: constructor
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_294,reserveAddress,TMP_296)
+  Tainted Variable: reserveAddress
+
+Sink #36: tainted_erc20_transfer
+  Contract: LGE
+  Function: transferVaultRewards
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_301,_vaultAddress,TMP_303)
+  Tainted Variable: _vaultAddress
+
+Sink #37: tainted_erc20_transfer
+  Contract: LGE
+  Function: transferVaultLPRewards
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_308,_vaultLPAddress,TMP_310)
+  Tainted Variable: _vaultLPAddress
+
+Sink #38: tainted_state_changing_external_call
+  Contract: LGE
+  Function: burnFrom
+  Operation: TMP_329(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['TMP_328', 'amount', 'ERC20: burn amount exceeds allowance'] 
+  Tainted Variable: TMP_328
+
+Sink #39: tainted_erc20_transfer
+  Contract: LGE
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_333,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #40: tainted_state_changing_external_call
+  Contract: LGE
+  Function: transferFrom
+  Operation: TMP_340(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_120', 'amount', 'ERC20: transfer amount exceeds allowance'] 
+  Tainted Variable: REF_120
+
+Sink #41: tainted_state_changing_external_call
+  Contract: LGE
+  Function: increaseAllowance
+  Operation: TMP_344(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_123', 'addedValue'] 
+  Tainted Variable: REF_123
+
+Sink #42: tainted_state_changing_external_call
+  Contract: LGE
+  Function: decreaseAllowance
+  Operation: TMP_348(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_126', 'subtractedValue', 'ERC20: decreased allowance below zero'] 
+  Tainted Variable: REF_126
+
+Sink #43: tainted_state_changing_external_call
+  Contract: LGE
+  Function: _transfer
+  Operation: TMP_357(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_129', 'amount', 'ERC20: transfer amount exceeds balance'] 
+  Tainted Variable: REF_129
+
+Sink #44: tainted_state_changing_external_call
+  Contract: LGE
+  Function: _transfer
+  Operation: TMP_358(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_132', 'amount'] 
+  Tainted Variable: REF_132
+
+Sink #45: tainted_state_changing_external_call
+  Contract: LGE
+  Function: _mint
+  Operation: TMP_365(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #46: tainted_erc20_transfer
+  Contract: LGE
+  Function: _burn
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(account,TMP_372,amount)
+  Tainted Variable: account
+
+Sink #47: tainted_state_changing_external_call
+  Contract: LGE
+  Function: _burn
+  Operation: TMP_374(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_139', 'amount', 'ERC20: burn amount exceeds balance'] 
+  Tainted Variable: REF_139
+
+Sink #48: tainted_state_changing_external_call
+  Contract: LGE
+  Function: _burn
+  Operation: TMP_375(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #49: tainted_state_changing_external_call
+  Contract: LGE
+  Function: createUniswapPairMainnet
+  Operation: TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
+  Tainted Variable: TMP_405
+
+Sink #50: tainted_erc20_transfer
+  Contract: LGE
+  Function: addLiquidityToUniswapSHEESHAxWETHPair
+  Operation: TMP_425(bool) = HIGH_LEVEL_CALL, dest:TMP_423(IWETH), function:transfer, arguments:['TMP_424', 'totalETHContributed']  
+  Tainted Variable: TMP_424
+
+Sink #51: tainted_erc20_transfer
+  Contract: LGE
+  Function: addLiquidityToUniswapSHEESHAxWETHPair
+  Operation: TMP_427(bool) = INTERNAL_CALL, ERC20.transfer(address,uint256)(TMP_426,lgeSupply)
+  Tainted Variable: TMP_426
+
+Sink #52: tainted_state_changing_external_call
+  Contract: LGE
+  Function: addLiquidityToUniswapSHEESHAxWETHPair
+  Operation: TMP_434(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalLPTokensMinted', '1000000000000000000'] 
+  Tainted Variable: totalLPTokensMinted
+
+Sink #53: tainted_state_changing_external_call
+  Contract: LGE
+  Function: addLiquidityToUniswapSHEESHAxWETHPair
+  Operation: TMP_435(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_434', 'totalETHContributed'] 
+  Tainted Variable: TMP_434
+
+Sink #54: tainted_state_changing_external_call
+  Contract: LGE
+  Function: _claimLPTokens
+  Operation: TMP_446(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_160', 'LPperETHUnit'] 
+  Tainted Variable: LPperETHUnit
+
+Sink #55: tainted_state_changing_external_call
+  Contract: LGE
+  Function: _claimLPTokens
+  Operation: TMP_447(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_446', '1000000000000000000'] 
+  Tainted Variable: TMP_446
+
+Sink #56: tainted_state_changing_external_call
+  Contract: LGE
+  Function: claimAndStakeLP
+  Operation: TMP_458(bool) = HIGH_LEVEL_CALL, dest:TMP_455(IUniswapV2Pair), function:approve, arguments:['vault', 'TMP_457']  
+  Tainted Variable: vault
+
+Sink #57: tainted_erc20_transfer
+  Contract: LGE
+  Function: claimAndStakeLP
+  Operation: HIGH_LEVEL_CALL, dest:TMP_459(ISHEESHAVaultLP), function:depositFor, arguments:['msg.sender', '_pid', 'TMP_460']  
+  Tainted Variable: _pid
+
+Sink #58: tainted_state_changing_external_call
+  Contract: LGE
+  Function: getLPTokens
+  Operation: TMP_462(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_170', 'LPperETHUnit'] 
+  Tainted Variable: REF_170
+
+Sink #59: tainted_state_changing_external_call
+  Contract: LGE
+  Function: getLPTokens
+  Operation: TMP_463(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_462', '1000000000000000000'] 
+  Tainted Variable: TMP_462
+
+Sink #60: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _mint
+  Operation: TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #61: tainted_state_changing_external_call
+  Contract: ERC20
+  Function: _burn
+  Operation: TMP_87(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #62: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _mint
+  Operation: TMP_129(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #63: tainted_erc20_transfer
+  Contract: ERC20Burnable
+  Function: _burn
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(account,TMP_136,amount)
+  Tainted Variable: account
+
+Sink #64: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _burn
+  Operation: TMP_138(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256,string), arguments:['REF_56', 'amount', 'ERC20: burn amount exceeds balance'] 
+  Tainted Variable: REF_56
+
+Sink #65: tainted_state_changing_external_call
+  Contract: ERC20Burnable
+  Function: _burn
+  Operation: TMP_139(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+Sink #66: tainted_state_changing_external_call
+  Contract: SHEESHA
+  Function: _mint
+  Operation: TMP_224(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+  Tainted Variable: _totalSupply
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in SHEESHA.transferVaultLPRewards
+  Sink: tainted_erc20_transfer in SHEESHA.transferVaultLPRewards
+  Path Operations:
+    1. transferVaultLPRewards
+
+Path #2:
+  Source: external_input_params in LGE.constructor
+  Sink: tainted_state_changing_external_call in LGE._claimLPTokens
+  Path Operations:
+    1. constructor
+    2. TMP_393 = CONVERT factory to IUniswapV2Factory
+    3. uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
+    4. TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
+    5. SHEESHAxWETHPair(address) := TMP_407(address)
+    6. TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
+    7. pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
+    8. TMP_431(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_430']  
+    9. totalLPTokensMinted(uint256) := TMP_431(uint256)
+    10. TMP_434(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalLPTokensMinted', '1000000000000000000'] 
+    11. TMP_435(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_434', 'totalETHContributed'] 
+    12. LPperETHUnit(uint256) := TMP_435(uint256)
+    13. TMP_446(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_160', 'LPperETHUnit'] 
+
+Path #3:
+  Source: external_input_params in SHEESHA.constructor
+  Sink: tainted_erc20_transfer in LGE.constructor
+  Path Operations:
+    1. constructor
+    2. devAddress(address) := _devAddress(address)
+
+Path #4:
+  Source: external_input_params in SHEESHA.constructor
+  Sink: tainted_erc20_transfer in SHEESHA.constructor
+  Path Operations:
+    1. constructor
+    2. devAddress(address) := _devAddress(address)
+
+Path #5:
+  Source: external_input_params in SHEESHA.constructor
+  Sink: tainted_erc20_transfer in SHEESHA.constructor
+  Path Operations:
+    1. constructor
+    2. reserveAddress(address) := _reserveAddress(address)
+
+Path #6:
+  Source: external_input_params in LGE.constructor
+  Sink: tainted_state_changing_external_call in LGE.claimAndStakeLP
+  Path Operations:
+    1. constructor
+    2. sheeshaGlobals(ISHEESHAGlobals) := _sheeshaGlobals(ISHEESHAGlobals)
+    3. TMP_454(address) = HIGH_LEVEL_CALL, dest:sheeshaGlobals(ISHEESHAGlobals), function:SHEESHAVaultLPAddress, arguments:[]  
+    4. vault(address) := TMP_454(address)
+
+Path #7:
+  Source: external_input_params in LGE.claimAndStakeLP
+  Sink: tainted_erc20_transfer in LGE.claimAndStakeLP
+  Path Operations:
+    1. claimAndStakeLP
+
+Path #8:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+    3. REF_18(uint256) -> _balances[sender]
+
+Path #9:
+  Source: external_input_params in LGE.constructor
+  Sink: tainted_erc20_transfer in LGE.addLiquidityToUniswapSHEESHAxWETHPair
+  Path Operations:
+    1. constructor
+    2. TMP_393 = CONVERT factory to IUniswapV2Factory
+    3. uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
+    4. TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
+    5. SHEESHAxWETHPair(address) := TMP_407(address)
+    6. TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
+    7. pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
+    8. TMP_424 = CONVERT pair to address
+
+Path #10:
+  Source: external_input_params in LGE.constructor
+  Sink: tainted_state_changing_external_call in LGE._claimLPTokens
+  Path Operations:
+    1. constructor
+    2. TMP_393 = CONVERT factory to IUniswapV2Factory
+    3. uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
+    4. TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
+    5. SHEESHAxWETHPair(address) := TMP_407(address)
+    6. TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
+    7. pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
+    8. TMP_431(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_430']  
+    9. totalLPTokensMinted(uint256) := TMP_431(uint256)
+    10. TMP_434(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalLPTokensMinted', '1000000000000000000'] 
+    11. TMP_435(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_434', 'totalETHContributed'] 
+    12. LPperETHUnit(uint256) := TMP_435(uint256)
+
+Path #11:
+  Source: external_input_params in LGE.getLPTokens
+  Sink: tainted_state_changing_external_call in LGE.getLPTokens
+  Path Operations:
+    1. getLPTokens
+    2. REF_170(uint256) -> ethContributed[_who]
+
+Path #12:
+  Source: external_input_params in SHEESHA.constructor
+  Sink: tainted_erc20_transfer in LGE.constructor
+  Path Operations:
+    1. constructor
+    2. reserveAddress(address) := _reserveAddress(address)
+
+Path #13:
+  Source: external_input_params in LGE.constructor
+  Sink: tainted_state_changing_external_call in LGE.addLiquidityToUniswapSHEESHAxWETHPair
+  Path Operations:
+    1. constructor
+    2. TMP_393 = CONVERT factory to IUniswapV2Factory
+    3. uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
+    4. TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
+    5. SHEESHAxWETHPair(address) := TMP_407(address)
+    6. TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
+    7. pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
+    8. TMP_431(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_430']  
+    9. totalLPTokensMinted(uint256) := TMP_431(uint256)
+    10. TMP_434(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['totalLPTokensMinted', '1000000000000000000'] 
+
+Path #14:
+  Source: external_input_params in ERC20.decreaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.decreaseAllowance
+  Path Operations:
+    1. decreaseAllowance
+    2. REF_15(uint256) -> REF_14[spender]
+
+Path #15:
+  Source: external_input_params in SHEESHA.constructor
+  Sink: tainted_erc20_transfer in SHEESHA.constructor
+  Path Operations:
+    1. constructor
+    2. marketingAddress(address) := _marketingAddress(address)
+
+Path #16:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_state_changing_external_call in ERC20._transfer
+  Path Operations:
+    1. transfer
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_45,recipient,amount)
+    3. REF_21(uint256) -> _balances[recipient]
+
+Path #17:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_state_changing_external_call in ERC20Burnable.burnFrom
+  Path Operations:
+    1. burnFrom
+    2. TMP_152(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(account,TMP_151)
+
+Path #18:
+  Source: external_input_params in SHEESHA.constructor
+  Sink: tainted_erc20_transfer in SHEESHA.constructor
+  Path Operations:
+    1. constructor
+    2. teamAddress(address) := _teamAddress(address)
+
+Path #19:
+  Source: external_input_params in LGE.constructor
+  Sink: tainted_state_changing_external_call in LGE.createUniswapPairMainnet
+  Path Operations:
+    1. constructor
+    2. TMP_389 = CONVERT router to IUniswapV2Router02
+    3. uniswapRouterV2(IUniswapV2Router02) := TMP_389(IUniswapV2Router02)
+    4. TMP_404(address) = HIGH_LEVEL_CALL, dest:uniswapRouterV2(IUniswapV2Router02), function:WETH, arguments:[]  
+    5. TMP_405 = CONVERT TMP_404 to address
+
+Path #20:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_state_changing_external_call in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+    2. REF_8(mapping(address => uint256)) -> _allowances[sender]
+    3. REF_9(uint256) -> REF_8[TMP_51]
+
+Path #21:
+  Source: external_input_params in SHEESHA.transferVaultRewards
+  Sink: tainted_erc20_transfer in SHEESHA.transferVaultRewards
+  Path Operations:
+    1. transferVaultRewards
+
+Path #22:
+  Source: external_input_params in ERC20.increaseAllowance
+  Sink: tainted_state_changing_external_call in ERC20.increaseAllowance
+  Path Operations:
+    1. increaseAllowance
+    2. REF_12(uint256) -> REF_11[spender]
+
+Path #23:
+  Source: external_input_params in LGE.constructor
+  Sink: tainted_state_changing_external_call in LGE.addLiquidityToUniswapSHEESHAxWETHPair
+  Path Operations:
+    1. constructor
+    2. TMP_393 = CONVERT factory to IUniswapV2Factory
+    3. uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
+    4. TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
+    5. SHEESHAxWETHPair(address) := TMP_407(address)
+    6. TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
+    7. pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
+    8. TMP_431(uint256) = HIGH_LEVEL_CALL, dest:pair(IUniswapV2Pair), function:balanceOf, arguments:['TMP_430']  
+    9. totalLPTokensMinted(uint256) := TMP_431(uint256)
+
+Path #24:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_state_changing_external_call in ERC20Burnable._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+    3. REF_56(uint256) -> _balances[account]
+
+Path #25:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #26:
+  Source: external_input_params in SHEESHA.constructor
+  Sink: tainted_erc20_transfer in LGE.constructor
+  Path Operations:
+    1. constructor
+    2. marketingAddress(address) := _marketingAddress(address)
+
+Path #27:
+  Source: external_input_params in SHEESHA.constructor
+  Sink: tainted_erc20_transfer in LGE.constructor
+  Path Operations:
+    1. constructor
+    2. teamAddress(address) := _teamAddress(address)
+
+Path #28:
+  Source: external_input_params in LGE.constructor
+  Sink: tainted_erc20_transfer in LGE.addLiquidityToUniswapSHEESHAxWETHPair
+  Path Operations:
+    1. constructor
+    2. TMP_393 = CONVERT factory to IUniswapV2Factory
+    3. uniswapFactory(IUniswapV2Factory) := TMP_393(IUniswapV2Factory)
+    4. TMP_407(address) = HIGH_LEVEL_CALL, dest:uniswapFactory(IUniswapV2Factory), function:createPair, arguments:['TMP_405', 'TMP_406']  
+    5. SHEESHAxWETHPair(address) := TMP_407(address)
+    6. TMP_415 = CONVERT SHEESHAxWETHPair to IUniswapV2Pair
+    7. pair(IUniswapV2Pair) := TMP_415(IUniswapV2Pair)
+    8. TMP_426 = CONVERT pair to address
+
+Path #29:
+  Source: external_input_params in LGE.getLPTokens
+  Sink: tainted_state_changing_external_call in LGE.getLPTokens
+  Path Operations:
+    1. getLPTokens
+    2. REF_170(uint256) -> ethContributed[_who]
+    3. TMP_462(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_170', 'LPperETHUnit'] 
+
+Path #30:
+  Source: external_input_params in ERC20Burnable.burnFrom
+  Sink: tainted_erc20_transfer in ERC20Burnable._burn
+  Path Operations:
+    1. burnFrom
+    2. INTERNAL_CALL, ERC20._burn(address,uint256)(account,amount)
+
+Path #31:
+  Source: external_input_params in SHEESHA.constructor
+  Sink: tainted_state_changing_external_call in LGE._transfer
+  Path Operations:
+    1. constructor
+    2. devAddress(address) := _devAddress(address)
+    3. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_282,devAddress,TMP_284)
+    4. REF_132(uint256) -> _balances[recipient]
+
+Path #32:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #33:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer

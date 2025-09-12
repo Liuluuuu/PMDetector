@@ -1,0 +1,353 @@
+=== PMDetector Taint Analysis Results ===
+Found 39 taint sources
+Found 10 taint sinks
+Found 8 tainted paths (filtered from 8 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: msg.sender
+  Contract: Controlled
+  Function: Controlled
+  Operation: controller(address) := msg.sender(address)
+  Tainted Variables: controller
+
+Source #2: external_input_params
+  Contract: Controlled
+  Function: changeController
+  Operation: changeController
+  Tainted Variables: _newController
+
+Source #3: external_input_params
+  Contract: MiniMeToken
+  Function: MiniMeToken
+  Operation: MiniMeToken
+  Tainted Variables: _tokenFactory
+
+Source #4: external_input_params
+  Contract: MiniMeToken
+  Function: MiniMeToken
+  Operation: MiniMeToken
+  Tainted Variables: _parentToken
+
+Source #5: external_input_params
+  Contract: MiniMeToken
+  Function: MiniMeToken
+  Operation: MiniMeToken
+  Tainted Variables: _parentSnapShotBlock
+
+Source #6: external_input_params
+  Contract: MiniMeToken
+  Function: MiniMeToken
+  Operation: MiniMeToken
+  Tainted Variables: _tokenName
+
+Source #7: external_input_params
+  Contract: MiniMeToken
+  Function: MiniMeToken
+  Operation: MiniMeToken
+  Tainted Variables: _decimalUnits
+
+Source #8: external_input_params
+  Contract: MiniMeToken
+  Function: MiniMeToken
+  Operation: MiniMeToken
+  Tainted Variables: _tokenSymbol
+
+Source #9: external_input_params
+  Contract: MiniMeToken
+  Function: MiniMeToken
+  Operation: MiniMeToken
+  Tainted Variables: _transfersEnabled
+
+Source #10: external_input_params
+  Contract: MiniMeToken
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: _to
+
+Source #11: external_input_params
+  Contract: MiniMeToken
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: _amount
+
+Source #12: external_input_params
+  Contract: MiniMeToken
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: _from
+
+Source #13: external_input_params
+  Contract: MiniMeToken
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: _to
+
+Source #14: external_input_params
+  Contract: MiniMeToken
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: _amount
+
+Source #15: external_input_params
+  Contract: MiniMeToken
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: _owner
+
+Source #16: external_input_params
+  Contract: MiniMeToken
+  Function: approve
+  Operation: approve
+  Tainted Variables: _spender
+
+Source #17: external_input_params
+  Contract: MiniMeToken
+  Function: approve
+  Operation: approve
+  Tainted Variables: _amount
+
+Source #18: external_input_params
+  Contract: MiniMeToken
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: _owner
+
+Source #19: external_input_params
+  Contract: MiniMeToken
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: _spender
+
+Source #20: external_input_params
+  Contract: MiniMeToken
+  Function: approveAndCall
+  Operation: approveAndCall
+  Tainted Variables: _spender
+
+Source #21: external_input_params
+  Contract: MiniMeToken
+  Function: approveAndCall
+  Operation: approveAndCall
+  Tainted Variables: _amount
+
+Source #22: external_input_params
+  Contract: MiniMeToken
+  Function: approveAndCall
+  Operation: approveAndCall
+  Tainted Variables: _extraData
+
+Source #23: external_input_params
+  Contract: MiniMeToken
+  Function: balanceOfAt
+  Operation: balanceOfAt
+  Tainted Variables: _blockNumber
+
+Source #24: external_input_params
+  Contract: MiniMeToken
+  Function: totalSupplyAt
+  Operation: totalSupplyAt
+  Tainted Variables: _blockNumber
+
+Source #25: external_input_params
+  Contract: MiniMeToken
+  Function: createCloneToken
+  Operation: createCloneToken
+  Tainted Variables: _cloneTokenName
+
+Source #26: external_input_params
+  Contract: MiniMeToken
+  Function: createCloneToken
+  Operation: createCloneToken
+  Tainted Variables: _cloneDecimalUnits
+
+Source #27: external_input_params
+  Contract: MiniMeToken
+  Function: createCloneToken
+  Operation: createCloneToken
+  Tainted Variables: _cloneTokenSymbol
+
+Source #28: external_input_params
+  Contract: MiniMeToken
+  Function: createCloneToken
+  Operation: createCloneToken
+  Tainted Variables: _snapshotBlock
+
+Source #29: external_input_params
+  Contract: MiniMeToken
+  Function: createCloneToken
+  Operation: createCloneToken
+  Tainted Variables: _transfersEnabled
+
+Source #30: external_input_params
+  Contract: MiniMeToken
+  Function: generateTokens
+  Operation: generateTokens
+  Tainted Variables: _owner
+
+Source #31: external_input_params
+  Contract: MiniMeToken
+  Function: generateTokens
+  Operation: generateTokens
+  Tainted Variables: _amount
+
+Source #32: external_input_params
+  Contract: MiniMeToken
+  Function: destroyTokens
+  Operation: destroyTokens
+  Tainted Variables: _owner
+
+Source #33: external_input_params
+  Contract: MiniMeToken
+  Function: destroyTokens
+  Operation: destroyTokens
+  Tainted Variables: _amount
+
+Source #34: external_input_params
+  Contract: MiniMeToken
+  Function: enableTransfers
+  Operation: enableTransfers
+  Tainted Variables: _transfersEnabled
+
+Source #35: external_input_params
+  Contract: MiniMeToken
+  Function: claimTokens
+  Operation: claimTokens
+  Tainted Variables: _token
+
+Source #36: external_input_params
+  Contract: MiniMeTokenFactory
+  Function: createCloneToken
+  Operation: createCloneToken
+  Tainted Variables: _parentToken
+
+Source #37: external_input_params
+  Contract: MiniMeTokenFactory
+  Function: createCloneToken
+  Operation: createCloneToken
+  Tainted Variables: _tokenName
+
+Source #38: external_input_params
+  Contract: MiniMeTokenFactory
+  Function: createCloneToken
+  Operation: createCloneToken
+  Tainted Variables: _decimalUnits
+
+Source #39: external_input_params
+  Contract: MiniMeTokenFactory
+  Function: createCloneToken
+  Operation: createCloneToken
+  Tainted Variables: _tokenSymbol
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: MiniMeToken
+  Function: transfer
+  Operation: INTERNAL_CALL, MiniMeToken.doTransfer(address,address,uint256)(msg.sender,_to,_amount)
+  Tainted Variable: _to
+
+Sink #2: tainted_erc20_transfer
+  Contract: MiniMeToken
+  Function: transferFrom
+  Operation: INTERNAL_CALL, MiniMeToken.doTransfer(address,address,uint256)(_from,_to,_amount)
+  Tainted Variable: _from
+
+Sink #3: tainted_erc20_transfer
+  Contract: MiniMeToken
+  Function: doTransfer
+  Operation: TMP_27(bool) = HIGH_LEVEL_CALL, dest:TMP_26(TokenController), function:onTransfer, arguments:['_from', '_to', '_amount']  
+  Tainted Variable: _from
+
+Sink #4: tainted_state_changing_external_call
+  Contract: MiniMeToken
+  Function: approve
+  Operation: TMP_42(bool) = HIGH_LEVEL_CALL, dest:TMP_41(TokenController), function:onApprove, arguments:['msg.sender', '_spender', '_amount']  
+  Tainted Variable: _spender
+
+Sink #5: tainted_state_changing_external_call
+  Contract: MiniMeToken
+  Function: approveAndCall
+  Operation: HIGH_LEVEL_CALL, dest:TMP_47(ApproveAndCallFallBack), function:receiveApproval, arguments:['msg.sender', '_amount', 'this', '_extraData']  
+  Tainted Variable: _amount
+
+Sink #6: tainted_state_changing_external_call
+  Contract: MiniMeToken
+  Function: balanceOfAt
+  Operation: TMP_56(uint256) = HIGH_LEVEL_CALL, dest:parentToken(MiniMeToken), function:balanceOfAt, arguments:['_owner', 'TMP_55']  
+  Tainted Variable: _owner
+
+Sink #7: tainted_state_changing_external_call
+  Contract: MiniMeToken
+  Function: totalSupplyAt
+  Operation: TMP_64(uint256) = HIGH_LEVEL_CALL, dest:parentToken(MiniMeToken), function:totalSupplyAt, arguments:['TMP_63']  
+  Tainted Variable: TMP_63
+
+Sink #8: tainted_state_changing_external_call
+  Contract: MiniMeToken
+  Function: createCloneToken
+  Operation: TMP_67(MiniMeToken) = HIGH_LEVEL_CALL, dest:tokenFactory(MiniMeTokenFactory), function:createCloneToken, arguments:['this', '_snapshotBlock', '_cloneTokenName', '_cloneDecimalUnits', '_cloneTokenSymbol', '_transfersEnabled']  
+  Tainted Variable: _snapshotBlock
+
+Sink #9: tainted_control_flow_external_call
+  Contract: MiniMeToken
+  Function: fallback
+  Operation: TMP_127(bool) = HIGH_LEVEL_CALL, dest:TMP_125(TokenController), function:proxyPayment, arguments:['msg.sender'] value:msg.value 
+
+Sink #10: tainted_erc20_transfer
+  Contract: MiniMeToken
+  Function: claimTokens
+  Operation: TMP_133(bool) = HIGH_LEVEL_CALL, dest:token(MiniMeToken), function:transfer, arguments:['controller', 'balance']  
+  Tainted Variable: controller
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in MiniMeToken.approve
+  Sink: tainted_state_changing_external_call in MiniMeToken.approve
+  Path Operations:
+    1. approve
+
+Path #2:
+  Source: external_input_params in MiniMeToken.approveAndCall
+  Sink: tainted_state_changing_external_call in MiniMeToken.approveAndCall
+  Path Operations:
+    1. approveAndCall
+
+Path #3:
+  Source: external_input_params in MiniMeToken.transferFrom
+  Sink: tainted_erc20_transfer in MiniMeToken.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #4:
+  Source: external_input_params in MiniMeToken.transferFrom
+  Sink: tainted_erc20_transfer in MiniMeToken.doTransfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, MiniMeToken.doTransfer(address,address,uint256)(_from,_to,_amount)
+
+Path #5:
+  Source: external_input_params in MiniMeToken.createCloneToken
+  Sink: tainted_state_changing_external_call in MiniMeToken.createCloneToken
+  Path Operations:
+    1. createCloneToken
+
+Path #6:
+  Source: external_input_params in MiniMeToken.totalSupplyAt
+  Sink: tainted_state_changing_external_call in MiniMeToken.totalSupplyAt
+  Path Operations:
+    1. totalSupplyAt
+    2. TMP_63(uint256) = INTERNAL_CALL, MiniMeToken.min(uint256,uint256)(_blockNumber,parentSnapShotBlock)
+
+Path #7:
+  Source: external_input_params in MiniMeToken.transfer
+  Sink: tainted_erc20_transfer in MiniMeToken.transfer
+  Path Operations:
+    1. transfer
+
+Path #8:
+  Source: external_input_params in MiniMeToken.transferFrom
+  Sink: tainted_state_changing_external_call in MiniMeToken.balanceOfAt
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, MiniMeToken.doTransfer(address,address,uint256)(_from,_to,_amount)
+    3. TMP_22(uint256) = INTERNAL_CALL, MiniMeToken.balanceOfAt(address,uint256)(_from,block.number)

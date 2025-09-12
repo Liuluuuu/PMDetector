@@ -1,0 +1,238 @@
+=== PMDetector Taint Analysis Results ===
+Found 23 taint sources
+Found 11 taint sinks
+Found 4 tainted paths (filtered from 4 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #2: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: name_
+
+Source #3: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: symbol_
+
+Source #4: external_input_params
+  Contract: ERC20
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #5: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: recipient
+
+Source #6: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #7: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: owner
+
+Source #8: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #9: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #10: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: amount
+
+Source #11: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: sender
+
+Source #12: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: recipient
+
+Source #13: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #14: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: spender
+
+Source #15: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: addedValue
+
+Source #16: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: spender
+
+Source #17: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: subtractedValue
+
+Source #18: external_input_params
+  Contract: ERC20Snapshot
+  Function: balanceOfAt
+  Operation: balanceOfAt
+  Tainted Variables: account
+
+Source #19: external_input_params
+  Contract: ERC20Snapshot
+  Function: balanceOfAt
+  Operation: balanceOfAt
+  Tainted Variables: snapshotId
+
+Source #20: external_input_params
+  Contract: ERC20Snapshot
+  Function: totalSupplyAt
+  Operation: totalSupplyAt
+  Tainted Variables: snapshotId
+
+Source #21: external_input_params
+  Contract: SuncToken
+  Function: canSnapshot
+  Operation: canSnapshot
+  Tainted Variables: account
+
+Source #22: external_input_params
+  Contract: SuncToken
+  Function: grantSnapshot
+  Operation: grantSnapshot
+  Tainted Variables: account
+
+Source #23: external_input_params
+  Contract: SuncToken
+  Function: revokeSnapshot
+  Operation: revokeSnapshot
+  Tainted Variables: account
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_39,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #2: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transferFrom
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #3: tainted_erc20_transfer
+  Contract: ERC20
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #4: tainted_erc20_transfer
+  Contract: ERC20Snapshot
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_95,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #5: tainted_erc20_transfer
+  Contract: ERC20Snapshot
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20Snapshot._beforeTokenTransfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #6: tainted_erc20_transfer
+  Contract: ERC20Snapshot
+  Function: _beforeTokenTransfer
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #7: tainted_control_flow_external_call
+  Contract: ERC20Snapshot
+  Function: _valueAt
+  Operation: TMP_169(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['_currentSnapshotId'] 
+
+Sink #8: tainted_state_changing_external_call
+  Contract: ERC20Snapshot
+  Function: _valueAt
+  Operation: TMP_172(uint256) = LIBRARY_CALL, dest:Arrays, function:Arrays.findUpperBound(uint256[],uint256), arguments:['REF_47', 'snapshotId'] 
+  Tainted Variable: REF_47
+
+Sink #9: tainted_control_flow_external_call
+  Contract: SuncToken
+  Function: _valueAt
+  Operation: TMP_219(uint256) = LIBRARY_CALL, dest:Counters, function:Counters.current(Counters.Counter), arguments:['_currentSnapshotId'] 
+
+Sink #10: tainted_state_changing_external_call
+  Contract: SuncToken
+  Function: _valueAt
+  Operation: TMP_222(uint256) = LIBRARY_CALL, dest:Arrays, function:Arrays.findUpperBound(uint256[],uint256), arguments:['REF_71', 'snapshotId'] 
+  Tainted Variable: REF_71
+
+Sink #11: tainted_erc20_transfer
+  Contract: SuncToken
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_239,recipient,amount)
+  Tainted Variable: recipient
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #2:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #3:
+  Source: external_input_params in ERC20Snapshot.balanceOfAt
+  Sink: tainted_state_changing_external_call in ERC20Snapshot._valueAt
+  Path Operations:
+    1. balanceOfAt
+    2. REF_45(ERC20Snapshot.Snapshots) -> _accountBalanceSnapshots[account]
+    3. TUPLE_0(bool,uint256) = INTERNAL_CALL, ERC20Snapshot._valueAt(uint256,ERC20Snapshot.Snapshots)(snapshotId,REF_45)
+    4. REF_47(uint256[]) -> snapshots.ids
+
+Path #4:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer

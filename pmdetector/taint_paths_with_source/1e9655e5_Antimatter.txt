@@ -1,0 +1,301 @@
+# Taint Analysis Results with Source Code Mapping
+Found 21 tainted paths.
+
+## Path #1
+Source: external_input_params in UpgradeabilityProxy.constructor
+Sink: tainted_state_changing_external_call in UpgradeabilityProxy._setImplementation
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [278, 279, 280, 281, 282, 283, 284, 285]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [280]
+    LNE: _setImplementation(_logic)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in __InitializableAdminUpgradeabilityProductProxy__.__InitializableAdminUpgradeabilityProductProxy_init__
+Sink: tainted_state_changing_external_call in __InitializableAdminUpgradeabilityProductProxy__._setFactory
+
+### Operations with Source Code Mapping:
+    IR:  __InitializableAdminUpgradeabilityProductProxy_init__
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [649, 650, 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 663, 664]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ProductProxy._setFactory(address)(factory)
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [658]
+    LNE: _setFactory(factory)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in ERC20UpgradeSafe.increaseAllowance
+Sink: tainted_state_changing_external_call in ERC20UpgradeSafe.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1397, 1398, 1399, 1400]
+    LNE: (No direct expression available)
+
+    IR:  REF_97(uint256) -> REF_96[spender]
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1398]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].add(addedValue))
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in ERC20UpgradeSafe.transferFrom
+Sink: tainted_erc20_transfer in ERC20UpgradeSafe._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1378, 1379, 1380, 1381, 1382, 1383]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20UpgradeSafe._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1379]
+    LNE: _transfer(sender,recipient,amount)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in InitializableProductProxy.__InitializableProductProxy_init
+Sink: tainted_state_changing_external_call in InitializableProductProxy.__InitializableProductProxy_init
+
+### Operations with Source Code Mapping:
+    IR:  __InitializableProductProxy_init
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in __BaseAdminUpgradeabilityProxy__.__upgradeTo__
+Sink: tainted_state_changing_external_call in __BaseAdminUpgradeabilityProxy__._setImplementation
+
+### Operations with Source Code Mapping:
+    IR:  __upgradeTo__
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [404, 405, 406]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseUpgradeabilityProxy._upgradeTo(address)(newImplementation)
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [405]
+    LNE: _upgradeTo(newImplementation)
+
+    IR:  INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(newImplementation)
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [121]
+    LNE: _setImplementation(newImplementation)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in InitializableUpgradeabilityProxy.initialize
+Sink: tainted_state_changing_external_call in InitializableUpgradeabilityProxy.initialize
+
+### Operations with Source Code Mapping:
+    IR:  initialize
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [500, 501, 502, 503, 504, 505, 506, 507, 508]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in ERC20UpgradeSafe.decreaseAllowance
+Sink: tainted_state_changing_external_call in ERC20UpgradeSafe.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1416, 1417, 1418, 1419]
+    LNE: (No direct expression available)
+
+    IR:  REF_100(uint256) -> REF_99[spender]
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1417]
+    LNE: _approve(_msgSender(),spender,_allowances[_msgSender()][spender].sub(subtractedValue,ERC20: decreased allowance below zero))
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in InitializableUpgradeabilityProxy.initialize
+Sink: tainted_state_changing_external_call in InitializableUpgradeabilityProxy._setImplementation
+
+### Operations with Source Code Mapping:
+    IR:  initialize
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [500, 501, 502, 503, 504, 505, 506, 507, 508]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(_logic)
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [503]
+    LNE: _setImplementation(_logic)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in __InitializableAdminUpgradeabilityProductProxy__.__InitializableAdminUpgradeabilityProductProxy_init__
+Sink: tainted_state_changing_external_call in __InitializableAdminUpgradeabilityProductProxy__.__InitializableAdminUpgradeabilityProductProxy_init__
+
+### Operations with Source Code Mapping:
+    IR:  __InitializableAdminUpgradeabilityProductProxy_init__
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [649, 650, 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 663, 664]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in InitializableProductProxy.__InitializableProductProxy_init
+Sink: tainted_state_changing_external_call in InitializableProductProxy._setFactory
+
+### Operations with Source Code Mapping:
+    IR:  __InitializableProductProxy_init
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ProductProxy._setFactory(address)(factory)
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [638]
+    LNE: _setFactory(factory)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeTo
+Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy._setImplementation
+
+### Operations with Source Code Mapping:
+    IR:  upgradeTo
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [208, 209, 210]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, BaseUpgradeabilityProxy._upgradeTo(address)(newImplementation)
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [209]
+    LNE: _upgradeTo(newImplementation)
+
+    IR:  INTERNAL_CALL, BaseUpgradeabilityProxy._setImplementation(address)(newImplementation)
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [121]
+    LNE: _setImplementation(newImplementation)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in ERC20UpgradeSafe.transfer
+Sink: tainted_state_changing_external_call in ERC20UpgradeSafe._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1342, 1343, 1344, 1345]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20UpgradeSafe._transfer(address,address,uint256)(TMP_919,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1343]
+    LNE: _transfer(_msgSender(),recipient,amount)
+
+    IR:  REF_106(uint256) -> _balances[recipient]
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1442]
+    LNE: _balances[recipient] = _balances[recipient].add(amount)
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in __BaseAdminUpgradeabilityProxy__.__upgradeToAndCall__
+Sink: tainted_state_changing_external_call in __BaseAdminUpgradeabilityProxy__.__upgradeToAndCall__
+
+### Operations with Source Code Mapping:
+    IR:  __upgradeToAndCall__
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [422, 423, 424, 425, 426]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in ERC20UpgradeSafe.transferFrom
+Sink: tainted_state_changing_external_call in ERC20UpgradeSafe._transfer
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1378, 1379, 1380, 1381, 1382, 1383]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, ERC20UpgradeSafe._transfer(address,address,uint256)(sender,recipient,amount)
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1379]
+    LNE: _transfer(sender,recipient,amount)
+
+    IR:  REF_103(uint256) -> _balances[sender]
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1441]
+    LNE: _balances[sender] = _balances[sender].sub(amount,ERC20: transfer amount exceeds balance)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in UpgradeabilityProxy.constructor
+Sink: tainted_state_changing_external_call in UpgradeabilityProxy.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [278, 279, 280, 281, 282, 283, 284, 285]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in ERC20UpgradeSafe.transferFrom
+Sink: tainted_erc20_transfer in ERC20UpgradeSafe.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1378, 1379, 1380, 1381, 1382, 1383]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in BaseAdminUpgradeabilityProxy.upgradeToAndCall
+Sink: tainted_state_changing_external_call in BaseAdminUpgradeabilityProxy.upgradeToAndCall
+
+### Operations with Source Code Mapping:
+    IR:  upgradeToAndCall
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [221, 222, 223, 224, 225]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in ERC20UpgradeSafe.transferFrom
+Sink: tainted_state_changing_external_call in ERC20UpgradeSafe.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1378, 1379, 1380, 1381, 1382, 1383]
+    LNE: (No direct expression available)
+
+    IR:  REF_93(mapping(address => uint256)) -> _allowances[sender]
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1381]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+    IR:  REF_94(uint256) -> REF_93[TMP_932]
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1381]
+    LNE: _approve(sender,_msgSender(),_allowances[sender][_msgSender()].sub(amount,ERC20: transfer amount exceeds allowance))
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in ERC20UpgradeSafe.transfer
+Sink: tainted_erc20_transfer in ERC20UpgradeSafe.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1342, 1343, 1344, 1345]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in Governable.transferGovernorship
+Sink: tainted_erc20_transfer in Governable.transferGovernorship
+
+### Operations with Source Code Mapping:
+    IR:  transferGovernorship
+    SRC: File 'pmdetector/flattened_contracts/1e9655e5_Antimatter/flattened.sol', Lines [1744, 1745, 1746]
+    LNE: (No direct expression available)
+
+----------------------------------------

@@ -1,0 +1,1678 @@
+# Taint Analysis Results with Source Code Mapping
+Found 60 tainted paths.
+
+## Path #1
+Source: external_input_params in Memestake.pendingRewards
+Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+
+### Operations with Source Code Mapping:
+    IR:  pendingRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221]
+    LNE: (No direct expression available)
+
+    IR:  REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_147(uint256) -> pool.lastRewardBlock
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  multiplier(uint256) := TMP_258(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+----------------------------------------
+
+## Path #2
+Source: external_input_params in Memestake.add
+Sink: tainted_state_changing_external_call in Memestake.set
+
+### Operations with Source Code Mapping:
+    IR:  add
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179]
+    LNE: (No direct expression available)
+
+    IR:  TMP_236(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1170]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+    IR:  totalAllocPoint(uint256) := TMP_236(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1170]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+----------------------------------------
+
+## Path #3
+Source: external_input_params in Memestake.withdraw
+Sink: tainted_state_changing_external_call in Memestake.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1303, 1304, 1305, 1306, 1307, 1308, 1309, 1310, 1311, 1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1320, 1321, 1322, 1323]
+    LNE: (No direct expression available)
+
+    IR:  REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_216(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1311]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_216', 'REF_218'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1311]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #4
+Source: external_input_params in Memestake.add
+Sink: tainted_state_changing_external_call in Memestake.add
+
+### Operations with Source Code Mapping:
+    IR:  add
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179]
+    LNE: (No direct expression available)
+
+    IR:  TMP_236(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1170]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+    IR:  totalAllocPoint(uint256) := TMP_236(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1170]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+----------------------------------------
+
+## Path #5
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_state_changing_external_call in Memestake.claimRewards
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_170(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1230]
+    LNE: user.rewardDebt = user.amount.mul(pool.accMfundPerShare).div(1e24)
+
+----------------------------------------
+
+## Path #6
+Source: external_input_params in Memestake.pendingRewards
+Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+
+### Operations with Source Code Mapping:
+    IR:  pendingRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221]
+    LNE: (No direct expression available)
+
+    IR:  REF_141(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1208]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_142(Memestake.UserInfo) -> REF_141[_user]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1208]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  user(Memestake.UserInfo) := REF_142(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1208]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_155(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1220]
+    LNE: user.amount.mul(accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_155', 'accMfundPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1220]
+    LNE: user.amount.mul(accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #7
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_state_changing_external_call in Memestake.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1227]
+    LNE: updatePool(_pid)
+
+    IR:  REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_181(uint256) -> pool.lastRewardBlock
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  TMP_287(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_181,maxEndBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  multiplier(uint256) := TMP_287(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+----------------------------------------
+
+## Path #8
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_state_changing_external_call in Memestake.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1227]
+    LNE: updatePool(_pid)
+
+    IR:  REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_181(uint256) -> pool.lastRewardBlock
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  TMP_287(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_181,maxEndBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  multiplier(uint256) := TMP_287(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1269]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #9
+Source: external_input_params in Memestake.deposit
+Sink: tainted_state_changing_external_call in Memestake.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1278, 1279, 1280, 1281, 1282, 1283, 1284, 1285, 1286, 1287, 1288, 1289, 1290, 1291, 1292, 1293, 1294, 1295, 1296, 1297]
+    LNE: (No direct expression available)
+
+    IR:  REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_196(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1284]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #10
+Source: external_input_params in Memestake.constructor
+Sink: tainted_state_changing_external_call in Memestake.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1134, 1135, 1136, 1137, 1138, 1139, 1140, 1141, 1142, 1143, 1144, 1145]
+    LNE: (No direct expression available)
+
+    IR:  totalMfund(uint256) := _totalMfund(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1139]
+    LNE: totalMfund = _totalMfund
+
+----------------------------------------
+
+## Path #11
+Source: external_input_params in Memestake.constructor
+Sink: tainted_state_changing_external_call in Memestake.getMultiplier
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1134, 1135, 1136, 1137, 1138, 1139, 1140, 1141, 1142, 1143, 1144, 1145]
+    LNE: (No direct expression available)
+
+    IR:  endBlock(uint256) := _endBlock(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1141]
+    LNE: endBlock = _endBlock
+
+    IR:  maxBlock(uint256) := endBlock(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1214]
+    LNE: maxBlock = endBlock
+
+    IR:  TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+----------------------------------------
+
+## Path #12
+Source: external_input_params in Memefund.transferFrom
+Sink: tainted_state_changing_external_call in Memefund.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216]
+    LNE: (No direct expression available)
+
+    IR:  REF_26(uint256) -> atomBalances[to]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [212]
+    LNE: atomBalances[to] = atomBalances[to].add(atomValue)
+
+----------------------------------------
+
+## Path #13
+Source: external_input_params in Memefund.decreaseAllowance
+Sink: tainted_state_changing_external_call in Memefund.decreaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  decreaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [250, 251, 252, 253, 254, 255, 256, 257, 258, 259]
+    LNE: (No direct expression available)
+
+    IR:  REF_38(uint256) -> REF_37[spender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [251]
+    LNE: oldValue = allowedMolecules[msg.sender][spender]
+
+    IR:  oldValue(uint256) := REF_38(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [251]
+    LNE: oldValue = allowedMolecules[msg.sender][spender]
+
+----------------------------------------
+
+## Path #14
+Source: external_input_params in Memefund.transfer
+Sink: tainted_state_changing_external_call in Memefund.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186]
+    LNE: (No direct expression available)
+
+    IR:  REF_12(uint256) -> atomBalances[to]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [182]
+    LNE: atomBalances[to] = atomBalances[to].add(atomValue)
+
+----------------------------------------
+
+## Path #15
+Source: external_input_params in Memestake.deposit
+Sink: tainted_state_changing_external_call in Memestake.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1278, 1279, 1280, 1281, 1282, 1283, 1284, 1285, 1286, 1287, 1288, 1289, 1290, 1291, 1292, 1293, 1294, 1295, 1296, 1297]
+    LNE: (No direct expression available)
+
+    IR:  REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_196(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1284]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_298(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_196', 'REF_198'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1284]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_299(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_298', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1284]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #16
+Source: external_input_params in Memestake.constructor
+Sink: tainted_state_changing_external_call in Memestake.constructor
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1134, 1135, 1136, 1137, 1138, 1139, 1140, 1141, 1142, 1143, 1144, 1145]
+    LNE: (No direct expression available)
+
+    IR:  endBlock(uint256) := _endBlock(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1141]
+    LNE: endBlock = _endBlock
+
+----------------------------------------
+
+## Path #17
+Source: external_input_params in Memestake.pendingRewards
+Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+
+### Operations with Source Code Mapping:
+    IR:  pendingRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221]
+    LNE: (No direct expression available)
+
+    IR:  REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_147(uint256) -> pool.lastRewardBlock
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  multiplier(uint256) := TMP_258(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1216]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #18
+Source: external_input_params in Memefund.transferFrom
+Sink: tainted_state_changing_external_call in Memefund.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216]
+    LNE: (No direct expression available)
+
+    IR:  REF_23(uint256) -> atomBalances[from]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [211]
+    LNE: atomBalances[from] = atomBalances[from].sub(atomValue)
+
+----------------------------------------
+
+## Path #19
+Source: external_input_params in Memestake.withdraw
+Sink: tainted_state_changing_external_call in Memestake.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1303, 1304, 1305, 1306, 1307, 1308, 1309, 1310, 1311, 1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1320, 1321, 1322, 1323]
+    LNE: (No direct expression available)
+
+    IR:  REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_216(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1311]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_314(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_216', 'REF_218'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1311]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_315(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_314', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1311]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #20
+Source: external_input_params in Memestake.constructor
+Sink: tainted_erc20_transfer in Memestake.safeMfundTransfer
+
+### Operations with Source Code Mapping:
+    IR:  constructor
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1134, 1135, 1136, 1137, 1138, 1139, 1140, 1141, 1142, 1143, 1144, 1145]
+    LNE: (No direct expression available)
+
+    IR:  mFundToken(Memefund) := _mFundToken(Memefund)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1138]
+    LNE: mFundToken = _mFundToken
+
+    IR:  TMP_332(uint256) = HIGH_LEVEL_CALL, dest:mFundToken(Memefund), function:balanceOf, arguments:['TMP_331']  
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1349]
+    LNE: mFundBal = mFundToken.balanceOf(address(this))
+
+    IR:  mFundBal(uint256) := TMP_332(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1349]
+    LNE: mFundBal = mFundToken.balanceOf(address(this))
+
+----------------------------------------
+
+## Path #21
+Source: external_input_params in Memestake.pendingRewards
+Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+
+### Operations with Source Code Mapping:
+    IR:  pendingRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221]
+    LNE: (No direct expression available)
+
+    IR:  REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_147(uint256) -> pool.lastRewardBlock
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  multiplier(uint256) := TMP_258(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1216]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_259', 'REF_150'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1216]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_261(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_260', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1216]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  mFundReward(uint256) := TMP_261(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1216]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_262(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mFundReward', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1217]
+    LNE: accMfundPerShare = accMfundPerShare.add(mFundReward.mul(1e18).div(lpSupply))
+
+----------------------------------------
+
+## Path #22
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_state_changing_external_call in Memestake.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1227]
+    LNE: updatePool(_pid)
+
+    IR:  REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_187(uint256) -> pool.accMfundPerShare
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1271]
+    LNE: pool.accMfundPerShare = pool.accMfundPerShare.add(mFundReward.mul(1e18).div(tokenContractSupply))
+
+----------------------------------------
+
+## Path #23
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_state_changing_external_call in Memestake.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1227]
+    LNE: updatePool(_pid)
+
+    IR:  REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_181(uint256) -> pool.lastRewardBlock
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  TMP_287(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_181,maxEndBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  multiplier(uint256) := TMP_287(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1269]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_290(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_289', 'REF_184'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1269]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #24
+Source: external_input_params in Memestake.pendingRewards
+Sink: tainted_state_changing_external_call in Memestake.getMultiplier
+
+### Operations with Source Code Mapping:
+    IR:  pendingRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221]
+    LNE: (No direct expression available)
+
+    IR:  REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_147(uint256) -> pool.lastRewardBlock
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+----------------------------------------
+
+## Path #25
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_state_changing_external_call in Memestake.claimRewards
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_163(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_163', 'REF_165'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  TMP_271(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_270', '1000000000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #26
+Source: external_input_params in Memestake.withdraw
+Sink: tainted_state_changing_external_call in Memestake.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1303, 1304, 1305, 1306, 1307, 1308, 1309, 1310, 1311, 1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1320, 1321, 1322, 1323]
+    LNE: (No direct expression available)
+
+    IR:  REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_228(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1321]
+    LNE: user.rewardDebt = user.amount.mul(pool.accMfundPerShare).div(1e18)
+
+    IR:  TMP_323(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_228', 'REF_230'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1321]
+    LNE: user.rewardDebt = user.amount.mul(pool.accMfundPerShare).div(1e18)
+
+----------------------------------------
+
+## Path #27
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_erc20_transfer in Memestake.safeMfundTransfer
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_163(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_163', 'REF_165'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  TMP_271(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_270', '1000000000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  TMP_272(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_271', 'REF_168'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  pending(uint256) := TMP_272(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  INTERNAL_CALL, Memestake.safeMfundTransfer(address,uint256)(msg.sender,pending)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1231]
+    LNE: safeMfundTransfer(msg.sender,pending)
+
+----------------------------------------
+
+## Path #28
+Source: external_input_params in Memefund.transfer
+Sink: tainted_state_changing_external_call in Memefund.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186]
+    LNE: (No direct expression available)
+
+    IR:  TMP_50(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.mul(uint256,uint256), arguments:['value', 'atomsPerMolecule'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [179]
+    LNE: atomValue = value.mul(atomsPerMolecule)
+
+    IR:  atomValue(uint256) := TMP_50(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [179]
+    LNE: atomValue = value.mul(atomsPerMolecule)
+
+----------------------------------------
+
+## Path #29
+Source: external_input_params in Memestake.deposit
+Sink: tainted_erc20_transfer in Memestake.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1278, 1279, 1280, 1281, 1282, 1283, 1284, 1285, 1286, 1287, 1288, 1289, 1290, 1291, 1292, 1293, 1294, 1295, 1296, 1297]
+    LNE: (No direct expression available)
+
+    IR:  REF_192(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1279]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_192(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1279]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_202(IERC20) -> pool.tokenContract
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1291]
+    LNE: pool.tokenContract.safeTransferFrom(address(msg.sender),address(this),_amount)
+
+----------------------------------------
+
+## Path #30
+Source: external_input_params in Memestake.pendingRewards
+Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+
+### Operations with Source Code Mapping:
+    IR:  pendingRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221]
+    LNE: (No direct expression available)
+
+    IR:  REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_147(uint256) -> pool.lastRewardBlock
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  multiplier(uint256) := TMP_258(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1216]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_259', 'REF_150'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1216]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #31
+Source: external_input_params in Memefund.rebase
+Sink: tainted_state_changing_external_call in Memefund.rebase
+
+### Operations with Source Code Mapping:
+    IR:  rebase
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
+    LNE: (No direct expression available)
+
+    IR:  TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [146]
+    LNE: totalSupply = totalSupply.add(supplyDelta)
+
+    IR:  totalSupply(uint256) := TMP_38(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [146]
+    LNE: totalSupply = totalSupply.add(supplyDelta)
+
+----------------------------------------
+
+## Path #32
+Source: external_input_params in Memestake.withdraw
+Sink: tainted_state_changing_external_call in Memestake.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1303, 1304, 1305, 1306, 1307, 1308, 1309, 1310, 1311, 1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1320, 1321, 1322, 1323]
+    LNE: (No direct expression available)
+
+    IR:  REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_228(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1321]
+    LNE: user.rewardDebt = user.amount.mul(pool.accMfundPerShare).div(1e18)
+
+----------------------------------------
+
+## Path #33
+Source: external_input_params in Memefund.rebase
+Sink: tainted_state_changing_external_call in Memefund.constructor
+
+### Operations with Source Code Mapping:
+    IR:  rebase
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
+    LNE: (No direct expression available)
+
+    IR:  TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [146]
+    LNE: totalSupply = totalSupply.add(supplyDelta)
+
+    IR:  totalSupply(uint256) := TMP_38(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [146]
+    LNE: totalSupply = totalSupply.add(supplyDelta)
+
+    IR:  TMP_16(uint256) = MAX_UINT256 % totalSupply
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [92]
+    LNE: totalAtoms = MAX_UINT256 - (MAX_UINT256 % totalSupply)
+
+    IR:  TMP_17(uint256) = MAX_UINT256 - TMP_16
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [92]
+    LNE: totalAtoms = MAX_UINT256 - (MAX_UINT256 % totalSupply)
+
+    IR:  totalAtoms(uint256) := TMP_17(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [92]
+    LNE: totalAtoms = MAX_UINT256 - (MAX_UINT256 % totalSupply)
+
+----------------------------------------
+
+## Path #34
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_state_changing_external_call in Memestake.claimRewards
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_163(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_163', 'REF_165'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #35
+Source: external_input_params in Memefund.increaseAllowance
+Sink: tainted_state_changing_external_call in Memefund.increaseAllowance
+
+### Operations with Source Code Mapping:
+    IR:  increaseAllowance
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [238, 239, 240, 241, 242, 243]
+    LNE: (No direct expression available)
+
+    IR:  REF_33(uint256) -> REF_32[spender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [239]
+    LNE: allowedMolecules[msg.sender][spender] = allowedMolecules[msg.sender][spender].add(addedValue)
+
+----------------------------------------
+
+## Path #36
+Source: external_input_params in Memestake.pendingRewards
+Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+
+### Operations with Source Code Mapping:
+    IR:  pendingRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221]
+    LNE: (No direct expression available)
+
+    IR:  REF_141(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1208]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_142(Memestake.UserInfo) -> REF_141[_user]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1208]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  user(Memestake.UserInfo) := REF_142(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1208]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_155(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1220]
+    LNE: user.amount.mul(accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_265(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_155', 'accMfundPerShare'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1220]
+    LNE: user.amount.mul(accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_266(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_265', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1220]
+    LNE: user.amount.mul(accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #37
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_erc20_transfer in Memestake.claimRewards
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_163(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_163', 'REF_165'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  TMP_271(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_270', '1000000000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  TMP_272(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_271', 'REF_168'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+    IR:  pending(uint256) := TMP_272(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #38
+Source: external_input_params in Memefund.transfer
+Sink: tainted_state_changing_external_call in Memefund.transfer
+
+### Operations with Source Code Mapping:
+    IR:  transfer
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #39
+Source: external_input_params in Memestake.deposit
+Sink: tainted_state_changing_external_call in Memestake.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1278, 1279, 1280, 1281, 1282, 1283, 1284, 1285, 1286, 1287, 1288, 1289, 1290, 1291, 1292, 1293, 1294, 1295, 1296, 1297]
+    LNE: (No direct expression available)
+
+    IR:  REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_208(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1295]
+    LNE: user.rewardDebt = user.amount.mul(pool.accMfundPerShare).div(1e18)
+
+    IR:  TMP_308(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_208', 'REF_210'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1295]
+    LNE: user.rewardDebt = user.amount.mul(pool.accMfundPerShare).div(1e18)
+
+----------------------------------------
+
+## Path #40
+Source: external_input_params in Memefund.balanceOf
+Sink: tainted_state_changing_external_call in Memefund.balanceOf
+
+### Operations with Source Code Mapping:
+    IR:  balanceOf
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [165, 166, 167]
+    LNE: (No direct expression available)
+
+    IR:  REF_5(uint256) -> atomBalances[who]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [166]
+    LNE: atomBalances[who].div(atomsPerMolecule)
+
+----------------------------------------
+
+## Path #41
+Source: external_input_params in Memestake.pendingRewards
+Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+
+### Operations with Source Code Mapping:
+    IR:  pendingRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221]
+    LNE: (No direct expression available)
+
+    IR:  REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_143(uint256) -> pool.accMfundPerShare
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1210]
+    LNE: accMfundPerShare = pool.accMfundPerShare
+
+    IR:  accMfundPerShare(uint256) := REF_143(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1210]
+    LNE: accMfundPerShare = pool.accMfundPerShare
+
+----------------------------------------
+
+## Path #42
+Source: external_input_params in Memefund.rebase
+Sink: tainted_state_changing_external_call in Memefund.rebase
+
+### Operations with Source Code Mapping:
+    IR:  rebase
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
+    LNE: (No direct expression available)
+
+    IR:  TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [146]
+    LNE: totalSupply = totalSupply.add(supplyDelta)
+
+    IR:  totalSupply(uint256) := TMP_38(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [146]
+    LNE: totalSupply = totalSupply.add(supplyDelta)
+
+----------------------------------------
+
+## Path #43
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_state_changing_external_call in Memestake.claimRewards
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_170(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1230]
+    LNE: user.rewardDebt = user.amount.mul(pool.accMfundPerShare).div(1e24)
+
+    IR:  TMP_275(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_170', 'REF_172'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1230]
+    LNE: user.rewardDebt = user.amount.mul(pool.accMfundPerShare).div(1e24)
+
+----------------------------------------
+
+## Path #44
+Source: external_input_params in Memestake.deposit
+Sink: tainted_state_changing_external_call in Memestake.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1278, 1279, 1280, 1281, 1282, 1283, 1284, 1285, 1286, 1287, 1288, 1289, 1290, 1291, 1292, 1293, 1294, 1295, 1296, 1297]
+    LNE: (No direct expression available)
+
+    IR:  REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_208(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1295]
+    LNE: user.rewardDebt = user.amount.mul(pool.accMfundPerShare).div(1e18)
+
+----------------------------------------
+
+## Path #45
+Source: external_input_params in Memestake.withdraw
+Sink: tainted_state_changing_external_call in Memestake.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1303, 1304, 1305, 1306, 1307, 1308, 1309, 1310, 1311, 1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1320, 1321, 1322, 1323]
+    LNE: (No direct expression available)
+
+    IR:  REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_216(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1311]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #46
+Source: external_input_params in Memestake.pendingRewards
+Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+
+### Operations with Source Code Mapping:
+    IR:  pendingRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221]
+    LNE: (No direct expression available)
+
+    IR:  REF_140(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_140(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1207]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_147(uint256) -> pool.lastRewardBlock
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  TMP_258(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_147,maxBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  multiplier(uint256) := TMP_258(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1215]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxBlock)
+
+    IR:  TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1216]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_259', 'REF_150'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1216]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_261(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_260', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1216]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  mFundReward(uint256) := TMP_261(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1216]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #47
+Source: external_input_params in Memefund.transferFrom
+Sink: tainted_state_changing_external_call in Memefund.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216]
+    LNE: (No direct expression available)
+
+    IR:  REF_18(mapping(address => uint256)) -> allowedMolecules[from]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [208]
+    LNE: allowedMolecules[from][msg.sender] = allowedMolecules[from][msg.sender].sub(value)
+
+    IR:  REF_19(uint256) -> REF_18[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [208]
+    LNE: allowedMolecules[from][msg.sender] = allowedMolecules[from][msg.sender].sub(value)
+
+----------------------------------------
+
+## Path #48
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_state_changing_external_call in Memestake.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1227]
+    LNE: updatePool(_pid)
+
+    IR:  REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_181(uint256) -> pool.lastRewardBlock
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  TMP_287(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_181,maxEndBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  multiplier(uint256) := TMP_287(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1269]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_290(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_289', 'REF_184'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1269]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_290', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1269]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  mFundReward(uint256) := TMP_291(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1269]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_292(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['mFundReward', '1000000000000000000'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1271]
+    LNE: pool.accMfundPerShare = pool.accMfundPerShare.add(mFundReward.mul(1e18).div(tokenContractSupply))
+
+----------------------------------------
+
+## Path #49
+Source: external_input_params in Memestake.add
+Sink: tainted_state_changing_external_call in Memestake.set
+
+### Operations with Source Code Mapping:
+    IR:  add
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179]
+    LNE: (No direct expression available)
+
+    IR:  TMP_236(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalAllocPoint', '_allocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1170]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+    IR:  totalAllocPoint(uint256) := TMP_236(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1170]
+    LNE: totalAllocPoint = totalAllocPoint.add(_allocPoint)
+
+    IR:  TMP_248(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalAllocPoint', 'REF_135'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1195]
+    LNE: totalAllocPoint = totalAllocPoint.sub(poolInfo[_pid].allocPoint).add(_allocPoint)
+
+----------------------------------------
+
+## Path #50
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_state_changing_external_call in Memestake.updatePool
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  INTERNAL_CALL, Memestake.updatePool(uint256)(_pid)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1227]
+    LNE: updatePool(_pid)
+
+    IR:  REF_176(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_176(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1250]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_181(uint256) -> pool.lastRewardBlock
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  TMP_287(uint256) = INTERNAL_CALL, Memestake.getMultiplier(uint256,uint256)(REF_181,maxEndBlock)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  multiplier(uint256) := TMP_287(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1262]
+    LNE: multiplier = getMultiplier(pool.lastRewardBlock,maxEndBlock)
+
+    IR:  TMP_289(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['multiplier', 'mFundPerBlock'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1269]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_290(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_289', 'REF_184'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1269]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  TMP_291(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_290', 'totalAllocPoint'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1269]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+    IR:  mFundReward(uint256) := TMP_291(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1269]
+    LNE: mFundReward = multiplier.mul(mFundPerBlock).mul(pool.allocPoint).div(totalAllocPoint)
+
+----------------------------------------
+
+## Path #51
+Source: external_input_params in Memestake.deposit
+Sink: tainted_state_changing_external_call in Memestake.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1278, 1279, 1280, 1281, 1282, 1283, 1284, 1285, 1286, 1287, 1288, 1289, 1290, 1291, 1292, 1293, 1294, 1295, 1296, 1297]
+    LNE: (No direct expression available)
+
+    IR:  REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_196(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1284]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+    IR:  TMP_298(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_196', 'REF_198'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1284]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #52
+Source: external_input_params in Memestake.withdraw
+Sink: tainted_state_changing_external_call in Memestake.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1303, 1304, 1305, 1306, 1307, 1308, 1309, 1310, 1311, 1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1320, 1321, 1322, 1323]
+    LNE: (No direct expression available)
+
+    IR:  REF_213(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_214(Memestake.UserInfo) -> REF_213[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_214(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1305]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_223(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1317]
+    LNE: user.amount = user.amount.sub(_amount)
+
+----------------------------------------
+
+## Path #53
+Source: external_input_params in Memestake.deposit
+Sink: tainted_state_changing_external_call in Memestake.deposit
+
+### Operations with Source Code Mapping:
+    IR:  deposit
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1278, 1279, 1280, 1281, 1282, 1283, 1284, 1285, 1286, 1287, 1288, 1289, 1290, 1291, 1292, 1293, 1294, 1295, 1296, 1297]
+    LNE: (No direct expression available)
+
+    IR:  REF_193(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_194(Memestake.UserInfo) -> REF_193[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_194(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1280]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_205(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1292]
+    LNE: user.amount = user.amount.add(_amount)
+
+----------------------------------------
+
+## Path #54
+Source: external_input_params in Memestake.emergencyWithdraw
+Sink: tainted_erc20_transfer in Memestake.emergencyWithdraw
+
+### Operations with Source Code Mapping:
+    IR:  emergencyWithdraw
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1327, 1328, 1329, 1330, 1331, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339]
+    LNE: (No direct expression available)
+
+    IR:  REF_233(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1330]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_233(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1330]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_239(IERC20) -> pool.tokenContract
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1337]
+    LNE: pool.tokenContract.safeTransfer(address(msg.sender),amount)
+
+----------------------------------------
+
+## Path #55
+Source: external_input_params in Memestake.pendingRewards
+Sink: tainted_state_changing_external_call in Memestake.pendingRewards
+
+### Operations with Source Code Mapping:
+    IR:  pendingRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1204, 1205, 1206, 1207, 1208, 1209, 1210, 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220, 1221]
+    LNE: (No direct expression available)
+
+    IR:  REF_141(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1208]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_142(Memestake.UserInfo) -> REF_141[_user]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1208]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  user(Memestake.UserInfo) := REF_142(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1208]
+    LNE: user = userInfo[_pid][_user]
+
+    IR:  REF_155(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1220]
+    LNE: user.amount.mul(accMfundPerShare).div(1e18).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #56
+Source: external_input_params in Memefund.transferFrom
+Sink: tainted_state_changing_external_call in Memefund.transferFrom
+
+### Operations with Source Code Mapping:
+    IR:  transferFrom
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216]
+    LNE: (No direct expression available)
+
+----------------------------------------
+
+## Path #57
+Source: external_input_params in Memefund.rebase
+Sink: tainted_state_changing_external_call in Memefund.rebase
+
+### Operations with Source Code Mapping:
+    IR:  rebase
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
+    LNE: (No direct expression available)
+
+    IR:  TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [146]
+    LNE: totalSupply = totalSupply.add(supplyDelta)
+
+    IR:  totalSupply(uint256) := TMP_38(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [146]
+    LNE: totalSupply = totalSupply.add(supplyDelta)
+
+    IR:  TMP_16(uint256) = MAX_UINT256 % totalSupply
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [92]
+    LNE: totalAtoms = MAX_UINT256 - (MAX_UINT256 % totalSupply)
+
+    IR:  TMP_17(uint256) = MAX_UINT256 - TMP_16
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [92]
+    LNE: totalAtoms = MAX_UINT256 - (MAX_UINT256 % totalSupply)
+
+    IR:  totalAtoms(uint256) := TMP_17(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [92]
+    LNE: totalAtoms = MAX_UINT256 - (MAX_UINT256 % totalSupply)
+
+----------------------------------------
+
+## Path #58
+Source: external_input_params in Memestake.claimRewards
+Sink: tainted_state_changing_external_call in Memestake.claimRewards
+
+### Operations with Source Code Mapping:
+    IR:  claimRewards
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233]
+    LNE: (No direct expression available)
+
+    IR:  REF_161(mapping(address => Memestake.UserInfo)) -> userInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_162(Memestake.UserInfo) -> REF_161[msg.sender]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  user(Memestake.UserInfo) := REF_162(Memestake.UserInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1226]
+    LNE: user = userInfo[_pid][msg.sender]
+
+    IR:  REF_163(uint256) -> user.amount
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1228]
+    LNE: pending = user.amount.mul(pool.accMfundPerShare).div(1e24).sub(user.rewardDebt)
+
+----------------------------------------
+
+## Path #59
+Source: external_input_params in Memefund.rebase
+Sink: tainted_state_changing_external_call in Memefund.rebase
+
+### Operations with Source Code Mapping:
+    IR:  rebase
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159]
+    LNE: (No direct expression available)
+
+    IR:  TMP_38(uint256) = LIBRARY_CALL, dest:SafeMaths, function:SafeMaths.add(uint256,uint256), arguments:['totalSupply', 'supplyDelta'] 
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [146]
+    LNE: totalSupply = totalSupply.add(supplyDelta)
+
+    IR:  totalSupply(uint256) := TMP_38(uint256)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [146]
+    LNE: totalSupply = totalSupply.add(supplyDelta)
+
+----------------------------------------
+
+## Path #60
+Source: external_input_params in Memestake.withdraw
+Sink: tainted_erc20_transfer in Memestake.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1303, 1304, 1305, 1306, 1307, 1308, 1309, 1310, 1311, 1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1320, 1321, 1322, 1323]
+    LNE: (No direct expression available)
+
+    IR:  REF_212(Memestake.PoolInfo) -> poolInfo[_pid]
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1304]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  pool(Memestake.PoolInfo) := REF_212(Memestake.PoolInfo)
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1304]
+    LNE: pool = poolInfo[_pid]
+
+    IR:  REF_225(IERC20) -> pool.tokenContract
+    SRC: File 'pmdetector/flattened_contracts/7ec97a55_Sanshu Inu/flattened.sol', Lines [1318]
+    LNE: pool.tokenContract.safeTransfer(address(msg.sender),_amount)
+
+----------------------------------------

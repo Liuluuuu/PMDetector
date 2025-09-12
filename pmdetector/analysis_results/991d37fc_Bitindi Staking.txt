@@ -1,0 +1,679 @@
+=== PMDetector Taint Analysis Results ===
+Found 61 taint sources
+Found 26 taint sinks
+Found 21 tainted paths (filtered from 21 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: msg.sender
+  Contract: BitindiChain
+  Function: constructor
+  Operation: _owner(address) := msg.sender(address)
+  Tainted Variables: _owner
+
+Source #2: msg.sender
+  Contract: BitindiChain
+  Function: constructor
+  Operation: originalDeployer(address) := msg.sender(address)
+  Tainted Variables: originalDeployer
+
+Source #3: external_input_params
+  Contract: BitindiChain
+  Function: transferOwner
+  Operation: transferOwner
+  Tainted Variables: newOwner
+
+Source #4: external_input_params
+  Contract: BitindiChain
+  Function: setOperator
+  Operation: setOperator
+  Tainted Variables: newOperator
+
+Source #5: external_input_params
+  Contract: BitindiChain
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: holder
+
+Source #6: external_input_params
+  Contract: BitindiChain
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #7: external_input_params
+  Contract: BitindiChain
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #8: external_input_params
+  Contract: BitindiChain
+  Function: approve
+  Operation: approve
+  Tainted Variables: amount
+
+Source #9: external_input_params
+  Contract: BitindiChain
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: recipient
+
+Source #10: external_input_params
+  Contract: BitindiChain
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #11: external_input_params
+  Contract: BitindiChain
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: sender
+
+Source #12: external_input_params
+  Contract: BitindiChain
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: recipient
+
+Source #13: external_input_params
+  Contract: BitindiChain
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #14: external_input_params
+  Contract: BitindiChain
+  Function: setNewRouter
+  Operation: setNewRouter
+  Tainted Variables: newRouter
+
+Source #15: external_input_params
+  Contract: BitindiChain
+  Function: setLpPair
+  Operation: setLpPair
+  Tainted Variables: pair
+
+Source #16: external_input_params
+  Contract: BitindiChain
+  Function: setLpPair
+  Operation: setLpPair
+  Tainted Variables: enabled
+
+Source #17: external_input_params
+  Contract: BitindiChain
+  Function: setInitializers
+  Operation: setInitializers
+  Tainted Variables: aInitializer
+
+Source #18: external_input_params
+  Contract: BitindiChain
+  Function: setInitializers
+  Operation: setInitializers
+  Tainted Variables: cInitializer
+
+Source #19: external_input_params
+  Contract: BitindiChain
+  Function: isExcludedFromFees
+  Operation: isExcludedFromFees
+  Tainted Variables: account
+
+Source #20: external_input_params
+  Contract: BitindiChain
+  Function: isExcludedFromDividends
+  Operation: isExcludedFromDividends
+  Tainted Variables: account
+
+Source #21: external_input_params
+  Contract: BitindiChain
+  Function: isExcludedFromLimits
+  Operation: isExcludedFromLimits
+  Tainted Variables: account
+
+Source #22: external_input_params
+  Contract: BitindiChain
+  Function: isExcludedFromProtection
+  Operation: isExcludedFromProtection
+  Tainted Variables: account
+
+Source #23: external_input_params
+  Contract: BitindiChain
+  Function: setExcludedFromLimits
+  Operation: setExcludedFromLimits
+  Tainted Variables: account
+
+Source #24: external_input_params
+  Contract: BitindiChain
+  Function: setExcludedFromLimits
+  Operation: setExcludedFromLimits
+  Tainted Variables: enabled
+
+Source #25: external_input_params
+  Contract: BitindiChain
+  Function: setDividendExcluded
+  Operation: setDividendExcluded
+  Tainted Variables: account
+
+Source #26: external_input_params
+  Contract: BitindiChain
+  Function: setDividendExcluded
+  Operation: setDividendExcluded
+  Tainted Variables: enabled
+
+Source #27: external_input_params
+  Contract: BitindiChain
+  Function: setExcludedFromFees
+  Operation: setExcludedFromFees
+  Tainted Variables: enabled
+
+Source #28: external_input_params
+  Contract: BitindiChain
+  Function: setExcludedFromProtection
+  Operation: setExcludedFromProtection
+  Tainted Variables: account
+
+Source #29: external_input_params
+  Contract: BitindiChain
+  Function: setExcludedFromProtection
+  Operation: setExcludedFromProtection
+  Tainted Variables: enabled
+
+Source #30: external_input_params
+  Contract: BitindiChain
+  Function: removeSniper
+  Operation: removeSniper
+  Tainted Variables: account
+
+Source #31: external_input_params
+  Contract: BitindiChain
+  Function: setProtectionSettings
+  Operation: setProtectionSettings
+  Tainted Variables: _antiSnipe
+
+Source #32: external_input_params
+  Contract: BitindiChain
+  Function: setProtectionSettings
+  Operation: setProtectionSettings
+  Tainted Variables: _antiBlock
+
+Source #33: external_input_params
+  Contract: BitindiChain
+  Function: setTaxes
+  Operation: setTaxes
+  Tainted Variables: buyFee
+
+Source #34: external_input_params
+  Contract: BitindiChain
+  Function: setTaxes
+  Operation: setTaxes
+  Tainted Variables: sellFee
+
+Source #35: external_input_params
+  Contract: BitindiChain
+  Function: setTaxes
+  Operation: setTaxes
+  Tainted Variables: transferFee
+
+Source #36: external_input_params
+  Contract: BitindiChain
+  Function: setMaxTxPercent
+  Operation: setMaxTxPercent
+  Tainted Variables: percent
+
+Source #37: external_input_params
+  Contract: BitindiChain
+  Function: setMaxTxPercent
+  Operation: setMaxTxPercent
+  Tainted Variables: divisor
+
+Source #38: external_input_params
+  Contract: BitindiChain
+  Function: setMaxWalletSize
+  Operation: setMaxWalletSize
+  Tainted Variables: percent
+
+Source #39: external_input_params
+  Contract: BitindiChain
+  Function: setMaxWalletSize
+  Operation: setMaxWalletSize
+  Tainted Variables: divisor
+
+Source #40: external_input_params
+  Contract: BitindiChain
+  Function: getTokenAmountAtPriceImpact
+  Operation: getTokenAmountAtPriceImpact
+  Tainted Variables: priceImpactInHundreds
+
+Source #41: external_input_params
+  Contract: BitindiChain
+  Function: setSwapSettings
+  Operation: setSwapSettings
+  Tainted Variables: thresholdPercent
+
+Source #42: external_input_params
+  Contract: BitindiChain
+  Function: setSwapSettings
+  Operation: setSwapSettings
+  Tainted Variables: thresholdDivisor
+
+Source #43: external_input_params
+  Contract: BitindiChain
+  Function: setSwapSettings
+  Operation: setSwapSettings
+  Tainted Variables: amountPercent
+
+Source #44: external_input_params
+  Contract: BitindiChain
+  Function: setSwapSettings
+  Operation: setSwapSettings
+  Tainted Variables: amountDivisor
+
+Source #45: external_input_params
+  Contract: BitindiChain
+  Function: setPriceImpactSwapAmount
+  Operation: setPriceImpactSwapAmount
+  Tainted Variables: priceImpactSwapPercent
+
+Source #46: external_input_params
+  Contract: BitindiChain
+  Function: setContractSwapEnabled
+  Operation: setContractSwapEnabled
+  Tainted Variables: swapEnabled
+
+Source #47: external_input_params
+  Contract: BitindiChain
+  Function: setContractSwapEnabled
+  Operation: setContractSwapEnabled
+  Tainted Variables: processReflectEnabled
+
+Source #48: external_input_params
+  Contract: BitindiChain
+  Function: setContractSwapEnabled
+  Operation: setContractSwapEnabled
+  Tainted Variables: priceImpactSwapEnabled
+
+Source #49: external_input_params
+  Contract: BitindiChain
+  Function: setRewardsProperties
+  Operation: setRewardsProperties
+  Tainted Variables: _minPeriod
+
+Source #50: external_input_params
+  Contract: BitindiChain
+  Function: setRewardsProperties
+  Operation: setRewardsProperties
+  Tainted Variables: _minReflection
+
+Source #51: external_input_params
+  Contract: BitindiChain
+  Function: setRewardsProperties
+  Operation: setRewardsProperties
+  Tainted Variables: minReflectionMultiplier
+
+Source #52: external_input_params
+  Contract: BitindiChain
+  Function: setMinimumHoldForRewards
+  Operation: setMinimumHoldForRewards
+  Tainted Variables: percent
+
+Source #53: external_input_params
+  Contract: BitindiChain
+  Function: setMinimumHoldForRewards
+  Operation: setMinimumHoldForRewards
+  Tainted Variables: divisor
+
+Source #54: external_input_params
+  Contract: BitindiChain
+  Function: setReflectorSettings
+  Operation: setReflectorSettings
+  Tainted Variables: gas
+
+Source #55: external_input_params
+  Contract: BitindiChain
+  Function: excludePresaleAddresses
+  Operation: excludePresaleAddresses
+  Tainted Variables: router
+
+Source #56: external_input_params
+  Contract: BitindiChain
+  Function: excludePresaleAddresses
+  Operation: excludePresaleAddresses
+  Tainted Variables: presale
+
+Source #57: external_input_params
+  Contract: BitindiChain
+  Function: multiSendTokens
+  Operation: multiSendTokens
+  Tainted Variables: accounts
+
+Source #58: external_input_params
+  Contract: BitindiChain
+  Function: multiSendTokens
+  Operation: multiSendTokens
+  Tainted Variables: amounts
+
+Source #59: external_input_params
+  Contract: BitindiChain
+  Function: getUserInfo
+  Operation: getUserInfo
+  Tainted Variables: user
+
+Source #60: external_input_params
+  Contract: BitindiChain
+  Function: getUserRealizedGains
+  Operation: getUserRealizedGains
+  Tainted Variables: user
+
+Source #61: external_input_params
+  Contract: BitindiChain
+  Function: getUserUnpaidEarnings
+  Operation: getUserUnpaidEarnings
+  Tainted Variables: user
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: BitindiChain
+  Function: transferOwner
+  Operation: TMP_40(bool) = INTERNAL_CALL, BitindiChain.finalizeTransfer(address,address,uint256,bool,bool,bool)(_owner,newOwner,TMP_39,False,False,True)
+  Tainted Variable: _owner
+
+Sink #2: tainted_erc20_transfer
+  Contract: BitindiChain
+  Function: transfer
+  Operation: TMP_77(bool) = INTERNAL_CALL, BitindiChain._transfer(address,address,uint256)(msg.sender,recipient,amount)
+  Tainted Variable: recipient
+
+Sink #3: tainted_erc20_transfer
+  Contract: BitindiChain
+  Function: transferFrom
+  Operation: TMP_81(bool) = INTERNAL_CALL, BitindiChain._transfer(address,address,uint256)(sender,recipient,amount)
+  Tainted Variable: sender
+
+Sink #4: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: setNewRouter
+  Operation: TMP_89(address) = HIGH_LEVEL_CALL, dest:TMP_86(IFactoryV2), function:getPair, arguments:['TMP_87', 'TMP_88']  
+  Tainted Variable: TMP_88
+
+Sink #5: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: setNewRouter
+  Operation: TMP_96(address) = HIGH_LEVEL_CALL, dest:TMP_93(IFactoryV2), function:createPair, arguments:['TMP_94', 'TMP_95']  
+  Tainted Variable: TMP_95
+
+Sink #6: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: setLpPair
+  Operation: HIGH_LEVEL_CALL, dest:protections(Protections), function:setLpPair, arguments:['pair', 'False']  
+  Tainted Variable: pair
+
+Sink #7: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: setLpPair
+  Operation: HIGH_LEVEL_CALL, dest:protections(Protections), function:setLpPair, arguments:['pair', 'True']  
+  Tainted Variable: pair
+
+Sink #8: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: setDividendExcluded
+  Operation: HIGH_LEVEL_CALL, dest:cashier(Cashier), function:tally, arguments:['account', '0']  
+  Tainted Variable: account
+
+Sink #9: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: setDividendExcluded
+  Operation: HIGH_LEVEL_CALL, dest:cashier(Cashier), function:tally, arguments:['account', 'REF_50']  
+  Tainted Variable: account
+
+Sink #10: tainted_erc20_transfer
+  Contract: BitindiChain
+  Function: removeSniper
+  Operation: HIGH_LEVEL_CALL, dest:protections(Protections), function:removeSniper, arguments:['account']  
+  Tainted Variable: account
+
+Sink #11: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: setProtectionSettings
+  Operation: HIGH_LEVEL_CALL, dest:protections(Protections), function:setProtections, arguments:['_antiSnipe', '_antiBlock']  
+  Tainted Variable: _antiSnipe
+
+Sink #12: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: setRewardsProperties
+  Operation: HIGH_LEVEL_CALL, dest:cashier(Cashier), function:setRewardsProperties, arguments:['_minPeriod', '_minReflection']  
+  Tainted Variable: _minPeriod
+
+Sink #13: tainted_erc20_transfer
+  Contract: BitindiChain
+  Function: _transfer
+  Operation: TMP_295(bool) = INTERNAL_CALL, BitindiChain.finalizeTransfer(address,address,uint256,bool,bool,bool)(from,to,amount,buy,sell,other)
+  Tainted Variable: from
+
+Sink #14: tainted_erc20_transfer
+  Contract: BitindiChain
+  Function: contractSwap
+  Operation: HIGH_LEVEL_CALL, dest:dexRouter(IRouter02), function:swapExactTokensForETHSupportingFeeOnTransferTokens, arguments:['contractTokenBalance', '0', 'path', 'TMP_309', 'block.timestamp']  
+  Tainted Variable: contractTokenBalance
+
+Sink #15: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: enableTrading
+  Operation: HIGH_LEVEL_CALL, dest:protections(Protections), function:setLaunch, arguments:['lpPair', 'TMP_340', 'TMP_341', '_decimals']  
+  Tainted Variable: lpPair
+
+Sink #16: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: finalizeTransfer
+  Operation: TMP_352(bool) = HIGH_LEVEL_CALL, dest:protections(Protections), function:checkUser, arguments:['from', 'to', 'amount']  
+  Tainted Variable: from
+
+Sink #17: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: processRewards
+  Operation: HIGH_LEVEL_CALL, dest:cashier(Cashier), function:tally, arguments:['from', 'value']  
+  Tainted Variable: from
+
+Sink #18: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: processRewards
+  Operation: HIGH_LEVEL_CALL, dest:cashier(Cashier), function:tally, arguments:['from', '0']  
+  Tainted Variable: from
+
+Sink #19: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: processRewards
+  Operation: HIGH_LEVEL_CALL, dest:cashier(Cashier), function:tally, arguments:['to', 'value']  
+  Tainted Variable: to
+
+Sink #20: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: processRewards
+  Operation: HIGH_LEVEL_CALL, dest:cashier(Cashier), function:tally, arguments:['to', '0']  
+  Tainted Variable: to
+
+Sink #21: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: processRewards
+  Operation: HIGH_LEVEL_CALL, dest:cashier(Cashier), function:cashout, arguments:['reflectorGas']  
+  Tainted Variable: reflectorGas
+
+Sink #22: tainted_erc20_transfer
+  Contract: BitindiChain
+  Function: multiSendTokens
+  Operation: TMP_406(bool) = INTERNAL_CALL, BitindiChain.finalizeTransfer(address,address,uint256,bool,bool,bool)(msg.sender,REF_112,TMP_405,False,False,True)
+  Tainted Variable: REF_112
+
+Sink #23: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: getUserInfo
+  Operation: TUPLE_0(string,string,string,string) = HIGH_LEVEL_CALL, dest:cashier(Cashier), function:getUserInfo, arguments:['user']  
+  Tainted Variable: user
+
+Sink #24: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: getUserRealizedGains
+  Operation: TMP_422(uint256) = HIGH_LEVEL_CALL, dest:cashier(Cashier), function:getUserRealizedRewards, arguments:['user']  
+  Tainted Variable: user
+
+Sink #25: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: getUserUnpaidEarnings
+  Operation: TMP_423(uint256) = HIGH_LEVEL_CALL, dest:cashier(Cashier), function:getPendingRewards, arguments:['user']  
+  Tainted Variable: user
+
+Sink #26: tainted_state_changing_external_call
+  Contract: BitindiChain
+  Function: constructor
+  Operation: TMP_20(address) = HIGH_LEVEL_CALL, dest:TMP_17(IFactoryV2), function:createPair, arguments:['TMP_18', 'TMP_19']  
+  Tainted Variable: TMP_18
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in BitindiChain.transferOwner
+  Sink: tainted_state_changing_external_call in BitindiChain.processRewards
+  Path Operations:
+    1. transferOwner
+    2. TMP_40(bool) = INTERNAL_CALL, BitindiChain.finalizeTransfer(address,address,uint256,bool,bool,bool)(_owner,newOwner,TMP_39,False,False,True)
+    3. INTERNAL_CALL, BitindiChain.processRewards(address,address)(from,to)
+
+Path #2:
+  Source: external_input_params in BitindiChain.getUserUnpaidEarnings
+  Sink: tainted_state_changing_external_call in BitindiChain.getUserUnpaidEarnings
+  Path Operations:
+    1. getUserUnpaidEarnings
+
+Path #3:
+  Source: external_input_params in BitindiChain.setLpPair
+  Sink: tainted_state_changing_external_call in BitindiChain.setLpPair
+  Path Operations:
+    1. setLpPair
+
+Path #4:
+  Source: external_input_params in BitindiChain.setReflectorSettings
+  Sink: tainted_state_changing_external_call in BitindiChain.processRewards
+  Path Operations:
+    1. setReflectorSettings
+    2. reflectorGas(uint256) := gas(uint256)
+
+Path #5:
+  Source: external_input_params in BitindiChain.setRewardsProperties
+  Sink: tainted_state_changing_external_call in BitindiChain.setRewardsProperties
+  Path Operations:
+    1. setRewardsProperties
+
+Path #6:
+  Source: external_input_params in BitindiChain.transferFrom
+  Sink: tainted_erc20_transfer in BitindiChain._transfer
+  Path Operations:
+    1. transferFrom
+    2. TMP_81(bool) = INTERNAL_CALL, BitindiChain._transfer(address,address,uint256)(sender,recipient,amount)
+
+Path #7:
+  Source: external_input_params in BitindiChain.transferOwner
+  Sink: tainted_state_changing_external_call in BitindiChain.processRewards
+  Path Operations:
+    1. transferOwner
+    2. TMP_40(bool) = INTERNAL_CALL, BitindiChain.finalizeTransfer(address,address,uint256,bool,bool,bool)(_owner,newOwner,TMP_39,False,False,True)
+    3. INTERNAL_CALL, BitindiChain.processRewards(address,address)(from,to)
+
+Path #8:
+  Source: external_input_params in BitindiChain.setDividendExcluded
+  Sink: tainted_state_changing_external_call in BitindiChain.setDividendExcluded
+  Path Operations:
+    1. setDividendExcluded
+
+Path #9:
+  Source: external_input_params in BitindiChain.removeSniper
+  Sink: tainted_erc20_transfer in BitindiChain.removeSniper
+  Path Operations:
+    1. removeSniper
+
+Path #10:
+  Source: external_input_params in BitindiChain.setNewRouter
+  Sink: tainted_state_changing_external_call in BitindiChain.setNewRouter
+  Path Operations:
+    1. setNewRouter
+    2. TMP_84 = CONVERT newRouter to IRouter02
+    3. _newRouter(IRouter02) := TMP_84(IRouter02)
+    4. TMP_88(address) = HIGH_LEVEL_CALL, dest:_newRouter(IRouter02), function:WETH, arguments:[]  
+
+Path #11:
+  Source: external_input_params in BitindiChain.setLpPair
+  Sink: tainted_state_changing_external_call in BitindiChain.setLpPair
+  Path Operations:
+    1. setLpPair
+
+Path #12:
+  Source: external_input_params in BitindiChain.setNewRouter
+  Sink: tainted_state_changing_external_call in BitindiChain.enableTrading
+  Path Operations:
+    1. setNewRouter
+    2. TMP_84 = CONVERT newRouter to IRouter02
+    3. _newRouter(IRouter02) := TMP_84(IRouter02)
+    4. TMP_92(address) = HIGH_LEVEL_CALL, dest:_newRouter(IRouter02), function:factory, arguments:[]  
+    5. TMP_93 = CONVERT TMP_92 to IFactoryV2
+    6. TMP_96(address) = HIGH_LEVEL_CALL, dest:TMP_93(IFactoryV2), function:createPair, arguments:['TMP_94', 'TMP_95']  
+    7. lpPair(address) := TMP_96(address)
+
+Path #13:
+  Source: external_input_params in BitindiChain.getUserRealizedGains
+  Sink: tainted_state_changing_external_call in BitindiChain.getUserRealizedGains
+  Path Operations:
+    1. getUserRealizedGains
+
+Path #14:
+  Source: external_input_params in BitindiChain.transfer
+  Sink: tainted_erc20_transfer in BitindiChain.transfer
+  Path Operations:
+    1. transfer
+
+Path #15:
+  Source: external_input_params in BitindiChain.setNewRouter
+  Sink: tainted_state_changing_external_call in BitindiChain.setNewRouter
+  Path Operations:
+    1. setNewRouter
+    2. TMP_84 = CONVERT newRouter to IRouter02
+    3. _newRouter(IRouter02) := TMP_84(IRouter02)
+    4. TMP_95(address) = HIGH_LEVEL_CALL, dest:_newRouter(IRouter02), function:WETH, arguments:[]  
+
+Path #16:
+  Source: external_input_params in BitindiChain.multiSendTokens
+  Sink: tainted_erc20_transfer in BitindiChain.multiSendTokens
+  Path Operations:
+    1. multiSendTokens
+    2. REF_112(address) -> accounts[i]
+
+Path #17:
+  Source: external_input_params in BitindiChain.setNewRouter
+  Sink: tainted_state_changing_external_call in BitindiChain.constructor
+  Path Operations:
+    1. setNewRouter
+    2. TMP_84 = CONVERT newRouter to IRouter02
+    3. _newRouter(IRouter02) := TMP_84(IRouter02)
+    4. dexRouter(IRouter02) := _newRouter(IRouter02)
+    5. TMP_18(address) = HIGH_LEVEL_CALL, dest:dexRouter(IRouter02), function:WETH, arguments:[]  
+
+Path #18:
+  Source: external_input_params in BitindiChain.transferFrom
+  Sink: tainted_erc20_transfer in BitindiChain.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #19:
+  Source: external_input_params in BitindiChain.getUserInfo
+  Sink: tainted_state_changing_external_call in BitindiChain.getUserInfo
+  Path Operations:
+    1. getUserInfo
+
+Path #20:
+  Source: external_input_params in BitindiChain.setDividendExcluded
+  Sink: tainted_state_changing_external_call in BitindiChain.setDividendExcluded
+  Path Operations:
+    1. setDividendExcluded
+
+Path #21:
+  Source: external_input_params in BitindiChain.setProtectionSettings
+  Sink: tainted_state_changing_external_call in BitindiChain.setProtectionSettings
+  Path Operations:
+    1. setProtectionSettings

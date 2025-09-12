@@ -1,0 +1,2 @@
+slither-analyzer>=0.9.0
+requests>=2.25.0

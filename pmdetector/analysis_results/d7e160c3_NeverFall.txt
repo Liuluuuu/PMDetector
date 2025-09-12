@@ -1,0 +1,490 @@
+=== PMDetector Taint Analysis Results ===
+Found 34 taint sources
+Found 25 taint sinks
+Found 18 tainted paths (filtered from 18 total potential paths)
+Path filtering efficiency: 0.00% of paths filtered
+
+=== Taint Sources ===
+Source #1: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: name_
+
+Source #2: external_input_params
+  Contract: ERC20
+  Function: constructor
+  Operation: constructor
+  Tainted Variables: symbol_
+
+Source #3: external_input_params
+  Contract: ERC20
+  Function: balanceOf
+  Operation: balanceOf
+  Tainted Variables: account
+
+Source #4: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: to
+
+Source #5: external_input_params
+  Contract: ERC20
+  Function: transfer
+  Operation: transfer
+  Tainted Variables: amount
+
+Source #6: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: owner
+
+Source #7: external_input_params
+  Contract: ERC20
+  Function: allowance
+  Operation: allowance
+  Tainted Variables: spender
+
+Source #8: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: spender
+
+Source #9: external_input_params
+  Contract: ERC20
+  Function: approve
+  Operation: approve
+  Tainted Variables: amount
+
+Source #10: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: from
+
+Source #11: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: to
+
+Source #12: external_input_params
+  Contract: ERC20
+  Function: transferFrom
+  Operation: transferFrom
+  Tainted Variables: amount
+
+Source #13: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: spender
+
+Source #14: external_input_params
+  Contract: ERC20
+  Function: increaseAllowance
+  Operation: increaseAllowance
+  Tainted Variables: addedValue
+
+Source #15: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: spender
+
+Source #16: external_input_params
+  Contract: ERC20
+  Function: decreaseAllowance
+  Operation: decreaseAllowance
+  Tainted Variables: subtractedValue
+
+Source #17: external_input_params
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: transferOwnership
+  Tainted Variables: newOwner
+
+Source #18: external_input_params
+  Contract: NeverFallToken
+  Function: setConfAddress
+  Operation: setConfAddress
+  Tainted Variables: _marketingAddress
+
+Source #19: external_input_params
+  Contract: NeverFallToken
+  Function: setWhitelist
+  Operation: setWhitelist
+  Tainted Variables: _account
+
+Source #20: external_input_params
+  Contract: NeverFallToken
+  Function: setWhitelist
+  Operation: setWhitelist
+  Tainted Variables: _value
+
+Source #21: external_input_params
+  Contract: NeverFallToken
+  Function: addAutomatedMarketMakerPairs
+  Operation: addAutomatedMarketMakerPairs
+  Tainted Variables: _pair
+
+Source #22: external_input_params
+  Contract: NeverFallToken
+  Function: addAutomatedMarketMakerPairs
+  Operation: addAutomatedMarketMakerPairs
+  Tainted Variables: value
+
+Source #23: external_input_params
+  Contract: NeverFallToken
+  Function: updateSellFee
+  Operation: updateSellFee
+  Tainted Variables: _sellFee
+
+Source #24: external_input_params
+  Contract: NeverFallToken
+  Function: updateSellFee
+  Operation: updateSellFee
+  Tainted Variables: _sellMarketingFee
+
+Source #25: external_input_params
+  Contract: NeverFallToken
+  Function: updateBuyFee
+  Operation: updateBuyFee
+  Tainted Variables: _buyAddLiqFee
+
+Source #26: external_input_params
+  Contract: NeverFallToken
+  Function: updateBuyFee
+  Operation: updateBuyFee
+  Tainted Variables: _buySwapFee
+
+Source #27: external_input_params
+  Contract: NeverFallToken
+  Function: updateBuyFee
+  Operation: updateBuyFee
+  Tainted Variables: _buyMarketingFee
+
+Source #28: external_input_params
+  Contract: NeverFallToken
+  Function: getAmountUsdtOut
+  Operation: getAmountUsdtOut
+  Tainted Variables: amountIn
+
+Source #29: external_input_params
+  Contract: NeverFallToken
+  Function: getAmounNfOut
+  Operation: getAmounNfOut
+  Tainted Variables: amountIn
+
+Source #30: external_input_params
+  Contract: NeverFallToken
+  Function: buy
+  Operation: buy
+  Tainted Variables: amountU
+
+Source #31: external_input_params
+  Contract: NeverFallToken
+  Function: sell
+  Operation: sell
+  Tainted Variables: amount
+
+Source #32: external_input_params
+  Contract: NeverFallToken
+  Function: withdrawToken
+  Operation: withdrawToken
+  Tainted Variables: _tokenAddress
+
+Source #33: external_input_params
+  Contract: NeverFallToken
+  Function: withdrawToken
+  Operation: withdrawToken
+  Tainted Variables: _to
+
+Source #34: external_input_params
+  Contract: NeverFallToken
+  Function: withdrawToken
+  Operation: withdrawToken
+  Tainted Variables: amount
+
+=== Taint Sinks ===
+Sink #1: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(owner,to,amount)
+  Tainted Variable: to
+
+Sink #2: tainted_erc20_transfer
+  Contract: ERC20
+  Function: transferFrom
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #3: tainted_erc20_transfer
+  Contract: ERC20
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._beforeTokenTransfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #4: tainted_erc20_transfer
+  Contract: ERC20
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._afterTokenTransfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #5: tainted_erc20_transfer
+  Contract: Ownable
+  Function: transferOwnership
+  Operation: INTERNAL_CALL, Ownable._transferOwnership(address)(newOwner)
+  Tainted Variable: newOwner
+
+Sink #6: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: transfer
+  Operation: INTERNAL_CALL, NeverFallToken._transfer(address,address,uint256)(owner,to,amount)
+  Tainted Variable: to
+
+Sink #7: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: transferFrom
+  Operation: INTERNAL_CALL, NeverFallToken._transfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #8: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+  Tainted Variable: from
+
+Sink #9: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,TMP_257)
+  Tainted Variable: from
+
+Sink #10: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: _transfer
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,deadAddress,TMP_260)
+  Tainted Variable: from
+
+Sink #11: tainted_state_changing_external_call
+  Contract: NeverFallToken
+  Function: getAmountUsdtOut
+  Operation: TMP_266(uint256[]) = HIGH_LEVEL_CALL, dest:TMP_265(IPancakeRouter), function:getAmountsOut, arguments:['amountIn', 'path']  
+  Tainted Variable: amountIn
+
+Sink #12: tainted_state_changing_external_call
+  Contract: NeverFallToken
+  Function: getAmounNfOut
+  Operation: TMP_271(uint256[]) = HIGH_LEVEL_CALL, dest:TMP_270(IPancakeRouter), function:getAmountsOut, arguments:['amountIn', 'path']  
+  Tainted Variable: amountIn
+
+Sink #13: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: buy
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['TMP_273', 'msg.sender', 'TMP_274', 'amountU'] 
+  Tainted Variable: amountU
+
+Sink #14: tainted_state_changing_external_call
+  Contract: NeverFallToken
+  Function: buy
+  Operation: TMP_279(bool) = HIGH_LEVEL_CALL, dest:TMP_278(IERC20), function:approve, arguments:['uniswapV2Router', 'amountU']  
+  Tainted Variable: amountU
+
+Sink #15: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: buy
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(TMP_288,msg.sender,TMP_291)
+  Tainted Variable: TMP_291
+
+Sink #16: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: buy
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(pairTempAddress,TMP_293,TMP_294)
+  Tainted Variable: TMP_294
+
+Sink #17: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: buy
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['TMP_296', 'marketingAddress', 'TMP_298'] 
+  Tainted Variable: marketingAddress
+
+Sink #18: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: sell
+  Operation: INTERNAL_CALL, ERC20._transfer(address,address,uint256)(msg.sender,TMP_304,amount)
+  Tainted Variable: amount
+
+Sink #19: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: sell
+  Operation: INTERNAL_CALL, NeverFallToken.removeLiquidity(uint256,uint256,uint256)(needLiquidity,TMP_315,0)
+  Tainted Variable: needLiquidity
+
+Sink #20: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: sell
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['TMP_321', 'msg.sender', 'TMP_323'] 
+  Tainted Variable: TMP_323
+
+Sink #21: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: sell
+  Operation: LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['TMP_325', 'marketingAddress', 'TMP_327'] 
+  Tainted Variable: marketingAddress
+
+Sink #22: tainted_state_changing_external_call
+  Contract: NeverFallToken
+  Function: addLiquidity
+  Operation: TUPLE_4(uint256,uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_332(IPancakeRouter), function:addLiquidity, arguments:['TMP_333', 'usdtAddress', 'tokenAmount', 'usdtAmount', '1', 'usdtAmount', 'TMP_334', 'block.timestamp']  
+  Tainted Variable: usdtAmount
+
+Sink #23: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: buySwap
+  Operation: HIGH_LEVEL_CALL, dest:TMP_338(IPancakeRouter), function:swapExactTokensForTokensSupportingFeeOnTransferTokens, arguments:['tokenAmount', '0', 'path', 'pairTempAddress', 'block.timestamp']  
+  Tainted Variable: tokenAmount
+
+Sink #24: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: removeLiquidity
+  Operation: TUPLE_5(uint256,uint256) = HIGH_LEVEL_CALL, dest:TMP_340(IPancakeRouter), function:removeLiquidity, arguments:['TMP_341', 'usdtAddress', 'liquidity', 'amountAMin', 'amountBMin', 'TMP_342', 'block.timestamp']  
+  Tainted Variable: liquidity
+
+Sink #25: tainted_erc20_transfer
+  Contract: NeverFallToken
+  Function: withdrawToken
+  Operation: TMP_344(bool) = HIGH_LEVEL_CALL, dest:TMP_343(IERC20), function:transfer, arguments:['_to', 'amount']  
+  Tainted Variable: _to
+
+=== Tainted Paths ===
+Path #1:
+  Source: external_input_params in NeverFallToken.buy
+  Sink: tainted_erc20_transfer in NeverFallToken.buySwap
+  Path Operations:
+    1. buy
+    2. TMP_285(uint256) = amountU (c)* buySwapFee
+    3. TMP_286(uint256) = TMP_285 (c)/ 100
+    4. INTERNAL_CALL, NeverFallToken.buySwap(uint256)(TMP_286)
+
+Path #2:
+  Source: external_input_params in NeverFallToken.withdrawToken
+  Sink: tainted_erc20_transfer in NeverFallToken.withdrawToken
+  Path Operations:
+    1. withdrawToken
+
+Path #3:
+  Source: external_input_params in Ownable.transferOwnership
+  Sink: tainted_erc20_transfer in Ownable.transferOwnership
+  Path Operations:
+    1. transferOwnership
+
+Path #4:
+  Source: external_input_params in NeverFallToken.getAmounNfOut
+  Sink: tainted_state_changing_external_call in NeverFallToken.getAmounNfOut
+  Path Operations:
+    1. getAmounNfOut
+
+Path #5:
+  Source: external_input_params in NeverFallToken.buy
+  Sink: tainted_state_changing_external_call in NeverFallToken.buy
+  Path Operations:
+    1. buy
+
+Path #6:
+  Source: external_input_params in NeverFallToken.sell
+  Sink: tainted_erc20_transfer in NeverFallToken.sell
+  Path Operations:
+    1. sell
+
+Path #7:
+  Source: external_input_params in NeverFallToken.setConfAddress
+  Sink: tainted_erc20_transfer in NeverFallToken.buy
+  Path Operations:
+    1. setConfAddress
+    2. marketingAddress(address) := _marketingAddress(address)
+
+Path #8:
+  Source: external_input_params in NeverFallToken.sell
+  Sink: tainted_erc20_transfer in NeverFallToken.removeLiquidity
+  Path Operations:
+    1. sell
+    2. TMP_309(uint256) = amount (c)* pairTotalSupply
+    3. TMP_310(uint256) = TMP_309 (c)/ balanceNF
+    4. needLiquidity(uint256) := TMP_310(uint256)
+    5. INTERNAL_CALL, NeverFallToken.removeLiquidity(uint256,uint256,uint256)(needLiquidity,TMP_315,0)
+
+Path #9:
+  Source: external_input_params in NeverFallToken.sell
+  Sink: tainted_erc20_transfer in NeverFallToken.sell
+  Path Operations:
+    1. sell
+    2. TMP_309(uint256) = amount (c)* pairTotalSupply
+    3. TMP_310(uint256) = TMP_309 (c)/ balanceNF
+    4. needLiquidity(uint256) := TMP_310(uint256)
+
+Path #10:
+  Source: external_input_params in NeverFallToken.setConfAddress
+  Sink: tainted_erc20_transfer in NeverFallToken.sell
+  Path Operations:
+    1. setConfAddress
+    2. marketingAddress(address) := _marketingAddress(address)
+
+Path #11:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)
+
+Path #12:
+  Source: external_input_params in NeverFallToken.getAmountUsdtOut
+  Sink: tainted_state_changing_external_call in NeverFallToken.getAmountUsdtOut
+  Path Operations:
+    1. getAmountUsdtOut
+
+Path #13:
+  Source: external_input_params in NeverFallToken.buy
+  Sink: tainted_erc20_transfer in NeverFallToken.buy
+  Path Operations:
+    1. buy
+
+Path #14:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20.transferFrom
+  Path Operations:
+    1. transferFrom
+
+Path #15:
+  Source: external_input_params in ERC20.transfer
+  Sink: tainted_erc20_transfer in ERC20.transfer
+  Path Operations:
+    1. transfer
+
+Path #16:
+  Source: external_input_params in NeverFallToken.buy
+  Sink: tainted_state_changing_external_call in NeverFallToken.addLiquidity
+  Path Operations:
+    1. buy
+    2. TMP_280(uint256) = amountU (c)* buyAddLiqFee
+    3. TMP_281(uint256) = TMP_280 (c)/ 100
+    4. INTERNAL_CALL, NeverFallToken.addLiquidity(uint256,uint256)(initSupply,TMP_281)
+
+Path #17:
+  Source: external_input_params in NeverFallToken.updateSellFee
+  Sink: tainted_erc20_transfer in NeverFallToken.sell
+  Path Operations:
+    1. updateSellFee
+    2. sellFee(uint256) := _sellFee(uint256)
+    3. TMP_322(uint256) = outU (c)* sellFee
+    4. TMP_323(uint256) = TMP_322 (c)/ 100
+
+Path #18:
+  Source: external_input_params in ERC20.transferFrom
+  Sink: tainted_erc20_transfer in ERC20._transfer
+  Path Operations:
+    1. transferFrom
+    2. INTERNAL_CALL, ERC20._transfer(address,address,uint256)(from,to,amount)

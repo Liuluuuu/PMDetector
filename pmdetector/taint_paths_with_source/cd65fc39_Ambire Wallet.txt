@@ -1,0 +1,4 @@
+# Taint Analysis Results with Source Code Mapping
+Found 0 tainted paths.
+
+No relevant paths found in the taint analysis.
