@@ -1,0 +1,9 @@
+Path Groups:
+Group #1:
+  Source Function: TestContract.withdraw
+  Sink Function: TestContract.withdraw
+  Critical Operations: 
+  Affected State: 
+  Paths in this group: 1
+  Path IDs: Path #1
+  Key Steps:

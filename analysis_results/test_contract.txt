@@ -1,0 +1,13 @@
+# Taint Analysis Results with Source Code Mapping
+Found 1 tainted paths.
+
+## Path #1
+Source: external_input_params in TestContract.withdraw
+Sink: tainted_value_transfer in TestContract.withdraw
+
+### Operations with Source Code Mapping:
+    IR:  withdraw
+    SRC: File 'flattened_contracts/test_contract/flattened.sol', Lines [25, 26, 27, 28, 29, 30, 31]
+    LNE: (No direct expression available)
+
+----------------------------------------

@@ -1,6 +1,3 @@
-"""
-Core taint analysis detector module.
-"""
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple, Union
 
@@ -184,8 +181,8 @@ class TaintDetector:
                 break
             
             if self.verbose:
-                print(f"DEBUG: Starting iteration {iteration+1}")
-                print(f"DEBUG: Sources: {current_source_count}, Sinks: {current_sink_count}, Tainted Functions: {current_tainted_functions_count}")
+                print(f"Starting iteration {iteration+1}")
+                print(f"Sources: {current_source_count}, Sinks: {current_sink_count}, Tainted Functions: {current_tainted_functions_count}")
             
             last_taint_source_count = current_source_count
             last_taint_sink_count = current_sink_count
@@ -321,12 +318,10 @@ class TaintDetector:
         Propagate taint through operations in a node and build the taint_graph.
         """
         if self.verbose:
-            print(f"DEBUG: Processing function {node.function.name}, node {node.node_id}")
-            print(f"DEBUG: Current taint graph size: {len(self.taint_graph)}")
+            print(f"Processing function {node.function.name}, node {node.node_id}")
+            print(f"Current taint graph size: {len(self.taint_graph)}")
         
         for ir in node.irs:
-            if self.verbose:
-                print(f"DEBUG: Processing IR: {ir}")
             
             # Rule 1: Data Flow Propagation - Including Assignment, Binary, Index, Member, SolidityCall, Unpack etc.
             if hasattr(ir, 'lvalue') and ir.lvalue and hasattr(ir, 'read'):
@@ -336,14 +331,14 @@ class TaintDetector:
                             # Propagate taint: lvalue is tainted because of read_var
                             self.taint_graph[ir.lvalue] = (ir, read_var)
                             if self.verbose:
-                                print(f"DEBUG: Taint propagated from {read_var} to {ir.lvalue} via {ir}")
+                                print(f"Taint propagated from {read_var} to {ir.lvalue} via {ir}")
                             break
             
             # Handle internal function calls
             if isinstance(ir, InternalCall):
                 if hasattr(ir, 'function'):
                     if self.verbose:
-                        print(f"DEBUG: Found internal call to {ir.function.name} in {node.function.name} at node {node.node_id}")
+                        print(f"Found internal call to {ir.function.name} in {node.function.name} at node {node.node_id}")
                     
                     if hasattr(ir, 'arguments') and ir.arguments:
                         for i, arg in enumerate(ir.arguments):
@@ -363,13 +358,13 @@ class TaintDetector:
                             self.taint_graph[ir.lvalue] = (ir, tainted_var)
                             
                             if self.verbose:
-                                print(f"DEBUG: Linking return value {ir.lvalue} to tainted variable {tainted_var} from function {ir.function.name}")
+                                print(f"Linking return value {ir.lvalue} to tainted variable {tainted_var} from function {ir.function.name}")
 
                                 caller_func = node.function.name
                                 callee_func = ir.function.name
                                 caller_contract = node.function.contract.name if hasattr(node.function, 'contract') else "unknown"
                                 callee_contract = ir.function.contract.name if hasattr(ir.function, 'contract') else "unknown"
-                                print(f"DEBUG: Inter-procedural taint: {caller_contract}.{caller_func} calls {callee_contract}.{callee_func}")
+                                print(f"Inter-procedural taint: {caller_contract}.{caller_func} calls {callee_contract}.{callee_func}")
             
             # Rule 2: Persistent State Poisoning (SSTORE)
             if isinstance(ir, Assignment) and isinstance(ir.lvalue, (StateVariable, StateIRVariable, IndexAccess, MemberAccess)):
@@ -409,7 +404,7 @@ class TaintDetector:
                             if slot in self.tainted_storage_slots[contract]:
                                 self.taint_graph[ir.lvalue] = (ir, read_var)
                                 if self.verbose:
-                                    print(f"DEBUG: Taint propagated from storage slot {slot} to {ir.lvalue}")
+                                    print(f"Taint propagated from storage slot {slot} to {ir.lvalue}")
                                 break
                     
                     elif read_var is not None and isinstance(read_var, IndexAccess):
@@ -430,7 +425,7 @@ class TaintDetector:
                                     # Propagate taint from storage
                                     self.taint_graph[ir.lvalue] = (ir, read_var)
                                     if self.verbose:
-                                        print(f"DEBUG: Taint propagated from mapping/array slot {slot} to {ir.lvalue}")
+                                        print(f"Taint propagated from mapping/array slot {slot} to {ir.lvalue}")
                                     break
                     
                     elif read_var is not None and isinstance(read_var, MemberAccess):
@@ -447,7 +442,7 @@ class TaintDetector:
                                     # Propagate taint from storage
                                     self.taint_graph[ir.lvalue] = (ir, read_var)
                                     if self.verbose:
-                                        print(f"DEBUG: Taint propagated from struct member slot {slot} to {ir.lvalue}")
+                                        print(f"Taint propagated from struct member slot {slot} to {ir.lvalue}")
                                     break
             
             # Check for Return statements with tainted values
@@ -468,8 +463,8 @@ class TaintDetector:
         """
         if node.contains_if() or node.contains_require_or_assert():
             if self.verbose:
-                print(f"DEBUG: Checking control flow taint for node {node.node_id} in function {node.function.name}")
-                print(f"DEBUG: Node contains: {node.irs}")
+                print(f"Checking control flow taint for node {node.node_id} in function {node.function.name}")
+                print(f"Node contains: {node.irs}")
             
             for ir in node.irs:
                 tainted_condition = False
@@ -480,7 +475,7 @@ class TaintDetector:
                         if v is not None and v in self.taint_graph:
                             tainted_condition = True
                             if self.verbose:
-                                print(f"DEBUG: Found tainted condition variable: {v} in node {node.node_id}")
+                                print(f"Found tainted condition variable: {v} in node {node.node_id}")
 
                 # Check for require/assert calls
                 elif isinstance(ir, SolidityCall) and (ir.function.name.startswith("require") or ir.function.name.startswith("assert")):
@@ -488,7 +483,7 @@ class TaintDetector:
                         if v is not None and v in self.taint_graph:
                             tainted_condition = True
                             if self.verbose:
-                                print(f"DEBUG: Found tainted require/assert argument: {v} in node {node.node_id}")
+                                print(f"Found tainted require/assert argument: {v} in node {node.node_id}")
                 
                 if tainted_condition:
                     # Mark the conditional node itself as tainted.
@@ -497,9 +492,9 @@ class TaintDetector:
                     # Find all nodes that are control-dependent on this tainted conditional
                     control_dependent_nodes = self._find_control_dependent_nodes(node)
                     if self.verbose:
-                        print(f"DEBUG: Found {len(control_dependent_nodes)} control-dependent nodes for node {node.node_id}")
+                        print(f"Found {len(control_dependent_nodes)} control-dependent nodes for node {node.node_id}")
                         for dep_node in control_dependent_nodes:
-                            print(f"DEBUG:   - Node {dep_node.node_id}")
+                            print(f"  - Node {dep_node.node_id}")
                     
                     self.tainted_control_flow_nodes.update(control_dependent_nodes)
     
@@ -832,4 +827,3 @@ class TaintDetector:
                 return True
              
         return False
-        

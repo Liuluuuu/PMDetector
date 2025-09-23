@@ -1,17 +1,12 @@
-"""
-Two-step LLM analyzer for PMDetector: 
-Stage 1 - Path Filtering: Filters taint paths that are benign. 
-Stage 2 - Attack Simulation: Analyzes filtered paths to generate a vulnerability report.
-"""
 
 import json
-import http.client
 import os
 import re 
 import time
 from pathlib import Path
 from typing import Dict, List, Optional, Union, Any
 from dotenv import load_dotenv
+import openai
 
 load_dotenv()
 
@@ -20,15 +15,12 @@ from pmdetector.llm.path_grouping import parse_source_code_taint_path, group_pat
 class MultiAgentAnalyzer:
     def __init__(
         self,
-        api_host: str = "api.gpt.ge",
-        api_endpoint: str = "/v1/chat/completions",
         model: str = "",
-        temperature: float = 0,     # Ensure determinism of the result
+        temperature: float = 0,     
     ):
-        self.api_host = api_host
-        self.api_endpoint = api_endpoint
         self.model = model
         self.temperature = temperature
+        self.client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
     
     def analyze(
         self,
@@ -52,7 +44,6 @@ class MultiAgentAnalyzer:
         enhanced_paths = []
         temp_path = Path("experiments/temp_path.txt")
         with open(temp_path, "w") as f:
-            # Write the header expected by parse_source_code_taint_path
             f.write(f"# Taint Analysis Results with Source Code Mapping\n")
             f.write(f"Found {len(taint_paths)} tainted paths.\n\n")
             
@@ -62,12 +53,10 @@ class MultiAgentAnalyzer:
                 f.write(path_str + "\n\n")
                 f.write("----------------------------------------\n\n")
         
-        # Parse all paths from the single file
         parsed_paths = parse_source_code_taint_path(str(temp_path))
         enhanced_paths.extend(parsed_paths)
         temp_path.unlink()
         
-        # Group the paths
         path_groups_dict = group_paths(enhanced_paths)
         
         path_groups = []
@@ -81,8 +70,7 @@ class MultiAgentAnalyzer:
                 "paths": paths
             }
             path_groups.append(group)
-        
-        # Format the path groups & Store formatted path groups in a dedicated folder
+
         path_groups_str = format_path_groups(path_groups_dict, contract_name, baseline_name="multi_agent")
         self._store_formatted_path_groups(path_groups_str, contract_name)
         
@@ -90,8 +78,7 @@ class MultiAgentAnalyzer:
         if formatted_path_groups_file.exists():
             with open(formatted_path_groups_file, "r") as f:
                 path_groups_str = f.read()
-            
-            # Extract group IDs
+
             group_ids = []
             lines = path_groups_str.split("\n")
             current_group_id = None
@@ -190,8 +177,7 @@ class MultiAgentAnalyzer:
         plausible_count = 0
         for verdict in verdicts:
             if verdict.get('verdict') == 'PLAUSIBLE':
-                print("=====================Debug: Print Plausible Verdict=====================")
-                print(verdict)
+                pass
             group_id = verdict.get("group_id", "unknown")
             verdict_value = verdict.get("verdict", "").upper()
             
@@ -213,7 +199,6 @@ class MultiAgentAnalyzer:
     ) -> str:
         contract_info = f"Contract: {contract_name}\n\n" if contract_name else ""
         
-        # Parse path groups to extract information for template population
         path_groups_info = []
         current_group = {}
         lines = path_groups_str.split('\n')
@@ -236,11 +221,9 @@ class MultiAgentAnalyzer:
             elif "key_steps" in current_group and line.startswith("    -"):
                 current_group["key_steps"].append(line.strip())
         
-        # Add the last group if it exists
         if current_group and "source_function" in current_group:
             path_groups_info.append(current_group)
         
-        # Create customized analysis checklist for each path group
         analysis_checklists = []
         for group in path_groups_info:
             group_id = group.get("group_id", "")
@@ -291,13 +274,33 @@ Provide your final verdict for each path group in the following JSON format. Ret
         Parse the response from the triage agent.
         """
         try:
+            if not response or "choices" not in response or not response["choices"]:
+                return [{
+                    "group_id": "unknown",
+                    "verdict": "BENIGN",
+                    "reason": "Empty or invalid response from the triage agent."
+                }]
+                
+            if "message" not in response["choices"][0] or "content" not in response["choices"][0]["message"]:
+                return [{
+                    "group_id": "unknown",
+                    "verdict": "BENIGN",
+                    "reason": "Invalid response structure from the triage agent."
+                }]
+                
             content = response["choices"][0]["message"]["content"]
+            
+            if content is None:
+                return [{
+                    "group_id": "unknown",
+                    "verdict": "BENIGN",
+                    "reason": "Null content in response from the triage agent."
+                }]
             
             json_start = content.find("[")
             json_end = content.rfind("]") + 1
             
             if json_start == -1 or json_end == 0:
-                # Try to find a single JSON object if array not found
                 json_start = content.find("{")
                 json_end = content.rfind("}") + 1
                 
@@ -345,7 +348,6 @@ Provide your final verdict for each path group in the following JSON format. Ret
         """
         print("Running Exploitation Analyst agent...")
         
-        # If no plausible paths were found, return a default "not vulnerable" report
         if not filtered_path_groups:
             print("  No plausible paths found, returning not vulnerable report")
             return {
@@ -379,11 +381,9 @@ Provide your final verdict for each path group in the following JSON format. Ret
                 "explanation": reason
             })
             
-            # Try to extract function names from the path group
             if "paths" in group and group["paths"]:
                 for path in group["paths"]:
                     try:
-                        # Convert EnhancedTaintPath object to dictionary if needed
                         path_dict = path.to_dict() if hasattr(path, 'to_dict') else path
                         
                         if "source" in path_dict and path_dict["source"] and "function" in path_dict["source"]:
@@ -404,7 +404,6 @@ Provide your final verdict for each path group in the following JSON format. Ret
     ) -> str:
         contract_info = f"Contract: {contract_name}\n\n" if contract_name else ""
         
-        # Parse filtered path groups to extract information for template population
         path_groups_info = []
         current_group = {}
         lines = filtered_path_groups_str.split('\n')
@@ -429,11 +428,9 @@ Provide your final verdict for each path group in the following JSON format. Ret
             elif "key_steps" in current_group and line.startswith("    -"):
                 current_group["key_steps"].append(line.strip())
         
-        # Add the last group if it exists
         if current_group and "source_function" in current_group:
             path_groups_info.append(current_group)
         
-        # Create customized Chain-of-Thought Analysis for each path group
         analysis_steps = []
         for group in path_groups_info:
             group_id = group.get("group_id", "")
@@ -453,7 +450,6 @@ Provide your final verdict for each path group in the following JSON format. Ret
 """
             analysis_steps.append(analysis)
         
-        # Join all analysis steps
         all_analysis_steps = "\n\n".join(analysis_steps)
         
         prompt = f"""You are a smart contract security auditor specializing in DeFi economic exploits. We have already pre-filtered a list of plausible vulnerability paths. Your task is to analyze these high-potential paths to identify the definitive exploit scenario.
@@ -519,7 +515,6 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
                     "vulnerable_groups": []
                 }
             
-            # Try to extract JSON from the response content
             json_match = None
             json_block_patterns = [
                 r'```json\s*(.*?)\s*```',  # Markdown JSON code block
@@ -533,9 +528,7 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
                     json_match = matches[0]
                     break
             
-            # If no code block found, try to find JSON directly in the content
             if not json_match:
-                # Look for JSON object
                 json_start = content.find("{")
                 json_end = content.rfind("}") + 1
                 
@@ -545,10 +538,8 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
             if not json_match:
                 raise ValueError("No JSON found in the response")
             
-            # Parse the JSON
             result = json.loads(json_match)
-            
-            # Ensure required fields are present
+
             required_fields = ["is_vulnerable", "confidence", "explanation"]
             for field in required_fields:
                 if field not in result:
@@ -566,7 +557,7 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
             return result
         except Exception as e:
             print(f"Error parsing exploitation response: {e}")
-            print(f"Raw response: {str(response)[:500]}...")  # Print only first 500 chars to avoid huge output
+            # print(f"Raw response: {str(response)[:500]}...") 
             
             return {
                 "is_vulnerable": False,
@@ -583,51 +574,33 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
         
         for attempt in range(max_retries):
             try:
-                conn = http.client.HTTPSConnection(self.api_host)
+                print(f"Calling OpenAI API with model {self.model} (attempt {attempt+1}/{max_retries})")
                 
-                payload = json.dumps({
-                    "model": self.model,
-                    "messages": [
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
                         {
                             "role": "user",
                             "content": prompt
                         }
                     ],
-                    "temperature": self.temperature,
-                    "stream": False
-                })
+                    temperature=self.temperature
+                )
                 
-                headers = {
-                    'Content-Type': 'application/json',
-                    'Authorization': os.getenv('LLM_KEY')
+                response_dict = {
+                    "choices": [
+                        {
+                            "message": {
+                                "content": response.choices[0].message.content
+                            }
+                        }
+                    ]
                 }
                 
-                print(f"Calling LLM API: {self.api_host}{self.api_endpoint} (attempt {attempt+1}/{max_retries})")
+                return response_dict
                 
-                # Set a timeout for the connection (10 seconds for connection, 300 seconds for response)
-                conn.timeout = 300
-                
-                conn.request("POST", self.api_endpoint, payload, headers)
-                res = conn.getresponse()
-                data = res.read()
-                
-                print(f"API response status: {res.status}")
-                
-                if res.status == 200:
-                    response_data = json.loads(data.decode("utf-8"))
-                    return response_data
-                else:
-                    print(f"API returned error status: {res.status}")
-                    if attempt < max_retries - 1:
-                        print(f"Retrying in {retry_delay} seconds...")
-                        time.sleep(retry_delay)
-                        # Increase retry delay for next attempt
-                        retry_delay *= 2
-                    else:
-                        print("Max retries reached, giving up.")
-                        break
-            except json.JSONDecodeError as e:
-                print(f"JSON decode error: {str(e)}")
+            except Exception as e:
+                print(f"Error during API call: {str(e)}")
                 if attempt < max_retries - 1:
                     print(f"Retrying in {retry_delay} seconds...")
                     time.sleep(retry_delay)
@@ -659,7 +632,6 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
             output_path = path_groups_dir / filename
             if not output_path.exists():
                 with open(output_path, "w") as f:
-                    # Convert string to lines if it's not already a list
                     if isinstance(path_groups_str, str):
                         path_groups_str = path_groups_str.split('\n')
                     f.write("\n".join(path_groups_str))
@@ -671,9 +643,6 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
     def _analyze_single_contract(self, result_file, flattened_dir):
         """
         Analyze a single contract using the multi-agent approach.
-            
-        Returns:
-            Tuple of (contract_id, analysis_result)
         """
         try:
             contract_id = result_file.stem
@@ -695,8 +664,7 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
             
             with open(source_file, "r", encoding="utf-8") as f:
                 source_code = f.read()
-            
-            # Check if there's a corresponding taint path file in the taint_paths_with_source directory
+
             taint_path_file = Path(f"pmdetector/taint_paths_with_source/{contract_id}.txt")
             
             if not taint_path_file.exists():
@@ -710,11 +678,9 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
                     "vulnerable_groups": []
                 }
             
-            # Read taint paths from the taint path file
             with open(taint_path_file, "r", encoding="utf-8") as f:
                 taint_content = f.read()
             
-            # Extract taint paths from the taint path file
             taint_paths = []
             lines = taint_content.split("\n")
             current_path = []
@@ -733,15 +699,12 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
             if current_path:
                 taint_paths.append("\n".join(current_path))
                 
-            # If no taint paths were found, try the original method with the result file
             if not taint_paths:
                 print(f"No taint paths found in taint path file, trying result file for {contract_id}")
                 try:
-                    # Read taint paths from result file
                     with open(result_file, "r", encoding="utf-8") as f:
                         result_content = f.read()
                     
-                    # Extract taint paths from result content
                     lines = result_content.split("\n")
                     current_path = []
                     in_path = False
@@ -761,7 +724,6 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
                 except Exception as e:
                     print(f"Error reading result file for {contract_id}: {str(e)}")
             
-            # Analyze the contract
             result = self.analyze(source_code, taint_paths, contract_id)
             
             return contract_id, result

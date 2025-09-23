@@ -1,0 +1,8 @@
+{
+  "is_vulnerable": false,
+  "confidence": 1.0,
+  "explanation": "No plausible vulnerability paths were identified during triage.",
+  "vulnerable_functions": [],
+  "vulnerable_paths": [],
+  "vulnerable_groups": []
+}

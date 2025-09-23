@@ -93,7 +93,6 @@ class SanityChecker:
             source_dir = os.path.dirname(source_code_path)
             include_paths = [source_dir]
             
-            # Add node_modules directory if it exists
             node_modules_dir = os.path.join(source_dir, 'node_modules')
             if os.path.exists(node_modules_dir):
                 include_paths.append(node_modules_dir)
@@ -251,9 +250,6 @@ class SanityChecker:
         return True
 
     def _is_dex_interaction_ir(self, ir) -> bool:
-        """
-        Checks if a SlithIR operation is a DEX interaction.
-        """
         if hasattr(ir, 'function_name') and any(dex_func in ir.function_name.lower() for dex_func in self.DEX_INTERACTION_FUNCTIONS):
             return True
         if hasattr(ir, 'function') and ir.function and any(dex_func in ir.function.name.lower() for dex_func in self.DEX_INTERACTION_FUNCTIONS):
@@ -291,9 +287,6 @@ class SanityChecker:
         return None
 
     def _has_access_control(self, function: Function) -> bool:
-        """
-        Check if a function has access control modifiers or checks.
-        """
         for modifier in function.modifiers:
             if modifier.name in self.ACCESS_CONTROL_MODIFIERS:
                 return True
@@ -316,9 +309,6 @@ class SanityChecker:
         return False
 
     def _interacts_with_dex(self, function: Function) -> bool:
-        """
-        Check if a function interacts with a DEX.
-        """
         try:
             function_name_str = str(function.name)
             if any(dex_func in function_name_str.lower() for dex_func in self.DEX_INTERACTION_FUNCTIONS):
@@ -347,9 +337,6 @@ class SanityChecker:
         return False
 
     def _has_reentrancy_guard(self, function: Function) -> bool:
-        """
-        Check if a function has reentrancy guards.
-        """
         for modifier in function.modifiers:
             if modifier.name in self.REENTRANCY_GUARD_MODIFIERS:
                 return True
@@ -371,9 +358,6 @@ class SanityChecker:
         return False
 
     def _has_cooldown_check(self, function: Function) -> bool:
-        """
-        Check for a cooldown mechanism by looking for patterns: require(block.timestamp >= last_time + cooldown)
-        """
         for node in function.nodes:
             if not node.contains_require_or_assert():
                 continue
@@ -397,9 +381,6 @@ class SanityChecker:
         return False
 
     def _check_fee_on_transfer_pattern(self, function: Function) -> bool:
-        """
-        Check if a swap is triggered within a standard transfer function.
-        """
         if function.name in ['_transfer', '_transferFrom']:
             for node in function.nodes:
                 for ir in node.irs:
@@ -409,9 +390,6 @@ class SanityChecker:
         return False
 
     def _is_standard_token_operation(self, function: Function) -> bool:
-        """
-        Check if a function is part of the EIP-20 standard OR a common token extension
-        """
         if function.signature_str in self.STANDARD_TOKEN_OPERATIONS:
             return True
         
@@ -447,9 +425,6 @@ class SanityChecker:
         return False
     
     def _path_is_mitigated(self, function: Function, visited: Set[Function]) -> bool:
-        """
-        Check if a path contains mitigations.
-        """
         if function in visited: return False
         visited.add(function)
 

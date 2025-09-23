@@ -1,0 +1,19 @@
+{
+  "contract_id": "test_contract",
+  "paths": [
+    {
+      "path_id": 1,
+      "source": {
+        "type": "external_input_params",
+        "operation": "withdraw"
+      },
+      "sink": {
+        "type": "tainted_value_transfer",
+        "operation": "TUPLE_0(bool,bytes) = LOW_LEVEL_CALL, dest:msg.sender, function:call, arguments:[''] value:amount "
+      },
+      "operations": [
+        "withdraw"
+      ]
+    }
+  ]
+}

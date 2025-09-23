@@ -38,7 +38,6 @@ def extract_solidity_version(file_path) -> str:
         if compatible_version:
             return str(compatible_version)
         
-        # print(f"No installed solc version matches pragma '{primary_pragma}'. Attempting to install a new one.")
         
         match = re.search(r'(\d+\.\d+\.\d+)', primary_pragma)
         if match:
@@ -154,8 +153,6 @@ def main(convert_to_source=False):
 
     dataset_path = Path("experiments/data/dataset/attack_dataset.xlsx")
     df = pd.read_excel(dataset_path)
-    
-    print(f"Processing {len(df)} contracts from the dataset...")
     
     detector = TaintDetector(verbose=False)
     
@@ -319,7 +316,7 @@ abstract contract Context {
     }
 }""")
                 
-                # Create minimal SafeMath.sol
+                # Create minimal SafeMath.sol file
                 safemath_file = math_dir / 'SafeMath.sol'
                 if not safemath_file.exists():
                     with open(safemath_file, 'w', encoding='utf-8') as f:
@@ -344,7 +341,7 @@ library SafeMath {
     }
 }""")
                 
-                # Create minimal IERC20.sol
+                # Create minimal IERC20.sol file
                 ierc20_file = interfaces_dir / 'IERC20.sol'
                 if not ierc20_file.exists():
                     with open(ierc20_file, 'w', encoding='utf-8') as f:
@@ -363,7 +360,7 @@ interface IERC20 {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }""")
                 
-                # Create minimal ERC20.sol
+                # Create minimal ERC20.sol file
                 erc20_file = erc20_dir / 'ERC20.sol'
                 if not erc20_file.exists():
                     with open(erc20_file, 'w', encoding='utf-8') as f:
@@ -441,7 +438,7 @@ contract ERC20 is Context, IERC20 {
     }
 }""")
                 
-                # Create minimal Ownable.sol
+                # Create minimal Ownable.sol file
                 ownable_file = access_dir / 'Ownable.sol'
                 if not ownable_file.exists():
                     with open(ownable_file, 'w', encoding='utf-8') as f:
@@ -484,7 +481,7 @@ abstract contract Ownable is Context {
     }
 }""")
                 
-                # Create minimal SafeERC20.sol
+                # Create minimal SafeERC20.sol file
                 safeerc20_file = utils_token_dir / 'SafeERC20.sol'
                 if not safeerc20_file.exists():
                     with open(safeerc20_file, 'w', encoding='utf-8') as f:
@@ -507,7 +504,7 @@ library SafeERC20 {
     }
 }""")
                 
-                # Create minimal ReentrancyGuard.sol
+                # Create minimal ReentrancyGuard.sol file
                 reentrancy_file = security_dir / 'ReentrancyGuard.sol'
                 if not reentrancy_file.exists():
                     with open(reentrancy_file, 'w', encoding='utf-8') as f:
@@ -531,7 +528,7 @@ abstract contract ReentrancyGuard {
     }
 }""")
                 
-                # Create minimal Pausable.sol
+                # Create minimal Pausable.sol file
                 pausable_file = security_dir / 'Pausable.sol'
                 if not pausable_file.exists():
                     with open(pausable_file, 'w', encoding='utf-8') as f:
@@ -575,7 +572,7 @@ abstract contract Pausable is Context {
     }
 }""")
                 
-                # Create minimal ERC20Burnable.sol
+                # Create minimal ERC20Burnable.sol file
                 erc20burnable_file = extensions_dir / 'ERC20Burnable.sol'
                 if not erc20burnable_file.exists():
                     with open(erc20burnable_file, 'w', encoding='utf-8') as f:
@@ -603,7 +600,7 @@ abstract contract ERC20Burnable is Context, ERC20 {
     }
 }""")
                 
-                # Create minimal IERC20Metadata.sol
+                # Create minimal IERC20Metadata.sol file
                 ierc20metadata_file = extensions_dir / 'IERC20Metadata.sol'
                 if not ierc20metadata_file.exists():
                     with open(ierc20metadata_file, 'w', encoding='utf-8') as f:
@@ -618,7 +615,7 @@ interface IERC20Metadata is IERC20 {
     function decimals() external view returns (uint8);
 }""")
             
-            # Create solmate structure if needed
+            # Create solmate directory structure if needed
             if needs_solmate and not solmate_dir.exists():
                 print(f"Solmate imports detected. Creating basic structure for {protocol}...")
                 solmate_dir.mkdir(exist_ok=True, parents=True)
@@ -679,7 +676,7 @@ abstract contract ERC20 {
     }
 }""")
                 
-                # Create minimal Owned.sol for solmate
+                # Create minimal Owned.sol file for solmate
                 owned_file = auth_dir / 'Owned.sol'
                 if not owned_file.exists():
                     with open(owned_file, 'w', encoding='utf-8') as f:

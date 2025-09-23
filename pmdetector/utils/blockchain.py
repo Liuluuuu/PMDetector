@@ -80,7 +80,6 @@ def _get_source_from_explorer(address: str, blockchain: str) -> Optional[str]:
     }
     
     try:
-        # Add retry logic and better error handling for network issues
         max_retries = 3
         retry_count = 0
         backoff_time = 1  # Start with 1 second backoff
@@ -90,7 +89,6 @@ def _get_source_from_explorer(address: str, blockchain: str) -> Optional[str]:
                 print(f"Requesting source code from {blockchain} explorer for address {address}")
                 response = requests.get(url, params=params, timeout=30)  # Add timeout
                 
-                # Check for HTTP errors
                 response.raise_for_status()
                 
                 data = response.json()
@@ -99,7 +97,6 @@ def _get_source_from_explorer(address: str, blockchain: str) -> Optional[str]:
                     source_code = data["result"][0].get("SourceCode")
                     if source_code and source_code != "":
                         print(f"Successfully retrieved source code from {blockchain} explorer")
-                        # Process the source code to handle different formats
                         return process_source_code(source_code)
                     else:
                         print(f"Empty source code returned from {blockchain} explorer")
@@ -107,7 +104,7 @@ def _get_source_from_explorer(address: str, blockchain: str) -> Optional[str]:
                     error_msg = data.get("message", "Unknown error")
                     print(f"API error from {blockchain} explorer: {error_msg}")
                 
-                break  # Exit the retry loop if we got a response (even if it's an error)
+                break 
                 
             except requests.exceptions.SSLError as ssl_err:
                 retry_count += 1
@@ -135,12 +132,6 @@ def _get_source_from_explorer(address: str, blockchain: str) -> Optional[str]:
 
 
 def process_source_code(source_code: any) -> Optional[Union[str, Dict[str, str]]]:
-    """
-    Process the source code from blockchain explorer.
-    - If it's a single file, return the source code as a string.
-    - If it's a multi-file JSON, return a dictionary of {filename: content}.
-    - Returns None for Vyper or un-parsable contracts.
-    """
     if isinstance(source_code, dict):
         source_code = json.dumps(source_code)
     
@@ -160,10 +151,7 @@ def process_source_code(source_code: any) -> Optional[Union[str, Dict[str, str]]
             json_data = json.loads(json_str)
             sources = json_data.get("sources", json_data)
             
-            # This is a multi-file project. Return the dictionary of sources.
             if isinstance(sources, dict) and any(file.endswith(".sol") for file in sources.keys()):
-                
-                # The API sometimes wraps content in a 'content' key. Unwrap it.
                 cleaned_sources = {}
                 for file_name, file_data in sources.items():
                     if file_name.endswith(".sol"):
@@ -175,11 +163,8 @@ def process_source_code(source_code: any) -> Optional[Union[str, Dict[str, str]]
                     return cleaned_sources
 
         except json.JSONDecodeError:
-            # Not valid JSON, treat as a single file below
             pass
 
-    # If it's not a multi-file JSON, it's a single flattened file.
-    # Pre-process to remove extra SPDX licenses which cause compilation errors.
     lines = source_code.splitlines()
     spdx_found = False
     processed_lines = []
@@ -188,7 +173,6 @@ def process_source_code(source_code: any) -> Optional[Union[str, Dict[str, str]]
             if not spdx_found:
                 processed_lines.append(line)
                 spdx_found = True
-            # else, skip the duplicate license line
         else:
             processed_lines.append(line)
     
@@ -197,14 +181,8 @@ def process_source_code(source_code: any) -> Optional[Union[str, Dict[str, str]]
 
 
 def _get_source_from_sourcify(address: str, blockchain: str) -> Optional[Union[str, Dict[str, str]]]:
-    """
-    Retrieve source code from Sourcify API.
-    Returns either a string (flattened source) or a dictionary of files (multi-file project).
-    """
-    # Get API details for the specified blockchain
     api_config = BLOCKCHAIN_APIS[blockchain]
     
-    # Prepare API request
     url = api_config["sourcify_api"].format(address=address)
     
     try:
@@ -212,21 +190,17 @@ def _get_source_from_sourcify(address: str, blockchain: str) -> Optional[Union[s
         if response.status_code == 200:
             data = response.json()
             
-            # Check if we have multiple .sol files - if so, return as a multi-file project
             if isinstance(data, dict):
-                # Dictionary format
                 sol_files = {path: content for path, content in data.items() if path.endswith(".sol")}
                 if len(sol_files) > 1:
                     print("Detected multi-file project from Sourcify.")
                     return sol_files
                 elif len(sol_files) == 1:
-                    # Single file, return as string
                     file_path = next(iter(sol_files.keys()))
                     print(f"Detected single file from Sourcify: {file_path}")
                     return sol_files[file_path]
             
             elif isinstance(data, list):
-                # List format (newer Sourcify API)
                 sol_files = {}
                 for file_obj in data:
                     if isinstance(file_obj, dict) and "name" in file_obj and "content" in file_obj:
@@ -238,33 +212,25 @@ def _get_source_from_sourcify(address: str, blockchain: str) -> Optional[Union[s
                     print("Detected multi-file project from Sourcify.")
                     return sol_files
                 elif len(sol_files) == 1:
-                    # Single file, return as string
                     file_path = next(iter(sol_files.keys()))
                     print(f"Detected single file from Sourcify: {file_path}")
                     return sol_files[file_path]
             
-            # Fallback to the old flattened approach if the above didn't return
             flattened_source = ""
-            
-            # Handle both dictionary and list responses from Sourcify
             if isinstance(data, dict):
-                # Dictionary format
                 for file_path in sorted(data.keys()):
                     if file_path.endswith(".sol"):
                         content = data[file_path]
-                        
-                        # Add a comment to indicate the source file
+
                         flattened_source += f"\n// Source: {file_path}\n"
                         flattened_source += content + "\n"
             elif isinstance(data, list):
-                # List format (newer Sourcify API)
                 for file_obj in data:
                     if isinstance(file_obj, dict) and "name" in file_obj and "content" in file_obj:
                         file_path = file_obj["name"]
                         if file_path.endswith(".sol"):
                             content = file_obj["content"]
-                            
-                            # Add a comment to indicate the source file
+
                             flattened_source += f"\n// Source: {file_path}\n"
                             flattened_source += content + "\n"
             
@@ -275,4 +241,3 @@ def _get_source_from_sourcify(address: str, blockchain: str) -> Optional[Union[s
         print(f"Error retrieving source from Sourcify for {blockchain}: {e}")
     
     return None
-
