@@ -45,3 +45,4 @@ Supported platforms include:
 ## Acknowledgments
 
 - [Slither](https://github.com/crytic/slither) - The Solidity source code analyzer
+- The evaluation dataset is located at `experiments/data/dataset/attack_dataset.xlsx` and contains smart contracts from various platforms labeled for price manipulation vulnerabilities
