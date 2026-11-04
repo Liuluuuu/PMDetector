@@ -8,6 +8,8 @@ import json
 import re
 import http.client
 import time
+import logging
+from pmdetector.llm.config import PAPER_TEMPERATURE
 from typing import List, Dict, Tuple, Set, Any, Optional, Union
 from pathlib import Path
 from collections import defaultdict
@@ -120,7 +122,7 @@ class NarrativeGenerator:
         api_host: str = "api.gpt.ge",
         api_endpoint: str = "/v1/chat/completions",
         model: str = "",
-        temperature: float = 0,     # Ensure determinism of the result
+        temperature: float = PAPER_TEMPERATURE,  # Reduces randomness, not a determinism guarantee
         verbose: bool = False
     ):
         self.api_host = api_host
@@ -128,6 +130,9 @@ class NarrativeGenerator:
         self.model = model
         self.temperature = temperature
         self.verbose = verbose
+        logging.getLogger(__name__).info(
+            "Narrative configuration: model=%s temperature=%s", model, temperature
+        )
     
     def generate_narrative(
         self,

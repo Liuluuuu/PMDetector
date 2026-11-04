@@ -7,13 +7,19 @@ setup(
     description="A taint analysis tool for smart contracts",
     author="Smart Contract Researcher",
     packages=find_packages(),
+    py_modules=["main", "cleanup_flattened_contracts"],
     install_requires=[
         "slither-analyzer>=0.9.0",
         "requests>=2.25.0",
+        "openai>=1.0.0",
+        "python-dotenv>=1.1.1",
+        "pandas>=1.3.0",
+        "openpyxl>=3.0.0",
+        "py-solc-x==2.0.4",
     ],
     entry_points={
         "console_scripts": [
-            "pmdetector=pmdetector.main:main",
+            "pmdetector=main:main",
         ],
     },
     classifiers=[
