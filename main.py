@@ -6,6 +6,8 @@ import json
 import re
 from pathlib import Path
 
+from pmdetector.llm.config import PAPER_TEMPERATURE
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from pmdetector.llm.multi_agents import MultiAgentAnalyzer
@@ -111,6 +113,8 @@ def main():
     parser.add_argument("--contract-address", type=str, help="Contract address to analyze")
     parser.add_argument("--platform", type=str, default="ETH", help="Blockchain platform (e.g., ETH, BSC)")
     parser.add_argument("--source-code", type=str, help="Path to contract source code file")
+    parser.add_argument("--llm-model", default="gpt-4o",
+                        help="OpenAI-compatible model identifier (default: gpt-4o); temperature is fixed at 0")
     args = parser.parse_args()
     
     base_dir, flattened_dir, results_dir, taint_paths_dir = init_directories()
@@ -236,8 +240,10 @@ def process_single_contract(args):
             
             # Apply LLM-based Analysis
             print("\n=== Running LLM Analysis ===")
-            model = "gpt-4"  # Using OpenAI's GPT-4 model
-            analyzer = MultiAgentAnalyzer(model=model)
+            model = args.llm_model
+            analyzer = MultiAgentAnalyzer(model=model, temperature=PAPER_TEMPERATURE)
+            llm_config = {"model": model, "temperature": PAPER_TEMPERATURE}
+            print(f"LLM configuration: {llm_config}")
             
             with open(result_file, "r", encoding="utf-8") as f:
                 result_content = f.read()
@@ -263,6 +269,7 @@ def process_single_contract(args):
             if taint_paths:
                 try:
                     result = analyzer.analyze(source_code, taint_paths, contract_id)
+                    result["llm_config"] = llm_config
                     
                     print("\n=== LLM Analysis Results ===")
                     print(f"Is Vulnerable: {result.get('is_vulnerable', False)}")
@@ -303,6 +310,7 @@ def process_single_contract(args):
                 
                 filtered_result = apply_sanity_check(contract_id, result, str(contract_file))
                 
+                filtered_result["llm_config"] = llm_config
                 result = filtered_result
                 
                 filtered_result_path = base_dir / f"{contract_id}_filtered_llm_result.json"

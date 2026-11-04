@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Union, Any
 from dotenv import load_dotenv
 import openai
+from pmdetector.llm.config import PAPER_TEMPERATURE
 
 load_dotenv()
 
@@ -16,7 +17,7 @@ class MultiAgentAnalyzer:
     def __init__(
         self,
         model: str = "",
-        temperature: float = 0,     
+        temperature: float = PAPER_TEMPERATURE,
     ):
         self.model = model
         self.temperature = temperature
@@ -574,7 +575,7 @@ If there are no vulnerable groups, return an empty list for "vulnerable_groups".
         
         for attempt in range(max_retries):
             try:
-                print(f"Calling OpenAI API with model {self.model} (attempt {attempt+1}/{max_retries})")
+                print(f"Calling OpenAI API with model {self.model}, temperature={self.temperature} (attempt {attempt+1}/{max_retries})")
                 
                 response = self.client.chat.completions.create(
                     model=self.model,

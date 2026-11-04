@@ -7,6 +7,7 @@ import os
 import json
 import logging
 import requests
+from pmdetector.llm.config import PAPER_TEMPERATURE
 from typing import Dict, Any, Optional, List, Union
 
 # Set up logging
@@ -57,6 +58,7 @@ class OpenAIService(LLMService):
         """
         super().__init__(api_key or os.environ.get("OPENAI_API_KEY"))
         self.model = model
+        logger.info("LLM configuration: model=%s temperature=%s", model, PAPER_TEMPERATURE)
         
         # Import OpenAI library if available
         try:
@@ -97,7 +99,7 @@ class OpenAIService(LLMService):
                 {"role": "system", "content": "You are a helpful assistant that generates concise, accurate descriptions of smart contract vulnerabilities based on taint analysis results."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.3,
+            temperature=PAPER_TEMPERATURE,
             max_tokens=200
         )
         
@@ -116,7 +118,7 @@ class OpenAIService(LLMService):
                 {"role": "system", "content": "You are a helpful assistant that generates concise, accurate descriptions of smart contract vulnerabilities based on taint analysis results."},
                 {"role": "user", "content": prompt}
             ],
-            "temperature": 0.3,
+            "temperature": PAPER_TEMPERATURE,
             "max_tokens": 200
         }
         
@@ -161,6 +163,7 @@ class AnthropicService(LLMService):
         """
         super().__init__(api_key or os.environ.get("ANTHROPIC_API_KEY"))
         self.model = model
+        logger.info("LLM configuration: model=%s temperature=%s", model, PAPER_TEMPERATURE)
         
         # Import Anthropic library if available
         try:
@@ -201,7 +204,7 @@ class AnthropicService(LLMService):
             messages=[
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.3,
+            temperature=PAPER_TEMPERATURE,
             max_tokens=200
         )
         
@@ -221,7 +224,7 @@ class AnthropicService(LLMService):
             "messages": [
                 {"role": "user", "content": prompt}
             ],
-            "temperature": 0.3,
+            "temperature": PAPER_TEMPERATURE,
             "max_tokens": 200
         }
         

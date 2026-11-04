@@ -28,8 +28,8 @@ def main():
                         help='Directory to write output files')
     parser.add_argument('--contract', type=str, default=None,
                         help='Analyze a specific contract (filename without extension)')
-    parser.add_argument('--llm-service', type=str, default='openai',
-                        help='LLM service to use (openai or anthropic)')
+    parser.add_argument('--llm-service', type=str, default='openai', choices=['openai'],
+                        help='Narrative generation uses an OpenAI-compatible HTTP endpoint')
     parser.add_argument('--llm-api-key', type=str, default=None,
                         help='API key for the LLM service')
     parser.add_argument('--llm-model', type=str, default=None,
@@ -42,6 +42,7 @@ def main():
         os.environ["LLM_SERVICE"] = args.llm_service
     if args.llm_api_key:
         os.environ["LLM_API_KEY"] = args.llm_api_key
+        os.environ["LLM_KEY"] = "Bearer " + args.llm_api_key
     if args.llm_model:
         os.environ["LLM_MODEL"] = args.llm_model
     
